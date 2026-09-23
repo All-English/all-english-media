@@ -131,45 +131,125 @@
     return candidates[0];
   }
 
-  // ── 3. Universal Smart Phonics Unit Translators ────────────────
+  // ── 3. Universal Phonics Unit Translators & Slug Helpers ──────
+  function toSeriesSlug(str) {
+    if (!str) return 'smart-phonics';
+    const s = String(str).trim();
+    if (/^(?:SmartPhonics|SP)$/i.test(s)) return 'smart-phonics';
+    if (/^(?:LetsSmile|LS)$/i.test(s)) return 'lets-smile';
+    if (/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(s)) return s;
+    return s
+      .replace(/([a-z0-9])([A-Z])/g, '$1-$2')
+      .replace(/[\s_]+/g, '-')
+      .toLowerCase();
+  }
+
+  function toPascalCase(str) {
+    if (!str) return 'SmartPhonics';
+    const s = String(str).trim();
+    if (s === 'smart-phonics' || s.toLowerCase() === 'smart phonics') return 'SmartPhonics';
+    if (s === 'lets-smile' || s.toLowerCase() === 'lets smile') return 'LetsSmile';
+    return s
+      .split(/[-_\s]+/)
+      .map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase())
+      .join('');
+  }
+
+  function toSeriesDisplayName(str) {
+    if (!str) return 'Smart Phonics';
+    const s = String(str).trim();
+    if (/^(?:smart-phonics|smartphonics|sp)$/i.test(s)) return 'Smart Phonics';
+    if (/^(?:lets-smile|letssmile|ls)$/i.test(s)) return "Let's Smile";
+    return s
+      .split(/[-_]+/)
+      .map(w => w.charAt(0).toUpperCase() + w.slice(1))
+      .join(' ');
+  }
+
   function toCanonicalUnit(unitStr) {
     if (!unitStr) return null;
+
+    // 1. Object format
     if (typeof unitStr === 'object') {
+      const series = toSeriesSlug(unitStr.series || 'smart-phonics');
       const level = parseInt(unitStr.level || unitStr.book, 10);
       const unit = parseInt(unitStr.unit || (typeof unitStr.unitName === 'string' ? unitStr.unitName.match(/Unit\s+(\d+)/i)?.[1] : null), 10);
       if (!isNaN(level) && !isNaN(unit)) {
-        const series = unitStr.series || 'SmartPhonics';
-        return { series, level, unit, id: `L${level}U${unit}` };
+        return {
+          series,
+          seriesName: toSeriesDisplayName(series),
+          level,
+          unit,
+          id: `${series}:L${level}U${unit}`
+        };
       }
       return null;
     }
+
     if (typeof unitStr !== 'string') return null;
     const str = unitStr.trim();
 
-    // 1. Phonics Flash: L2U3
-    let m = str.match(/L(\d+)U(\d+)/i);
+    // 2. Three-part colon: <series>:level<lvl>:unit<unit> (e.g. jolly-phonics:level2:unit3)
+    let m = str.match(/^([a-z0-9_-]+):level(\d+):unit(\d+)$/i);
     if (m) {
-      return { series: 'SmartPhonics', level: parseInt(m[1], 10), unit: parseInt(m[2], 10), id: `L${m[1]}U${m[2]}` };
+      const series = toSeriesSlug(m[1]);
+      const level = parseInt(m[2], 10);
+      const unit = parseInt(m[3], 10);
+      return { series, seriesName: toSeriesDisplayName(series), level, unit, id: `${series}:L${level}U${unit}` };
     }
 
-    // 2. Word-Tac-Toe: Book2|Unit3
-    m = str.match(/Book(\d+)\|Unit(\d+)/i);
+    // 3. Series-scoped canonical format: <series>:L<lvl>U<unit> (e.g. smart-phonics:L2U3 or jolly-phonics:L2U3)
+    m = str.match(/^([a-z0-9_-]+):L(\d+)U(\d+)$/i);
     if (m) {
-      return { series: 'SmartPhonics', level: parseInt(m[1], 10), unit: parseInt(m[2], 10), id: `L${m[1]}U${m[2]}` };
+      const series = toSeriesSlug(m[1]);
+      const level = parseInt(m[2], 10);
+      const unit = parseInt(m[3], 10);
+      return { series, seriesName: toSeriesDisplayName(series), level, unit, id: `${series}:L${level}U${unit}` };
     }
 
-    // 3. MatchMaker: SmartPhonics|2|3 or LetsSmile|2|3 or LS|2|3
-    m = str.match(/(?:SmartPhonics|SP|LetsSmile|LS)\|(\d+)\|(\d+)/i);
+    // 4. Two-part colon: level<lvl>:unit<unit> (Treasure Hunt legacy) -> default smart-phonics
+    m = str.match(/^level(\d+):unit(\d+)$/i);
     if (m) {
-      const isLS = /^(?:LetsSmile|LS)/i.test(str);
-      const series = isLS ? 'LetsSmile' : 'SmartPhonics';
-      return { series, level: parseInt(m[1], 10), unit: parseInt(m[2], 10), id: `L${m[1]}U${m[2]}` };
+      const series = 'smart-phonics';
+      const level = parseInt(m[1], 10);
+      const unit = parseInt(m[2], 10);
+      return { series, seriesName: toSeriesDisplayName(series), level, unit, id: `${series}:L${level}U${unit}` };
     }
 
-    // 4. Treasure Hunt: level2:unit3
-    m = str.match(/level(\d+):unit(\d+)/i);
+    // 5. Pipe format:
+    // 5a. 3-part pipe: <series>|<lvl>|<unit> or <series>|level<lvl>|unit<unit> or <series>|Book<lvl>|Unit<unit>
+    const pipeParts = str.split('|');
+    if (pipeParts.length === 3) {
+      const sPart = pipeParts[0].trim();
+      const lPart = pipeParts[1].replace(/^(?:Book|level|L)/i, '').trim();
+      const uPart = pipeParts[2].replace(/^(?:Unit|U)/i, '').trim();
+      const series = toSeriesSlug(sPart);
+      const level = parseInt(lPart, 10);
+      const unit = parseInt(uPart, 10);
+      if (!isNaN(level) && !isNaN(unit)) {
+        return { series, seriesName: toSeriesDisplayName(series), level, unit, id: `${series}:L${level}U${unit}` };
+      }
+    }
+
+    // 5b. 2-part pipe: Book<lvl>|Unit<unit> or level<lvl>|unit<unit> or <lvl>|<unit> -> default smart-phonics
+    if (pipeParts.length === 2) {
+      const lPart = pipeParts[0].replace(/^(?:Book|level|L)/i, '').trim();
+      const uPart = pipeParts[1].replace(/^(?:Unit|U)/i, '').trim();
+      const level = parseInt(lPart, 10);
+      const unit = parseInt(uPart, 10);
+      if (!isNaN(level) && !isNaN(unit)) {
+        const series = 'smart-phonics';
+        return { series, seriesName: toSeriesDisplayName(series), level, unit, id: `${series}:L${level}U${unit}` };
+      }
+    }
+
+    // 6. Bare canonical: L<lvl>U<unit> (Phonics Flash legacy) -> default smart-phonics
+    m = str.match(/^L(\d+)U(\d+)$/i);
     if (m) {
-      return { series: 'SmartPhonics', level: parseInt(m[1], 10), unit: parseInt(m[2], 10), id: `L${m[1]}U${m[2]}` };
+      const series = 'smart-phonics';
+      const level = parseInt(m[1], 10);
+      const unit = parseInt(m[2], 10);
+      return { series, seriesName: toSeriesDisplayName(series), level, unit, id: `${series}:L${level}U${unit}` };
     }
 
     return null;
@@ -178,26 +258,30 @@
   function toPhonicsFlash(canonical) {
     if (!canonical) return null;
     const c = typeof canonical === 'string' ? toCanonicalUnit(canonical) : canonical;
-    return c ? `L${c.level}U${c.unit}` : null;
+    if (!c) return null;
+    return c.series === 'smart-phonics' ? `L${c.level}U${c.unit}` : `${c.series}:L${c.level}U${c.unit}`;
   }
 
   function toTicTacToe(canonical) {
     if (!canonical) return null;
     const c = typeof canonical === 'string' ? toCanonicalUnit(canonical) : canonical;
-    return c ? `Book${c.level}|Unit${c.unit}` : null;
+    if (!c) return null;
+    return c.series === 'smart-phonics' ? `level${c.level}|unit${c.unit}` : `${c.series}|level${c.level}|unit${c.unit}`;
   }
 
   function toMatchMaker(canonical) {
     if (!canonical) return null;
     const c = typeof canonical === 'string' ? toCanonicalUnit(canonical) : canonical;
-    const prefix = c.series === 'LetsSmile' ? 'LetsSmile' : 'SmartPhonics';
-    return c ? `${prefix}|${c.level}|${c.unit}` : null;
+    if (!c) return null;
+    const prefix = toPascalCase(c.series);
+    return `${prefix}|${c.level}|${c.unit}`;
   }
 
   function toTreasureHunt(canonical) {
     if (!canonical) return null;
     const c = typeof canonical === 'string' ? toCanonicalUnit(canonical) : canonical;
-    return c ? `level${c.level}:unit${c.unit}` : null;
+    if (!c) return null;
+    return c.series === 'smart-phonics' ? `level${c.level}:unit${c.unit}` : `${c.series}:level${c.level}:unit${c.unit}`;
   }
 
   function getHighestUnit(unitsArray) {
@@ -206,6 +290,7 @@
     if (parsed.length === 0) return null;
 
     parsed.sort((a, b) => {
+      if (a.series !== b.series) return a.series.localeCompare(b.series);
       if (b.level !== a.level) return b.level - a.level;
       return b.unit - a.unit;
     });
@@ -357,7 +442,19 @@
       };
     }
 
-    profiles[className].units = canonicalUnitsArray;
+    const series = curriculumId ? toSeriesSlug(curriculumId) : 'smart-phonics';
+    const canonicals = (canonicalUnitsArray || []).map(u => {
+      const c = toCanonicalUnit(u);
+      if (c) {
+        if (typeof u === 'string' && !u.includes(':') && series !== 'smart-phonics') {
+          return `${series}:L${c.level}U${c.unit}`;
+        }
+        return c.id;
+      }
+      return u;
+    });
+
+    profiles[className].units = canonicals;
     if (curriculumId) {
       profiles[className].curriculumId = curriculumId;
     }
@@ -427,15 +524,20 @@
     },
 
     /**
-     * Adapts canonical curriculum for Phonics Flash ({ levels: [...] })
+     * Adapts canonical curriculum for Phonics Flash ({ id, name, levels: [...] })
      */
-    toPhonicsFlash(data, mediaBase) {
+    toPhonicsFlash(data, mediaBase, seriesId) {
       const norm = this.normalize(data);
       if (!norm || !norm.series || norm.series.length === 0) return { levels: [] };
-      const sp = norm.series.find(s => s.id === 'smart-phonics') || norm.series[0];
+      const targetSlug = seriesId ? toSeriesSlug(seriesId) : null;
+      const sp = targetSlug
+        ? (norm.series.find(s => toSeriesSlug(s.id) === targetSlug || toSeriesSlug(s.name) === targetSlug) || norm.series[0])
+        : (norm.series.find(s => toSeriesSlug(s.id) === 'smart-phonics') || norm.series[0]);
       const activeBase = mediaBase || (getMediaBase() !== 'https://all-english-media.netlify.app' ? getMediaBase() : (norm.mediaBase || getMediaBase()));
 
       return {
+        id: sp.id || toSeriesSlug(sp.name),
+        name: sp.name || toSeriesDisplayName(sp.id),
         levels: (sp.levels || []).map(lvl => ({
           ...lvl,
           units: (lvl.units || []).map(unit => ({
@@ -451,12 +553,24 @@
     },
 
     /**
+     * Adapts all series for Phonics Flash ([ { id, name, levels: [...] }, ... ])
+     */
+    toPhonicsFlashAll(data, mediaBase) {
+      const norm = this.normalize(data);
+      if (!norm || !norm.series || norm.series.length === 0) return [];
+      return norm.series.map(s => this.toPhonicsFlash(data, mediaBase, s.id));
+    },
+
+    /**
      * Adapts canonical curriculum for MatchMaker ({ 1: { "Unit 1: abc": [...] } })
      */
-    toMatchMaker(data, mediaBase) {
+    toMatchMaker(data, mediaBase, seriesId) {
       const norm = this.normalize(data);
       if (!norm || !norm.series || norm.series.length === 0) return {};
-      const sp = norm.series.find(s => s.id === 'smart-phonics') || norm.series[0];
+      const targetSlug = seriesId ? toSeriesSlug(seriesId) : null;
+      const sp = targetSlug
+        ? (norm.series.find(s => toSeriesSlug(s.id) === targetSlug || toSeriesSlug(s.name) === targetSlug) || norm.series[0])
+        : (norm.series.find(s => toSeriesSlug(s.id) === 'smart-phonics') || norm.series[0]);
       const activeBase = mediaBase || (getMediaBase() !== 'https://all-english-media.netlify.app' ? getMediaBase() : (norm.mediaBase || getMediaBase()));
       const bookMap = {};
 
@@ -489,12 +603,29 @@
     },
 
     /**
-     * Adapts canonical curriculum for Sunken Treasure & Tic-Tac-Toe ({ level1: { unit1: {...} } })
+     * Adapts all series for MatchMaker ({ SmartPhonics: { 1: ... }, JollyPhonics: { 1: ... } })
      */
-    toWordBank(data) {
+    toMatchMakerAll(data, mediaBase) {
       const norm = this.normalize(data);
       if (!norm || !norm.series || norm.series.length === 0) return {};
-      const sp = norm.series.find(s => s.id === 'smart-phonics') || norm.series[0];
+      const all = {};
+      for (const s of norm.series) {
+        const key = toPascalCase(s.id || s.name);
+        all[key] = this.toMatchMaker(data, mediaBase, s.id);
+      }
+      return all;
+    },
+
+    /**
+     * Adapts canonical curriculum for Sunken Treasure & Tic-Tac-Toe ({ level1: { unit1: {...} } })
+     */
+    toWordBank(data, seriesId) {
+      const norm = this.normalize(data);
+      if (!norm || !norm.series || norm.series.length === 0) return {};
+      const targetSlug = seriesId ? toSeriesSlug(seriesId) : null;
+      const sp = targetSlug
+        ? (norm.series.find(s => toSeriesSlug(s.id) === targetSlug || toSeriesSlug(s.name) === targetSlug) || norm.series[0])
+        : (norm.series.find(s => toSeriesSlug(s.id) === 'smart-phonics') || norm.series[0]);
       const bank = {};
 
       for (const lvl of sp.levels || []) {
@@ -536,6 +667,33 @@
         }
       }
       return bank;
+    },
+
+    /**
+     * Adapts all series for Sunken Treasure & Tic-Tac-Toe.
+     * Canonical Path: result.series['smart-phonics'].levels
+     * Deprecated Compat Shim: root-level level1, level2, ... alias smart-phonics
+     */
+    toWordBankAll(data) {
+      const norm = this.normalize(data);
+      if (!norm || !norm.series || norm.series.length === 0) return { series: {} };
+      const all = {
+        series: {}
+      };
+      for (const s of norm.series) {
+        const slug = toSeriesSlug(s.id || s.name);
+        all.series[slug] = {
+          id: slug,
+          name: s.name || toSeriesDisplayName(slug),
+          levels: this.toWordBank(data, s.id)
+        };
+      }
+      // Backward-compatibility shim: alias smart-phonics directly on root
+      const sp = all.series['smart-phonics'] || Object.values(all.series)[0];
+      if (sp && sp.levels) {
+        Object.assign(all, sp.levels);
+      }
+      return all;
     }
   };
 
@@ -605,6 +763,9 @@
     getMediaBase,
     parseScheduleFromName,
     findActiveScheduledClass,
+    toSeriesSlug,
+    toPascalCase,
+    toSeriesDisplayName,
     toCanonicalUnit,
     toPhonicsFlash,
     toTicTacToe,

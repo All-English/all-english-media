@@ -1,0 +1,12 @@
+/*
+  Access-Control-Allow-Origin: *
+  Access-Control-Allow-Methods: GET, OPTIONS
+  Cache-Control: public, max-age=31536000, immutable
+
+/curriculum.json
+  Access-Control-Allow-Origin: *
+  Cache-Control: public, max-age=300, must-revalidate
+
+/shared/*
+  Access-Control-Allow-Origin: *
+  Cache-Control: public, max-age=3600, must-revalidate

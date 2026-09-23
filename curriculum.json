@@ -1,0 +1,4616 @@
+{
+  "$schema": "./schema.json",
+  "version": 2,
+  "updatedAt": 1727068800000,
+  "mediaBase": "https://all-english-media.netlify.app",
+  "series": [
+    {
+      "id": "smart-phonics",
+      "name": "Smart Phonics",
+      "description": "5-Level EFL/ESL Phonics Curriculum",
+      "levels": [
+        {
+          "id": "L1",
+          "name": "Level 1",
+          "bookNumber": 1,
+          "units": [
+            {
+              "id": "L1U1",
+              "unitNumber": 1,
+              "name": "Unit 1: abc",
+              "targetSound": "a,b,c",
+              "targetLetters": [
+                "a",
+                "b",
+                "c"
+              ],
+              "words": [
+                {
+                  "word": "Aa",
+                  "image": "SmartPhonics/1/pics/apple.jpg",
+                  "audio": "SmartPhonics/1/sounds/SingleLetters/Aa.mp3",
+                  "imageAudio": "SmartPhonics/1/sounds/Vocabulary/apple.mp3"
+                },
+                {
+                  "word": "Aa",
+                  "image": "SmartPhonics/1/pics/ant.jpg",
+                  "audio": "SmartPhonics/1/sounds/SingleLetters/Aa.mp3",
+                  "imageAudio": "SmartPhonics/1/sounds/Vocabulary/ant.mp3"
+                },
+                {
+                  "word": "Aa",
+                  "image": "SmartPhonics/1/pics/alligator.jpg",
+                  "audio": "SmartPhonics/1/sounds/SingleLetters/Aa.mp3",
+                  "imageAudio": "SmartPhonics/1/sounds/Vocabulary/alligator.mp3"
+                },
+                {
+                  "word": "Bb",
+                  "image": "SmartPhonics/1/pics/bat.jpg",
+                  "audio": "SmartPhonics/1/sounds/SingleLetters/Bb.mp3",
+                  "imageAudio": "SmartPhonics/1/sounds/Vocabulary/bat.mp3"
+                },
+                {
+                  "word": "Bb",
+                  "image": "SmartPhonics/1/pics/bed.jpg",
+                  "audio": "SmartPhonics/1/sounds/SingleLetters/Bb.mp3",
+                  "imageAudio": "SmartPhonics/1/sounds/Vocabulary/bed.mp3"
+                },
+                {
+                  "word": "Bb",
+                  "image": "SmartPhonics/1/pics/book.jpg",
+                  "audio": "SmartPhonics/1/sounds/SingleLetters/Bb.mp3",
+                  "imageAudio": "SmartPhonics/1/sounds/Vocabulary/book.mp3"
+                },
+                {
+                  "word": "Cc",
+                  "image": "SmartPhonics/1/pics/cap.jpg",
+                  "audio": "SmartPhonics/1/sounds/SingleLetters/Cc.mp3",
+                  "imageAudio": "SmartPhonics/1/sounds/Vocabulary/cap.mp3"
+                },
+                {
+                  "word": "Cc",
+                  "image": "SmartPhonics/1/pics/cat.jpg",
+                  "audio": "SmartPhonics/1/sounds/SingleLetters/Cc.mp3",
+                  "imageAudio": "SmartPhonics/1/sounds/Vocabulary/cat.mp3"
+                },
+                {
+                  "word": "Cc",
+                  "image": "SmartPhonics/1/pics/cup.jpg",
+                  "audio": "SmartPhonics/1/sounds/SingleLetters/Cc.mp3",
+                  "imageAudio": "SmartPhonics/1/sounds/Vocabulary/cup.mp3"
+                }
+              ],
+              "extraWords": [],
+              "sightWords": [
+                {
+                  "word": "is"
+                },
+                {
+                  "word": "on"
+                },
+                {
+                  "word": "see"
+                },
+                {
+                  "word": "the"
+                },
+                {
+                  "word": "under"
+                }
+              ]
+            },
+            {
+              "id": "L1U2",
+              "unitNumber": 2,
+              "name": "Unit 2: def",
+              "targetSound": "d,e,f",
+              "targetLetters": [
+                "d",
+                "e",
+                "f"
+              ],
+              "words": [
+                {
+                  "word": "Dd",
+                  "image": "SmartPhonics/1/pics/dog.jpg",
+                  "audio": "SmartPhonics/1/sounds/SingleLetters/Dd.mp3",
+                  "imageAudio": "SmartPhonics/1/sounds/Vocabulary/dog.mp3"
+                },
+                {
+                  "word": "Dd",
+                  "image": "SmartPhonics/1/pics/desk.jpg",
+                  "audio": "SmartPhonics/1/sounds/SingleLetters/Dd.mp3",
+                  "imageAudio": "SmartPhonics/1/sounds/Vocabulary/desk.mp3"
+                },
+                {
+                  "word": "Dd",
+                  "image": "SmartPhonics/1/pics/duck.jpg",
+                  "audio": "SmartPhonics/1/sounds/SingleLetters/Dd.mp3",
+                  "imageAudio": "SmartPhonics/1/sounds/Vocabulary/duck.mp3"
+                },
+                {
+                  "word": "Ee",
+                  "image": "SmartPhonics/1/pics/elephant.jpg",
+                  "audio": "SmartPhonics/1/sounds/SingleLetters/Ee.mp3",
+                  "imageAudio": "SmartPhonics/1/sounds/Vocabulary/elephant.mp3"
+                },
+                {
+                  "word": "Ee",
+                  "image": "SmartPhonics/1/pics/egg.jpg",
+                  "audio": "SmartPhonics/1/sounds/SingleLetters/Ee.mp3",
+                  "imageAudio": "SmartPhonics/1/sounds/Vocabulary/egg.mp3"
+                },
+                {
+                  "word": "Ee",
+                  "image": "SmartPhonics/1/pics/elbow.jpg",
+                  "audio": "SmartPhonics/1/sounds/SingleLetters/Ee.mp3",
+                  "imageAudio": "SmartPhonics/1/sounds/Vocabulary/elbow.mp3"
+                },
+                {
+                  "word": "Ff",
+                  "image": "SmartPhonics/1/pics/fish.jpg",
+                  "audio": "SmartPhonics/1/sounds/SingleLetters/Ff.mp3",
+                  "imageAudio": "SmartPhonics/1/sounds/Vocabulary/fish.mp3"
+                },
+                {
+                  "word": "Ff",
+                  "image": "SmartPhonics/1/pics/fan.jpg",
+                  "audio": "SmartPhonics/1/sounds/SingleLetters/Ff.mp3",
+                  "imageAudio": "SmartPhonics/1/sounds/Vocabulary/fan.mp3"
+                },
+                {
+                  "word": "Ff",
+                  "image": "SmartPhonics/1/pics/fork.jpg",
+                  "audio": "SmartPhonics/1/sounds/SingleLetters/Ff.mp3",
+                  "imageAudio": "SmartPhonics/1/sounds/Vocabulary/fork.mp3"
+                }
+              ],
+              "extraWords": [],
+              "sightWords": [
+                {
+                  "word": "a"
+                },
+                {
+                  "word": "an"
+                },
+                {
+                  "word": "are"
+                },
+                {
+                  "word": "I"
+                },
+                {
+                  "word": "in"
+                },
+                {
+                  "word": "on"
+                },
+                {
+                  "word": "see"
+                },
+                {
+                  "word": "the"
+                },
+                {
+                  "word": "they"
+                },
+                {
+                  "word": "under"
+                }
+              ]
+            },
+            {
+              "id": "L1U3",
+              "unitNumber": 3,
+              "name": "Unit 3: ghi",
+              "targetSound": "g,h,i",
+              "targetLetters": [
+                "g",
+                "h",
+                "i"
+              ],
+              "words": [
+                {
+                  "word": "Gg",
+                  "image": "SmartPhonics/1/pics/game.jpg",
+                  "audio": "SmartPhonics/1/sounds/SingleLetters/Gg.mp3",
+                  "imageAudio": "SmartPhonics/1/sounds/Vocabulary/game.mp3"
+                },
+                {
+                  "word": "Gg",
+                  "image": "SmartPhonics/1/pics/girl.jpg",
+                  "audio": "SmartPhonics/1/sounds/SingleLetters/Gg.mp3",
+                  "imageAudio": "SmartPhonics/1/sounds/Vocabulary/girl.mp3"
+                },
+                {
+                  "word": "Gg",
+                  "image": "SmartPhonics/1/pics/gorilla.jpg",
+                  "audio": "SmartPhonics/1/sounds/SingleLetters/Gg.mp3",
+                  "imageAudio": "SmartPhonics/1/sounds/Vocabulary/gorilla.mp3"
+                },
+                {
+                  "word": "Hh",
+                  "image": "SmartPhonics/1/pics/hand.jpg",
+                  "audio": "SmartPhonics/1/sounds/SingleLetters/Hh.mp3",
+                  "imageAudio": "SmartPhonics/1/sounds/Vocabulary/hand.mp3"
+                },
+                {
+                  "word": "Hh",
+                  "image": "SmartPhonics/1/pics/hat.jpg",
+                  "audio": "SmartPhonics/1/sounds/SingleLetters/Hh.mp3",
+                  "imageAudio": "SmartPhonics/1/sounds/Vocabulary/hat.mp3"
+                },
+                {
+                  "word": "Hh",
+                  "image": "SmartPhonics/1/pics/hippo.jpg",
+                  "audio": "SmartPhonics/1/sounds/SingleLetters/Hh.mp3",
+                  "imageAudio": "SmartPhonics/1/sounds/Vocabulary/hippo.mp3"
+                },
+                {
+                  "word": "Ii",
+                  "image": "SmartPhonics/1/pics/igloo.jpg",
+                  "audio": "SmartPhonics/1/sounds/SingleLetters/Ii.mp3",
+                  "imageAudio": "SmartPhonics/1/sounds/Vocabulary/igloo.mp3"
+                },
+                {
+                  "word": "Ii",
+                  "image": "SmartPhonics/1/pics/iguana.jpg",
+                  "audio": "SmartPhonics/1/sounds/SingleLetters/Ii.mp3",
+                  "imageAudio": "SmartPhonics/1/sounds/Vocabulary/iguana.mp3"
+                },
+                {
+                  "word": "Ii",
+                  "image": "SmartPhonics/1/pics/ink.jpg",
+                  "audio": "SmartPhonics/1/sounds/SingleLetters/Ii.mp3",
+                  "imageAudio": "SmartPhonics/1/sounds/Vocabulary/ink.mp3"
+                }
+              ],
+              "extraWords": [],
+              "sightWords": [
+                {
+                  "word": "a"
+                },
+                {
+                  "word": "am"
+                },
+                {
+                  "word": "an"
+                },
+                {
+                  "word": "I"
+                },
+                {
+                  "word": "is"
+                },
+                {
+                  "word": "my"
+                },
+                {
+                  "word": "this"
+                }
+              ]
+            },
+            {
+              "id": "L1U4",
+              "unitNumber": 4,
+              "name": "Unit 4: jkl",
+              "targetSound": "j,k,l",
+              "targetLetters": [
+                "j",
+                "k",
+                "l"
+              ],
+              "words": [
+                {
+                  "word": "Jj",
+                  "image": "SmartPhonics/1/pics/jacket.jpg",
+                  "audio": "SmartPhonics/1/sounds/SingleLetters/Jj.mp3",
+                  "imageAudio": "SmartPhonics/1/sounds/Vocabulary/jacket.mp3"
+                },
+                {
+                  "word": "Jj",
+                  "image": "SmartPhonics/1/pics/jam.jpg",
+                  "audio": "SmartPhonics/1/sounds/SingleLetters/Jj.mp3",
+                  "imageAudio": "SmartPhonics/1/sounds/Vocabulary/jam.mp3"
+                },
+                {
+                  "word": "Jj",
+                  "image": "SmartPhonics/1/pics/jet.jpg",
+                  "audio": "SmartPhonics/1/sounds/SingleLetters/Jj.mp3",
+                  "imageAudio": "SmartPhonics/1/sounds/Vocabulary/jet.mp3"
+                },
+                {
+                  "word": "Kk",
+                  "image": "SmartPhonics/1/pics/kangaroo.jpg",
+                  "audio": "SmartPhonics/1/sounds/SingleLetters/Kk.mp3",
+                  "imageAudio": "SmartPhonics/1/sounds/Vocabulary/kangaroo.mp3"
+                },
+                {
+                  "word": "Kk",
+                  "image": "SmartPhonics/1/pics/key.jpg",
+                  "audio": "SmartPhonics/1/sounds/SingleLetters/Kk.mp3",
+                  "imageAudio": "SmartPhonics/1/sounds/Vocabulary/key.mp3"
+                },
+                {
+                  "word": "Kk",
+                  "image": "SmartPhonics/1/pics/king.jpg",
+                  "audio": "SmartPhonics/1/sounds/SingleLetters/Kk.mp3",
+                  "imageAudio": "SmartPhonics/1/sounds/Vocabulary/king.mp3"
+                },
+                {
+                  "word": "Ll",
+                  "image": "SmartPhonics/1/pics/lamp.jpg",
+                  "audio": "SmartPhonics/1/sounds/SingleLetters/Ll.mp3",
+                  "imageAudio": "SmartPhonics/1/sounds/Vocabulary/lamp.mp3"
+                },
+                {
+                  "word": "Ll",
+                  "image": "SmartPhonics/1/pics/lemon.jpg",
+                  "audio": "SmartPhonics/1/sounds/SingleLetters/Ll.mp3",
+                  "imageAudio": "SmartPhonics/1/sounds/Vocabulary/lemon.mp3"
+                },
+                {
+                  "word": "Ll",
+                  "image": "SmartPhonics/1/pics/lion.jpg",
+                  "audio": "SmartPhonics/1/sounds/SingleLetters/Ll.mp3",
+                  "imageAudio": "SmartPhonics/1/sounds/Vocabulary/lion.mp3"
+                }
+              ],
+              "extraWords": [],
+              "sightWords": [
+                {
+                  "word": "a"
+                },
+                {
+                  "word": "does not"
+                },
+                {
+                  "word": "has"
+                },
+                {
+                  "word": "like"
+                },
+                {
+                  "word": "likes"
+                },
+                {
+                  "word": "the"
+                }
+              ]
+            },
+            {
+              "id": "L1U5",
+              "unitNumber": 5,
+              "name": "Unit 5: mno",
+              "targetSound": "m,n,o",
+              "targetLetters": [
+                "m",
+                "n",
+                "o"
+              ],
+              "words": [
+                {
+                  "word": "Mm",
+                  "image": "SmartPhonics/1/pics/mouse.jpg",
+                  "audio": "SmartPhonics/1/sounds/SingleLetters/Mm.mp3",
+                  "imageAudio": "SmartPhonics/1/sounds/Vocabulary/mouse.mp3"
+                },
+                {
+                  "word": "Mm",
+                  "image": "SmartPhonics/1/pics/melon.jpg",
+                  "audio": "SmartPhonics/1/sounds/SingleLetters/Mm.mp3",
+                  "imageAudio": "SmartPhonics/1/sounds/Vocabulary/melon.mp3"
+                },
+                {
+                  "word": "Mm",
+                  "image": "SmartPhonics/1/pics/map.jpg",
+                  "audio": "SmartPhonics/1/sounds/SingleLetters/Mm.mp3",
+                  "imageAudio": "SmartPhonics/1/sounds/Vocabulary/map.mp3"
+                },
+                {
+                  "word": "Nn",
+                  "image": "SmartPhonics/1/pics/nut.jpg",
+                  "audio": "SmartPhonics/1/sounds/SingleLetters/Nn.mp3",
+                  "imageAudio": "SmartPhonics/1/sounds/Vocabulary/nut.mp3"
+                },
+                {
+                  "word": "Nn",
+                  "image": "SmartPhonics/1/pics/nest.jpg",
+                  "audio": "SmartPhonics/1/sounds/SingleLetters/Nn.mp3",
+                  "imageAudio": "SmartPhonics/1/sounds/Vocabulary/nest.mp3"
+                },
+                {
+                  "word": "Nn",
+                  "image": "SmartPhonics/1/pics/net.jpg",
+                  "audio": "SmartPhonics/1/sounds/SingleLetters/Nn.mp3",
+                  "imageAudio": "SmartPhonics/1/sounds/Vocabulary/net.mp3"
+                },
+                {
+                  "word": "Oo",
+                  "image": "SmartPhonics/1/pics/octopus.jpg",
+                  "audio": "SmartPhonics/1/sounds/SingleLetters/Oo.mp3",
+                  "imageAudio": "SmartPhonics/1/sounds/Vocabulary/octopus.mp3"
+                },
+                {
+                  "word": "Oo",
+                  "image": "SmartPhonics/1/pics/ox.jpg",
+                  "audio": "SmartPhonics/1/sounds/SingleLetters/Oo.mp3",
+                  "imageAudio": "SmartPhonics/1/sounds/Vocabulary/ox.mp3"
+                },
+                {
+                  "word": "Oo",
+                  "image": "SmartPhonics/1/pics/ostrich.jpg",
+                  "audio": "SmartPhonics/1/sounds/SingleLetters/Oo.mp3",
+                  "imageAudio": "SmartPhonics/1/sounds/Vocabulary/ostrich.mp3"
+                }
+              ],
+              "extraWords": [],
+              "sightWords": [
+                {
+                  "word": "has"
+                },
+                {
+                  "word": "the"
+                },
+                {
+                  "word": "who"
+                }
+              ]
+            },
+            {
+              "id": "L1U6",
+              "unitNumber": 6,
+              "name": "Unit 6: pqr",
+              "targetSound": "p,q,r",
+              "targetLetters": [
+                "p",
+                "q",
+                "r"
+              ],
+              "words": [
+                {
+                  "word": "Pp",
+                  "image": "SmartPhonics/1/pics/panda.jpg",
+                  "audio": "SmartPhonics/1/sounds/SingleLetters/Pp.mp3",
+                  "imageAudio": "SmartPhonics/1/sounds/Vocabulary/panda.mp3"
+                },
+                {
+                  "word": "Pp",
+                  "image": "SmartPhonics/1/pics/pen.jpg",
+                  "audio": "SmartPhonics/1/sounds/SingleLetters/Pp.mp3",
+                  "imageAudio": "SmartPhonics/1/sounds/Vocabulary/pen.mp3"
+                },
+                {
+                  "word": "Pp",
+                  "image": "SmartPhonics/1/pics/pig.jpg",
+                  "audio": "SmartPhonics/1/sounds/SingleLetters/Pp.mp3",
+                  "imageAudio": "SmartPhonics/1/sounds/Vocabulary/pig.mp3"
+                },
+                {
+                  "word": "Qq",
+                  "image": "SmartPhonics/1/pics/queen.jpg",
+                  "audio": "SmartPhonics/1/sounds/SingleLetters/Qq.mp3",
+                  "imageAudio": "SmartPhonics/1/sounds/Vocabulary/queen.mp3"
+                },
+                {
+                  "word": "Qq",
+                  "image": "SmartPhonics/1/pics/question.jpg",
+                  "audio": "SmartPhonics/1/sounds/SingleLetters/Qq.mp3",
+                  "imageAudio": "SmartPhonics/1/sounds/Vocabulary/question.mp3"
+                },
+                {
+                  "word": "Qq",
+                  "image": "SmartPhonics/1/pics/quiet.jpg",
+                  "audio": "SmartPhonics/1/sounds/SingleLetters/Qq.mp3",
+                  "imageAudio": "SmartPhonics/1/sounds/Vocabulary/quiet.mp3"
+                },
+                {
+                  "word": "Rr",
+                  "image": "SmartPhonics/1/pics/ring.jpg",
+                  "audio": "SmartPhonics/1/sounds/SingleLetters/Rr.mp3",
+                  "imageAudio": "SmartPhonics/1/sounds/Vocabulary/ring.mp3"
+                },
+                {
+                  "word": "Rr",
+                  "image": "SmartPhonics/1/pics/rabbit.jpg",
+                  "audio": "SmartPhonics/1/sounds/SingleLetters/Rr.mp3",
+                  "imageAudio": "SmartPhonics/1/sounds/Vocabulary/rabbit.mp3"
+                },
+                {
+                  "word": "Rr",
+                  "image": "SmartPhonics/1/pics/robot.jpg",
+                  "audio": "SmartPhonics/1/sounds/SingleLetters/Rr.mp3",
+                  "imageAudio": "SmartPhonics/1/sounds/Vocabulary/robot.mp3"
+                }
+              ],
+              "extraWords": [],
+              "sightWords": [
+                {
+                  "word": "be"
+                },
+                {
+                  "word": "I"
+                },
+                {
+                  "word": "like"
+                },
+                {
+                  "word": "my"
+                },
+                {
+                  "word": "please"
+                },
+                {
+                  "word": "says"
+                },
+                {
+                  "word": "the"
+                }
+              ]
+            },
+            {
+              "id": "L1U7",
+              "unitNumber": 7,
+              "name": "Unit 7: stuv",
+              "targetSound": "s,t,u,v",
+              "targetLetters": [
+                "s",
+                "t",
+                "u",
+                "v"
+              ],
+              "words": [
+                {
+                  "word": "Ss",
+                  "image": "SmartPhonics/1/pics/sock.jpg",
+                  "audio": "SmartPhonics/1/sounds/SingleLetters/Ss.mp3",
+                  "imageAudio": "SmartPhonics/1/sounds/Vocabulary/sock.mp3"
+                },
+                {
+                  "word": "Ss",
+                  "image": "SmartPhonics/1/pics/sun.jpg",
+                  "audio": "SmartPhonics/1/sounds/SingleLetters/Ss.mp3",
+                  "imageAudio": "SmartPhonics/1/sounds/Vocabulary/sun.mp3"
+                },
+                {
+                  "word": "Ss",
+                  "image": "SmartPhonics/1/pics/sea.jpg",
+                  "audio": "SmartPhonics/1/sounds/SingleLetters/Ss.mp3",
+                  "imageAudio": "SmartPhonics/1/sounds/Vocabulary/sea.mp3"
+                },
+                {
+                  "word": "Tt",
+                  "image": "SmartPhonics/1/pics/tiger.jpg",
+                  "audio": "SmartPhonics/1/sounds/SingleLetters/Tt.mp3",
+                  "imageAudio": "SmartPhonics/1/sounds/Vocabulary/tiger.mp3"
+                },
+                {
+                  "word": "Tt",
+                  "image": "SmartPhonics/1/pics/top.jpg",
+                  "audio": "SmartPhonics/1/sounds/SingleLetters/Tt.mp3",
+                  "imageAudio": "SmartPhonics/1/sounds/Vocabulary/top.mp3"
+                },
+                {
+                  "word": "Tt",
+                  "image": "SmartPhonics/1/pics/tent.jpg",
+                  "audio": "SmartPhonics/1/sounds/SingleLetters/Tt.mp3",
+                  "imageAudio": "SmartPhonics/1/sounds/Vocabulary/tent.mp3"
+                },
+                {
+                  "word": "Uu",
+                  "image": "SmartPhonics/1/pics/umbrella.jpg",
+                  "audio": "SmartPhonics/1/sounds/SingleLetters/Uu.mp3",
+                  "imageAudio": "SmartPhonics/1/sounds/Vocabulary/umbrella.mp3"
+                },
+                {
+                  "word": "Uu",
+                  "image": "SmartPhonics/1/pics/up.jpg",
+                  "audio": "SmartPhonics/1/sounds/SingleLetters/Uu.mp3",
+                  "imageAudio": "SmartPhonics/1/sounds/Vocabulary/up.mp3"
+                },
+                {
+                  "word": "Uu",
+                  "image": "SmartPhonics/1/pics/under.jpg",
+                  "audio": "SmartPhonics/1/sounds/SingleLetters/Uu.mp3",
+                  "imageAudio": "SmartPhonics/1/sounds/Vocabulary/under.mp3"
+                },
+                {
+                  "word": "Vv",
+                  "image": "SmartPhonics/1/pics/violin.jpg",
+                  "audio": "SmartPhonics/1/sounds/SingleLetters/Vv.mp3",
+                  "imageAudio": "SmartPhonics/1/sounds/Vocabulary/violin.mp3"
+                },
+                {
+                  "word": "Vv",
+                  "image": "SmartPhonics/1/pics/vest.jpg",
+                  "audio": "SmartPhonics/1/sounds/SingleLetters/Vv.mp3",
+                  "imageAudio": "SmartPhonics/1/sounds/Vocabulary/vest.mp3"
+                },
+                {
+                  "word": "Vv",
+                  "image": "SmartPhonics/1/pics/vase.jpg",
+                  "audio": "SmartPhonics/1/sounds/SingleLetters/Vv.mp3",
+                  "imageAudio": "SmartPhonics/1/sounds/Vocabulary/vase.mp3"
+                }
+              ],
+              "extraWords": [],
+              "sightWords": [
+                {
+                  "word": "in"
+                },
+                {
+                  "word": "is"
+                },
+                {
+                  "word": "oh"
+                },
+                {
+                  "word": "the"
+                },
+                {
+                  "word": "under"
+                },
+                {
+                  "word": "where"
+                }
+              ]
+            },
+            {
+              "id": "L1U8",
+              "unitNumber": 8,
+              "name": "Unit 8: wxyz",
+              "targetSound": "w,x,y,z",
+              "targetLetters": [
+                "w",
+                "x",
+                "y",
+                "z"
+              ],
+              "words": [
+                {
+                  "word": "Ww",
+                  "image": "SmartPhonics/1/pics/watch.jpg",
+                  "audio": "SmartPhonics/1/sounds/SingleLetters/Ww.mp3",
+                  "imageAudio": "SmartPhonics/1/sounds/Vocabulary/watch.mp3"
+                },
+                {
+                  "word": "Ww",
+                  "image": "SmartPhonics/1/pics/window.jpg",
+                  "audio": "SmartPhonics/1/sounds/SingleLetters/Ww.mp3",
+                  "imageAudio": "SmartPhonics/1/sounds/Vocabulary/window.mp3"
+                },
+                {
+                  "word": "Ww",
+                  "image": "SmartPhonics/1/pics/watermelon.jpg",
+                  "audio": "SmartPhonics/1/sounds/SingleLetters/Ww.mp3",
+                  "imageAudio": "SmartPhonics/1/sounds/Vocabulary/watermelon.mp3"
+                },
+                {
+                  "word": "Xx",
+                  "image": "SmartPhonics/1/pics/box.jpg",
+                  "audio": "SmartPhonics/1/sounds/SingleLetters/Xx.mp3",
+                  "imageAudio": "SmartPhonics/1/sounds/Vocabulary/box.mp3"
+                },
+                {
+                  "word": "Xx",
+                  "image": "SmartPhonics/1/pics/fox.jpg",
+                  "audio": "SmartPhonics/1/sounds/SingleLetters/Xx.mp3",
+                  "imageAudio": "SmartPhonics/1/sounds/Vocabulary/fox.mp3"
+                },
+                {
+                  "word": "Xx",
+                  "image": "SmartPhonics/1/pics/six.jpg",
+                  "audio": "SmartPhonics/1/sounds/SingleLetters/Xx.mp3",
+                  "imageAudio": "SmartPhonics/1/sounds/Vocabulary/six.mp3"
+                },
+                {
+                  "word": "Yy",
+                  "image": "SmartPhonics/1/pics/yacht.jpg",
+                  "audio": "SmartPhonics/1/sounds/SingleLetters/Yy.mp3",
+                  "imageAudio": "SmartPhonics/1/sounds/Vocabulary/yacht.mp3"
+                },
+                {
+                  "word": "Yy",
+                  "image": "SmartPhonics/1/pics/yoyo.jpg",
+                  "audio": "SmartPhonics/1/sounds/SingleLetters/Yy.mp3",
+                  "imageAudio": "SmartPhonics/1/sounds/Vocabulary/yoyo.mp3"
+                },
+                {
+                  "word": "Yy",
+                  "image": "SmartPhonics/1/pics/yellow.jpg",
+                  "audio": "SmartPhonics/1/sounds/SingleLetters/Yy.mp3",
+                  "imageAudio": "SmartPhonics/1/sounds/Vocabulary/yellow.mp3"
+                },
+                {
+                  "word": "Zz",
+                  "image": "SmartPhonics/1/pics/zebra.jpg",
+                  "audio": "SmartPhonics/1/sounds/SingleLetters/Zz.mp3",
+                  "imageAudio": "SmartPhonics/1/sounds/Vocabulary/zebra.mp3"
+                },
+                {
+                  "word": "Zz",
+                  "image": "SmartPhonics/1/pics/zoo.jpg",
+                  "audio": "SmartPhonics/1/sounds/SingleLetters/Zz.mp3",
+                  "imageAudio": "SmartPhonics/1/sounds/Vocabulary/zoo.mp3"
+                },
+                {
+                  "word": "Zz",
+                  "image": "SmartPhonics/1/pics/zero.jpg",
+                  "audio": "SmartPhonics/1/sounds/SingleLetters/Zz.mp3",
+                  "imageAudio": "SmartPhonics/1/sounds/Vocabulary/zero.mp3"
+                }
+              ],
+              "extraWords": [],
+              "sightWords": [
+                {
+                  "word": "a"
+                },
+                {
+                  "word": "I"
+                },
+                {
+                  "word": "in"
+                },
+                {
+                  "word": "is"
+                },
+                {
+                  "word": "on"
+                },
+                {
+                  "word": "see"
+                },
+                {
+                  "word": "the"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "L2",
+          "name": "Level 2",
+          "bookNumber": 2,
+          "units": [
+            {
+              "id": "L2U1",
+              "unitNumber": 1,
+              "name": "Unit 1: Short Vowel a",
+              "targetSound": "a",
+              "targetLetters": [
+                "a"
+              ],
+              "words": [
+                {
+                  "word": "dam",
+                  "image": "SmartPhonics/2/Unit1/pics/dam.jpg",
+                  "audio": "SmartPhonics/2/Unit1/sounds/dam.mp3"
+                },
+                {
+                  "word": "ham",
+                  "image": "SmartPhonics/2/Unit1/pics/ham.jpg",
+                  "audio": "SmartPhonics/2/Unit1/sounds/ham.mp3"
+                },
+                {
+                  "word": "jam",
+                  "image": "SmartPhonics/2/Unit1/pics/jam.jpg",
+                  "audio": "SmartPhonics/2/Unit1/sounds/jam.mp3"
+                },
+                {
+                  "word": "ram",
+                  "image": "SmartPhonics/2/Unit1/pics/ram.jpg",
+                  "audio": "SmartPhonics/2/Unit1/sounds/ram.mp3"
+                },
+                {
+                  "word": "cap",
+                  "image": "SmartPhonics/2/Unit1/pics/cap.jpg",
+                  "audio": "SmartPhonics/2/Unit1/sounds/cap.mp3"
+                },
+                {
+                  "word": "lap",
+                  "image": "SmartPhonics/2/Unit1/pics/lap.jpg",
+                  "audio": "SmartPhonics/2/Unit1/sounds/lap.mp3"
+                },
+                {
+                  "word": "map",
+                  "image": "SmartPhonics/2/Unit1/pics/map.jpg",
+                  "audio": "SmartPhonics/2/Unit1/sounds/map.mp3"
+                },
+                {
+                  "word": "nap",
+                  "image": "SmartPhonics/2/Unit1/pics/nap.jpg",
+                  "audio": "SmartPhonics/2/Unit1/sounds/nap.mp3"
+                }
+              ],
+              "extraWords": [
+                {
+                  "word": "gap"
+                },
+                {
+                  "word": "rap"
+                },
+                {
+                  "word": "sap"
+                },
+                {
+                  "word": "tap"
+                },
+                {
+                  "word": "bad"
+                },
+                {
+                  "word": "sad"
+                },
+                {
+                  "word": "bag"
+                },
+                {
+                  "word": "cab"
+                }
+              ],
+              "sightWords": [
+                {
+                  "word": "a"
+                },
+                {
+                  "word": "has"
+                },
+                {
+                  "word": "his"
+                },
+                {
+                  "word": "oh"
+                },
+                {
+                  "word": "on"
+                },
+                {
+                  "word": "the"
+                }
+              ]
+            },
+            {
+              "id": "L2U2",
+              "unitNumber": 2,
+              "name": "Unit 2: Short Vowel a",
+              "targetSound": "a",
+              "targetLetters": [
+                "a"
+              ],
+              "words": [
+                {
+                  "word": "can",
+                  "image": "SmartPhonics/2/Unit2/pics/can.jpg",
+                  "audio": "SmartPhonics/2/Unit2/sounds/can.mp3"
+                },
+                {
+                  "word": "fan",
+                  "image": "SmartPhonics/2/Unit2/pics/fan.jpg",
+                  "audio": "SmartPhonics/2/Unit2/sounds/fan.mp3"
+                },
+                {
+                  "word": "man",
+                  "image": "SmartPhonics/2/Unit2/pics/man.jpg",
+                  "audio": "SmartPhonics/2/Unit2/sounds/man.mp3"
+                },
+                {
+                  "word": "pan",
+                  "image": "SmartPhonics/2/Unit2/pics/pan.jpg",
+                  "audio": "SmartPhonics/2/Unit2/sounds/pan.mp3"
+                },
+                {
+                  "word": "bat",
+                  "image": "SmartPhonics/2/Unit2/pics/bat.jpg",
+                  "audio": "SmartPhonics/2/Unit2/sounds/bat.mp3"
+                },
+                {
+                  "word": "cat",
+                  "image": "SmartPhonics/2/Unit2/pics/cat.jpg",
+                  "audio": "SmartPhonics/2/Unit2/sounds/cat.mp3"
+                },
+                {
+                  "word": "hat",
+                  "image": "SmartPhonics/2/Unit2/pics/hat.jpg",
+                  "audio": "SmartPhonics/2/Unit2/sounds/hat.mp3"
+                },
+                {
+                  "word": "mat",
+                  "image": "SmartPhonics/2/Unit2/pics/mat.jpg",
+                  "audio": "SmartPhonics/2/Unit2/sounds/mat.mp3"
+                }
+              ],
+              "extraWords": [
+                {
+                  "word": "ran"
+                },
+                {
+                  "word": "tan"
+                },
+                {
+                  "word": "van"
+                },
+                {
+                  "word": "sat"
+                },
+                {
+                  "word": "rat"
+                },
+                {
+                  "word": "fat"
+                },
+                {
+                  "word": "pat"
+                },
+                {
+                  "word": "mad"
+                }
+              ],
+              "sightWords": [
+                {
+                  "word": "a"
+                },
+                {
+                  "word": "goodbye"
+                },
+                {
+                  "word": "has"
+                },
+                {
+                  "word": "is"
+                },
+                {
+                  "word": "oh"
+                },
+                {
+                  "word": "on"
+                },
+                {
+                  "word": "the"
+                }
+              ]
+            },
+            {
+              "id": "L2U3",
+              "unitNumber": 3,
+              "name": "Unit 3: Short Vowel e",
+              "targetSound": "e",
+              "targetLetters": [
+                "e"
+              ],
+              "words": [
+                {
+                  "word": "jet",
+                  "image": "SmartPhonics/2/Unit3/pics/jet.jpg",
+                  "audio": "SmartPhonics/2/Unit3/sounds/jet.mp3"
+                },
+                {
+                  "word": "net",
+                  "image": "SmartPhonics/2/Unit3/pics/net.jpg",
+                  "audio": "SmartPhonics/2/Unit3/sounds/net.mp3"
+                },
+                {
+                  "word": "vet",
+                  "image": "SmartPhonics/2/Unit3/pics/vet.jpg",
+                  "audio": "SmartPhonics/2/Unit3/sounds/vet.mp3"
+                },
+                {
+                  "word": "wet",
+                  "image": "SmartPhonics/2/Unit3/pics/wet.jpg",
+                  "audio": "SmartPhonics/2/Unit3/sounds/wet.mp3"
+                },
+                {
+                  "word": "bed",
+                  "image": "SmartPhonics/2/Unit3/pics/bed.jpg",
+                  "audio": "SmartPhonics/2/Unit3/sounds/bed.mp3"
+                },
+                {
+                  "word": "red",
+                  "image": "SmartPhonics/2/Unit3/pics/red.jpg",
+                  "audio": "SmartPhonics/2/Unit3/sounds/red.mp3"
+                },
+                {
+                  "word": "hen",
+                  "image": "SmartPhonics/2/Unit3/pics/hen.jpg",
+                  "audio": "SmartPhonics/2/Unit3/sounds/hen.mp3"
+                },
+                {
+                  "word": "pen",
+                  "image": "SmartPhonics/2/Unit3/pics/pen.jpg",
+                  "audio": "SmartPhonics/2/Unit3/sounds/pen.mp3"
+                }
+              ],
+              "extraWords": [
+                {
+                  "word": "bet"
+                },
+                {
+                  "word": "get"
+                },
+                {
+                  "word": "let"
+                },
+                {
+                  "word": "set"
+                },
+                {
+                  "word": "fed"
+                },
+                {
+                  "word": "led"
+                },
+                {
+                  "word": "wed"
+                },
+                {
+                  "word": "leg"
+                }
+              ],
+              "sightWords": [
+                {
+                  "word": "a"
+                },
+                {
+                  "word": "has"
+                },
+                {
+                  "word": "is"
+                },
+                {
+                  "word": "oh"
+                },
+                {
+                  "word": "on"
+                },
+                {
+                  "word": "paints"
+                },
+                {
+                  "word": "the"
+                }
+              ]
+            },
+            {
+              "id": "L2U4",
+              "unitNumber": 4,
+              "name": "Unit 4: Short Vowel i",
+              "targetSound": "i",
+              "targetLetters": [
+                "i"
+              ],
+              "words": [
+                {
+                  "word": "bib",
+                  "image": "SmartPhonics/2/Unit4/pics/bib.jpg",
+                  "audio": "SmartPhonics/2/Unit4/sounds/bib.mp3"
+                },
+                {
+                  "word": "rib",
+                  "image": "SmartPhonics/2/Unit4/pics/rib.jpg",
+                  "audio": "SmartPhonics/2/Unit4/sounds/rib.mp3"
+                },
+                {
+                  "word": "kid",
+                  "image": "SmartPhonics/2/Unit4/pics/kid.jpg",
+                  "audio": "SmartPhonics/2/Unit4/sounds/kid.mp3"
+                },
+                {
+                  "word": "lid",
+                  "image": "SmartPhonics/2/Unit4/pics/lid.jpg",
+                  "audio": "SmartPhonics/2/Unit4/sounds/lid.mp3"
+                },
+                {
+                  "word": "pig",
+                  "image": "SmartPhonics/2/Unit4/pics/pig.jpg",
+                  "audio": "SmartPhonics/2/Unit4/sounds/pig.mp3"
+                },
+                {
+                  "word": "wig",
+                  "image": "SmartPhonics/2/Unit4/pics/wig.jpg",
+                  "audio": "SmartPhonics/2/Unit4/sounds/wig.mp3"
+                },
+                {
+                  "word": "fin",
+                  "image": "SmartPhonics/2/Unit4/pics/fin.jpg",
+                  "audio": "SmartPhonics/2/Unit4/sounds/fin.mp3"
+                },
+                {
+                  "word": "pin",
+                  "image": "SmartPhonics/2/Unit4/pics/pin.jpg",
+                  "audio": "SmartPhonics/2/Unit4/sounds/pin.mp3"
+                }
+              ],
+              "extraWords": [
+                {
+                  "word": "bid"
+                },
+                {
+                  "word": "did"
+                },
+                {
+                  "word": "mid"
+                },
+                {
+                  "word": "big"
+                },
+                {
+                  "word": "dig"
+                },
+                {
+                  "word": "fig"
+                },
+                {
+                  "word": "win"
+                },
+                {
+                  "word": "sin"
+                }
+              ],
+              "sightWords": [
+                {
+                  "word": "a"
+                },
+                {
+                  "word": "has"
+                },
+                {
+                  "word": "oh"
+                },
+                {
+                  "word": "sees"
+                },
+                {
+                  "word": "the"
+                }
+              ]
+            },
+            {
+              "id": "L2U5",
+              "unitNumber": 5,
+              "name": "Unit 5: Short Vowel i",
+              "targetSound": "i",
+              "targetLetters": [
+                "i"
+              ],
+              "words": [
+                {
+                  "word": "dip",
+                  "image": "SmartPhonics/2/Unit5/pics/dip.jpg",
+                  "audio": "SmartPhonics/2/Unit5/sounds/dip.mp3"
+                },
+                {
+                  "word": "hip",
+                  "image": "SmartPhonics/2/Unit5/pics/hip.jpg",
+                  "audio": "SmartPhonics/2/Unit5/sounds/hip.mp3"
+                },
+                {
+                  "word": "lip",
+                  "image": "SmartPhonics/2/Unit5/pics/lip.jpg",
+                  "audio": "SmartPhonics/2/Unit5/sounds/lip.mp3"
+                },
+                {
+                  "word": "rip",
+                  "image": "SmartPhonics/2/Unit5/pics/rip.jpg",
+                  "audio": "SmartPhonics/2/Unit5/sounds/rip.mp3"
+                },
+                {
+                  "word": "hit",
+                  "image": "SmartPhonics/2/Unit5/pics/hit.jpg",
+                  "audio": "SmartPhonics/2/Unit5/sounds/hit.mp3"
+                },
+                {
+                  "word": "sit",
+                  "image": "SmartPhonics/2/Unit5/pics/sit.jpg",
+                  "audio": "SmartPhonics/2/Unit5/sounds/sit.mp3"
+                },
+                {
+                  "word": "mix",
+                  "image": "SmartPhonics/2/Unit5/pics/mix.jpg",
+                  "audio": "SmartPhonics/2/Unit5/sounds/mix.mp3"
+                },
+                {
+                  "word": "six",
+                  "image": "SmartPhonics/2/Unit5/pics/six.jpg",
+                  "audio": "SmartPhonics/2/Unit5/sounds/six.mp3"
+                }
+              ],
+              "extraWords": [
+                {
+                  "word": "tip"
+                },
+                {
+                  "word": "nip"
+                },
+                {
+                  "word": "sip"
+                },
+                {
+                  "word": "pit"
+                },
+                {
+                  "word": "bit"
+                },
+                {
+                  "word": "fit"
+                },
+                {
+                  "word": "rid"
+                },
+                {
+                  "word": "tin"
+                }
+              ],
+              "sightWords": [
+                {
+                  "word": "a"
+                },
+                {
+                  "word": "fun"
+                },
+                {
+                  "word": "have"
+                },
+                {
+                  "word": "on"
+                },
+                {
+                  "word": "run"
+                },
+                {
+                  "word": "the"
+                }
+              ]
+            },
+            {
+              "id": "L2U6",
+              "unitNumber": 6,
+              "name": "Unit 6: Short Vowel o",
+              "targetSound": "o",
+              "targetLetters": [
+                "o"
+              ],
+              "words": [
+                {
+                  "word": "hot",
+                  "image": "SmartPhonics/2/Unit6/pics/hot.jpg",
+                  "audio": "SmartPhonics/2/Unit6/sounds/hot.mp3"
+                },
+                {
+                  "word": "pot",
+                  "image": "SmartPhonics/2/Unit6/pics/pot.jpg",
+                  "audio": "SmartPhonics/2/Unit6/sounds/pot.mp3"
+                },
+                {
+                  "word": "box",
+                  "image": "SmartPhonics/2/Unit6/pics/box.jpg",
+                  "audio": "SmartPhonics/2/Unit6/sounds/box.mp3"
+                },
+                {
+                  "word": "fox",
+                  "image": "SmartPhonics/2/Unit6/pics/fox.jpg",
+                  "audio": "SmartPhonics/2/Unit6/sounds/fox.mp3"
+                },
+                {
+                  "word": "cop",
+                  "image": "SmartPhonics/2/Unit6/pics/cop.jpg",
+                  "audio": "SmartPhonics/2/Unit6/sounds/cop.mp3"
+                },
+                {
+                  "word": "hop",
+                  "image": "SmartPhonics/2/Unit6/pics/hop.jpg",
+                  "audio": "SmartPhonics/2/Unit6/sounds/hop.mp3"
+                },
+                {
+                  "word": "dog",
+                  "image": "SmartPhonics/2/Unit6/pics/dog.jpg",
+                  "audio": "SmartPhonics/2/Unit6/sounds/dog.mp3"
+                },
+                {
+                  "word": "log",
+                  "image": "SmartPhonics/2/Unit6/pics/log.jpg",
+                  "audio": "SmartPhonics/2/Unit6/sounds/log.mp3"
+                }
+              ],
+              "extraWords": [
+                {
+                  "word": "dot"
+                },
+                {
+                  "word": "got"
+                },
+                {
+                  "word": "lot"
+                },
+                {
+                  "word": "mop"
+                },
+                {
+                  "word": "top"
+                },
+                {
+                  "word": "pop"
+                },
+                {
+                  "word": "bog"
+                },
+                {
+                  "word": "fog"
+                }
+              ],
+              "sightWords": [
+                {
+                  "word": "and"
+                },
+                {
+                  "word": "are"
+                },
+                {
+                  "word": "not"
+                },
+                {
+                  "word": "is"
+                },
+                {
+                  "word": "on"
+                },
+                {
+                  "word": "the"
+                }
+              ]
+            },
+            {
+              "id": "L2U7",
+              "unitNumber": 7,
+              "name": "Unit 7: Short Vowel u",
+              "targetSound": "u",
+              "targetLetters": [
+                "u"
+              ],
+              "words": [
+                {
+                  "word": "bug",
+                  "image": "SmartPhonics/2/Unit7/pics/bug.jpg",
+                  "audio": "SmartPhonics/2/Unit7/sounds/bug.mp3"
+                },
+                {
+                  "word": "hug",
+                  "image": "SmartPhonics/2/Unit7/pics/hug.jpg",
+                  "audio": "SmartPhonics/2/Unit7/sounds/hug.mp3"
+                },
+                {
+                  "word": "mug",
+                  "image": "SmartPhonics/2/Unit7/pics/mug.jpg",
+                  "audio": "SmartPhonics/2/Unit7/sounds/mug.mp3"
+                },
+                {
+                  "word": "rug",
+                  "image": "SmartPhonics/2/Unit7/pics/rug.jpg",
+                  "audio": "SmartPhonics/2/Unit7/sounds/rug.mp3"
+                },
+                {
+                  "word": "rub",
+                  "image": "SmartPhonics/2/Unit7/pics/rub.jpg",
+                  "audio": "SmartPhonics/2/Unit7/sounds/rub.mp3"
+                },
+                {
+                  "word": "tub",
+                  "image": "SmartPhonics/2/Unit7/pics/tub.jpg",
+                  "audio": "SmartPhonics/2/Unit7/sounds/tub.mp3"
+                },
+                {
+                  "word": "cup",
+                  "image": "SmartPhonics/2/Unit7/pics/cup.jpg",
+                  "audio": "SmartPhonics/2/Unit7/sounds/cup.mp3"
+                },
+                {
+                  "word": "pup",
+                  "image": "SmartPhonics/2/Unit7/pics/pup.jpg",
+                  "audio": "SmartPhonics/2/Unit7/sounds/pup.mp3"
+                }
+              ],
+              "extraWords": [
+                {
+                  "word": "dug"
+                },
+                {
+                  "word": "lug"
+                },
+                {
+                  "word": "tug"
+                },
+                {
+                  "word": "jug"
+                },
+                {
+                  "word": "cub"
+                },
+                {
+                  "word": "hub"
+                },
+                {
+                  "word": "sub"
+                },
+                {
+                  "word": "gut"
+                }
+              ],
+              "sightWords": [
+                {
+                  "word": "are"
+                },
+                {
+                  "word": "in"
+                },
+                {
+                  "word": "is"
+                },
+                {
+                  "word": "on"
+                },
+                {
+                  "word": "one"
+                },
+                {
+                  "word": "the"
+                }
+              ]
+            },
+            {
+              "id": "L2U8",
+              "unitNumber": 8,
+              "name": "Unit 8: Short Vowel u",
+              "targetSound": "u",
+              "targetLetters": [
+                "u"
+              ],
+              "words": [
+                {
+                  "word": "bun",
+                  "image": "SmartPhonics/2/Unit8/pics/bun.jpg",
+                  "audio": "SmartPhonics/2/Unit8/sounds/bun.mp3"
+                },
+                {
+                  "word": "fun",
+                  "image": "SmartPhonics/2/Unit8/pics/fun.jpg",
+                  "audio": "SmartPhonics/2/Unit8/sounds/fun.mp3"
+                },
+                {
+                  "word": "run",
+                  "image": "SmartPhonics/2/Unit8/pics/run.jpg",
+                  "audio": "SmartPhonics/2/Unit8/sounds/run.mp3"
+                },
+                {
+                  "word": "sun",
+                  "image": "SmartPhonics/2/Unit8/pics/sun.jpg",
+                  "audio": "SmartPhonics/2/Unit8/sounds/sun.mp3"
+                },
+                {
+                  "word": "bud",
+                  "image": "SmartPhonics/2/Unit8/pics/bud.jpg",
+                  "audio": "SmartPhonics/2/Unit8/sounds/bud.mp3"
+                },
+                {
+                  "word": "mud",
+                  "image": "SmartPhonics/2/Unit8/pics/mud.jpg",
+                  "audio": "SmartPhonics/2/Unit8/sounds/mud.mp3"
+                },
+                {
+                  "word": "cut",
+                  "image": "SmartPhonics/2/Unit8/pics/cut.jpg",
+                  "audio": "SmartPhonics/2/Unit8/sounds/cut.mp3"
+                },
+                {
+                  "word": "nut",
+                  "image": "SmartPhonics/2/Unit8/pics/nut.jpg",
+                  "audio": "SmartPhonics/2/Unit8/sounds/nut.mp3"
+                }
+              ],
+              "extraWords": [
+                {
+                  "word": "gun"
+                },
+                {
+                  "word": "nun"
+                },
+                {
+                  "word": "pun"
+                },
+                {
+                  "word": "hut"
+                },
+                {
+                  "word": "bus"
+                },
+                {
+                  "word": "gum"
+                },
+                {
+                  "word": "hum"
+                },
+                {
+                  "word": "sum"
+                }
+              ],
+              "sightWords": [
+                {
+                  "word": "in"
+                },
+                {
+                  "word": "is"
+                },
+                {
+                  "word": "says"
+                },
+                {
+                  "word": "sorry"
+                },
+                {
+                  "word": "the"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "L3",
+          "name": "Level 3",
+          "bookNumber": 3,
+          "units": [
+            {
+              "id": "L3U1",
+              "unitNumber": 1,
+              "name": "Unit 1: Long Vowel a",
+              "targetSound": "a, e",
+              "targetLetters": [
+                "a",
+                "e"
+              ],
+              "words": [
+                {
+                  "word": "bake",
+                  "image": "SmartPhonics/3/Unit1/pics/bake.jpg",
+                  "audio": "SmartPhonics/3/Unit1/sounds/bake.mp3"
+                },
+                {
+                  "word": "cake",
+                  "image": "SmartPhonics/3/Unit1/pics/cake.jpg",
+                  "audio": "SmartPhonics/3/Unit1/sounds/cake.mp3"
+                },
+                {
+                  "word": "lake",
+                  "image": "SmartPhonics/3/Unit1/pics/lake.jpg",
+                  "audio": "SmartPhonics/3/Unit1/sounds/lake.mp3"
+                },
+                {
+                  "word": "rake",
+                  "image": "SmartPhonics/3/Unit1/pics/rake.jpg",
+                  "audio": "SmartPhonics/3/Unit1/sounds/rake.mp3"
+                },
+                {
+                  "word": "cape",
+                  "image": "SmartPhonics/3/Unit1/pics/cape.jpg",
+                  "audio": "SmartPhonics/3/Unit1/sounds/cape.mp3"
+                },
+                {
+                  "word": "tape",
+                  "image": "SmartPhonics/3/Unit1/pics/tape.jpg",
+                  "audio": "SmartPhonics/3/Unit1/sounds/tape.mp3"
+                },
+                {
+                  "word": "cave",
+                  "image": "SmartPhonics/3/Unit1/pics/cave.jpg",
+                  "audio": "SmartPhonics/3/Unit1/sounds/cave.mp3"
+                },
+                {
+                  "word": "wave",
+                  "image": "SmartPhonics/3/Unit1/pics/wave.jpg",
+                  "audio": "SmartPhonics/3/Unit1/sounds/wave.mp3"
+                }
+              ],
+              "extraWords": [
+                {
+                  "word": "make"
+                },
+                {
+                  "word": "take"
+                },
+                {
+                  "word": "wake"
+                },
+                {
+                  "word": "save"
+                },
+                {
+                  "word": "gave"
+                },
+                {
+                  "word": "late"
+                },
+                {
+                  "word": "pale"
+                },
+                {
+                  "word": "sale"
+                }
+              ],
+              "sightWords": [
+                {
+                  "word": "a"
+                },
+                {
+                  "word": "at"
+                },
+                {
+                  "word": "away"
+                },
+                {
+                  "word": "flies"
+                },
+                {
+                  "word": "in"
+                },
+                {
+                  "word": "is"
+                },
+                {
+                  "word": "the"
+                },
+                {
+                  "word": "there"
+                },
+                {
+                  "word": "to"
+                },
+                {
+                  "word": "with"
+                }
+              ]
+            },
+            {
+              "id": "L3U2",
+              "unitNumber": 2,
+              "name": "Unit 2: Long Vowel a",
+              "targetSound": "a, e",
+              "targetLetters": [
+                "a",
+                "e"
+              ],
+              "words": [
+                {
+                  "word": "game",
+                  "image": "SmartPhonics/3/Unit2/pics/game.jpg",
+                  "audio": "SmartPhonics/3/Unit2/sounds/game.mp3"
+                },
+                {
+                  "word": "name",
+                  "image": "SmartPhonics/3/Unit2/pics/name.jpg",
+                  "audio": "SmartPhonics/3/Unit2/sounds/name.mp3"
+                },
+                {
+                  "word": "date",
+                  "image": "SmartPhonics/3/Unit2/pics/date.jpg",
+                  "audio": "SmartPhonics/3/Unit2/sounds/date.mp3"
+                },
+                {
+                  "word": "gate",
+                  "image": "SmartPhonics/3/Unit2/pics/gate.jpg",
+                  "audio": "SmartPhonics/3/Unit2/sounds/gate.mp3"
+                },
+                {
+                  "word": "cane",
+                  "image": "SmartPhonics/3/Unit2/pics/cane.jpg",
+                  "audio": "SmartPhonics/3/Unit2/sounds/cane.mp3"
+                },
+                {
+                  "word": "mane",
+                  "image": "SmartPhonics/3/Unit2/pics/mane.jpg",
+                  "audio": "SmartPhonics/3/Unit2/sounds/mane.mp3"
+                },
+                {
+                  "word": "case",
+                  "image": "SmartPhonics/3/Unit2/pics/case.jpg",
+                  "audio": "SmartPhonics/3/Unit2/sounds/case.mp3"
+                },
+                {
+                  "word": "vase",
+                  "image": "SmartPhonics/3/Unit2/pics/vase.jpg",
+                  "audio": "SmartPhonics/3/Unit2/sounds/vase.mp3"
+                }
+              ],
+              "extraWords": [
+                {
+                  "word": "fame"
+                },
+                {
+                  "word": "same"
+                },
+                {
+                  "word": "hate"
+                },
+                {
+                  "word": "rate"
+                },
+                {
+                  "word": "lane"
+                },
+                {
+                  "word": "cage"
+                },
+                {
+                  "word": "page"
+                },
+                {
+                  "word": "gaze"
+                }
+              ],
+              "sightWords": [
+                {
+                  "word": "a"
+                },
+                {
+                  "word": "at"
+                },
+                {
+                  "word": "birthday"
+                },
+                {
+                  "word": "I"
+                },
+                {
+                  "word": "is"
+                },
+                {
+                  "word": "it"
+                },
+                {
+                  "word": "look"
+                },
+                {
+                  "word": "on"
+                },
+                {
+                  "word": "says"
+                },
+                {
+                  "word": "see"
+                },
+                {
+                  "word": "the"
+                }
+              ]
+            },
+            {
+              "id": "L3U3",
+              "unitNumber": 3,
+              "name": "Unit 3: Long Vowel i",
+              "targetSound": "i, e",
+              "targetLetters": [
+                "i",
+                "e"
+              ],
+              "words": [
+                {
+                  "word": "line",
+                  "image": "SmartPhonics/3/Unit3/pics/line.jpg",
+                  "audio": "SmartPhonics/3/Unit3/sounds/line.mp3"
+                },
+                {
+                  "word": "nine",
+                  "image": "SmartPhonics/3/Unit3/pics/nine.jpg",
+                  "audio": "SmartPhonics/3/Unit3/sounds/nine.mp3"
+                },
+                {
+                  "word": "pine",
+                  "image": "SmartPhonics/3/Unit3/pics/pine.jpg",
+                  "audio": "SmartPhonics/3/Unit3/sounds/pine.mp3"
+                },
+                {
+                  "word": "vine",
+                  "image": "SmartPhonics/3/Unit3/pics/vine.jpg",
+                  "audio": "SmartPhonics/3/Unit3/sounds/vine.mp3"
+                },
+                {
+                  "word": "bike",
+                  "image": "SmartPhonics/3/Unit3/pics/bike.jpg",
+                  "audio": "SmartPhonics/3/Unit3/sounds/bike.mp3"
+                },
+                {
+                  "word": "hike",
+                  "image": "SmartPhonics/3/Unit3/pics/hike.jpg",
+                  "audio": "SmartPhonics/3/Unit3/sounds/hike.mp3"
+                },
+                {
+                  "word": "lime",
+                  "image": "SmartPhonics/3/Unit3/pics/lime.jpg",
+                  "audio": "SmartPhonics/3/Unit3/sounds/lime.mp3"
+                },
+                {
+                  "word": "time",
+                  "image": "SmartPhonics/3/Unit3/pics/time.jpg",
+                  "audio": "SmartPhonics/3/Unit3/sounds/time.mp3"
+                }
+              ],
+              "extraWords": [
+                {
+                  "word": "dine"
+                },
+                {
+                  "word": "fine"
+                },
+                {
+                  "word": "mine"
+                },
+                {
+                  "word": "like"
+                },
+                {
+                  "word": "mile"
+                },
+                {
+                  "word": "fire"
+                },
+                {
+                  "word": "wire"
+                },
+                {
+                  "word": "ripe"
+                }
+              ],
+              "sightWords": [
+                {
+                  "word": "in"
+                },
+                {
+                  "word": "is"
+                },
+                {
+                  "word": "it"
+                },
+                {
+                  "word": "race"
+                },
+                {
+                  "word": "the"
+                },
+                {
+                  "word": "to"
+                }
+              ]
+            },
+            {
+              "id": "L3U4",
+              "unitNumber": 4,
+              "name": "Unit 4: Long Vowel i",
+              "targetSound": "i, e",
+              "targetLetters": [
+                "i",
+                "e"
+              ],
+              "words": [
+                {
+                  "word": "hide",
+                  "image": "SmartPhonics/3/Unit4/pics/hide.jpg",
+                  "audio": "SmartPhonics/3/Unit4/sounds/hide.mp3"
+                },
+                {
+                  "word": "ride",
+                  "image": "SmartPhonics/3/Unit4/pics/ride.jpg",
+                  "audio": "SmartPhonics/3/Unit4/sounds/ride.mp3"
+                },
+                {
+                  "word": "pipe",
+                  "image": "SmartPhonics/3/Unit4/pics/pipe.jpg",
+                  "audio": "SmartPhonics/3/Unit4/sounds/pipe.mp3"
+                },
+                {
+                  "word": "wipe",
+                  "image": "SmartPhonics/3/Unit4/pics/wipe.jpg",
+                  "audio": "SmartPhonics/3/Unit4/sounds/wipe.mp3"
+                },
+                {
+                  "word": "bite",
+                  "image": "SmartPhonics/3/Unit4/pics/bite.jpg",
+                  "audio": "SmartPhonics/3/Unit4/sounds/bite.mp3"
+                },
+                {
+                  "word": "kite",
+                  "image": "SmartPhonics/3/Unit4/pics/kite.jpg",
+                  "audio": "SmartPhonics/3/Unit4/sounds/kite.mp3"
+                },
+                {
+                  "word": "dive",
+                  "image": "SmartPhonics/3/Unit4/pics/dive.jpg",
+                  "audio": "SmartPhonics/3/Unit4/sounds/dive.mp3"
+                },
+                {
+                  "word": "five",
+                  "image": "SmartPhonics/3/Unit4/pics/five.jpg",
+                  "audio": "SmartPhonics/3/Unit4/sounds/five.mp3"
+                }
+              ],
+              "extraWords": [
+                {
+                  "word": "wide"
+                },
+                {
+                  "word": "side"
+                },
+                {
+                  "word": "tide"
+                },
+                {
+                  "word": "site"
+                },
+                {
+                  "word": "mice"
+                },
+                {
+                  "word": "rice"
+                },
+                {
+                  "word": "lice"
+                },
+                {
+                  "word": "nice"
+                }
+              ],
+              "sightWords": [
+                {
+                  "word": "a"
+                },
+                {
+                  "word": "by"
+                },
+                {
+                  "word": "have"
+                },
+                {
+                  "word": "in"
+                },
+                {
+                  "word": "the"
+                },
+                {
+                  "word": "to"
+                }
+              ]
+            },
+            {
+              "id": "L3U5",
+              "unitNumber": 5,
+              "name": "Unit 5: Long Vowel o",
+              "targetSound": "o, e",
+              "targetLetters": [
+                "o",
+                "e"
+              ],
+              "words": [
+                {
+                  "word": "hose",
+                  "image": "SmartPhonics/3/Unit5/pics/hose.jpg",
+                  "audio": "SmartPhonics/3/Unit5/sounds/hose.mp3"
+                },
+                {
+                  "word": "nose",
+                  "image": "SmartPhonics/3/Unit5/pics/nose.jpg",
+                  "audio": "SmartPhonics/3/Unit5/sounds/nose.mp3"
+                },
+                {
+                  "word": "pose",
+                  "image": "SmartPhonics/3/Unit5/pics/pose.jpg",
+                  "audio": "SmartPhonics/3/Unit5/sounds/pose.mp3"
+                },
+                {
+                  "word": "rose",
+                  "image": "SmartPhonics/3/Unit5/pics/rose.jpg",
+                  "audio": "SmartPhonics/3/Unit5/sounds/rose.mp3"
+                },
+                {
+                  "word": "hope",
+                  "image": "SmartPhonics/3/Unit5/pics/hope.jpg",
+                  "audio": "SmartPhonics/3/Unit5/sounds/hope.mp3"
+                },
+                {
+                  "word": "rope",
+                  "image": "SmartPhonics/3/Unit5/pics/rope.jpg",
+                  "audio": "SmartPhonics/3/Unit5/sounds/rope.mp3"
+                },
+                {
+                  "word": "note",
+                  "image": "SmartPhonics/3/Unit5/pics/note.jpg",
+                  "audio": "SmartPhonics/3/Unit5/sounds/note.mp3"
+                },
+                {
+                  "word": "vote",
+                  "image": "SmartPhonics/3/Unit5/pics/vote.jpg",
+                  "audio": "SmartPhonics/3/Unit5/sounds/vote.mp3"
+                }
+              ],
+              "extraWords": [
+                {
+                  "word": "dose"
+                },
+                {
+                  "word": "lose"
+                },
+                {
+                  "word": "code"
+                },
+                {
+                  "word": "tone"
+                },
+                {
+                  "word": "bore"
+                },
+                {
+                  "word": "core"
+                },
+                {
+                  "word": "more"
+                },
+                {
+                  "word": "fore"
+                }
+              ],
+              "sightWords": [
+                {
+                  "word": "a"
+                },
+                {
+                  "word": "and"
+                },
+                {
+                  "word": "her"
+                },
+                {
+                  "word": "his"
+                },
+                {
+                  "word": "is"
+                },
+                {
+                  "word": "oh"
+                },
+                {
+                  "word": "puts"
+                },
+                {
+                  "word": "sees"
+                },
+                {
+                  "word": "the"
+                },
+                {
+                  "word": "there"
+                },
+                {
+                  "word": "to"
+                },
+                {
+                  "word": "water"
+                }
+              ]
+            },
+            {
+              "id": "L3U6",
+              "unitNumber": 6,
+              "name": "Unit 6: Long Vowel o",
+              "targetSound": "o, e",
+              "targetLetters": [
+                "o",
+                "e"
+              ],
+              "words": [
+                {
+                  "word": "hole",
+                  "image": "SmartPhonics/3/Unit6/pics/hole.jpg",
+                  "audio": "SmartPhonics/3/Unit6/sounds/hole.mp3"
+                },
+                {
+                  "word": "mole",
+                  "image": "SmartPhonics/3/Unit6/pics/mole.jpg",
+                  "audio": "SmartPhonics/3/Unit6/sounds/mole.mp3"
+                },
+                {
+                  "word": "pole",
+                  "image": "SmartPhonics/3/Unit6/pics/pole.jpg",
+                  "audio": "SmartPhonics/3/Unit6/sounds/pole.mp3"
+                },
+                {
+                  "word": "sole",
+                  "image": "SmartPhonics/3/Unit6/pics/sole.jpg",
+                  "audio": "SmartPhonics/3/Unit6/sounds/sole.mp3"
+                },
+                {
+                  "word": "dome",
+                  "image": "SmartPhonics/3/Unit6/pics/dome.jpg",
+                  "audio": "SmartPhonics/3/Unit6/sounds/dome.mp3"
+                },
+                {
+                  "word": "home",
+                  "image": "SmartPhonics/3/Unit6/pics/home.jpg",
+                  "audio": "SmartPhonics/3/Unit6/sounds/home.mp3"
+                },
+                {
+                  "word": "bone",
+                  "image": "SmartPhonics/3/Unit6/pics/bone.jpg",
+                  "audio": "SmartPhonics/3/Unit6/sounds/bone.mp3"
+                },
+                {
+                  "word": "cone",
+                  "image": "SmartPhonics/3/Unit6/pics/cone.jpg",
+                  "audio": "SmartPhonics/3/Unit6/sounds/cone.mp3"
+                }
+              ],
+              "extraWords": [
+                {
+                  "word": "role"
+                },
+                {
+                  "word": "rode"
+                },
+                {
+                  "word": "poke"
+                },
+                {
+                  "word": "woke"
+                },
+                {
+                  "word": "joke"
+                },
+                {
+                  "word": "coke"
+                },
+                {
+                  "word": "zone"
+                },
+                {
+                  "word": "node"
+                }
+              ],
+              "sightWords": [
+                {
+                  "word": "a"
+                },
+                {
+                  "word": "drops"
+                },
+                {
+                  "word": "goes"
+                },
+                {
+                  "word": "has"
+                },
+                {
+                  "word": "in"
+                },
+                {
+                  "word": "is"
+                },
+                {
+                  "word": "oh"
+                },
+                {
+                  "word": "sees"
+                },
+                {
+                  "word": "the"
+                },
+                {
+                  "word": "to"
+                }
+              ]
+            },
+            {
+              "id": "L3U7",
+              "unitNumber": 7,
+              "name": "Unit 7: Long Vowel u",
+              "targetSound": "u, e",
+              "targetLetters": [
+                "u",
+                "e"
+              ],
+              "words": [
+                {
+                  "word": "cube",
+                  "image": "SmartPhonics/3/Unit7/pics/cube.jpg",
+                  "audio": "SmartPhonics/3/Unit7/sounds/cube.mp3"
+                },
+                {
+                  "word": "tube",
+                  "image": "SmartPhonics/3/Unit7/pics/tube.jpg",
+                  "audio": "SmartPhonics/3/Unit7/sounds/tube.mp3"
+                },
+                {
+                  "word": "cute",
+                  "image": "SmartPhonics/3/Unit7/pics/cute.jpg",
+                  "audio": "SmartPhonics/3/Unit7/sounds/cute.mp3"
+                },
+                {
+                  "word": "mute",
+                  "image": "SmartPhonics/3/Unit7/pics/mute.jpg",
+                  "audio": "SmartPhonics/3/Unit7/sounds/mute.mp3"
+                },
+                {
+                  "word": "mule",
+                  "image": "SmartPhonics/3/Unit7/pics/mule.jpg",
+                  "audio": "SmartPhonics/3/Unit7/sounds/mule.mp3"
+                },
+                {
+                  "word": "dune",
+                  "image": "SmartPhonics/3/Unit7/pics/dune.jpg",
+                  "audio": "SmartPhonics/3/Unit7/sounds/dune.mp3"
+                },
+                {
+                  "word": "June",
+                  "image": "SmartPhonics/3/Unit7/pics/june.jpg",
+                  "audio": "SmartPhonics/3/Unit7/sounds/june.mp3"
+                },
+                {
+                  "word": "tune",
+                  "image": "SmartPhonics/3/Unit7/pics/tune.jpg",
+                  "audio": "SmartPhonics/3/Unit7/sounds/tune.mp3"
+                }
+              ],
+              "extraWords": [
+                {
+                  "word": "jute"
+                },
+                {
+                  "word": "rude"
+                },
+                {
+                  "word": "huge"
+                },
+                {
+                  "word": "pure"
+                },
+                {
+                  "word": "sure"
+                },
+                {
+                  "word": "rule"
+                },
+                {
+                  "word": "lure"
+                },
+                {
+                  "word": "duke"
+                }
+              ],
+              "sightWords": [
+                {
+                  "word": "a"
+                },
+                {
+                  "word": "is"
+                },
+                {
+                  "word": "on"
+                },
+                {
+                  "word": "the"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "L4",
+          "name": "Level 4",
+          "bookNumber": 4,
+          "units": [
+            {
+              "id": "L4U1",
+              "unitNumber": 1,
+              "name": "Unit 1: bl, cl, fl",
+              "targetSound": "bl, cl, fl",
+              "targetLetters": [
+                "bl",
+                "cl",
+                "fl"
+              ],
+              "words": [
+                {
+                  "word": "blade",
+                  "image": "SmartPhonics/4/Unit1/pics/blade.jpg",
+                  "audio": "SmartPhonics/4/Unit1/sounds/blade.mp3"
+                },
+                {
+                  "word": "blimp",
+                  "image": "SmartPhonics/4/Unit1/pics/blimp.jpg",
+                  "audio": "SmartPhonics/4/Unit1/sounds/blimp.mp3"
+                },
+                {
+                  "word": "blue",
+                  "image": "SmartPhonics/4/Unit1/pics/blue.jpg",
+                  "audio": "SmartPhonics/4/Unit1/sounds/blue.mp3"
+                },
+                {
+                  "word": "clam",
+                  "image": "SmartPhonics/4/Unit1/pics/clam.jpg",
+                  "audio": "SmartPhonics/4/Unit1/sounds/clam.mp3"
+                },
+                {
+                  "word": "clap",
+                  "image": "SmartPhonics/4/Unit1/pics/clap.jpg",
+                  "audio": "SmartPhonics/4/Unit1/sounds/clap.mp3"
+                },
+                {
+                  "word": "cliff",
+                  "image": "SmartPhonics/4/Unit1/pics/cliff.jpg",
+                  "audio": "SmartPhonics/4/Unit1/sounds/cliff.mp3"
+                },
+                {
+                  "word": "clock",
+                  "image": "SmartPhonics/4/Unit1/pics/clock.jpg",
+                  "audio": "SmartPhonics/4/Unit1/sounds/clock.mp3"
+                },
+                {
+                  "word": "flag",
+                  "image": "SmartPhonics/4/Unit1/pics/flag.jpg",
+                  "audio": "SmartPhonics/4/Unit1/sounds/flag.mp3"
+                },
+                {
+                  "word": "flame",
+                  "image": "SmartPhonics/4/Unit1/pics/flame.jpg",
+                  "audio": "SmartPhonics/4/Unit1/sounds/flame.mp3"
+                },
+                {
+                  "word": "flap",
+                  "image": "SmartPhonics/4/Unit1/pics/flap.jpg",
+                  "audio": "SmartPhonics/4/Unit1/sounds/flap.mp3"
+                },
+                {
+                  "word": "flute",
+                  "image": "SmartPhonics/4/Unit1/pics/flute.jpg",
+                  "audio": "SmartPhonics/4/Unit1/sounds/flute.mp3"
+                }
+              ],
+              "extraWords": [
+                {
+                  "word": "block"
+                },
+                {
+                  "word": "blast"
+                },
+                {
+                  "word": "blend"
+                },
+                {
+                  "word": "blunt"
+                },
+                {
+                  "word": "clip"
+                },
+                {
+                  "word": "clan"
+                },
+                {
+                  "word": "flip"
+                },
+                {
+                  "word": "flat"
+                }
+              ],
+              "sightWords": [
+                {
+                  "word": "a"
+                },
+                {
+                  "word": "and"
+                },
+                {
+                  "word": "around"
+                },
+                {
+                  "word": "by"
+                },
+                {
+                  "word": "hands"
+                },
+                {
+                  "word": "happy"
+                },
+                {
+                  "word": "her"
+                },
+                {
+                  "word": "his"
+                },
+                {
+                  "word": "is"
+                },
+                {
+                  "word": "over"
+                },
+                {
+                  "word": "sees"
+                },
+                {
+                  "word": "the"
+                },
+                {
+                  "word": "under"
+                }
+              ]
+            },
+            {
+              "id": "L4U2",
+              "unitNumber": 2,
+              "name": "Unit 2: br, cr, fr",
+              "targetSound": "br, cr, fr",
+              "targetLetters": [
+                "br",
+                "cr",
+                "fr"
+              ],
+              "words": [
+                {
+                  "word": "brake",
+                  "image": "SmartPhonics/4/Unit2/pics/brake.jpg",
+                  "audio": "SmartPhonics/4/Unit2/sounds/brake.mp3"
+                },
+                {
+                  "word": "brave",
+                  "image": "SmartPhonics/4/Unit2/pics/brave.jpg",
+                  "audio": "SmartPhonics/4/Unit2/sounds/brave.mp3"
+                },
+                {
+                  "word": "brick",
+                  "image": "SmartPhonics/4/Unit2/pics/brick.jpg",
+                  "audio": "SmartPhonics/4/Unit2/sounds/brick.mp3"
+                },
+                {
+                  "word": "bride",
+                  "image": "SmartPhonics/4/Unit2/pics/bride.jpg",
+                  "audio": "SmartPhonics/4/Unit2/sounds/bride.mp3"
+                },
+                {
+                  "word": "crab",
+                  "image": "SmartPhonics/4/Unit2/pics/crab.jpg",
+                  "audio": "SmartPhonics/4/Unit2/sounds/crab.mp3"
+                },
+                {
+                  "word": "crane",
+                  "image": "SmartPhonics/4/Unit2/pics/crane.jpg",
+                  "audio": "SmartPhonics/4/Unit2/sounds/crane.mp3"
+                },
+                {
+                  "word": "crib",
+                  "image": "SmartPhonics/4/Unit2/pics/crib.jpg",
+                  "audio": "SmartPhonics/4/Unit2/sounds/crib.mp3"
+                },
+                {
+                  "word": "cross",
+                  "image": "SmartPhonics/4/Unit2/pics/cross.jpg",
+                  "audio": "SmartPhonics/4/Unit2/sounds/cross.mp3"
+                },
+                {
+                  "word": "frame",
+                  "image": "SmartPhonics/4/Unit2/pics/frame.jpg",
+                  "audio": "SmartPhonics/4/Unit2/sounds/frame.mp3"
+                },
+                {
+                  "word": "frog",
+                  "image": "SmartPhonics/4/Unit2/pics/frog.jpg",
+                  "audio": "SmartPhonics/4/Unit2/sounds/frog.mp3"
+                },
+                {
+                  "word": "front",
+                  "image": "SmartPhonics/4/Unit2/pics/front.jpg",
+                  "audio": "SmartPhonics/4/Unit2/sounds/front.mp3"
+                },
+                {
+                  "word": "frost",
+                  "image": "SmartPhonics/4/Unit2/pics/frost.jpg",
+                  "audio": "SmartPhonics/4/Unit2/sounds/frost.mp3"
+                }
+              ],
+              "extraWords": [
+                {
+                  "word": "bring"
+                },
+                {
+                  "word": "brag"
+                },
+                {
+                  "word": "brim"
+                },
+                {
+                  "word": "brand"
+                },
+                {
+                  "word": "crack"
+                },
+                {
+                  "word": "crust"
+                },
+                {
+                  "word": "frank"
+                },
+                {
+                  "word": "fret"
+                }
+              ],
+              "sightWords": [
+                {
+                  "word": "a"
+                },
+                {
+                  "word": "and"
+                },
+                {
+                  "word": "are"
+                },
+                {
+                  "word": "by"
+                },
+                {
+                  "word": "in"
+                },
+                {
+                  "word": "is"
+                },
+                {
+                  "word": "kisses"
+                },
+                {
+                  "word": "lives"
+                },
+                {
+                  "word": "the"
+                }
+              ]
+            },
+            {
+              "id": "L4U3",
+              "unitNumber": 3,
+              "name": "Unit 3: gl, pl, sl",
+              "targetSound": "gl, pl, sl",
+              "targetLetters": [
+                "gl",
+                "pl",
+                "sl"
+              ],
+              "words": [
+                {
+                  "word": "glass",
+                  "image": "SmartPhonics/4/Unit3/pics/glass.jpg",
+                  "audio": "SmartPhonics/4/Unit3/sounds/glass.mp3"
+                },
+                {
+                  "word": "globe",
+                  "image": "SmartPhonics/4/Unit3/pics/globe.jpg",
+                  "audio": "SmartPhonics/4/Unit3/sounds/globe.mp3"
+                },
+                {
+                  "word": "glove",
+                  "image": "SmartPhonics/4/Unit3/pics/glove.jpg",
+                  "audio": "SmartPhonics/4/Unit3/sounds/glove.mp3"
+                },
+                {
+                  "word": "glue",
+                  "image": "SmartPhonics/4/Unit3/pics/glue.jpg",
+                  "audio": "SmartPhonics/4/Unit3/sounds/glue.mp3"
+                },
+                {
+                  "word": "plane",
+                  "image": "SmartPhonics/4/Unit3/pics/plane.jpg",
+                  "audio": "SmartPhonics/4/Unit3/sounds/plane.mp3"
+                },
+                {
+                  "word": "plant",
+                  "image": "SmartPhonics/4/Unit3/pics/plant.jpg",
+                  "audio": "SmartPhonics/4/Unit3/sounds/plant.mp3"
+                },
+                {
+                  "word": "plate",
+                  "image": "SmartPhonics/4/Unit3/pics/plate.jpg",
+                  "audio": "SmartPhonics/4/Unit3/sounds/plate.mp3"
+                },
+                {
+                  "word": "plum",
+                  "image": "SmartPhonics/4/Unit3/pics/plum.jpg",
+                  "audio": "SmartPhonics/4/Unit3/sounds/plum.mp3"
+                },
+                {
+                  "word": "sled",
+                  "image": "SmartPhonics/4/Unit3/pics/sled.jpg",
+                  "audio": "SmartPhonics/4/Unit3/sounds/sled.mp3"
+                },
+                {
+                  "word": "slice",
+                  "image": "SmartPhonics/4/Unit3/pics/slice.jpg",
+                  "audio": "SmartPhonics/4/Unit3/sounds/slice.mp3"
+                },
+                {
+                  "word": "slide",
+                  "image": "SmartPhonics/4/Unit3/pics/slide.jpg",
+                  "audio": "SmartPhonics/4/Unit3/sounds/slide.mp3"
+                },
+                {
+                  "word": "slim",
+                  "image": "SmartPhonics/4/Unit3/pics/slim.jpg",
+                  "audio": "SmartPhonics/4/Unit3/sounds/slim.mp3"
+                }
+              ],
+              "extraWords": [
+                {
+                  "word": "glad"
+                },
+                {
+                  "word": "glum"
+                },
+                {
+                  "word": "plank"
+                },
+                {
+                  "word": "plus"
+                },
+                {
+                  "word": "slap"
+                },
+                {
+                  "word": "slip"
+                },
+                {
+                  "word": "slam"
+                },
+                {
+                  "word": "slot"
+                }
+              ],
+              "sightWords": [
+                {
+                  "word": "a"
+                },
+                {
+                  "word": "for"
+                },
+                {
+                  "word": "go"
+                },
+                {
+                  "word": "on"
+                },
+                {
+                  "word": "picnic"
+                },
+                {
+                  "word": "trip"
+                },
+                {
+                  "word": "your"
+                }
+              ]
+            },
+            {
+              "id": "L4U4",
+              "unitNumber": 4,
+              "name": "Unit 4: dr, pr, tr",
+              "targetSound": "dr, pr, tr",
+              "targetLetters": [
+                "dr",
+                "pr",
+                "tr"
+              ],
+              "words": [
+                {
+                  "word": "dragon",
+                  "image": "SmartPhonics/4/Unit4/pics/dragon.jpg",
+                  "audio": "SmartPhonics/4/Unit4/sounds/dragon.mp3"
+                },
+                {
+                  "word": "dress",
+                  "image": "SmartPhonics/4/Unit4/pics/dress.jpg",
+                  "audio": "SmartPhonics/4/Unit4/sounds/dress.mp3"
+                },
+                {
+                  "word": "drive",
+                  "image": "SmartPhonics/4/Unit4/pics/drive.jpg",
+                  "audio": "SmartPhonics/4/Unit4/sounds/drive.mp3"
+                },
+                {
+                  "word": "drum",
+                  "image": "SmartPhonics/4/Unit4/pics/drum.jpg",
+                  "audio": "SmartPhonics/4/Unit4/sounds/drum.mp3"
+                },
+                {
+                  "word": "press",
+                  "image": "SmartPhonics/4/Unit4/pics/press.jpg",
+                  "audio": "SmartPhonics/4/Unit4/sounds/press.mp3"
+                },
+                {
+                  "word": "price",
+                  "image": "SmartPhonics/4/Unit4/pics/price.jpg",
+                  "audio": "SmartPhonics/4/Unit4/sounds/price.mp3"
+                },
+                {
+                  "word": "print",
+                  "image": "SmartPhonics/4/Unit4/pics/print.jpg",
+                  "audio": "SmartPhonics/4/Unit4/sounds/print.mp3"
+                },
+                {
+                  "word": "prize",
+                  "image": "SmartPhonics/4/Unit4/pics/prize.jpg",
+                  "audio": "SmartPhonics/4/Unit4/sounds/prize.mp3"
+                },
+                {
+                  "word": "trace",
+                  "image": "SmartPhonics/4/Unit4/pics/trace.jpg",
+                  "audio": "SmartPhonics/4/Unit4/sounds/trace.mp3"
+                },
+                {
+                  "word": "track",
+                  "image": "SmartPhonics/4/Unit4/pics/track.jpg",
+                  "audio": "SmartPhonics/4/Unit4/sounds/track.mp3"
+                },
+                {
+                  "word": "truck",
+                  "image": "SmartPhonics/4/Unit4/pics/truck.jpg",
+                  "audio": "SmartPhonics/4/Unit4/sounds/truck.mp3"
+                },
+                {
+                  "word": "trumpet",
+                  "image": "SmartPhonics/4/Unit4/pics/trumpet.jpg",
+                  "audio": "SmartPhonics/4/Unit4/sounds/trumpet.mp3"
+                }
+              ],
+              "extraWords": [
+                {
+                  "word": "drip"
+                },
+                {
+                  "word": "drop"
+                },
+                {
+                  "word": "prank"
+                },
+                {
+                  "word": "prim"
+                },
+                {
+                  "word": "prop"
+                },
+                {
+                  "word": "trap"
+                },
+                {
+                  "word": "trip"
+                },
+                {
+                  "word": "drag"
+                }
+              ],
+              "sightWords": [
+                {
+                  "word": "a"
+                },
+                {
+                  "word": "and"
+                },
+                {
+                  "word": "are"
+                },
+                {
+                  "word": "band"
+                },
+                {
+                  "word": "contest"
+                },
+                {
+                  "word": "great"
+                },
+                {
+                  "word": "guess"
+                },
+                {
+                  "word": "in"
+                },
+                {
+                  "word": "plays"
+                },
+                {
+                  "word": "the"
+                },
+                {
+                  "word": "what"
+                }
+              ]
+            },
+            {
+              "id": "L4U5",
+              "unitNumber": 5,
+              "name": "Unit 5: sm, sn, st, sw",
+              "targetSound": "sm, sn, st, sw",
+              "targetLetters": [
+                "sm",
+                "sn",
+                "st",
+                "sw"
+              ],
+              "words": [
+                {
+                  "word": "smell",
+                  "image": "SmartPhonics/4/Unit5/pics/smell.jpg",
+                  "audio": "SmartPhonics/4/Unit5/sounds/smell.mp3"
+                },
+                {
+                  "word": "smile",
+                  "image": "SmartPhonics/4/Unit5/pics/smile.jpg",
+                  "audio": "SmartPhonics/4/Unit5/sounds/smile.mp3"
+                },
+                {
+                  "word": "smoke",
+                  "image": "SmartPhonics/4/Unit5/pics/smoke.jpg",
+                  "audio": "SmartPhonics/4/Unit5/sounds/smoke.mp3"
+                },
+                {
+                  "word": "snack",
+                  "image": "SmartPhonics/4/Unit5/pics/snack.jpg",
+                  "audio": "SmartPhonics/4/Unit5/sounds/snack.mp3"
+                },
+                {
+                  "word": "snake",
+                  "image": "SmartPhonics/4/Unit5/pics/snake.jpg",
+                  "audio": "SmartPhonics/4/Unit5/sounds/snake.mp3"
+                },
+                {
+                  "word": "snore",
+                  "image": "SmartPhonics/4/Unit5/pics/snore.jpg",
+                  "audio": "SmartPhonics/4/Unit5/sounds/snore.mp3"
+                },
+                {
+                  "word": "stone",
+                  "image": "SmartPhonics/4/Unit5/pics/stone.jpg",
+                  "audio": "SmartPhonics/4/Unit5/sounds/stone.mp3"
+                },
+                {
+                  "word": "stop",
+                  "image": "SmartPhonics/4/Unit5/pics/stop.jpg",
+                  "audio": "SmartPhonics/4/Unit5/sounds/stop.mp3"
+                },
+                {
+                  "word": "stove",
+                  "image": "SmartPhonics/4/Unit5/pics/stove.jpg",
+                  "audio": "SmartPhonics/4/Unit5/sounds/stove.mp3"
+                },
+                {
+                  "word": "sweet",
+                  "image": "SmartPhonics/4/Unit5/pics/sweet.jpg",
+                  "audio": "SmartPhonics/4/Unit5/sounds/sweet.mp3"
+                },
+                {
+                  "word": "swim",
+                  "image": "SmartPhonics/4/Unit5/pics/swim.jpg",
+                  "audio": "SmartPhonics/4/Unit5/sounds/swim.mp3"
+                },
+                {
+                  "word": "swing",
+                  "image": "SmartPhonics/4/Unit5/pics/swing.jpg",
+                  "audio": "SmartPhonics/4/Unit5/sounds/swing.mp3"
+                }
+              ],
+              "extraWords": [
+                {
+                  "word": "smack"
+                },
+                {
+                  "word": "smog"
+                },
+                {
+                  "word": "snap"
+                },
+                {
+                  "word": "snug"
+                },
+                {
+                  "word": "stack"
+                },
+                {
+                  "word": "step"
+                },
+                {
+                  "word": "swam"
+                },
+                {
+                  "word": "swat"
+                }
+              ],
+              "sightWords": [
+                {
+                  "word": "a"
+                },
+                {
+                  "word": "by"
+                },
+                {
+                  "word": "in"
+                },
+                {
+                  "word": "is"
+                },
+                {
+                  "word": "on"
+                },
+                {
+                  "word": "the"
+                }
+              ]
+            },
+            {
+              "id": "L4U6",
+              "unitNumber": 6,
+              "name": "Unit 6: ng, nk",
+              "targetSound": "ng, nk",
+              "targetLetters": [
+                "ng",
+                "nk"
+              ],
+              "words": [
+                {
+                  "word": "bang",
+                  "image": "SmartPhonics/4/Unit6/pics/bang.jpg",
+                  "audio": "SmartPhonics/4/Unit6/sounds/bang.mp3"
+                },
+                {
+                  "word": "fang",
+                  "image": "SmartPhonics/4/Unit6/pics/fang.jpg",
+                  "audio": "SmartPhonics/4/Unit6/sounds/fang.mp3"
+                },
+                {
+                  "word": "king",
+                  "image": "SmartPhonics/4/Unit6/pics/king.jpg",
+                  "audio": "SmartPhonics/4/Unit6/sounds/king.mp3"
+                },
+                {
+                  "word": "ring",
+                  "image": "SmartPhonics/4/Unit6/pics/ring.jpg",
+                  "audio": "SmartPhonics/4/Unit6/sounds/ring.mp3"
+                },
+                {
+                  "word": "gong",
+                  "image": "SmartPhonics/4/Unit6/pics/gong.jpg",
+                  "audio": "SmartPhonics/4/Unit6/sounds/gong.mp3"
+                },
+                {
+                  "word": "song",
+                  "image": "SmartPhonics/4/Unit6/pics/song.jpg",
+                  "audio": "SmartPhonics/4/Unit6/sounds/song.mp3"
+                },
+                {
+                  "word": "bank",
+                  "image": "SmartPhonics/4/Unit6/pics/bank.jpg",
+                  "audio": "SmartPhonics/4/Unit6/sounds/bank.mp3"
+                },
+                {
+                  "word": "tank",
+                  "image": "SmartPhonics/4/Unit6/pics/tank.jpg",
+                  "audio": "SmartPhonics/4/Unit6/sounds/tank.mp3"
+                },
+                {
+                  "word": "pink",
+                  "image": "SmartPhonics/4/Unit6/pics/pink.jpg",
+                  "audio": "SmartPhonics/4/Unit6/sounds/pink.mp3"
+                },
+                {
+                  "word": "wink",
+                  "image": "SmartPhonics/4/Unit6/pics/wink.jpg",
+                  "audio": "SmartPhonics/4/Unit6/sounds/wink.mp3"
+                },
+                {
+                  "word": "dunk",
+                  "image": "SmartPhonics/4/Unit6/pics/dunk.jpg",
+                  "audio": "SmartPhonics/4/Unit6/sounds/dunk.mp3"
+                },
+                {
+                  "word": "junk",
+                  "image": "SmartPhonics/4/Unit6/pics/junk.jpg",
+                  "audio": "SmartPhonics/4/Unit6/sounds/junk.mp3"
+                }
+              ],
+              "extraWords": [
+                {
+                  "word": "lung"
+                },
+                {
+                  "word": "rang"
+                },
+                {
+                  "word": "sung"
+                },
+                {
+                  "word": "hang"
+                },
+                {
+                  "word": "blink"
+                },
+                {
+                  "word": "drink"
+                },
+                {
+                  "word": "link"
+                },
+                {
+                  "word": "sink"
+                }
+              ],
+              "sightWords": [
+                {
+                  "word": "a"
+                },
+                {
+                  "word": "away"
+                },
+                {
+                  "word": "can"
+                },
+                {
+                  "word": "fly"
+                },
+                {
+                  "word": "have"
+                },
+                {
+                  "word": "I"
+                },
+                {
+                  "word": "play"
+                },
+                {
+                  "word": "says"
+                },
+                {
+                  "word": "scares"
+                },
+                {
+                  "word": "the"
+                }
+              ]
+            },
+            {
+              "id": "L4U7",
+              "unitNumber": 7,
+              "name": "Unit 7: sh, ch",
+              "targetSound": "sh, ch",
+              "targetLetters": [
+                "sh",
+                "ch"
+              ],
+              "words": [
+                {
+                  "word": "shape",
+                  "image": "SmartPhonics/4/Unit7/pics/shape.jpg",
+                  "audio": "SmartPhonics/4/Unit7/sounds/shape.mp3"
+                },
+                {
+                  "word": "ship",
+                  "image": "SmartPhonics/4/Unit7/pics/ship.jpg",
+                  "audio": "SmartPhonics/4/Unit7/sounds/ship.mp3"
+                },
+                {
+                  "word": "shop",
+                  "image": "SmartPhonics/4/Unit7/pics/shop.jpg",
+                  "audio": "SmartPhonics/4/Unit7/sounds/shop.mp3"
+                },
+                {
+                  "word": "brush",
+                  "image": "SmartPhonics/4/Unit7/pics/brush.jpg",
+                  "audio": "SmartPhonics/4/Unit7/sounds/brush.mp3"
+                },
+                {
+                  "word": "fish",
+                  "image": "SmartPhonics/4/Unit7/pics/fish.jpg",
+                  "audio": "SmartPhonics/4/Unit7/sounds/fish.mp3"
+                },
+                {
+                  "word": "flash",
+                  "image": "SmartPhonics/4/Unit7/pics/flash.jpg",
+                  "audio": "SmartPhonics/4/Unit7/sounds/flash.mp3"
+                },
+                {
+                  "word": "cherry",
+                  "image": "SmartPhonics/4/Unit7/pics/cherry.jpg",
+                  "audio": "SmartPhonics/4/Unit7/sounds/cherry.mp3"
+                },
+                {
+                  "word": "chick",
+                  "image": "SmartPhonics/4/Unit7/pics/chick.jpg",
+                  "audio": "SmartPhonics/4/Unit7/sounds/chick.mp3"
+                },
+                {
+                  "word": "chin",
+                  "image": "SmartPhonics/4/Unit7/pics/chin.jpg",
+                  "audio": "SmartPhonics/4/Unit7/sounds/chin.mp3"
+                },
+                {
+                  "word": "bench",
+                  "image": "SmartPhonics/4/Unit7/pics/bench.jpg",
+                  "audio": "SmartPhonics/4/Unit7/sounds/bench.mp3"
+                },
+                {
+                  "word": "branch",
+                  "image": "SmartPhonics/4/Unit7/pics/branch.jpg",
+                  "audio": "SmartPhonics/4/Unit7/sounds/branch.mp3"
+                },
+                {
+                  "word": "catch",
+                  "image": "SmartPhonics/4/Unit7/pics/catch.jpg",
+                  "audio": "SmartPhonics/4/Unit7/sounds/catch.mp3"
+                }
+              ],
+              "extraWords": [
+                {
+                  "word": "shed"
+                },
+                {
+                  "word": "shell"
+                },
+                {
+                  "word": "shut"
+                },
+                {
+                  "word": "shack"
+                },
+                {
+                  "word": "chest"
+                },
+                {
+                  "word": "chip"
+                },
+                {
+                  "word": "check"
+                },
+                {
+                  "word": "chop"
+                }
+              ],
+              "sightWords": [
+                {
+                  "word": "a"
+                },
+                {
+                  "word": "and"
+                },
+                {
+                  "word": "away"
+                },
+                {
+                  "word": "is"
+                },
+                {
+                  "word": "it"
+                },
+                {
+                  "word": "no"
+                },
+                {
+                  "word": "on"
+                },
+                {
+                  "word": "sees"
+                },
+                {
+                  "word": "silly"
+                },
+                {
+                  "word": "the"
+                },
+                {
+                  "word": "there"
+                }
+              ]
+            },
+            {
+              "id": "L4U8",
+              "unitNumber": 8,
+              "name": "Unit 8: th, wh",
+              "targetSound": "th, wh",
+              "targetLetters": [
+                "th",
+                "wh"
+              ],
+              "words": [
+                {
+                  "word": "thick",
+                  "image": "SmartPhonics/4/Unit8/pics/thick.jpg",
+                  "audio": "SmartPhonics/4/Unit8/sounds/thick.mp3"
+                },
+                {
+                  "word": "thin",
+                  "image": "SmartPhonics/4/Unit8/pics/thin.jpg",
+                  "audio": "SmartPhonics/4/Unit8/sounds/thin.mp3"
+                },
+                {
+                  "word": "thumb",
+                  "image": "SmartPhonics/4/Unit8/pics/thumb.jpg",
+                  "audio": "SmartPhonics/4/Unit8/sounds/thumb.mp3"
+                },
+                {
+                  "word": "bath",
+                  "image": "SmartPhonics/4/Unit8/pics/bath.jpg",
+                  "audio": "SmartPhonics/4/Unit8/sounds/bath.mp3"
+                },
+                {
+                  "word": "math",
+                  "image": "SmartPhonics/4/Unit8/pics/math.jpg",
+                  "audio": "SmartPhonics/4/Unit8/sounds/math.mp3"
+                },
+                {
+                  "word": "teeth",
+                  "image": "SmartPhonics/4/Unit8/pics/teeth.jpg",
+                  "audio": "SmartPhonics/4/Unit8/sounds/teeth.mp3"
+                },
+                {
+                  "word": "whale",
+                  "image": "SmartPhonics/4/Unit8/pics/whale.jpg",
+                  "audio": "SmartPhonics/4/Unit8/sounds/whale.mp3"
+                },
+                {
+                  "word": "wheel",
+                  "image": "SmartPhonics/4/Unit8/pics/wheel.jpg",
+                  "audio": "SmartPhonics/4/Unit8/sounds/wheel.mp3"
+                },
+                {
+                  "word": "whip",
+                  "image": "SmartPhonics/4/Unit8/pics/whip.jpg",
+                  "audio": "SmartPhonics/4/Unit8/sounds/whip.mp3"
+                },
+                {
+                  "word": "whisk",
+                  "image": "SmartPhonics/4/Unit8/pics/whisk.jpg",
+                  "audio": "SmartPhonics/4/Unit8/sounds/whisk.mp3"
+                },
+                {
+                  "word": "whisper",
+                  "image": "SmartPhonics/4/Unit8/pics/whisper.jpg",
+                  "audio": "SmartPhonics/4/Unit8/sounds/whisper.mp3"
+                },
+                {
+                  "word": "white",
+                  "image": "SmartPhonics/4/Unit8/pics/white.jpg",
+                  "audio": "SmartPhonics/4/Unit8/sounds/white.mp3"
+                }
+              ],
+              "extraWords": [
+                {
+                  "word": "then"
+                },
+                {
+                  "word": "thing"
+                },
+                {
+                  "word": "think"
+                },
+                {
+                  "word": "thud"
+                },
+                {
+                  "word": "when"
+                },
+                {
+                  "word": "whim"
+                },
+                {
+                  "word": "whack"
+                },
+                {
+                  "word": "whine"
+                }
+              ],
+              "sightWords": [
+                {
+                  "word": "a"
+                },
+                {
+                  "word": "all"
+                },
+                {
+                  "word": "and"
+                },
+                {
+                  "word": "animals"
+                },
+                {
+                  "word": "are"
+                },
+                {
+                  "word": "are not"
+                },
+                {
+                  "word": "but"
+                },
+                {
+                  "word": "do not"
+                },
+                {
+                  "word": "eat"
+                },
+                {
+                  "word": "have"
+                },
+                {
+                  "word": "in"
+                },
+                {
+                  "word": "live"
+                },
+                {
+                  "word": "some"
+                },
+                {
+                  "word": "the"
+                },
+                {
+                  "word": "they"
+                },
+                {
+                  "word": "water"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "L5",
+          "name": "Level 5",
+          "bookNumber": 5,
+          "units": [
+            {
+              "id": "L5U1",
+              "unitNumber": 1,
+              "name": "Unit 1: ee, ea",
+              "targetSound": "ee, ea",
+              "targetLetters": [
+                "ee",
+                "ea"
+              ],
+              "words": [
+                {
+                  "word": "bee",
+                  "image": "SmartPhonics/5/Unit1/pics/bee.jpg",
+                  "audio": "SmartPhonics/5/Unit1/sounds/bee.mp3"
+                },
+                {
+                  "word": "feet",
+                  "image": "SmartPhonics/5/Unit1/pics/feet.jpg",
+                  "audio": "SmartPhonics/5/Unit1/sounds/feet.mp3"
+                },
+                {
+                  "word": "green",
+                  "image": "SmartPhonics/5/Unit1/pics/green.jpg",
+                  "audio": "SmartPhonics/5/Unit1/sounds/green.mp3"
+                },
+                {
+                  "word": "peel",
+                  "image": "SmartPhonics/5/Unit1/pics/peel.jpg",
+                  "audio": "SmartPhonics/5/Unit1/sounds/peel.mp3"
+                },
+                {
+                  "word": "seed",
+                  "image": "SmartPhonics/5/Unit1/pics/seed.jpg",
+                  "audio": "SmartPhonics/5/Unit1/sounds/seed.mp3"
+                },
+                {
+                  "word": "tree",
+                  "image": "SmartPhonics/5/Unit1/pics/tree.jpg",
+                  "audio": "SmartPhonics/5/Unit1/sounds/tree.mp3"
+                },
+                {
+                  "word": "leaf",
+                  "image": "SmartPhonics/5/Unit1/pics/leaf.jpg",
+                  "audio": "SmartPhonics/5/Unit1/sounds/leaf.mp3"
+                },
+                {
+                  "word": "meat",
+                  "image": "SmartPhonics/5/Unit1/pics/meat.jpg",
+                  "audio": "SmartPhonics/5/Unit1/sounds/meat.mp3"
+                },
+                {
+                  "word": "peanut",
+                  "image": "SmartPhonics/5/Unit1/pics/peanut.jpg",
+                  "audio": "SmartPhonics/5/Unit1/sounds/peanut.mp3"
+                },
+                {
+                  "word": "sea",
+                  "image": "SmartPhonics/5/Unit1/pics/sea.jpg",
+                  "audio": "SmartPhonics/5/Unit1/sounds/sea.mp3"
+                },
+                {
+                  "word": "seal",
+                  "image": "SmartPhonics/5/Unit1/pics/seal.jpg",
+                  "audio": "SmartPhonics/5/Unit1/sounds/seal.mp3"
+                },
+                {
+                  "word": "tea",
+                  "image": "SmartPhonics/5/Unit1/pics/tea.jpg",
+                  "audio": "SmartPhonics/5/Unit1/sounds/tea.mp3"
+                }
+              ],
+              "extraWords": [
+                {
+                  "word": "seek"
+                },
+                {
+                  "word": "week"
+                },
+                {
+                  "word": "deep"
+                },
+                {
+                  "word": "keep"
+                },
+                {
+                  "word": "beam"
+                },
+                {
+                  "word": "beat"
+                },
+                {
+                  "word": "heat"
+                },
+                {
+                  "word": "lead"
+                }
+              ],
+              "sightWords": [
+                {
+                  "word": "a"
+                },
+                {
+                  "word": "has"
+                },
+                {
+                  "word": "in"
+                },
+                {
+                  "word": "on"
+                },
+                {
+                  "word": "says"
+                },
+                {
+                  "word": "the"
+                }
+              ]
+            },
+            {
+              "id": "L5U2",
+              "unitNumber": 2,
+              "name": "Unit 2: oa, ow",
+              "targetSound": "oa, ow",
+              "targetLetters": [
+                "oa",
+                "ow"
+              ],
+              "words": [
+                {
+                  "word": "boat",
+                  "image": "SmartPhonics/5/Unit2/pics/boat.jpg",
+                  "audio": "SmartPhonics/5/Unit2/sounds/boat.mp3"
+                },
+                {
+                  "word": "coat",
+                  "image": "SmartPhonics/5/Unit2/pics/coat.jpg",
+                  "audio": "SmartPhonics/5/Unit2/sounds/coat.mp3"
+                },
+                {
+                  "word": "goat",
+                  "image": "SmartPhonics/5/Unit2/pics/goat.jpg",
+                  "audio": "SmartPhonics/5/Unit2/sounds/goat.mp3"
+                },
+                {
+                  "word": "road",
+                  "image": "SmartPhonics/5/Unit2/pics/road.jpg",
+                  "audio": "SmartPhonics/5/Unit2/sounds/road.mp3"
+                },
+                {
+                  "word": "soap",
+                  "image": "SmartPhonics/5/Unit2/pics/soap.jpg",
+                  "audio": "SmartPhonics/5/Unit2/sounds/soap.mp3"
+                },
+                {
+                  "word": "toast",
+                  "image": "SmartPhonics/5/Unit2/pics/toast.jpg",
+                  "audio": "SmartPhonics/5/Unit2/sounds/toast.mp3"
+                },
+                {
+                  "word": "blow",
+                  "image": "SmartPhonics/5/Unit2/pics/blow.jpg",
+                  "audio": "SmartPhonics/5/Unit2/sounds/blow.mp3"
+                },
+                {
+                  "word": "bowl",
+                  "image": "SmartPhonics/5/Unit2/pics/bowl.jpg",
+                  "audio": "SmartPhonics/5/Unit2/sounds/bowl.mp3"
+                },
+                {
+                  "word": "pillow",
+                  "image": "SmartPhonics/5/Unit2/pics/pillow.jpg",
+                  "audio": "SmartPhonics/5/Unit2/sounds/pillow.mp3"
+                },
+                {
+                  "word": "snow",
+                  "image": "SmartPhonics/5/Unit2/pics/snow.jpg",
+                  "audio": "SmartPhonics/5/Unit2/sounds/snow.mp3"
+                },
+                {
+                  "word": "window",
+                  "image": "SmartPhonics/5/Unit2/pics/window.jpg",
+                  "audio": "SmartPhonics/5/Unit2/sounds/window.mp3"
+                },
+                {
+                  "word": "yellow",
+                  "image": "SmartPhonics/5/Unit2/pics/yellow.jpg",
+                  "audio": "SmartPhonics/5/Unit2/sounds/yellow.mp3"
+                }
+              ],
+              "extraWords": [
+                {
+                  "word": "load"
+                },
+                {
+                  "word": "toad"
+                },
+                {
+                  "word": "foam"
+                },
+                {
+                  "word": "loan"
+                },
+                {
+                  "word": "crow"
+                },
+                {
+                  "word": "flow"
+                },
+                {
+                  "word": "glow"
+                },
+                {
+                  "word": "grow"
+                }
+              ],
+              "sightWords": [
+                {
+                  "word": "and"
+                },
+                {
+                  "word": "bubble"
+                },
+                {
+                  "word": "hungry"
+                },
+                {
+                  "word": "I"
+                },
+                {
+                  "word": "is"
+                },
+                {
+                  "word": "more"
+                },
+                {
+                  "word": "on"
+                },
+                {
+                  "word": "says"
+                },
+                {
+                  "word": "the"
+                },
+                {
+                  "word": "want"
+                }
+              ]
+            },
+            {
+              "id": "L5U3",
+              "unitNumber": 3,
+              "name": "Unit 3: ai, ay",
+              "targetSound": "ai, ay",
+              "targetLetters": [
+                "ai",
+                "ay"
+              ],
+              "words": [
+                {
+                  "word": "mail",
+                  "image": "SmartPhonics/5/Unit3/pics/mail.jpg",
+                  "audio": "SmartPhonics/5/Unit3/sounds/mail.mp3"
+                },
+                {
+                  "word": "nail",
+                  "image": "SmartPhonics/5/Unit3/pics/nail.jpg",
+                  "audio": "SmartPhonics/5/Unit3/sounds/nail.mp3"
+                },
+                {
+                  "word": "rail",
+                  "image": "SmartPhonics/5/Unit3/pics/rail.jpg",
+                  "audio": "SmartPhonics/5/Unit3/sounds/rail.mp3"
+                },
+                {
+                  "word": "rain",
+                  "image": "SmartPhonics/5/Unit3/pics/rain.jpg",
+                  "audio": "SmartPhonics/5/Unit3/sounds/rain.mp3"
+                },
+                {
+                  "word": "tail",
+                  "image": "SmartPhonics/5/Unit3/pics/tail.jpg",
+                  "audio": "SmartPhonics/5/Unit3/sounds/tail.mp3"
+                },
+                {
+                  "word": "train",
+                  "image": "SmartPhonics/5/Unit3/pics/train.jpg",
+                  "audio": "SmartPhonics/5/Unit3/sounds/train.mp3"
+                },
+                {
+                  "word": "clay",
+                  "image": "SmartPhonics/5/Unit3/pics/clay.jpg",
+                  "audio": "SmartPhonics/5/Unit3/sounds/clay.mp3"
+                },
+                {
+                  "word": "gray",
+                  "image": "SmartPhonics/5/Unit3/pics/gray.jpg",
+                  "audio": "SmartPhonics/5/Unit3/sounds/gray.mp3"
+                },
+                {
+                  "word": "hay",
+                  "image": "SmartPhonics/5/Unit3/pics/hay.jpg",
+                  "audio": "SmartPhonics/5/Unit3/sounds/hay.mp3"
+                },
+                {
+                  "word": "play",
+                  "image": "SmartPhonics/5/Unit3/pics/play.jpg",
+                  "audio": "SmartPhonics/5/Unit3/sounds/play.mp3"
+                },
+                {
+                  "word": "pray",
+                  "image": "SmartPhonics/5/Unit3/pics/pray.jpg",
+                  "audio": "SmartPhonics/5/Unit3/sounds/pray.mp3"
+                },
+                {
+                  "word": "tray",
+                  "image": "SmartPhonics/5/Unit3/pics/tray.jpg",
+                  "audio": "SmartPhonics/5/Unit3/sounds/tray.mp3"
+                }
+              ],
+              "extraWords": [
+                {
+                  "word": "aim"
+                },
+                {
+                  "word": "bait"
+                },
+                {
+                  "word": "gain"
+                },
+                {
+                  "word": "hail"
+                },
+                {
+                  "word": "bay"
+                },
+                {
+                  "word": "day"
+                },
+                {
+                  "word": "jay"
+                },
+                {
+                  "word": "may"
+                }
+              ],
+              "sightWords": [
+                {
+                  "word": "a"
+                },
+                {
+                  "word": "and"
+                },
+                {
+                  "word": "hooray"
+                },
+                {
+                  "word": "in"
+                },
+                {
+                  "word": "jump"
+                },
+                {
+                  "word": "on"
+                },
+                {
+                  "word": "splash"
+                },
+                {
+                  "word": "the"
+                },
+                {
+                  "word": "they"
+                },
+                {
+                  "word": "with"
+                }
+              ]
+            },
+            {
+              "id": "L5U4",
+              "unitNumber": 4,
+              "name": "Unit 4: oi, oy",
+              "targetSound": "oi, oy",
+              "targetLetters": [
+                "oi",
+                "oy"
+              ],
+              "words": [
+                {
+                  "word": "boil",
+                  "image": "SmartPhonics/5/Unit4/pics/boil.jpg",
+                  "audio": "SmartPhonics/5/Unit4/sounds/boil.mp3"
+                },
+                {
+                  "word": "coil",
+                  "image": "SmartPhonics/5/Unit4/pics/coil.jpg",
+                  "audio": "SmartPhonics/5/Unit4/sounds/coil.mp3"
+                },
+                {
+                  "word": "coin",
+                  "image": "SmartPhonics/5/Unit4/pics/coin.jpg",
+                  "audio": "SmartPhonics/5/Unit4/sounds/coin.mp3"
+                },
+                {
+                  "word": "foil",
+                  "image": "SmartPhonics/5/Unit4/pics/foil.jpg",
+                  "audio": "SmartPhonics/5/Unit4/sounds/foil.mp3"
+                },
+                {
+                  "word": "oil",
+                  "image": "SmartPhonics/5/Unit4/pics/oil.jpg",
+                  "audio": "SmartPhonics/5/Unit4/sounds/oil.mp3"
+                },
+                {
+                  "word": "point",
+                  "image": "SmartPhonics/5/Unit4/pics/point.jpg",
+                  "audio": "SmartPhonics/5/Unit4/sounds/point.mp3"
+                },
+                {
+                  "word": "soil",
+                  "image": "SmartPhonics/5/Unit4/pics/soil.jpg",
+                  "audio": "SmartPhonics/5/Unit4/sounds/soil.mp3"
+                },
+                {
+                  "word": "toilet",
+                  "image": "SmartPhonics/5/Unit4/pics/toilet.jpg",
+                  "audio": "SmartPhonics/5/Unit4/sounds/toilet.mp3"
+                },
+                {
+                  "word": "boy",
+                  "image": "SmartPhonics/5/Unit4/pics/boy.jpg",
+                  "audio": "SmartPhonics/5/Unit4/sounds/boy.mp3"
+                },
+                {
+                  "word": "joy",
+                  "image": "SmartPhonics/5/Unit4/pics/joy.jpg",
+                  "audio": "SmartPhonics/5/Unit4/sounds/joy.mp3"
+                },
+                {
+                  "word": "soybean",
+                  "image": "SmartPhonics/5/Unit4/pics/soybean.jpg",
+                  "audio": "SmartPhonics/5/Unit4/sounds/soybean.mp3"
+                },
+                {
+                  "word": "toy",
+                  "image": "SmartPhonics/5/Unit4/pics/toy.jpg",
+                  "audio": "SmartPhonics/5/Unit4/sounds/toy.mp3"
+                }
+              ],
+              "extraWords": [
+                {
+                  "word": "join"
+                },
+                {
+                  "word": "void"
+                },
+                {
+                  "word": "voice"
+                },
+                {
+                  "word": "choice"
+                },
+                {
+                  "word": "coy"
+                },
+                {
+                  "word": "soy"
+                }
+              ],
+              "sightWords": [
+                {
+                  "word": "a"
+                },
+                {
+                  "word": "for"
+                },
+                {
+                  "word": "he"
+                },
+                {
+                  "word": "in"
+                },
+                {
+                  "word": "jumps"
+                },
+                {
+                  "word": "no"
+                },
+                {
+                  "word": "says"
+                },
+                {
+                  "word": "the"
+                },
+                {
+                  "word": "with"
+                },
+                {
+                  "word": "wow"
+                }
+              ]
+            },
+            {
+              "id": "L5U5",
+              "unitNumber": 5,
+              "name": "Unit 5: ow, ou",
+              "targetSound": "ow, ou",
+              "targetLetters": [
+                "ow",
+                "ou"
+              ],
+              "words": [
+                {
+                  "word": "brown",
+                  "image": "SmartPhonics/5/Unit5/pics/brown.jpg",
+                  "audio": "SmartPhonics/5/Unit5/sounds/brown.mp3"
+                },
+                {
+                  "word": "clown",
+                  "image": "SmartPhonics/5/Unit5/pics/clown.jpg",
+                  "audio": "SmartPhonics/5/Unit5/sounds/clown.mp3"
+                },
+                {
+                  "word": "cow",
+                  "image": "SmartPhonics/5/Unit5/pics/cow.jpg",
+                  "audio": "SmartPhonics/5/Unit5/sounds/cow.mp3"
+                },
+                {
+                  "word": "crown",
+                  "image": "SmartPhonics/5/Unit5/pics/crown.jpg",
+                  "audio": "SmartPhonics/5/Unit5/sounds/crown.mp3"
+                },
+                {
+                  "word": "gown",
+                  "image": "SmartPhonics/5/Unit5/pics/gown.jpg",
+                  "audio": "SmartPhonics/5/Unit5/sounds/gown.mp3"
+                },
+                {
+                  "word": "owl",
+                  "image": "SmartPhonics/5/Unit5/pics/owl.jpg",
+                  "audio": "SmartPhonics/5/Unit5/sounds/owl.mp3"
+                },
+                {
+                  "word": "blouse",
+                  "image": "SmartPhonics/5/Unit5/pics/blouse.jpg",
+                  "audio": "SmartPhonics/5/Unit5/sounds/blouse.mp3"
+                },
+                {
+                  "word": "cloud",
+                  "image": "SmartPhonics/5/Unit5/pics/cloud.jpg",
+                  "audio": "SmartPhonics/5/Unit5/sounds/cloud.mp3"
+                },
+                {
+                  "word": "count",
+                  "image": "SmartPhonics/5/Unit5/pics/count.jpg",
+                  "audio": "SmartPhonics/5/Unit5/sounds/count.mp3"
+                },
+                {
+                  "word": "house",
+                  "image": "SmartPhonics/5/Unit5/pics/house.jpg",
+                  "audio": "SmartPhonics/5/Unit5/sounds/house.mp3"
+                },
+                {
+                  "word": "mouse",
+                  "image": "SmartPhonics/5/Unit5/pics/mouse.jpg",
+                  "audio": "SmartPhonics/5/Unit5/sounds/mouse.mp3"
+                },
+                {
+                  "word": "mouth",
+                  "image": "SmartPhonics/5/Unit5/pics/mouth.jpg",
+                  "audio": "SmartPhonics/5/Unit5/sounds/mouth.mp3"
+                }
+              ],
+              "extraWords": [
+                {
+                  "word": "how"
+                },
+                {
+                  "word": "now"
+                },
+                {
+                  "word": "town"
+                },
+                {
+                  "word": "down"
+                },
+                {
+                  "word": "loud"
+                },
+                {
+                  "word": "proud"
+                },
+                {
+                  "word": "pound"
+                }
+              ],
+              "sightWords": [
+                {
+                  "word": "a"
+                },
+                {
+                  "word": "an"
+                },
+                {
+                  "word": "and"
+                },
+                {
+                  "word": "comes"
+                },
+                {
+                  "word": "has"
+                },
+                {
+                  "word": "he"
+                },
+                {
+                  "word": "here"
+                },
+                {
+                  "word": "is"
+                },
+                {
+                  "word": "it"
+                },
+                {
+                  "word": "magic"
+                },
+                {
+                  "word": "puts on"
+                },
+                {
+                  "word": "the"
+                },
+                {
+                  "word": "watch out"
+                }
+              ]
+            },
+            {
+              "id": "L5U6",
+              "unitNumber": 6,
+              "name": "Unit 6: ir, er, ur",
+              "targetSound": "ir, er, ur",
+              "targetLetters": [
+                "ir",
+                "er",
+                "ur"
+              ],
+              "words": [
+                {
+                  "word": "bird",
+                  "image": "SmartPhonics/5/Unit6/pics/bird.jpg",
+                  "audio": "SmartPhonics/5/Unit6/sounds/bird.mp3"
+                },
+                {
+                  "word": "girl",
+                  "image": "SmartPhonics/5/Unit6/pics/girl.jpg",
+                  "audio": "SmartPhonics/5/Unit6/sounds/girl.mp3"
+                },
+                {
+                  "word": "shirt",
+                  "image": "SmartPhonics/5/Unit6/pics/shirt.jpg",
+                  "audio": "SmartPhonics/5/Unit6/sounds/shirt.mp3"
+                },
+                {
+                  "word": "skirt",
+                  "image": "SmartPhonics/5/Unit6/pics/skirt.jpg",
+                  "audio": "SmartPhonics/5/Unit6/sounds/skirt.mp3"
+                },
+                {
+                  "word": "letter",
+                  "image": "SmartPhonics/5/Unit6/pics/letter.jpg",
+                  "audio": "SmartPhonics/5/Unit6/sounds/letter.mp3"
+                },
+                {
+                  "word": "singer",
+                  "image": "SmartPhonics/5/Unit6/pics/singer.jpg",
+                  "audio": "SmartPhonics/5/Unit6/sounds/singer.mp3"
+                },
+                {
+                  "word": "soccer",
+                  "image": "SmartPhonics/5/Unit6/pics/soccer.jpg",
+                  "audio": "SmartPhonics/5/Unit6/sounds/soccer.mp3"
+                },
+                {
+                  "word": "teacher",
+                  "image": "SmartPhonics/5/Unit6/pics/teacher.jpg",
+                  "audio": "SmartPhonics/5/Unit6/sounds/teacher.mp3"
+                },
+                {
+                  "word": "nurse",
+                  "image": "SmartPhonics/5/Unit6/pics/nurse.jpg",
+                  "audio": "SmartPhonics/5/Unit6/sounds/nurse.mp3"
+                },
+                {
+                  "word": "purple",
+                  "image": "SmartPhonics/5/Unit6/pics/purple.jpg",
+                  "audio": "SmartPhonics/5/Unit6/sounds/purple.mp3"
+                },
+                {
+                  "word": "purse",
+                  "image": "SmartPhonics/5/Unit6/pics/purse.jpg",
+                  "audio": "SmartPhonics/5/Unit6/sounds/purse.mp3"
+                },
+                {
+                  "word": "turtle",
+                  "image": "SmartPhonics/5/Unit6/pics/turtle.jpg",
+                  "audio": "SmartPhonics/5/Unit6/sounds/turtle.mp3"
+                }
+              ],
+              "extraWords": [
+                {
+                  "word": "dirt"
+                },
+                {
+                  "word": "firm"
+                },
+                {
+                  "word": "first"
+                },
+                {
+                  "word": "her"
+                },
+                {
+                  "word": "term"
+                },
+                {
+                  "word": "verb"
+                },
+                {
+                  "word": "burn"
+                },
+                {
+                  "word": "curl"
+                }
+              ],
+              "sightWords": [
+                {
+                  "word": "a"
+                },
+                {
+                  "word": "and"
+                },
+                {
+                  "word": "by"
+                },
+                {
+                  "word": "in"
+                },
+                {
+                  "word": "is"
+                },
+                {
+                  "word": "it"
+                },
+                {
+                  "word": "no"
+                },
+                {
+                  "word": "oh"
+                },
+                {
+                  "word": "she"
+                },
+                {
+                  "word": "the"
+                },
+                {
+                  "word": "under"
+                },
+                {
+                  "word": "with"
+                }
+              ]
+            },
+            {
+              "id": "L5U7",
+              "unitNumber": 7,
+              "name": "Unit 7: ar, or",
+              "targetSound": "ar, or",
+              "targetLetters": [
+                "ar",
+                "or"
+              ],
+              "words": [
+                {
+                  "word": "arm",
+                  "image": "SmartPhonics/5/Unit7/pics/arm.jpg",
+                  "audio": "SmartPhonics/5/Unit7/sounds/arm.mp3"
+                },
+                {
+                  "word": "car",
+                  "image": "SmartPhonics/5/Unit7/pics/car.jpg",
+                  "audio": "SmartPhonics/5/Unit7/sounds/car.mp3"
+                },
+                {
+                  "word": "card",
+                  "image": "SmartPhonics/5/Unit7/pics/card.jpg",
+                  "audio": "SmartPhonics/5/Unit7/sounds/card.mp3"
+                },
+                {
+                  "word": "farmer",
+                  "image": "SmartPhonics/5/Unit7/pics/farmer.jpg",
+                  "audio": "SmartPhonics/5/Unit7/sounds/farmer.mp3"
+                },
+                {
+                  "word": "park",
+                  "image": "SmartPhonics/5/Unit7/pics/park.jpg",
+                  "audio": "SmartPhonics/5/Unit7/sounds/park.mp3"
+                },
+                {
+                  "word": "star",
+                  "image": "SmartPhonics/5/Unit7/pics/star.jpg",
+                  "audio": "SmartPhonics/5/Unit7/sounds/star.mp3"
+                },
+                {
+                  "word": "cork",
+                  "image": "SmartPhonics/5/Unit7/pics/cork.jpg",
+                  "audio": "SmartPhonics/5/Unit7/sounds/cork.mp3"
+                },
+                {
+                  "word": "corn",
+                  "image": "SmartPhonics/5/Unit7/pics/corn.jpg",
+                  "audio": "SmartPhonics/5/Unit7/sounds/corn.mp3"
+                },
+                {
+                  "word": "fork",
+                  "image": "SmartPhonics/5/Unit7/pics/fork.jpg",
+                  "audio": "SmartPhonics/5/Unit7/sounds/fork.mp3"
+                },
+                {
+                  "word": "horse",
+                  "image": "SmartPhonics/5/Unit7/pics/horse.jpg",
+                  "audio": "SmartPhonics/5/Unit7/sounds/horse.mp3"
+                },
+                {
+                  "word": "north",
+                  "image": "SmartPhonics/5/Unit7/pics/north.jpg",
+                  "audio": "SmartPhonics/5/Unit7/sounds/north.mp3"
+                },
+                {
+                  "word": "store",
+                  "image": "SmartPhonics/5/Unit7/pics/store.jpg",
+                  "audio": "SmartPhonics/5/Unit7/sounds/store.mp3"
+                }
+              ],
+              "extraWords": [
+                {
+                  "word": "bar"
+                },
+                {
+                  "word": "far"
+                },
+                {
+                  "word": "jar"
+                },
+                {
+                  "word": "dark"
+                },
+                {
+                  "word": "for"
+                },
+                {
+                  "word": "nor"
+                },
+                {
+                  "word": "port"
+                },
+                {
+                  "word": "sort"
+                }
+              ],
+              "sightWords": [
+                {
+                  "word": "a"
+                },
+                {
+                  "word": "and"
+                },
+                {
+                  "word": "at"
+                },
+                {
+                  "word": "has"
+                },
+                {
+                  "word": "he"
+                },
+                {
+                  "word": "in"
+                },
+                {
+                  "word": "is"
+                },
+                {
+                  "word": "on"
+                },
+                {
+                  "word": "race"
+                },
+                {
+                  "word": "strong"
+                },
+                {
+                  "word": "the"
+                }
+              ]
+            },
+            {
+              "id": "L5U8",
+              "unitNumber": 8,
+              "name": "Unit 8: oo",
+              "targetSound": "oo",
+              "targetLetters": [
+                "oo"
+              ],
+              "words": [
+                {
+                  "word": "book",
+                  "image": "SmartPhonics/5/Unit8/pics/book.jpg",
+                  "audio": "SmartPhonics/5/Unit8/sounds/book.mp3"
+                },
+                {
+                  "word": "cook",
+                  "image": "SmartPhonics/5/Unit8/pics/cook.jpg",
+                  "audio": "SmartPhonics/5/Unit8/sounds/cook.mp3"
+                },
+                {
+                  "word": "foot",
+                  "image": "SmartPhonics/5/Unit8/pics/foot.jpg",
+                  "audio": "SmartPhonics/5/Unit8/sounds/foot.mp3"
+                },
+                {
+                  "word": "hook",
+                  "image": "SmartPhonics/5/Unit8/pics/hook.jpg",
+                  "audio": "SmartPhonics/5/Unit8/sounds/hook.mp3"
+                },
+                {
+                  "word": "look",
+                  "image": "SmartPhonics/5/Unit8/pics/look.jpg",
+                  "audio": "SmartPhonics/5/Unit8/sounds/look.mp3"
+                },
+                {
+                  "word": "wood",
+                  "image": "SmartPhonics/5/Unit8/pics/wood.jpg",
+                  "audio": "SmartPhonics/5/Unit8/sounds/wood.mp3"
+                },
+                {
+                  "word": "food",
+                  "image": "SmartPhonics/5/Unit8/pics/food.jpg",
+                  "audio": "SmartPhonics/5/Unit8/sounds/food.mp3"
+                },
+                {
+                  "word": "goose",
+                  "image": "SmartPhonics/5/Unit8/pics/goose.jpg",
+                  "audio": "SmartPhonics/5/Unit8/sounds/goose.mp3"
+                },
+                {
+                  "word": "moon",
+                  "image": "SmartPhonics/5/Unit8/pics/moon.jpg",
+                  "audio": "SmartPhonics/5/Unit8/sounds/moon.mp3"
+                },
+                {
+                  "word": "pool",
+                  "image": "SmartPhonics/5/Unit8/pics/pool.jpg",
+                  "audio": "SmartPhonics/5/Unit8/sounds/pool.mp3"
+                },
+                {
+                  "word": "spoon",
+                  "image": "SmartPhonics/5/Unit8/pics/spoon.jpg",
+                  "audio": "SmartPhonics/5/Unit8/sounds/spoon.mp3"
+                },
+                {
+                  "word": "zoo",
+                  "image": "SmartPhonics/5/Unit8/pics/zoo.jpg",
+                  "audio": "SmartPhonics/5/Unit8/sounds/zoo.mp3"
+                }
+              ],
+              "extraWords": [
+                {
+                  "word": "good"
+                },
+                {
+                  "word": "hood"
+                },
+                {
+                  "word": "soot"
+                },
+                {
+                  "word": "wool"
+                },
+                {
+                  "word": "cool"
+                },
+                {
+                  "word": "fool"
+                },
+                {
+                  "word": "root"
+                }
+              ],
+              "sightWords": [
+                {
+                  "word": "asks"
+                },
+                {
+                  "word": "for"
+                },
+                {
+                  "word": "he"
+                },
+                {
+                  "word": "here"
+                },
+                {
+                  "word": "his"
+                },
+                {
+                  "word": "is"
+                },
+                {
+                  "word": "it"
+                },
+                {
+                  "word": "my"
+                },
+                {
+                  "word": "on"
+                },
+                {
+                  "word": "says"
+                },
+                {
+                  "word": "silly"
+                },
+                {
+                  "word": "the"
+                },
+                {
+                  "word": "where"
+                },
+                {
+                  "word": "you"
+                }
+              ]
+            },
+            {
+              "id": "L5U9",
+              "unitNumber": 9,
+              "name": "Unit 9: au, aw, all",
+              "targetSound": "au, aw, all",
+              "targetLetters": [
+                "au",
+                "aw",
+                "all"
+              ],
+              "words": [
+                {
+                  "word": "August",
+                  "image": "SmartPhonics/5/Unit9/pics/August.png",
+                  "audio": "SmartPhonics/5/Unit9/sounds/August.mp3"
+                },
+                {
+                  "word": "ball",
+                  "image": "SmartPhonics/5/Unit9/pics/ball.png",
+                  "audio": "SmartPhonics/5/Unit9/sounds/ball.mp3"
+                },
+                {
+                  "word": "crawl",
+                  "image": "SmartPhonics/5/Unit9/pics/crawl.png",
+                  "audio": "SmartPhonics/5/Unit9/sounds/crawl.mp3"
+                },
+                {
+                  "word": "draw",
+                  "image": "SmartPhonics/5/Unit9/pics/draw.png",
+                  "audio": "SmartPhonics/5/Unit9/sounds/draw.mp3"
+                },
+                {
+                  "word": "launch",
+                  "image": "SmartPhonics/5/Unit9/pics/launch.png",
+                  "audio": "SmartPhonics/5/Unit9/sounds/launch.mp3"
+                },
+                {
+                  "word": "mall",
+                  "image": "SmartPhonics/5/Unit9/pics/mall.png",
+                  "audio": "SmartPhonics/5/Unit9/sounds/mall.mp3"
+                },
+                {
+                  "word": "pause",
+                  "image": "SmartPhonics/5/Unit9/pics/pause.png",
+                  "audio": "SmartPhonics/5/Unit9/sounds/pause.mp3"
+                },
+                {
+                  "word": "prawn",
+                  "image": "SmartPhonics/5/Unit9/pics/prawn.png",
+                  "audio": "SmartPhonics/5/Unit9/sounds/prawn.mp3"
+                },
+                {
+                  "word": "sauce",
+                  "image": "SmartPhonics/5/Unit9/pics/sauce.png",
+                  "audio": "SmartPhonics/5/Unit9/sounds/sauce.mp3"
+                },
+                {
+                  "word": "small",
+                  "image": "SmartPhonics/5/Unit9/pics/small.png",
+                  "audio": "SmartPhonics/5/Unit9/sounds/small.mp3"
+                },
+                {
+                  "word": "tall",
+                  "image": "SmartPhonics/5/Unit9/pics/tall.png",
+                  "audio": "SmartPhonics/5/Unit9/sounds/tall.mp3"
+                },
+                {
+                  "word": "yawn",
+                  "image": "SmartPhonics/5/Unit9/pics/yawn.png",
+                  "audio": "SmartPhonics/5/Unit9/sounds/yawn.mp3"
+                }
+              ],
+              "extraWords": [
+                {
+                  "word": "haunt"
+                },
+                {
+                  "word": "author"
+                },
+                {
+                  "word": "audio"
+                },
+                {
+                  "word": "claw"
+                },
+                {
+                  "word": "hawk"
+                },
+                {
+                  "word": "saw"
+                },
+                {
+                  "word": "wall"
+                },
+                {
+                  "word": "call"
+                },
+                {
+                  "word": "stall"
+                }
+              ],
+              "sightWords": []
+            },
+            {
+              "id": "L5U10",
+              "unitNumber": 10,
+              "name": "Unit 10: mb, kn, wr",
+              "targetSound": "mb, kn, wr",
+              "targetLetters": [
+                "mb",
+                "kn",
+                "wr"
+              ],
+              "words": [
+                {
+                  "word": "climb",
+                  "image": "SmartPhonics/5/Unit10/pics/climb.png",
+                  "audio": "SmartPhonics/5/Unit10/sounds/climb.mp3"
+                },
+                {
+                  "word": "comb",
+                  "image": "SmartPhonics/5/Unit10/pics/comb.png",
+                  "audio": "SmartPhonics/5/Unit10/sounds/comb.mp3"
+                },
+                {
+                  "word": "knee",
+                  "image": "SmartPhonics/5/Unit10/pics/knee.png",
+                  "audio": "SmartPhonics/5/Unit10/sounds/knee.mp3"
+                },
+                {
+                  "word": "knife",
+                  "image": "SmartPhonics/5/Unit10/pics/knife.png",
+                  "audio": "SmartPhonics/5/Unit10/sounds/knife.mp3"
+                },
+                {
+                  "word": "knit",
+                  "image": "SmartPhonics/5/Unit10/pics/knit.png",
+                  "audio": "SmartPhonics/5/Unit10/sounds/knit.mp3"
+                },
+                {
+                  "word": "knock",
+                  "image": "SmartPhonics/5/Unit10/pics/knock.png",
+                  "audio": "SmartPhonics/5/Unit10/sounds/knock.mp3"
+                },
+                {
+                  "word": "lamb",
+                  "image": "SmartPhonics/5/Unit10/pics/lamb.png",
+                  "audio": "SmartPhonics/5/Unit10/sounds/lamb.mp3"
+                },
+                {
+                  "word": "thumb",
+                  "image": "SmartPhonics/5/Unit10/pics/thumb.png",
+                  "audio": "SmartPhonics/5/Unit10/sounds/thumb.mp3"
+                },
+                {
+                  "word": "wrap",
+                  "image": "SmartPhonics/5/Unit10/pics/wrap.png",
+                  "audio": "SmartPhonics/5/Unit10/sounds/wrap.mp3"
+                },
+                {
+                  "word": "wrist",
+                  "image": "SmartPhonics/5/Unit10/pics/wrist.png",
+                  "audio": "SmartPhonics/5/Unit10/sounds/wrist.mp3"
+                },
+                {
+                  "word": "write",
+                  "image": "SmartPhonics/5/Unit10/pics/write.png",
+                  "audio": "SmartPhonics/5/Unit10/sounds/write.mp3"
+                },
+                {
+                  "word": "wrong",
+                  "image": "SmartPhonics/5/Unit10/pics/wrong.png",
+                  "audio": "SmartPhonics/5/Unit10/sounds/wrong.mp3"
+                }
+              ],
+              "extraWords": [
+                {
+                  "word": "numb"
+                },
+                {
+                  "word": "limb"
+                },
+                {
+                  "word": "bomb"
+                },
+                {
+                  "word": "knot"
+                },
+                {
+                  "word": "know"
+                },
+                {
+                  "word": "knob"
+                },
+                {
+                  "word": "wreck"
+                },
+                {
+                  "word": "wrench"
+                },
+                {
+                  "word": "wreath"
+                }
+              ],
+              "sightWords": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

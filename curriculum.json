@@ -2,7 +2,7 @@
   "$schema": "./schema.json",
   "version": 2,
   "updatedAt": 1727068800000,
-  "mediaBase": "https://all-english-media.netlify.app",
+  "mediaBase": "https://all-english-media.allenglish.link",
   "series": [
     {
       "id": "smart-phonics",

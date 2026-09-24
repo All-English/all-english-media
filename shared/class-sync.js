@@ -411,6 +411,10 @@
       }
 
       const json = JSON.stringify(merged);
+      if (encodeURIComponent(json).length > 3500) {
+        console.warn('[SharedClassSync] Cookie payload too large, skipping cookie write');
+        return null;
+      }
       const rootDomain = getRootDomain();
       writeCookie(SHARED_COOKIE_NAME, json, {
         days: 365,
@@ -525,6 +529,12 @@
       if (stored) localHidden = JSON.parse(stored) || [];
     } catch {}
 
+    let localActive = [];
+    try {
+      const storedAct = localStorage.getItem(SHARED_ACTIVE_PLAYERS_KEY);
+      if (storedAct) localActive = JSON.parse(storedAct) || [];
+    } catch {}
+
     const updatesForCookie = {};
     let cookieChanged = false;
 
@@ -565,6 +575,15 @@
         updatesForCookie.hidden = localHidden;
         cookieChanged = true;
       }
+
+      if (Array.isArray(cookie.act) && cookie.act.length > 0 && localActive.length === 0) {
+        try {
+          localStorage.setItem(SHARED_ACTIVE_PLAYERS_KEY, JSON.stringify(cookie.act));
+        } catch {}
+      } else if (localActive.length > 0 && (!cookie.act || cookie.act.length === 0)) {
+        updatesForCookie.act = localActive;
+        cookieChanged = true;
+      }
     } else {
       if (localUrl && localToken) {
         updatesForCookie.uUrl = localUrl;
@@ -577,6 +596,10 @@
       }
       if (localHidden.length > 0) {
         updatesForCookie.hidden = localHidden;
+        cookieChanged = true;
+      }
+      if (localActive.length > 0) {
+        updatesForCookie.act = localActive;
         cookieChanged = true;
       }
     }
@@ -854,6 +877,68 @@
     }
 
     return seriesEntries;
+  }
+
+  // ── 5c. Active Session Players Management ──────────────────────
+  function getActivePlayers() {
+    let list = [];
+    if (typeof localStorage !== 'undefined') {
+      try {
+        const stored = localStorage.getItem(SHARED_ACTIVE_PLAYERS_KEY);
+        if (stored) list = JSON.parse(stored) || [];
+      } catch {
+        list = [];
+      }
+    }
+    if (list.length === 0) {
+      const cookie = readSharedSyncCookie();
+      if (cookie && Array.isArray(cookie.act) && cookie.act.length > 0) {
+        list = cookie.act;
+        if (typeof localStorage !== 'undefined') {
+          try {
+            localStorage.setItem(SHARED_ACTIVE_PLAYERS_KEY, JSON.stringify(list));
+          } catch {}
+        }
+      }
+    }
+    return list;
+  }
+
+  function saveActivePlayers(players) {
+    let cleanPlayers = [];
+    if (Array.isArray(players)) {
+      cleanPlayers = players
+        .map(p => typeof p === 'string' ? p.trim() : (p?.name ? String(p.name).trim() : ''))
+        .filter(Boolean)
+        .slice(0, 24);
+    }
+
+    if (typeof localStorage !== 'undefined') {
+      localStorage.setItem(SHARED_ACTIVE_PLAYERS_KEY, JSON.stringify(cleanPlayers));
+    }
+
+    if (cleanPlayers.length > 0) {
+      writeSharedSyncCookie({ act: cleanPlayers });
+    } else {
+      const cookie = readSharedSyncCookie();
+      if (cookie) {
+        delete cookie.act;
+        cookie.updatedAt = Date.now();
+        const rootDomain = getRootDomain();
+        writeCookie(SHARED_COOKIE_NAME, JSON.stringify(cookie), {
+          days: 365,
+          domain: rootDomain || undefined,
+          path: '/'
+        });
+      }
+    }
+
+    syncUpstash(SHARED_ACTIVE_PLAYERS_KEY, cleanPlayers);
+    return cleanPlayers;
+  }
+
+  function clearActivePlayers() {
+    return saveActivePlayers([]);
   }
 
   // ── 6. Canonical Curriculum Adapter ───────────────────────────
@@ -1191,6 +1276,9 @@
     setHiddenBooks,
     isBookHidden,
     getVisibleSeries,
+    getActivePlayers,
+    saveActivePlayers,
+    clearActivePlayers,
     CurriculumAdapter,
     CurriculumLoader
   };

@@ -19,6 +19,7 @@
 
   const SHARED_SETS_KEY = 'shared_player_sets';
   const SHARED_ACTIVE_PLAYERS_KEY = 'shared_active_players';
+  const SHARED_ACTIVE_CLASS_KEY = 'shared_active_class';
   const SHARED_CLASS_PROFILES_KEY = 'shared_class_profiles';
   const SHARED_HIDDEN_BOOKS_KEY = 'shared_hidden_books';
   const SHARED_COOKIE_NAME = 'ae_shared_sync';
@@ -535,6 +536,11 @@
       if (storedAct) localActive = JSON.parse(storedAct) || [];
     } catch {}
 
+    let localActiveClass = '';
+    try {
+      localActiveClass = localStorage.getItem(SHARED_ACTIVE_CLASS_KEY) || '';
+    } catch {}
+
     const updatesForCookie = {};
     let cookieChanged = false;
 
@@ -584,6 +590,15 @@
         updatesForCookie.act = localActive;
         cookieChanged = true;
       }
+
+      if (cookie.actClass && !localActiveClass) {
+        try {
+          localStorage.setItem(SHARED_ACTIVE_CLASS_KEY, cookie.actClass);
+        } catch {}
+      } else if (localActiveClass && !cookie.actClass) {
+        updatesForCookie.actClass = localActiveClass;
+        cookieChanged = true;
+      }
     } else {
       if (localUrl && localToken) {
         updatesForCookie.uUrl = localUrl;
@@ -600,6 +615,10 @@
       }
       if (localActive.length > 0) {
         updatesForCookie.act = localActive;
+        cookieChanged = true;
+      }
+      if (localActiveClass) {
+        updatesForCookie.actClass = localActiveClass;
         cookieChanged = true;
       }
     }
@@ -879,7 +898,7 @@
     return seriesEntries;
   }
 
-  // ── 5c. Active Session Players Management ──────────────────────
+  // ── 5c. Active Session Players & Attendance Management ────────
   function getActivePlayers() {
     let list = [];
     if (typeof localStorage !== 'undefined') {
@@ -904,7 +923,30 @@
     return list;
   }
 
-  function saveActivePlayers(players) {
+  function getActiveSession() {
+    const players = getActivePlayers();
+    let className = '';
+    if (typeof localStorage !== 'undefined') {
+      try {
+        className = localStorage.getItem(SHARED_ACTIVE_CLASS_KEY) || '';
+      } catch {}
+    }
+    if (!className) {
+      const cookie = readSharedSyncCookie();
+      if (cookie && cookie.actClass) {
+        className = cookie.actClass;
+      }
+    }
+    const cookie = readSharedSyncCookie();
+    const updatedAt = (cookie && cookie.updatedAt) || 0;
+    return {
+      players,
+      className,
+      updatedAt
+    };
+  }
+
+  function saveActivePlayers(players, className = null) {
     let cleanPlayers = [];
     if (Array.isArray(players)) {
       cleanPlayers = players
@@ -913,16 +955,33 @@
         .slice(0, 24);
     }
 
+    let cleanClassName = typeof className === 'string' ? className.trim() : null;
+    if (cleanClassName === null && typeof localStorage !== 'undefined') {
+      cleanClassName = localStorage.getItem(SHARED_ACTIVE_CLASS_KEY) || null;
+    }
+
     if (typeof localStorage !== 'undefined') {
       localStorage.setItem(SHARED_ACTIVE_PLAYERS_KEY, JSON.stringify(cleanPlayers));
     }
 
     if (cleanPlayers.length > 0) {
-      writeSharedSyncCookie({ act: cleanPlayers });
+      const updates = { act: cleanPlayers };
+      if (cleanClassName) {
+        updates.actClass = cleanClassName;
+        if (typeof localStorage !== 'undefined') {
+          localStorage.setItem(SHARED_ACTIVE_CLASS_KEY, cleanClassName);
+        }
+        syncUpstash(SHARED_ACTIVE_CLASS_KEY, cleanClassName);
+      }
+      writeSharedSyncCookie(updates);
     } else {
+      if (typeof localStorage !== 'undefined') {
+        localStorage.removeItem(SHARED_ACTIVE_CLASS_KEY);
+      }
       const cookie = readSharedSyncCookie();
       if (cookie) {
         delete cookie.act;
+        delete cookie.actClass;
         cookie.updatedAt = Date.now();
         const rootDomain = getRootDomain();
         writeCookie(SHARED_COOKIE_NAME, JSON.stringify(cookie), {
@@ -931,6 +990,7 @@
           path: '/'
         });
       }
+      syncUpstash(SHARED_ACTIVE_CLASS_KEY, '');
     }
 
     syncUpstash(SHARED_ACTIVE_PLAYERS_KEY, cleanPlayers);
@@ -938,7 +998,36 @@
   }
 
   function clearActivePlayers() {
-    return saveActivePlayers([]);
+    return saveActivePlayers([], '');
+  }
+
+  function resolveClassRoster(className, defaultRoster = [], { maxAgeMs = 60 * 60 * 1000 } = {}) {
+    if (!className || !Array.isArray(defaultRoster) || defaultRoster.length === 0) {
+      return defaultRoster || [];
+    }
+    const session = getActiveSession();
+    if (!session.players || session.players.length === 0) {
+      return defaultRoster;
+    }
+
+    const isFresh = (Date.now() - session.updatedAt) < maxAgeMs;
+    if (!isFresh) {
+      return defaultRoster;
+    }
+
+    // Match 1: explicit class match
+    if (session.className && session.className === className) {
+      return session.players;
+    }
+
+    // Match 2: subset match (e.g. absent student removed in game 1 without explicit tag)
+    const isSubset = session.players.length <= defaultRoster.length &&
+      session.players.every(p => defaultRoster.includes(p));
+    if (isSubset) {
+      return session.players;
+    }
+
+    return defaultRoster;
   }
 
   // ── 6. Canonical Curriculum Adapter ───────────────────────────
@@ -1276,9 +1365,12 @@
     setHiddenBooks,
     isBookHidden,
     getVisibleSeries,
+    SHARED_ACTIVE_CLASS_KEY,
     getActivePlayers,
+    getActiveSession,
     saveActivePlayers,
     clearActivePlayers,
+    resolveClassRoster,
     CurriculumAdapter,
     CurriculumLoader
   };

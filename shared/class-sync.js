@@ -1079,12 +1079,21 @@
 
     resolveUrl(path, base) {
       if (!path) return '';
-      if (path.startsWith('http://') || path.startsWith('https://') || path.startsWith('data:') || path.startsWith('blob:')) {
+      if (path.startsWith('data:') || path.startsWith('blob:')) {
+        return path;
+      }
+      const activeBase = (base || getMediaBase()).replace(/\/$/, '');
+
+      // Auto-migrate legacy Netlify media URLs to current mediaBase
+      if (path.startsWith('https://all-english-media.netlify.app/') || path.startsWith('http://all-english-media.netlify.app/')) {
+        return path.replace(/^https?:\/\/all-english-media\.netlify\.app\/?/, `${activeBase}/`);
+      }
+
+      if (path.startsWith('http://') || path.startsWith('https://')) {
         return path;
       }
       const cleanPath = path.replace(/^(\.\/|data\/|media\/)/, '');
-      const cleanBase = (base || getMediaBase()).replace(/\/$/, '');
-      return `${cleanBase}/${cleanPath}`;
+      return `${activeBase}/${cleanPath}`;
     },
 
     /**

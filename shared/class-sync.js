@@ -21,9 +21,12 @@
   const SHARED_ACTIVE_PLAYERS_KEY = 'shared_active_players';
   const SHARED_CLASS_PROFILES_KEY = 'shared_class_profiles';
   const SHARED_HIDDEN_BOOKS_KEY = 'shared_hidden_books';
+  const SHARED_COOKIE_NAME = 'ae_shared_sync';
   const UPSTASH_URL_KEY = 'upstash_redis_url';
   const UPSTASH_TOKEN_KEY = 'upstash_redis_token';
   const UPSTASH_SHARED_CURRICULUM_KEY = 'shared_phonics_curriculum';
+  const ELEVENLABS_KEY = 'elevenlabs_api_key';
+  const PHONICS_FLASH_ELEVENLABS_KEY = 'phonics-flash-elevenlabs-key';
   
   function getMediaBase() {
     if (typeof window !== 'undefined') {
@@ -299,7 +302,290 @@
     return parsed[0];
   }
 
-  // ── 4. Upstash REST API Helper ─────────────────────────────────
+  // ── 4. Cross-Domain Cookie & Upstash REST API Helper ─────────
+  const KNOWN_CC_SLDS = ['co.kr', 'ac.kr', 'ne.kr', 'or.kr', 're.kr', 'co.uk', 'com.au', 'co.jp', 'com.sg'];
+
+  function getRootDomain(customHost) {
+    let hostname = customHost;
+    if (!hostname && typeof window !== 'undefined' && window.location) {
+      hostname = window.location.hostname;
+    }
+    if (!hostname || hostname === 'localhost' || hostname === '127.0.0.1' || hostname === '::1') {
+      return null;
+    }
+    // Public Suffix List check: netlify.app, github.io cannot take wildcard cookies
+    if (hostname.endsWith('.netlify.app') || hostname.endsWith('.github.io') || hostname.endsWith('.pages.dev') || hostname.endsWith('.vercel.app')) {
+      return null;
+    }
+    const parts = hostname.toLowerCase().split('.');
+    if (parts.length < 2) return null;
+
+    const tail2 = parts.slice(-2).join('.');
+    if (KNOWN_CC_SLDS.includes(tail2)) {
+      if (parts.length >= 3) {
+        return '.' + parts.slice(-3).join('.');
+      }
+      return null;
+    }
+    return '.' + tail2;
+  }
+
+  function readCookie(name) {
+    if (typeof document === 'undefined') return null;
+    try {
+      const match = document.cookie.match(new RegExp('(?:^|; )' + name.replace(/([.$?*|{}()\[\]\\\/+^])/g, '\\$1') + '=([^;]*)'));
+      return match ? decodeURIComponent(match[1]) : null;
+    } catch {
+      return null;
+    }
+  }
+
+  function writeCookie(name, value, { days = 365, domain = null, path = '/' } = {}) {
+    if (typeof document === 'undefined') return false;
+    try {
+      let cookieStr = `${encodeURIComponent(name)}=${encodeURIComponent(value)}; path=${path}`;
+      if (days) {
+        const maxAge = days * 24 * 60 * 60;
+        cookieStr += `; max-age=${maxAge}`;
+      }
+      if (domain) {
+        cookieStr += `; domain=${domain}`;
+      }
+      if (typeof location !== 'undefined' && location.protocol === 'https:') {
+        cookieStr += '; secure';
+      }
+      cookieStr += '; samesite=lax';
+
+      document.cookie = cookieStr;
+      return true;
+    } catch (e) {
+      console.warn('[SharedClassSync] Failed to write cookie:', e);
+      return false;
+    }
+  }
+
+  function deleteCookie(name, { domain = null, path = '/' } = {}) {
+    if (typeof document === 'undefined') return;
+    try {
+      let cookieStr = `${encodeURIComponent(name)}=; path=${path}; max-age=0; expires=Thu, 01 Jan 1970 00:00:00 GMT`;
+      if (domain) {
+        cookieStr += `; domain=${domain}`;
+      }
+      if (typeof location !== 'undefined' && location.protocol === 'https:') {
+        cookieStr += '; secure';
+      }
+      cookieStr += '; samesite=lax';
+      document.cookie = cookieStr;
+    } catch (e) {
+      console.warn('[SharedClassSync] Failed to delete cookie:', e);
+    }
+  }
+
+  function readSharedSyncCookie() {
+    try {
+      const raw = readCookie(SHARED_COOKIE_NAME);
+      if (!raw) return null;
+      const parsed = JSON.parse(raw);
+      if (parsed && typeof parsed === 'object') {
+        return parsed;
+      }
+    } catch (e) {
+      console.warn('[SharedClassSync] Failed to parse sync cookie:', e);
+    }
+    return null;
+  }
+
+  function writeSharedSyncCookie(updates = {}) {
+    try {
+      const existing = readSharedSyncCookie() || {};
+      const merged = {
+        ...existing,
+        ...updates,
+        updatedAt: Date.now()
+      };
+
+      for (const key of Object.keys(merged)) {
+        if (merged[key] === null || merged[key] === undefined) {
+          delete merged[key];
+        }
+      }
+
+      const json = JSON.stringify(merged);
+      const rootDomain = getRootDomain();
+      writeCookie(SHARED_COOKIE_NAME, json, {
+        days: 365,
+        domain: rootDomain || undefined,
+        path: '/'
+      });
+      return merged;
+    } catch (e) {
+      console.warn('[SharedClassSync] Failed to write sync cookie:', e);
+      return null;
+    }
+  }
+
+  function saveCredentials(url, token) {
+    const cleanUrl = (url || '').trim().replace(/\/$/, '');
+    const cleanToken = (token || '').trim();
+
+    if (typeof localStorage !== 'undefined') {
+      if (cleanUrl && cleanToken) {
+        localStorage.setItem(UPSTASH_URL_KEY, cleanUrl);
+        localStorage.setItem(UPSTASH_TOKEN_KEY, cleanToken);
+      } else {
+        localStorage.removeItem(UPSTASH_URL_KEY);
+        localStorage.removeItem(UPSTASH_TOKEN_KEY);
+      }
+    }
+
+    if (cleanUrl && cleanToken) {
+      writeSharedSyncCookie({ uUrl: cleanUrl, uTok: cleanToken });
+    } else {
+      const cookie = readSharedSyncCookie();
+      if (cookie) {
+        delete cookie.uUrl;
+        delete cookie.uTok;
+        cookie.updatedAt = Date.now();
+        const rootDomain = getRootDomain();
+        writeCookie(SHARED_COOKIE_NAME, JSON.stringify(cookie), {
+          days: 365,
+          domain: rootDomain || undefined,
+          path: '/'
+        });
+      }
+    }
+    return { url: cleanUrl, token: cleanToken };
+  }
+
+  function clearCredentials() {
+    return saveCredentials('', '');
+  }
+
+  function getSharedApiKey() {
+    let key = '';
+    if (typeof localStorage !== 'undefined') {
+      key = localStorage.getItem(ELEVENLABS_KEY) || localStorage.getItem(PHONICS_FLASH_ELEVENLABS_KEY) || '';
+    }
+    if (!key) {
+      const cookie = readSharedSyncCookie();
+      if (cookie && cookie.elKey) {
+        key = cookie.elKey;
+        if (typeof localStorage !== 'undefined') {
+          try {
+            localStorage.setItem(ELEVENLABS_KEY, key);
+            localStorage.setItem(PHONICS_FLASH_ELEVENLABS_KEY, key);
+          } catch {}
+        }
+      }
+    }
+    return key;
+  }
+
+  function setSharedApiKey(key) {
+    const cleanKey = (key || '').trim();
+    if (typeof localStorage !== 'undefined') {
+      if (cleanKey) {
+        localStorage.setItem(ELEVENLABS_KEY, cleanKey);
+        localStorage.setItem(PHONICS_FLASH_ELEVENLABS_KEY, cleanKey);
+      } else {
+        localStorage.removeItem(ELEVENLABS_KEY);
+        localStorage.removeItem(PHONICS_FLASH_ELEVENLABS_KEY);
+      }
+    }
+
+    if (cleanKey) {
+      writeSharedSyncCookie({ elKey: cleanKey });
+    } else {
+      const cookie = readSharedSyncCookie();
+      if (cookie) {
+        delete cookie.elKey;
+        cookie.updatedAt = Date.now();
+        const rootDomain = getRootDomain();
+        writeCookie(SHARED_COOKIE_NAME, JSON.stringify(cookie), {
+          days: 365,
+          domain: rootDomain || undefined,
+          path: '/'
+        });
+      }
+    }
+    return cleanKey;
+  }
+
+  function reconcileCookieWithLocalStorage() {
+    if (typeof localStorage === 'undefined') return;
+
+    let cookie = readSharedSyncCookie();
+
+    const localUrl = localStorage.getItem(UPSTASH_URL_KEY) || '';
+    const localToken = localStorage.getItem(UPSTASH_TOKEN_KEY) || '';
+    const localElKey = localStorage.getItem(ELEVENLABS_KEY) || localStorage.getItem(PHONICS_FLASH_ELEVENLABS_KEY) || '';
+    let localHidden = [];
+    try {
+      const stored = localStorage.getItem(SHARED_HIDDEN_BOOKS_KEY);
+      if (stored) localHidden = JSON.parse(stored) || [];
+    } catch {}
+
+    const updatesForCookie = {};
+    let cookieChanged = false;
+
+    if (cookie) {
+      if (cookie.uUrl && cookie.uTok && (!localUrl || !localToken)) {
+        try {
+          localStorage.setItem(UPSTASH_URL_KEY, cookie.uUrl);
+          localStorage.setItem(UPSTASH_TOKEN_KEY, cookie.uTok);
+        } catch {}
+      } else if (localUrl && localToken && (!cookie.uUrl || !cookie.uTok)) {
+        updatesForCookie.uUrl = localUrl;
+        updatesForCookie.uTok = localToken;
+        cookieChanged = true;
+      }
+
+      if (cookie.elKey && !localElKey) {
+        try {
+          localStorage.setItem(ELEVENLABS_KEY, cookie.elKey);
+          localStorage.setItem(PHONICS_FLASH_ELEVENLABS_KEY, cookie.elKey);
+        } catch {}
+      } else if (localElKey && !cookie.elKey) {
+        updatesForCookie.elKey = localElKey;
+        cookieChanged = true;
+      }
+
+      if (Array.isArray(cookie.hidden) && cookie.hidden.length > 0) {
+        const mergedHidden = Array.from(new Set([...localHidden, ...cookie.hidden]));
+        if (mergedHidden.length !== localHidden.length) {
+          try {
+            localStorage.setItem(SHARED_HIDDEN_BOOKS_KEY, JSON.stringify(mergedHidden));
+          } catch {}
+        }
+        if (mergedHidden.length !== cookie.hidden.length) {
+          updatesForCookie.hidden = mergedHidden;
+          cookieChanged = true;
+        }
+      } else if (localHidden.length > 0) {
+        updatesForCookie.hidden = localHidden;
+        cookieChanged = true;
+      }
+    } else {
+      if (localUrl && localToken) {
+        updatesForCookie.uUrl = localUrl;
+        updatesForCookie.uTok = localToken;
+        cookieChanged = true;
+      }
+      if (localElKey) {
+        updatesForCookie.elKey = localElKey;
+        cookieChanged = true;
+      }
+      if (localHidden.length > 0) {
+        updatesForCookie.hidden = localHidden;
+        cookieChanged = true;
+      }
+    }
+
+    if (cookieChanged) {
+      writeSharedSyncCookie(updatesForCookie);
+    }
+  }
+
   function getCredentials() {
     let url = '';
     let token = '';
@@ -307,6 +593,20 @@
     if (typeof localStorage !== 'undefined') {
       url = localStorage.getItem(UPSTASH_URL_KEY) || '';
       token = localStorage.getItem(UPSTASH_TOKEN_KEY) || '';
+    }
+
+    if (!url || !token) {
+      const cookie = readSharedSyncCookie();
+      if (cookie && cookie.uUrl && cookie.uTok) {
+        url = cookie.uUrl;
+        token = cookie.uTok;
+        if (typeof localStorage !== 'undefined') {
+          try {
+            localStorage.setItem(UPSTASH_URL_KEY, url);
+            localStorage.setItem(UPSTASH_TOKEN_KEY, token);
+          } catch {}
+        }
+      }
     }
 
     if (!url && typeof window !== 'undefined' && window.UPSTASH_CONFIG) {
@@ -402,8 +702,11 @@
 
     try {
       const cloudHidden = await fetchUpstash(SHARED_HIDDEN_BOOKS_KEY);
-      if (Array.isArray(cloudHidden) && typeof localStorage !== 'undefined') {
-        localStorage.setItem(SHARED_HIDDEN_BOOKS_KEY, JSON.stringify(cloudHidden));
+      if (Array.isArray(cloudHidden)) {
+        if (typeof localStorage !== 'undefined') {
+          localStorage.setItem(SHARED_HIDDEN_BOOKS_KEY, JSON.stringify(cloudHidden));
+        }
+        writeSharedSyncCookie({ hidden: cloudHidden });
       }
     } catch (e) {
       console.warn('[SharedClassSync] Error fetching cloud hidden books:', e);
@@ -478,13 +781,27 @@
 
   // ── 5b. Book Visibility Management ────────────────────────────
   function getHiddenBooks() {
-    if (typeof localStorage === 'undefined') return [];
-    try {
-      const stored = localStorage.getItem(SHARED_HIDDEN_BOOKS_KEY);
-      return stored ? JSON.parse(stored) : [];
-    } catch {
-      return [];
+    let list = [];
+    if (typeof localStorage !== 'undefined') {
+      try {
+        const stored = localStorage.getItem(SHARED_HIDDEN_BOOKS_KEY);
+        if (stored) list = JSON.parse(stored) || [];
+      } catch {
+        list = [];
+      }
     }
+    if (list.length === 0) {
+      const cookie = readSharedSyncCookie();
+      if (cookie && Array.isArray(cookie.hidden) && cookie.hidden.length > 0) {
+        list = cookie.hidden;
+        if (typeof localStorage !== 'undefined') {
+          try {
+            localStorage.setItem(SHARED_HIDDEN_BOOKS_KEY, JSON.stringify(list));
+          } catch {}
+        }
+      }
+    }
+    return list;
   }
 
   async function setHiddenBooks(hiddenSlugs) {
@@ -494,6 +811,7 @@
     if (typeof localStorage !== 'undefined') {
       localStorage.setItem(SHARED_HIDDEN_BOOKS_KEY, JSON.stringify(list));
     }
+    writeSharedSyncCookie({ hidden: list });
     return syncUpstash(SHARED_HIDDEN_BOOKS_KEY, list);
   }
 
@@ -824,6 +1142,13 @@
     }
   };
 
+  // Reconcile cookie with localStorage on load
+  try {
+    reconcileCookieWithLocalStorage();
+  } catch (e) {
+    console.warn('[SharedClassSync] Initial cookie reconciliation error:', e);
+  }
+
   return {
     SHARED_SETS_KEY,
     SHARED_ACTIVE_PLAYERS_KEY,
@@ -845,6 +1170,18 @@
     toTreasureHunt,
     getHighestUnit,
     getCredentials,
+    saveCredentials,
+    clearCredentials,
+    getSharedApiKey,
+    setSharedApiKey,
+    SHARED_COOKIE_NAME,
+    getRootDomain,
+    readCookie,
+    writeCookie,
+    deleteCookie,
+    readSharedSyncCookie,
+    writeSharedSyncCookie,
+    reconcileCookieWithLocalStorage,
     fetchUpstash,
     syncUpstash,
     loadAllClasses,

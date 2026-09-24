@@ -20,6 +20,7 @@
   const SHARED_SETS_KEY = 'shared_player_sets';
   const SHARED_ACTIVE_PLAYERS_KEY = 'shared_active_players';
   const SHARED_CLASS_PROFILES_KEY = 'shared_class_profiles';
+  const SHARED_HIDDEN_BOOKS_KEY = 'shared_hidden_books';
   const UPSTASH_URL_KEY = 'upstash_redis_url';
   const UPSTASH_TOKEN_KEY = 'upstash_redis_token';
   const UPSTASH_SHARED_CURRICULUM_KEY = 'shared_phonics_curriculum';
@@ -399,6 +400,15 @@
       }
     }
 
+    try {
+      const cloudHidden = await fetchUpstash(SHARED_HIDDEN_BOOKS_KEY);
+      if (Array.isArray(cloudHidden) && typeof localStorage !== 'undefined') {
+        localStorage.setItem(SHARED_HIDDEN_BOOKS_KEY, JSON.stringify(cloudHidden));
+      }
+    } catch (e) {
+      console.warn('[SharedClassSync] Error fetching cloud hidden books:', e);
+    }
+
     let profilesChanged = false;
     for (const className of Object.keys(playerSets)) {
       if (!classProfiles[className]) {
@@ -464,6 +474,68 @@
       localStorage.setItem(SHARED_CLASS_PROFILES_KEY, JSON.stringify(profiles));
     }
     return syncUpstash(SHARED_CLASS_PROFILES_KEY, profiles);
+  }
+
+  // ── 5b. Book Visibility Management ────────────────────────────
+  function getHiddenBooks() {
+    if (typeof localStorage === 'undefined') return [];
+    try {
+      const stored = localStorage.getItem(SHARED_HIDDEN_BOOKS_KEY);
+      return stored ? JSON.parse(stored) : [];
+    } catch {
+      return [];
+    }
+  }
+
+  async function setHiddenBooks(hiddenSlugs) {
+    const list = Array.isArray(hiddenSlugs)
+      ? hiddenSlugs.map(toSeriesSlug).filter(Boolean)
+      : [];
+    if (typeof localStorage !== 'undefined') {
+      localStorage.setItem(SHARED_HIDDEN_BOOKS_KEY, JSON.stringify(list));
+    }
+    return syncUpstash(SHARED_HIDDEN_BOOKS_KEY, list);
+  }
+
+  function isBookHidden(seriesId) {
+    if (!seriesId) return false;
+    const slug = toSeriesSlug(seriesId);
+    return getHiddenBooks().includes(slug);
+  }
+
+  function getVisibleSeries(seriesEntries) {
+    if (!seriesEntries) return [];
+    const hidden = getHiddenBooks();
+
+    if (Array.isArray(seriesEntries)) {
+      const visible = seriesEntries.filter(entry => {
+        const id = typeof entry === 'string' ? entry : (entry?.id || entry?.name || '');
+        return !hidden.includes(toSeriesSlug(id));
+      });
+      if (visible.length === 0 && seriesEntries.length > 0) {
+        return [seriesEntries[0]];
+      }
+      return visible;
+    }
+
+    if (typeof seriesEntries === 'object') {
+      const visibleObj = {};
+      let count = 0;
+      for (const [key, val] of Object.entries(seriesEntries)) {
+        const slug = toSeriesSlug(val?.id || key);
+        if (!hidden.includes(slug)) {
+          visibleObj[key] = val;
+          count++;
+        }
+      }
+      if (count === 0 && Object.keys(seriesEntries).length > 0) {
+        const firstKey = Object.keys(seriesEntries)[0];
+        visibleObj[firstKey] = seriesEntries[firstKey];
+      }
+      return visibleObj;
+    }
+
+    return seriesEntries;
   }
 
   // ── 6. Canonical Curriculum Adapter ───────────────────────────
@@ -777,6 +849,11 @@
     syncUpstash,
     loadAllClasses,
     saveClassUnits,
+    SHARED_HIDDEN_BOOKS_KEY,
+    getHiddenBooks,
+    setHiddenBooks,
+    isBookHidden,
+    getVisibleSeries,
     CurriculumAdapter,
     CurriculumLoader
   };

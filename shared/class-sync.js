@@ -36,7 +36,7 @@
         if (stored) return stored;
       }
     }
-    return 'https://all-english-media.netlify.app';
+    return 'https://all-english-media.allenglish.link';
   }
 
   const DEFAULT_MEDIA_BASE = getMediaBase();
@@ -923,7 +923,7 @@
       const sp = targetSlug
         ? (norm.series.find(s => toSeriesSlug(s.id) === targetSlug || toSeriesSlug(s.name) === targetSlug) || norm.series[0])
         : (norm.series.find(s => toSeriesSlug(s.id) === 'smart-phonics') || norm.series[0]);
-      const activeBase = mediaBase || (getMediaBase() !== 'https://all-english-media.netlify.app' ? getMediaBase() : (norm.mediaBase || getMediaBase()));
+      const activeBase = mediaBase || (getMediaBase() !== 'https://all-english-media.allenglish.link' ? getMediaBase() : (norm.mediaBase || getMediaBase()));
 
       return {
         id: sp.id || toSeriesSlug(sp.name),
@@ -961,7 +961,7 @@
       const sp = targetSlug
         ? (norm.series.find(s => toSeriesSlug(s.id) === targetSlug || toSeriesSlug(s.name) === targetSlug) || norm.series[0])
         : (norm.series.find(s => toSeriesSlug(s.id) === 'smart-phonics') || norm.series[0]);
-      const activeBase = mediaBase || (getMediaBase() !== 'https://all-english-media.netlify.app' ? getMediaBase() : (norm.mediaBase || getMediaBase()));
+      const activeBase = mediaBase || (getMediaBase() !== 'https://all-english-media.allenglish.link' ? getMediaBase() : (norm.mediaBase || getMediaBase()));
       const bookMap = {};
 
       for (const lvl of sp.levels || []) {

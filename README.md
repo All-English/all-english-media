@@ -5,6 +5,7 @@ Centralized media and canonical curriculum repository for All-English phonics le
 - **MatchMaker**
 - **Sunken Treasure**
 - **Word-Tac-Toe**
+- **Phonics Level Test**
 
 ---
 
@@ -65,6 +66,7 @@ This repository is designed to be hosted on Netlify as a static site (e.g. `http
    - `toPhonicsFlash(data)`: Adapts canonical format for Phonics Flash & Editor.
    - `toMatchMaker(data)`: Adapts canonical format for MatchMaker (including `imageSound` mapping and single letter sounds).
    - `toWordBank(data)`: Adapts canonical format for Sunken Treasure and Word-Tac-Toe word banks.
+   - `toPhonicsLevelTest(data)`: Adapts canonical format for Phonics Level Test assessment engine and Picture Quiz.
 
 3. **Netlify `_headers`**:
    - `Access-Control-Allow-Origin: *` enables any origin to fetch media and curriculum safely.

@@ -2,7 +2,7 @@
  * class-sync.js (v2.0)
  * Universal schedule parsing, time-matching, unit translation,
  * and canonical curriculum adapter/loader.
- * Shared across Phonics Flash, Word-Tac-Toe, MatchMaker, and Treasure Hunt.
+ * Shared across Phonics Flash, Word-Tac-Toe, MatchMaker, Treasure Hunt, and Phonics Level Test.
  */
 (function (root, factory) {
   const lib = factory();
@@ -1293,6 +1293,186 @@
         Object.assign(all, sp.levels);
       }
       return all;
+    },
+
+    /**
+     * Adapts canonical curriculum for Phonics Level Test ({ id, name, isCustom, levels: [...] })
+     */
+    toPhonicsLevelTest(data, mediaBase, seriesId) {
+      const norm = this.normalize(data);
+      if (!norm || !norm.series || norm.series.length === 0) {
+        return { id: 'smart-phonics', name: 'Smart Phonics', isCustom: false, levels: [] };
+      }
+      const targetSlug = seriesId ? toSeriesSlug(seriesId) : null;
+      const sp = targetSlug
+        ? (norm.series.find(s => toSeriesSlug(s.id) === targetSlug || toSeriesSlug(s.name) === targetSlug) || norm.series[0])
+        : (norm.series.find(s => toSeriesSlug(s.id) === 'smart-phonics') || norm.series[0]);
+      const activeBase = mediaBase || (getMediaBase() !== 'https://all-english-media.allenglish.link' ? getMediaBase() : (norm.mediaBase || getMediaBase()));
+
+      const bookId = toSeriesSlug(sp.id || sp.name || 'smart-phonics');
+      const isCustom = bookId !== 'smart-phonics';
+
+      const defaultLetterDistractors = {
+        a: ['a', 'b', 'c'],
+        b: ['b', 'd', 'p'],
+        c: ['c', 'k', 's'],
+        d: ['d', 'b', 'p'],
+        e: ['e', 'a', 'i'],
+        f: ['f', 't', 'v'],
+        g: ['g', 'j', 'c'],
+        h: ['h', 'n', 'b'],
+        i: ['i', 'e', 'l'],
+        j: ['j', 'g', 'y'],
+        k: ['k', 'c', 't'],
+        l: ['l', 'i', 't'],
+        m: ['m', 'n', 'w'],
+        n: ['n', 'm', 'u'],
+        o: ['o', 'a', 'u'],
+        p: ['p', 'b', 'q'],
+        q: ['q', 'p', 'g'],
+        r: ['r', 'n', 'm'],
+        s: ['s', 'c', 'z'],
+        t: ['t', 'f', 'd'],
+        u: ['u', 'v', 'o'],
+        v: ['v', 'w', 'u'],
+        w: ['w', 'm', 'v'],
+        x: ['x', 's', 'z'],
+        y: ['y', 'j', 'w'],
+        z: ['z', 's', 'x']
+      };
+
+      const defaultCategories = {
+        1: 'Alphabet (Letters & Sounds)',
+        2: 'CVC Short Vowels',
+        3: 'Long Vowels (Silent e & Vowel Pairs)',
+        4: 'Blends & Digraphs',
+        5: 'Diphthongs, Special Vowels & Silent Letters'
+      };
+
+      const defaultColors = {
+        1: '#2563EB',
+        2: '#059669',
+        3: '#D97706',
+        4: '#7C3AED',
+        5: '#DC2626'
+      };
+
+      return {
+        id: bookId,
+        name: sp.name || toSeriesDisplayName(sp.id),
+        description: sp.description || (isCustom ? '' : 'Standard 5-level ESL phonics curriculum'),
+        isCustom,
+        levels: (sp.levels || []).map((lvl, lIdx) => {
+          const levelNumber = Number(lvl.levelNumber) || Number(lvl.bookNumber) || (lIdx + 1);
+          const lvlId = lvl.id || `${bookId}_L${levelNumber}`;
+          const lvlName = lvl.name || `Level ${levelNumber}`;
+          const category = lvl.category || defaultCategories[levelNumber] || `Level ${levelNumber}`;
+          const color = lvl.color || defaultColors[levelNumber] || '#2563EB';
+
+          const units = (lvl.units || []).map((unit, uIdx) => {
+            const uNumber = unit.unitNumber || (uIdx + 1);
+            const uId = unit.id || `${lvlId}_U${uNumber}`;
+            const uName = unit.name || `Unit ${uNumber}`;
+
+            let targetSound = (unit.targetSound || unit.sound || '').trim();
+            if (/^[aiou]\s*,\s*e$/i.test(targetSound)) {
+              targetSound = targetSound.replace(/\s*,\s*/, '_').toLowerCase();
+            }
+
+            const words = (unit.words || []).map(w => {
+              if (!w) return null;
+              if (typeof w === 'string') {
+                return { word: w };
+              }
+              const wordStr = w.word || w.label || '';
+              if (!wordStr) return null;
+
+              let label = w.label;
+              if (!label) {
+                if (w.image) {
+                  const filename = w.image.split('/').pop().replace(/\.[^.]+$/, '');
+                  if (filename) label = filename;
+                } else if (w.imageAudio) {
+                  const filename = w.imageAudio.split('/').pop().replace(/\.[^.]+$/, '');
+                  if (filename) label = filename;
+                }
+              }
+              if (!label) label = wordStr;
+
+              let firstLetter = (w.firstLetter || '').toLowerCase();
+              if (!firstLetter && label) {
+                const match = label.match(/[a-z]/i);
+                if (match) firstLetter = match[0].toLowerCase();
+              }
+
+              let choices = Array.isArray(w.choices) && w.choices.length >= 3 ? w.choices : null;
+              if (!choices && firstLetter && defaultLetterDistractors[firstLetter]) {
+                choices = [...defaultLetterDistractors[firstLetter]];
+              }
+              if (!choices) {
+                choices = [firstLetter || 'a', 'b', 'c'];
+              }
+
+              const resWord = {
+                word: wordStr,
+                label,
+                firstLetter,
+                choices
+              };
+              if (w.image) {
+                resWord.image = this.resolveUrl(w.image, activeBase);
+              }
+              if (w.audio) {
+                resWord.audio = this.resolveUrl(w.audio, activeBase);
+              }
+              if (w.imageAudio) {
+                resWord.imageAudio = this.resolveUrl(w.imageAudio, activeBase);
+              }
+              return resWord;
+            }).filter(Boolean);
+
+            const sightWords = (unit.sightWords || []).map(sw => {
+              if (typeof sw === 'string') return { word: sw };
+              if (typeof sw === 'object' && sw && sw.word) return { word: sw.word };
+              return null;
+            }).filter(Boolean);
+
+            const extraWords = (unit.extraWords || []).map(ew => {
+              if (typeof ew === 'string') return { word: ew };
+              if (typeof ew === 'object' && ew && ew.word) return { word: ew.word };
+              return null;
+            }).filter(Boolean);
+
+            return {
+              id: uId,
+              name: uName,
+              targetSound,
+              words,
+              sightWords,
+              extraWords
+            };
+          });
+
+          return {
+            id: lvlId,
+            levelNumber,
+            name: lvlName,
+            category,
+            color,
+            unitCount: units.length,
+            units
+          };
+        })
+      };
+    },
+
+    /**
+     * Adapts all series for Phonics Level Test ([ { id, name, isCustom, levels: [...] }, ... ])
+     */
+    toPhonicsLevelTestAll(data, mediaBase) {
+      const norm = this.normalize(data);
+      if (!norm || !norm.series || norm.series.length === 0) return [];
+      return norm.series.map(s => this.toPhonicsLevelTest(data, mediaBase, s.id));
     }
   };
 
@@ -1374,6 +1554,8 @@
     toSeriesDisplayName,
     toCanonicalUnit,
     toPhonicsFlash,
+    toPhonicsLevelTest: (data, mediaBase, seriesId) => CurriculumAdapter.toPhonicsLevelTest(data, mediaBase, seriesId),
+    toPhonicsLevelTestAll: (data, mediaBase) => CurriculumAdapter.toPhonicsLevelTestAll(data, mediaBase),
     toTicTacToe,
     toMatchMaker,
     toTreasureHunt,

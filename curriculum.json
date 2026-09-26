@@ -1,7 +1,7 @@
 {
   "$schema": "./schema.json",
   "version": 2,
-  "updatedAt": 1790268481000,
+  "updatedAt": 1790424956438,
   "mediaBase": "https://all-english-media.allenglish.link",
   "series": [
     {
@@ -824,6 +824,21 @@
               ],
               "extraWords": [
                 {
+                  "word": "bam"
+                },
+                {
+                  "word": "cam"
+                },
+                {
+                  "word": "pam"
+                },
+                {
+                  "word": "sam"
+                },
+                {
+                  "word": "yam"
+                },
+                {
                   "word": "gap"
                 },
                 {
@@ -836,16 +851,10 @@
                   "word": "tap"
                 },
                 {
-                  "word": "bad"
+                  "word": "yap"
                 },
                 {
-                  "word": "sad"
-                },
-                {
-                  "word": "bag"
-                },
-                {
-                  "word": "cab"
+                  "word": "zap"
                 }
               ],
               "sightWords": [
@@ -866,6 +875,71 @@
                 },
                 {
                   "word": "the"
+                }
+              ],
+              "bonusWords": [
+                {
+                  "word": "bad"
+                },
+                {
+                  "word": "dad"
+                },
+                {
+                  "word": "mad"
+                },
+                {
+                  "word": "pad"
+                },
+                {
+                  "word": "sad"
+                },
+                {
+                  "word": "tad"
+                },
+                {
+                  "word": "bag"
+                },
+                {
+                  "word": "gag"
+                },
+                {
+                  "word": "rag"
+                },
+                {
+                  "word": "sag"
+                },
+                {
+                  "word": "tag"
+                },
+                {
+                  "word": "wag"
+                },
+                {
+                  "word": "cab"
+                },
+                {
+                  "word": "dab"
+                },
+                {
+                  "word": "gab"
+                },
+                {
+                  "word": "lab"
+                },
+                {
+                  "word": "nab"
+                },
+                {
+                  "word": "tab"
+                },
+                {
+                  "word": "max"
+                },
+                {
+                  "word": "tax"
+                },
+                {
+                  "word": "wax"
                 }
               ]
             },
@@ -921,6 +995,12 @@
               ],
               "extraWords": [
                 {
+                  "word": "ban"
+                },
+                {
+                  "word": "dan"
+                },
+                {
                   "word": "ran"
                 },
                 {
@@ -930,19 +1010,19 @@
                   "word": "van"
                 },
                 {
-                  "word": "sat"
-                },
-                {
-                  "word": "rat"
-                },
-                {
                   "word": "fat"
                 },
                 {
                   "word": "pat"
                 },
                 {
-                  "word": "mad"
+                  "word": "rat"
+                },
+                {
+                  "word": "sat"
+                },
+                {
+                  "word": "vat"
                 }
               ],
               "sightWords": [
@@ -966,6 +1046,71 @@
                 },
                 {
                   "word": "the"
+                }
+              ],
+              "bonusWords": [
+                {
+                  "word": "bad"
+                },
+                {
+                  "word": "dad"
+                },
+                {
+                  "word": "mad"
+                },
+                {
+                  "word": "pad"
+                },
+                {
+                  "word": "sad"
+                },
+                {
+                  "word": "tad"
+                },
+                {
+                  "word": "bag"
+                },
+                {
+                  "word": "gag"
+                },
+                {
+                  "word": "rag"
+                },
+                {
+                  "word": "sag"
+                },
+                {
+                  "word": "tag"
+                },
+                {
+                  "word": "wag"
+                },
+                {
+                  "word": "cab"
+                },
+                {
+                  "word": "dab"
+                },
+                {
+                  "word": "gab"
+                },
+                {
+                  "word": "lab"
+                },
+                {
+                  "word": "nab"
+                },
+                {
+                  "word": "tab"
+                },
+                {
+                  "word": "max"
+                },
+                {
+                  "word": "tax"
+                },
+                {
+                  "word": "wax"
                 }
               ]
             },
@@ -1030,7 +1175,16 @@
                   "word": "let"
                 },
                 {
+                  "word": "met"
+                },
+                {
+                  "word": "pet"
+                },
+                {
                   "word": "set"
+                },
+                {
+                  "word": "yet"
                 },
                 {
                   "word": "fed"
@@ -1042,7 +1196,16 @@
                   "word": "wed"
                 },
                 {
-                  "word": "leg"
+                  "word": "den"
+                },
+                {
+                  "word": "men"
+                },
+                {
+                  "word": "ten"
+                },
+                {
+                  "word": "zen"
                 }
               ],
               "sightWords": [
@@ -1066,6 +1229,29 @@
                 },
                 {
                   "word": "the"
+                }
+              ],
+              "bonusWords": [
+                {
+                  "word": "beg"
+                },
+                {
+                  "word": "leg"
+                },
+                {
+                  "word": "peg"
+                },
+                {
+                  "word": "web"
+                },
+                {
+                  "word": "hem"
+                },
+                {
+                  "word": "vex"
+                },
+                {
+                  "word": "yes"
                 }
               ]
             },
@@ -1121,13 +1307,22 @@
               ],
               "extraWords": [
                 {
+                  "word": "fib"
+                },
+                {
                   "word": "bid"
                 },
                 {
                   "word": "did"
                 },
                 {
+                  "word": "hid"
+                },
+                {
                   "word": "mid"
+                },
+                {
+                  "word": "rid"
                 },
                 {
                   "word": "big"
@@ -1139,10 +1334,31 @@
                   "word": "fig"
                 },
                 {
-                  "word": "win"
+                  "word": "gig"
+                },
+                {
+                  "word": "jig"
+                },
+                {
+                  "word": "rig"
+                },
+                {
+                  "word": "bin"
+                },
+                {
+                  "word": "din"
+                },
+                {
+                  "word": "kin"
                 },
                 {
                   "word": "sin"
+                },
+                {
+                  "word": "tin"
+                },
+                {
+                  "word": "win"
                 }
               ],
               "sightWords": [
@@ -1160,6 +1376,17 @@
                 },
                 {
                   "word": "the"
+                }
+              ],
+              "bonusWords": [
+                {
+                  "word": "dim"
+                },
+                {
+                  "word": "him"
+                },
+                {
+                  "word": "rim"
                 }
               ]
             },
@@ -1215,16 +1442,19 @@
               ],
               "extraWords": [
                 {
-                  "word": "tip"
+                  "word": "nip"
                 },
                 {
-                  "word": "nip"
+                  "word": "pip"
                 },
                 {
                   "word": "sip"
                 },
                 {
-                  "word": "pit"
+                  "word": "tip"
+                },
+                {
+                  "word": "zip"
                 },
                 {
                   "word": "bit"
@@ -1233,10 +1463,16 @@
                   "word": "fit"
                 },
                 {
-                  "word": "rid"
+                  "word": "kit"
                 },
                 {
-                  "word": "tin"
+                  "word": "lit"
+                },
+                {
+                  "word": "pit"
+                },
+                {
+                  "word": "fix"
                 }
               ],
               "sightWords": [
@@ -1257,6 +1493,17 @@
                 },
                 {
                   "word": "the"
+                }
+              ],
+              "bonusWords": [
+                {
+                  "word": "dim"
+                },
+                {
+                  "word": "him"
+                },
+                {
+                  "word": "rim"
                 }
               ]
             },
@@ -1312,6 +1559,9 @@
               ],
               "extraWords": [
                 {
+                  "word": "cot"
+                },
+                {
                   "word": "dot"
                 },
                 {
@@ -1321,19 +1571,40 @@
                   "word": "lot"
                 },
                 {
+                  "word": "not"
+                },
+                {
+                  "word": "rot"
+                },
+                {
+                  "word": "tot"
+                },
+                {
+                  "word": "pox"
+                },
+                {
+                  "word": "bop"
+                },
+                {
                   "word": "mop"
                 },
                 {
-                  "word": "top"
+                  "word": "pop"
                 },
                 {
-                  "word": "pop"
+                  "word": "top"
                 },
                 {
                   "word": "bog"
                 },
                 {
                   "word": "fog"
+                },
+                {
+                  "word": "hog"
+                },
+                {
+                  "word": "jog"
                 }
               ],
               "sightWords": [
@@ -1354,6 +1625,41 @@
                 },
                 {
                   "word": "the"
+                }
+              ],
+              "bonusWords": [
+                {
+                  "word": "bob"
+                },
+                {
+                  "word": "cob"
+                },
+                {
+                  "word": "job"
+                },
+                {
+                  "word": "mob"
+                },
+                {
+                  "word": "rob"
+                },
+                {
+                  "word": "sob"
+                },
+                {
+                  "word": "cod"
+                },
+                {
+                  "word": "nod"
+                },
+                {
+                  "word": "pod"
+                },
+                {
+                  "word": "rod"
+                },
+                {
+                  "word": "mom"
                 }
               ]
             },
@@ -1412,16 +1718,22 @@
                   "word": "dug"
                 },
                 {
+                  "word": "jug"
+                },
+                {
                   "word": "lug"
+                },
+                {
+                  "word": "pug"
                 },
                 {
                   "word": "tug"
                 },
                 {
-                  "word": "jug"
+                  "word": "cub"
                 },
                 {
-                  "word": "cub"
+                  "word": "dub"
                 },
                 {
                   "word": "hub"
@@ -1430,7 +1742,7 @@
                   "word": "sub"
                 },
                 {
-                  "word": "gut"
+                  "word": "sup"
                 }
               ],
               "sightWords": [
@@ -1451,6 +1763,26 @@
                 },
                 {
                   "word": "the"
+                }
+              ],
+              "bonusWords": [
+                {
+                  "word": "bum"
+                },
+                {
+                  "word": "gum"
+                },
+                {
+                  "word": "hum"
+                },
+                {
+                  "word": "mum"
+                },
+                {
+                  "word": "sum"
+                },
+                {
+                  "word": "bus"
                 }
               ]
             },
@@ -1515,19 +1847,22 @@
                   "word": "pun"
                 },
                 {
+                  "word": "cud"
+                },
+                {
+                  "word": "dud"
+                },
+                {
+                  "word": "gut"
+                },
+                {
                   "word": "hut"
                 },
                 {
-                  "word": "bus"
+                  "word": "jut"
                 },
                 {
-                  "word": "gum"
-                },
-                {
-                  "word": "hum"
-                },
-                {
-                  "word": "sum"
+                  "word": "rut"
                 }
               ],
               "sightWords": [
@@ -1545,6 +1880,26 @@
                 },
                 {
                   "word": "the"
+                }
+              ],
+              "bonusWords": [
+                {
+                  "word": "bum"
+                },
+                {
+                  "word": "gum"
+                },
+                {
+                  "word": "hum"
+                },
+                {
+                  "word": "mum"
+                },
+                {
+                  "word": "sum"
+                },
+                {
+                  "word": "bus"
                 }
               ]
             }
@@ -1608,7 +1963,13 @@
               ],
               "extraWords": [
                 {
+                  "word": "fake"
+                },
+                {
                   "word": "make"
+                },
+                {
+                  "word": "sake"
                 },
                 {
                   "word": "take"
@@ -1617,19 +1978,22 @@
                   "word": "wake"
                 },
                 {
-                  "word": "save"
+                  "word": "gape"
+                },
+                {
+                  "word": "nape"
                 },
                 {
                   "word": "gave"
                 },
                 {
-                  "word": "late"
+                  "word": "pave"
                 },
                 {
-                  "word": "pale"
+                  "word": "rave"
                 },
                 {
-                  "word": "sale"
+                  "word": "save"
                 }
               ],
               "sightWords": [
@@ -1662,6 +2026,98 @@
                 },
                 {
                   "word": "with"
+                }
+              ],
+              "bonusWords": [
+                {
+                  "word": "fade"
+                },
+                {
+                  "word": "made"
+                },
+                {
+                  "word": "wade"
+                },
+                {
+                  "word": "bale"
+                },
+                {
+                  "word": "dale"
+                },
+                {
+                  "word": "gale"
+                },
+                {
+                  "word": "male"
+                },
+                {
+                  "word": "pale"
+                },
+                {
+                  "word": "sale"
+                },
+                {
+                  "word": "tale"
+                },
+                {
+                  "word": "daze"
+                },
+                {
+                  "word": "gaze"
+                },
+                {
+                  "word": "haze"
+                },
+                {
+                  "word": "maze"
+                },
+                {
+                  "word": "face"
+                },
+                {
+                  "word": "lace"
+                },
+                {
+                  "word": "pace"
+                },
+                {
+                  "word": "race"
+                },
+                {
+                  "word": "cage"
+                },
+                {
+                  "word": "page"
+                },
+                {
+                  "word": "rage"
+                },
+                {
+                  "word": "sage"
+                },
+                {
+                  "word": "wage"
+                },
+                {
+                  "word": "bare"
+                },
+                {
+                  "word": "care"
+                },
+                {
+                  "word": "dare"
+                },
+                {
+                  "word": "fare"
+                },
+                {
+                  "word": "hare"
+                },
+                {
+                  "word": "mare"
+                },
+                {
+                  "word": "rare"
                 }
               ]
             },
@@ -1718,13 +2174,31 @@
               ],
               "extraWords": [
                 {
+                  "word": "came"
+                },
+                {
                   "word": "fame"
+                },
+                {
+                  "word": "lame"
                 },
                 {
                   "word": "same"
                 },
                 {
+                  "word": "tame"
+                },
+                {
+                  "word": "fate"
+                },
+                {
                   "word": "hate"
+                },
+                {
+                  "word": "late"
+                },
+                {
+                  "word": "mate"
                 },
                 {
                   "word": "rate"
@@ -1733,13 +2207,16 @@
                   "word": "lane"
                 },
                 {
-                  "word": "cage"
+                  "word": "pane"
                 },
                 {
-                  "word": "page"
+                  "word": "sane"
                 },
                 {
-                  "word": "gaze"
+                  "word": "wane"
+                },
+                {
+                  "word": "base"
                 }
               ],
               "sightWords": [
@@ -1775,6 +2252,98 @@
                 },
                 {
                   "word": "the"
+                }
+              ],
+              "bonusWords": [
+                {
+                  "word": "fade"
+                },
+                {
+                  "word": "made"
+                },
+                {
+                  "word": "wade"
+                },
+                {
+                  "word": "bale"
+                },
+                {
+                  "word": "dale"
+                },
+                {
+                  "word": "gale"
+                },
+                {
+                  "word": "male"
+                },
+                {
+                  "word": "pale"
+                },
+                {
+                  "word": "sale"
+                },
+                {
+                  "word": "tale"
+                },
+                {
+                  "word": "daze"
+                },
+                {
+                  "word": "gaze"
+                },
+                {
+                  "word": "haze"
+                },
+                {
+                  "word": "maze"
+                },
+                {
+                  "word": "face"
+                },
+                {
+                  "word": "lace"
+                },
+                {
+                  "word": "pace"
+                },
+                {
+                  "word": "race"
+                },
+                {
+                  "word": "cage"
+                },
+                {
+                  "word": "page"
+                },
+                {
+                  "word": "rage"
+                },
+                {
+                  "word": "sage"
+                },
+                {
+                  "word": "wage"
+                },
+                {
+                  "word": "bare"
+                },
+                {
+                  "word": "care"
+                },
+                {
+                  "word": "dare"
+                },
+                {
+                  "word": "fare"
+                },
+                {
+                  "word": "hare"
+                },
+                {
+                  "word": "mare"
+                },
+                {
+                  "word": "rare"
                 }
               ]
             },
@@ -1840,19 +2409,19 @@
                   "word": "mine"
                 },
                 {
+                  "word": "wine"
+                },
+                {
                   "word": "like"
                 },
                 {
-                  "word": "mile"
+                  "word": "pike"
                 },
                 {
-                  "word": "fire"
+                  "word": "dime"
                 },
                 {
-                  "word": "wire"
-                },
-                {
-                  "word": "ripe"
+                  "word": "mime"
                 }
               ],
               "sightWords": [
@@ -1873,6 +2442,53 @@
                 },
                 {
                   "word": "to"
+                }
+              ],
+              "bonusWords": [
+                {
+                  "word": "file"
+                },
+                {
+                  "word": "mile"
+                },
+                {
+                  "word": "pile"
+                },
+                {
+                  "word": "tile"
+                },
+                {
+                  "word": "life"
+                },
+                {
+                  "word": "wife"
+                },
+                {
+                  "word": "vibe"
+                },
+                {
+                  "word": "dice"
+                },
+                {
+                  "word": "mice"
+                },
+                {
+                  "word": "nice"
+                },
+                {
+                  "word": "rice"
+                },
+                {
+                  "word": "fire"
+                },
+                {
+                  "word": "hire"
+                },
+                {
+                  "word": "tire"
+                },
+                {
+                  "word": "wire"
                 }
               ]
             },
@@ -1929,28 +2545,25 @@
               ],
               "extraWords": [
                 {
-                  "word": "wide"
-                },
-                {
                   "word": "side"
                 },
                 {
                   "word": "tide"
                 },
                 {
+                  "word": "wide"
+                },
+                {
+                  "word": "ripe"
+                },
+                {
+                  "word": "mite"
+                },
+                {
                   "word": "site"
                 },
                 {
-                  "word": "mice"
-                },
-                {
-                  "word": "rice"
-                },
-                {
-                  "word": "lice"
-                },
-                {
-                  "word": "nice"
+                  "word": "hive"
                 }
               ],
               "sightWords": [
@@ -1971,6 +2584,56 @@
                 },
                 {
                   "word": "to"
+                }
+              ],
+              "bonusWords": [
+                {
+                  "word": "file"
+                },
+                {
+                  "word": "mile"
+                },
+                {
+                  "word": "pile"
+                },
+                {
+                  "word": "tile"
+                },
+                {
+                  "word": "life"
+                },
+                {
+                  "word": "wife"
+                },
+                {
+                  "word": "vibe"
+                },
+                {
+                  "word": "size"
+                },
+                {
+                  "word": "dice"
+                },
+                {
+                  "word": "mice"
+                },
+                {
+                  "word": "nice"
+                },
+                {
+                  "word": "rice"
+                },
+                {
+                  "word": "fire"
+                },
+                {
+                  "word": "hire"
+                },
+                {
+                  "word": "tire"
+                },
+                {
+                  "word": "wire"
                 }
               ]
             },
@@ -2030,25 +2693,28 @@
                   "word": "dose"
                 },
                 {
-                  "word": "lose"
+                  "word": "cope"
                 },
                 {
-                  "word": "code"
+                  "word": "dope"
                 },
                 {
-                  "word": "tone"
+                  "word": "mope"
                 },
                 {
-                  "word": "bore"
+                  "word": "pope"
                 },
                 {
-                  "word": "core"
+                  "word": "cote"
                 },
                 {
-                  "word": "more"
+                  "word": "dote"
                 },
                 {
-                  "word": "fore"
+                  "word": "rote"
+                },
+                {
+                  "word": "tote"
                 }
               ],
               "sightWords": [
@@ -2087,6 +2753,65 @@
                 },
                 {
                   "word": "water"
+                }
+              ],
+              "bonusWords": [
+                {
+                  "word": "code"
+                },
+                {
+                  "word": "mode"
+                },
+                {
+                  "word": "node"
+                },
+                {
+                  "word": "rode"
+                },
+                {
+                  "word": "coke"
+                },
+                {
+                  "word": "joke"
+                },
+                {
+                  "word": "poke"
+                },
+                {
+                  "word": "woke"
+                },
+                {
+                  "word": "lobe"
+                },
+                {
+                  "word": "robe"
+                },
+                {
+                  "word": "cove"
+                },
+                {
+                  "word": "wove"
+                },
+                {
+                  "word": "bore"
+                },
+                {
+                  "word": "core"
+                },
+                {
+                  "word": "fore"
+                },
+                {
+                  "word": "more"
+                },
+                {
+                  "word": "sore"
+                },
+                {
+                  "word": "tore"
+                },
+                {
+                  "word": "wore"
                 }
               ]
             },
@@ -2143,28 +2868,22 @@
               ],
               "extraWords": [
                 {
+                  "word": "dole"
+                },
+                {
                   "word": "role"
                 },
                 {
-                  "word": "rode"
+                  "word": "tome"
                 },
                 {
-                  "word": "poke"
+                  "word": "lone"
                 },
                 {
-                  "word": "woke"
-                },
-                {
-                  "word": "joke"
-                },
-                {
-                  "word": "coke"
+                  "word": "tone"
                 },
                 {
                   "word": "zone"
-                },
-                {
-                  "word": "node"
                 }
               ],
               "sightWords": [
@@ -2197,6 +2916,65 @@
                 },
                 {
                   "word": "to"
+                }
+              ],
+              "bonusWords": [
+                {
+                  "word": "code"
+                },
+                {
+                  "word": "mode"
+                },
+                {
+                  "word": "node"
+                },
+                {
+                  "word": "rode"
+                },
+                {
+                  "word": "coke"
+                },
+                {
+                  "word": "joke"
+                },
+                {
+                  "word": "poke"
+                },
+                {
+                  "word": "woke"
+                },
+                {
+                  "word": "lobe"
+                },
+                {
+                  "word": "robe"
+                },
+                {
+                  "word": "cove"
+                },
+                {
+                  "word": "wove"
+                },
+                {
+                  "word": "bore"
+                },
+                {
+                  "word": "core"
+                },
+                {
+                  "word": "fore"
+                },
+                {
+                  "word": "more"
+                },
+                {
+                  "word": "sore"
+                },
+                {
+                  "word": "tore"
+                },
+                {
+                  "word": "wore"
                 }
               ]
             },
@@ -2256,25 +3034,7 @@
                   "word": "jute"
                 },
                 {
-                  "word": "rude"
-                },
-                {
-                  "word": "huge"
-                },
-                {
-                  "word": "pure"
-                },
-                {
-                  "word": "sure"
-                },
-                {
                   "word": "rule"
-                },
-                {
-                  "word": "lure"
-                },
-                {
-                  "word": "duke"
                 }
               ],
               "sightWords": [
@@ -2289,6 +3049,41 @@
                 },
                 {
                   "word": "the"
+                }
+              ],
+              "bonusWords": [
+                {
+                  "word": "dude"
+                },
+                {
+                  "word": "rude"
+                },
+                {
+                  "word": "fume"
+                },
+                {
+                  "word": "fuse"
+                },
+                {
+                  "word": "muse"
+                },
+                {
+                  "word": "duke"
+                },
+                {
+                  "word": "huge"
+                },
+                {
+                  "word": "cure"
+                },
+                {
+                  "word": "lure"
+                },
+                {
+                  "word": "pure"
+                },
+                {
+                  "word": "sure"
                 }
               ]
             }
@@ -2368,7 +3163,7 @@
               ],
               "extraWords": [
                 {
-                  "word": "block"
+                  "word": "black"
                 },
                 {
                   "word": "blast"
@@ -2377,19 +3172,64 @@
                   "word": "blend"
                 },
                 {
-                  "word": "blunt"
+                  "word": "blip"
                 },
                 {
-                  "word": "clip"
+                  "word": "blob"
+                },
+                {
+                  "word": "block"
+                },
+                {
+                  "word": "blond"
+                },
+                {
+                  "word": "blot"
+                },
+                {
+                  "word": "blunt"
                 },
                 {
                   "word": "clan"
                 },
                 {
-                  "word": "flip"
+                  "word": "class"
+                },
+                {
+                  "word": "click"
+                },
+                {
+                  "word": "clip"
+                },
+                {
+                  "word": "clog"
+                },
+                {
+                  "word": "close"
+                },
+                {
+                  "word": "club"
+                },
+                {
+                  "word": "clump"
                 },
                 {
                   "word": "flat"
+                },
+                {
+                  "word": "fled"
+                },
+                {
+                  "word": "flick"
+                },
+                {
+                  "word": "flip"
+                },
+                {
+                  "word": "flock"
+                },
+                {
+                  "word": "flop"
                 }
               ],
               "sightWords": [
@@ -2431,6 +3271,140 @@
                 },
                 {
                   "word": "under"
+                }
+              ],
+              "bonusWords": [
+                {
+                  "word": "scale"
+                },
+                {
+                  "word": "scalp"
+                },
+                {
+                  "word": "scan"
+                },
+                {
+                  "word": "scoff"
+                },
+                {
+                  "word": "skate"
+                },
+                {
+                  "word": "sketch"
+                },
+                {
+                  "word": "skid"
+                },
+                {
+                  "word": "skill"
+                },
+                {
+                  "word": "skim"
+                },
+                {
+                  "word": "skin"
+                },
+                {
+                  "word": "skip"
+                },
+                {
+                  "word": "skit"
+                },
+                {
+                  "word": "skull"
+                },
+                {
+                  "word": "space"
+                },
+                {
+                  "word": "span"
+                },
+                {
+                  "word": "spark"
+                },
+                {
+                  "word": "spat"
+                },
+                {
+                  "word": "speed"
+                },
+                {
+                  "word": "spell"
+                },
+                {
+                  "word": "spend"
+                },
+                {
+                  "word": "spill"
+                },
+                {
+                  "word": "spin"
+                },
+                {
+                  "word": "spit"
+                },
+                {
+                  "word": "spoke"
+                },
+                {
+                  "word": "spoon"
+                },
+                {
+                  "word": "sport"
+                },
+                {
+                  "word": "spot"
+                },
+                {
+                  "word": "spun"
+                },
+                {
+                  "word": "twig"
+                },
+                {
+                  "word": "twin"
+                },
+                {
+                  "word": "twist"
+                },
+                {
+                  "word": "scrap"
+                },
+                {
+                  "word": "scratch"
+                },
+                {
+                  "word": "scream"
+                },
+                {
+                  "word": "scrub"
+                },
+                {
+                  "word": "splash"
+                },
+                {
+                  "word": "split"
+                },
+                {
+                  "word": "spray"
+                },
+                {
+                  "word": "spring"
+                },
+                {
+                  "word": "strap"
+                },
+                {
+                  "word": "street"
+                },
+                {
+                  "word": "string"
+                },
+                {
+                  "word": "strip"
+                },
+                {
+                  "word": "strong"
                 }
               ]
             },
@@ -2508,28 +3482,61 @@
               ],
               "extraWords": [
                 {
-                  "word": "bring"
-                },
-                {
                   "word": "brag"
-                },
-                {
-                  "word": "brim"
                 },
                 {
                   "word": "brand"
                 },
                 {
+                  "word": "brass"
+                },
+                {
+                  "word": "bred"
+                },
+                {
+                  "word": "brim"
+                },
+                {
+                  "word": "brisk"
+                },
+                {
                   "word": "crack"
+                },
+                {
+                  "word": "cram"
+                },
+                {
+                  "word": "cramp"
+                },
+                {
+                  "word": "cress"
+                },
+                {
+                  "word": "crimp"
+                },
+                {
+                  "word": "crisp"
+                },
+                {
+                  "word": "crock"
+                },
+                {
+                  "word": "crop"
                 },
                 {
                   "word": "crust"
                 },
                 {
-                  "word": "frank"
+                  "word": "fret"
                 },
                 {
-                  "word": "fret"
+                  "word": "frill"
+                },
+                {
+                  "word": "frisk"
+                },
+                {
+                  "word": "frock"
                 }
               ],
               "sightWords": [
@@ -2559,6 +3566,140 @@
                 },
                 {
                   "word": "the"
+                }
+              ],
+              "bonusWords": [
+                {
+                  "word": "scale"
+                },
+                {
+                  "word": "scalp"
+                },
+                {
+                  "word": "scan"
+                },
+                {
+                  "word": "scoff"
+                },
+                {
+                  "word": "skate"
+                },
+                {
+                  "word": "sketch"
+                },
+                {
+                  "word": "skid"
+                },
+                {
+                  "word": "skill"
+                },
+                {
+                  "word": "skim"
+                },
+                {
+                  "word": "skin"
+                },
+                {
+                  "word": "skip"
+                },
+                {
+                  "word": "skit"
+                },
+                {
+                  "word": "skull"
+                },
+                {
+                  "word": "space"
+                },
+                {
+                  "word": "span"
+                },
+                {
+                  "word": "spark"
+                },
+                {
+                  "word": "spat"
+                },
+                {
+                  "word": "speed"
+                },
+                {
+                  "word": "spell"
+                },
+                {
+                  "word": "spend"
+                },
+                {
+                  "word": "spill"
+                },
+                {
+                  "word": "spin"
+                },
+                {
+                  "word": "spit"
+                },
+                {
+                  "word": "spoke"
+                },
+                {
+                  "word": "spoon"
+                },
+                {
+                  "word": "sport"
+                },
+                {
+                  "word": "spot"
+                },
+                {
+                  "word": "spun"
+                },
+                {
+                  "word": "twig"
+                },
+                {
+                  "word": "twin"
+                },
+                {
+                  "word": "twist"
+                },
+                {
+                  "word": "scrap"
+                },
+                {
+                  "word": "scratch"
+                },
+                {
+                  "word": "scream"
+                },
+                {
+                  "word": "scrub"
+                },
+                {
+                  "word": "splash"
+                },
+                {
+                  "word": "split"
+                },
+                {
+                  "word": "spray"
+                },
+                {
+                  "word": "spring"
+                },
+                {
+                  "word": "strap"
+                },
+                {
+                  "word": "street"
+                },
+                {
+                  "word": "string"
+                },
+                {
+                  "word": "strip"
+                },
+                {
+                  "word": "strong"
                 }
               ]
             },
@@ -2639,25 +3780,58 @@
                   "word": "glad"
                 },
                 {
+                  "word": "glaze"
+                },
+                {
+                  "word": "glib"
+                },
+                {
+                  "word": "glide"
+                },
+                {
+                  "word": "glop"
+                },
+                {
                   "word": "glum"
                 },
                 {
-                  "word": "plank"
+                  "word": "plan"
+                },
+                {
+                  "word": "plot"
+                },
+                {
+                  "word": "plug"
                 },
                 {
                   "word": "plus"
                 },
                 {
-                  "word": "slap"
-                },
-                {
-                  "word": "slip"
+                  "word": "slab"
                 },
                 {
                   "word": "slam"
                 },
                 {
+                  "word": "slap"
+                },
+                {
+                  "word": "slid"
+                },
+                {
+                  "word": "slip"
+                },
+                {
+                  "word": "slit"
+                },
+                {
                   "word": "slot"
+                },
+                {
+                  "word": "slug"
+                },
+                {
+                  "word": "slum"
                 }
               ],
               "sightWords": [
@@ -2681,6 +3855,140 @@
                 },
                 {
                   "word": "your"
+                }
+              ],
+              "bonusWords": [
+                {
+                  "word": "scale"
+                },
+                {
+                  "word": "scalp"
+                },
+                {
+                  "word": "scan"
+                },
+                {
+                  "word": "scoff"
+                },
+                {
+                  "word": "skate"
+                },
+                {
+                  "word": "sketch"
+                },
+                {
+                  "word": "skid"
+                },
+                {
+                  "word": "skill"
+                },
+                {
+                  "word": "skim"
+                },
+                {
+                  "word": "skin"
+                },
+                {
+                  "word": "skip"
+                },
+                {
+                  "word": "skit"
+                },
+                {
+                  "word": "skull"
+                },
+                {
+                  "word": "space"
+                },
+                {
+                  "word": "span"
+                },
+                {
+                  "word": "spark"
+                },
+                {
+                  "word": "spat"
+                },
+                {
+                  "word": "speed"
+                },
+                {
+                  "word": "spell"
+                },
+                {
+                  "word": "spend"
+                },
+                {
+                  "word": "spill"
+                },
+                {
+                  "word": "spin"
+                },
+                {
+                  "word": "spit"
+                },
+                {
+                  "word": "spoke"
+                },
+                {
+                  "word": "spoon"
+                },
+                {
+                  "word": "sport"
+                },
+                {
+                  "word": "spot"
+                },
+                {
+                  "word": "spun"
+                },
+                {
+                  "word": "twig"
+                },
+                {
+                  "word": "twin"
+                },
+                {
+                  "word": "twist"
+                },
+                {
+                  "word": "scrap"
+                },
+                {
+                  "word": "scratch"
+                },
+                {
+                  "word": "scream"
+                },
+                {
+                  "word": "scrub"
+                },
+                {
+                  "word": "splash"
+                },
+                {
+                  "word": "split"
+                },
+                {
+                  "word": "spray"
+                },
+                {
+                  "word": "spring"
+                },
+                {
+                  "word": "strap"
+                },
+                {
+                  "word": "street"
+                },
+                {
+                  "word": "string"
+                },
+                {
+                  "word": "strip"
+                },
+                {
+                  "word": "strong"
                 }
               ]
             },
@@ -2758,28 +4066,55 @@
               ],
               "extraWords": [
                 {
+                  "word": "drag"
+                },
+                {
+                  "word": "drift"
+                },
+                {
+                  "word": "drill"
+                },
+                {
                   "word": "drip"
                 },
                 {
                   "word": "drop"
                 },
                 {
-                  "word": "prank"
+                  "word": "drove"
                 },
                 {
                   "word": "prim"
                 },
                 {
+                  "word": "primp"
+                },
+                {
+                  "word": "probe"
+                },
+                {
                   "word": "prop"
+                },
+                {
+                  "word": "tramp"
                 },
                 {
                   "word": "trap"
                 },
                 {
+                  "word": "trek"
+                },
+                {
+                  "word": "trim"
+                },
+                {
                   "word": "trip"
                 },
                 {
-                  "word": "drag"
+                  "word": "trot"
+                },
+                {
+                  "word": "trust"
                 }
               ],
               "sightWords": [
@@ -2815,6 +4150,140 @@
                 },
                 {
                   "word": "what"
+                }
+              ],
+              "bonusWords": [
+                {
+                  "word": "scale"
+                },
+                {
+                  "word": "scalp"
+                },
+                {
+                  "word": "scan"
+                },
+                {
+                  "word": "scoff"
+                },
+                {
+                  "word": "skate"
+                },
+                {
+                  "word": "sketch"
+                },
+                {
+                  "word": "skid"
+                },
+                {
+                  "word": "skill"
+                },
+                {
+                  "word": "skim"
+                },
+                {
+                  "word": "skin"
+                },
+                {
+                  "word": "skip"
+                },
+                {
+                  "word": "skit"
+                },
+                {
+                  "word": "skull"
+                },
+                {
+                  "word": "space"
+                },
+                {
+                  "word": "span"
+                },
+                {
+                  "word": "spark"
+                },
+                {
+                  "word": "spat"
+                },
+                {
+                  "word": "speed"
+                },
+                {
+                  "word": "spell"
+                },
+                {
+                  "word": "spend"
+                },
+                {
+                  "word": "spill"
+                },
+                {
+                  "word": "spin"
+                },
+                {
+                  "word": "spit"
+                },
+                {
+                  "word": "spoke"
+                },
+                {
+                  "word": "spoon"
+                },
+                {
+                  "word": "sport"
+                },
+                {
+                  "word": "spot"
+                },
+                {
+                  "word": "spun"
+                },
+                {
+                  "word": "twig"
+                },
+                {
+                  "word": "twin"
+                },
+                {
+                  "word": "twist"
+                },
+                {
+                  "word": "scrap"
+                },
+                {
+                  "word": "scratch"
+                },
+                {
+                  "word": "scream"
+                },
+                {
+                  "word": "scrub"
+                },
+                {
+                  "word": "splash"
+                },
+                {
+                  "word": "split"
+                },
+                {
+                  "word": "spray"
+                },
+                {
+                  "word": "spring"
+                },
+                {
+                  "word": "strap"
+                },
+                {
+                  "word": "street"
+                },
+                {
+                  "word": "string"
+                },
+                {
+                  "word": "strip"
+                },
+                {
+                  "word": "strong"
                 }
               ]
             },
@@ -2899,7 +4368,16 @@
                   "word": "smog"
                 },
                 {
+                  "word": "smug"
+                },
+                {
                   "word": "snap"
+                },
+                {
+                  "word": "snip"
+                },
+                {
+                  "word": "snob"
                 },
                 {
                   "word": "snug"
@@ -2908,13 +4386,61 @@
                   "word": "stack"
                 },
                 {
+                  "word": "staff"
+                },
+                {
+                  "word": "stage"
+                },
+                {
+                  "word": "stamp"
+                },
+                {
+                  "word": "stand"
+                },
+                {
+                  "word": "stem"
+                },
+                {
                   "word": "step"
+                },
+                {
+                  "word": "stick"
+                },
+                {
+                  "word": "stiff"
+                },
+                {
+                  "word": "still"
+                },
+                {
+                  "word": "stomp"
+                },
+                {
+                  "word": "stub"
+                },
+                {
+                  "word": "stuck"
+                },
+                {
+                  "word": "stump"
                 },
                 {
                   "word": "swam"
                 },
                 {
+                  "word": "swap"
+                },
+                {
                   "word": "swat"
+                },
+                {
+                  "word": "swift"
+                },
+                {
+                  "word": "swig"
+                },
+                {
+                  "word": "swipe"
                 }
               ],
               "sightWords": [
@@ -2935,6 +4461,140 @@
                 },
                 {
                   "word": "the"
+                }
+              ],
+              "bonusWords": [
+                {
+                  "word": "scale"
+                },
+                {
+                  "word": "scalp"
+                },
+                {
+                  "word": "scan"
+                },
+                {
+                  "word": "scoff"
+                },
+                {
+                  "word": "skate"
+                },
+                {
+                  "word": "sketch"
+                },
+                {
+                  "word": "skid"
+                },
+                {
+                  "word": "skill"
+                },
+                {
+                  "word": "skim"
+                },
+                {
+                  "word": "skin"
+                },
+                {
+                  "word": "skip"
+                },
+                {
+                  "word": "skit"
+                },
+                {
+                  "word": "skull"
+                },
+                {
+                  "word": "space"
+                },
+                {
+                  "word": "span"
+                },
+                {
+                  "word": "spark"
+                },
+                {
+                  "word": "spat"
+                },
+                {
+                  "word": "speed"
+                },
+                {
+                  "word": "spell"
+                },
+                {
+                  "word": "spend"
+                },
+                {
+                  "word": "spill"
+                },
+                {
+                  "word": "spin"
+                },
+                {
+                  "word": "spit"
+                },
+                {
+                  "word": "spoke"
+                },
+                {
+                  "word": "spoon"
+                },
+                {
+                  "word": "sport"
+                },
+                {
+                  "word": "spot"
+                },
+                {
+                  "word": "spun"
+                },
+                {
+                  "word": "twig"
+                },
+                {
+                  "word": "twin"
+                },
+                {
+                  "word": "twist"
+                },
+                {
+                  "word": "scrap"
+                },
+                {
+                  "word": "scratch"
+                },
+                {
+                  "word": "scream"
+                },
+                {
+                  "word": "scrub"
+                },
+                {
+                  "word": "splash"
+                },
+                {
+                  "word": "split"
+                },
+                {
+                  "word": "spray"
+                },
+                {
+                  "word": "spring"
+                },
+                {
+                  "word": "strap"
+                },
+                {
+                  "word": "street"
+                },
+                {
+                  "word": "string"
+                },
+                {
+                  "word": "strip"
+                },
+                {
+                  "word": "strong"
                 }
               ]
             },
@@ -3011,28 +4671,94 @@
               ],
               "extraWords": [
                 {
+                  "word": "cling"
+                },
+                {
+                  "word": "fling"
+                },
+                {
+                  "word": "gang"
+                },
+                {
+                  "word": "hang"
+                },
+                {
+                  "word": "long"
+                },
+                {
                   "word": "lung"
                 },
                 {
                   "word": "rang"
                 },
                 {
+                  "word": "sing"
+                },
+                {
+                  "word": "sling"
+                },
+                {
+                  "word": "sting"
+                },
+                {
                   "word": "sung"
                 },
                 {
-                  "word": "hang"
+                  "word": "wing"
+                },
+                {
+                  "word": "wrong"
+                },
+                {
+                  "word": "blank"
                 },
                 {
                   "word": "blink"
                 },
                 {
+                  "word": "clank"
+                },
+                {
+                  "word": "crank"
+                },
+                {
                   "word": "drink"
+                },
+                {
+                  "word": "flank"
+                },
+                {
+                  "word": "frank"
+                },
+                {
+                  "word": "honk"
                 },
                 {
                   "word": "link"
                 },
                 {
+                  "word": "plank"
+                },
+                {
+                  "word": "prank"
+                },
+                {
+                  "word": "rank"
+                },
+                {
+                  "word": "rink"
+                },
+                {
+                  "word": "sank"
+                },
+                {
                   "word": "sink"
+                },
+                {
+                  "word": "stink"
+                },
+                {
+                  "word": "sunk"
                 }
               ],
               "sightWords": [
@@ -3065,6 +4791,140 @@
                 },
                 {
                   "word": "the"
+                }
+              ],
+              "bonusWords": [
+                {
+                  "word": "scale"
+                },
+                {
+                  "word": "scalp"
+                },
+                {
+                  "word": "scan"
+                },
+                {
+                  "word": "scoff"
+                },
+                {
+                  "word": "skate"
+                },
+                {
+                  "word": "sketch"
+                },
+                {
+                  "word": "skid"
+                },
+                {
+                  "word": "skill"
+                },
+                {
+                  "word": "skim"
+                },
+                {
+                  "word": "skin"
+                },
+                {
+                  "word": "skip"
+                },
+                {
+                  "word": "skit"
+                },
+                {
+                  "word": "skull"
+                },
+                {
+                  "word": "space"
+                },
+                {
+                  "word": "span"
+                },
+                {
+                  "word": "spark"
+                },
+                {
+                  "word": "spat"
+                },
+                {
+                  "word": "speed"
+                },
+                {
+                  "word": "spell"
+                },
+                {
+                  "word": "spend"
+                },
+                {
+                  "word": "spill"
+                },
+                {
+                  "word": "spin"
+                },
+                {
+                  "word": "spit"
+                },
+                {
+                  "word": "spoke"
+                },
+                {
+                  "word": "spoon"
+                },
+                {
+                  "word": "sport"
+                },
+                {
+                  "word": "spot"
+                },
+                {
+                  "word": "spun"
+                },
+                {
+                  "word": "twig"
+                },
+                {
+                  "word": "twin"
+                },
+                {
+                  "word": "twist"
+                },
+                {
+                  "word": "scrap"
+                },
+                {
+                  "word": "scratch"
+                },
+                {
+                  "word": "scream"
+                },
+                {
+                  "word": "scrub"
+                },
+                {
+                  "word": "splash"
+                },
+                {
+                  "word": "split"
+                },
+                {
+                  "word": "spray"
+                },
+                {
+                  "word": "spring"
+                },
+                {
+                  "word": "strap"
+                },
+                {
+                  "word": "street"
+                },
+                {
+                  "word": "string"
+                },
+                {
+                  "word": "strip"
+                },
+                {
+                  "word": "strong"
                 }
               ]
             },
@@ -3141,28 +5001,103 @@
               ],
               "extraWords": [
                 {
+                  "word": "cash"
+                },
+                {
+                  "word": "crush"
+                },
+                {
+                  "word": "dish"
+                },
+                {
+                  "word": "hush"
+                },
+                {
+                  "word": "mash"
+                },
+                {
+                  "word": "rush"
+                },
+                {
+                  "word": "shack"
+                },
+                {
+                  "word": "shade"
+                },
+                {
+                  "word": "shake"
+                },
+                {
+                  "word": "shame"
+                },
+                {
                   "word": "shed"
                 },
                 {
                   "word": "shell"
                 },
                 {
+                  "word": "shine"
+                },
+                {
+                  "word": "shock"
+                },
+                {
                   "word": "shut"
                 },
                 {
-                  "word": "shack"
+                  "word": "trash"
                 },
                 {
-                  "word": "chest"
+                  "word": "wish"
                 },
                 {
-                  "word": "chip"
+                  "word": "champ"
+                },
+                {
+                  "word": "chant"
+                },
+                {
+                  "word": "chap"
+                },
+                {
+                  "word": "chase"
+                },
+                {
+                  "word": "chat"
                 },
                 {
                   "word": "check"
                 },
                 {
+                  "word": "chess"
+                },
+                {
+                  "word": "chest"
+                },
+                {
+                  "word": "chime"
+                },
+                {
+                  "word": "chip"
+                },
+                {
+                  "word": "choke"
+                },
+                {
                   "word": "chop"
+                },
+                {
+                  "word": "inch"
+                },
+                {
+                  "word": "lunch"
+                },
+                {
+                  "word": "match"
+                },
+                {
+                  "word": "rich"
                 }
               ],
               "sightWords": [
@@ -3198,6 +5133,140 @@
                 },
                 {
                   "word": "there"
+                }
+              ],
+              "bonusWords": [
+                {
+                  "word": "scale"
+                },
+                {
+                  "word": "scalp"
+                },
+                {
+                  "word": "scan"
+                },
+                {
+                  "word": "scoff"
+                },
+                {
+                  "word": "skate"
+                },
+                {
+                  "word": "sketch"
+                },
+                {
+                  "word": "skid"
+                },
+                {
+                  "word": "skill"
+                },
+                {
+                  "word": "skim"
+                },
+                {
+                  "word": "skin"
+                },
+                {
+                  "word": "skip"
+                },
+                {
+                  "word": "skit"
+                },
+                {
+                  "word": "skull"
+                },
+                {
+                  "word": "space"
+                },
+                {
+                  "word": "span"
+                },
+                {
+                  "word": "spark"
+                },
+                {
+                  "word": "spat"
+                },
+                {
+                  "word": "speed"
+                },
+                {
+                  "word": "spell"
+                },
+                {
+                  "word": "spend"
+                },
+                {
+                  "word": "spill"
+                },
+                {
+                  "word": "spin"
+                },
+                {
+                  "word": "spit"
+                },
+                {
+                  "word": "spoke"
+                },
+                {
+                  "word": "spoon"
+                },
+                {
+                  "word": "sport"
+                },
+                {
+                  "word": "spot"
+                },
+                {
+                  "word": "spun"
+                },
+                {
+                  "word": "twig"
+                },
+                {
+                  "word": "twin"
+                },
+                {
+                  "word": "twist"
+                },
+                {
+                  "word": "scrap"
+                },
+                {
+                  "word": "scratch"
+                },
+                {
+                  "word": "scream"
+                },
+                {
+                  "word": "scrub"
+                },
+                {
+                  "word": "splash"
+                },
+                {
+                  "word": "split"
+                },
+                {
+                  "word": "spray"
+                },
+                {
+                  "word": "spring"
+                },
+                {
+                  "word": "strap"
+                },
+                {
+                  "word": "street"
+                },
+                {
+                  "word": "string"
+                },
+                {
+                  "word": "strip"
+                },
+                {
+                  "word": "strong"
                 }
               ]
             },
@@ -3274,7 +5343,43 @@
               ],
               "extraWords": [
                 {
+                  "word": "cloth"
+                },
+                {
+                  "word": "moth"
+                },
+                {
+                  "word": "path"
+                },
+                {
+                  "word": "with"
+                },
+                {
+                  "word": "broth"
+                },
+                {
+                  "word": "than"
+                },
+                {
+                  "word": "that"
+                },
+                {
+                  "word": "them"
+                },
+                {
                   "word": "then"
+                },
+                {
+                  "word": "this"
+                },
+                {
+                  "word": "thud"
+                },
+                {
+                  "word": "thug"
+                },
+                {
+                  "word": "thump"
                 },
                 {
                   "word": "thing"
@@ -3283,16 +5388,22 @@
                   "word": "think"
                 },
                 {
-                  "word": "thud"
+                  "word": "whack"
                 },
                 {
                   "word": "when"
                 },
                 {
-                  "word": "whim"
+                  "word": "which"
                 },
                 {
-                  "word": "whack"
+                  "word": "whiff"
+                },
+                {
+                  "word": "while"
+                },
+                {
+                  "word": "whim"
                 },
                 {
                   "word": "whine"
@@ -3346,6 +5457,140 @@
                 },
                 {
                   "word": "water"
+                }
+              ],
+              "bonusWords": [
+                {
+                  "word": "scale"
+                },
+                {
+                  "word": "scalp"
+                },
+                {
+                  "word": "scan"
+                },
+                {
+                  "word": "scoff"
+                },
+                {
+                  "word": "skate"
+                },
+                {
+                  "word": "sketch"
+                },
+                {
+                  "word": "skid"
+                },
+                {
+                  "word": "skill"
+                },
+                {
+                  "word": "skim"
+                },
+                {
+                  "word": "skin"
+                },
+                {
+                  "word": "skip"
+                },
+                {
+                  "word": "skit"
+                },
+                {
+                  "word": "skull"
+                },
+                {
+                  "word": "space"
+                },
+                {
+                  "word": "span"
+                },
+                {
+                  "word": "spark"
+                },
+                {
+                  "word": "spat"
+                },
+                {
+                  "word": "speed"
+                },
+                {
+                  "word": "spell"
+                },
+                {
+                  "word": "spend"
+                },
+                {
+                  "word": "spill"
+                },
+                {
+                  "word": "spin"
+                },
+                {
+                  "word": "spit"
+                },
+                {
+                  "word": "spoke"
+                },
+                {
+                  "word": "spoon"
+                },
+                {
+                  "word": "sport"
+                },
+                {
+                  "word": "spot"
+                },
+                {
+                  "word": "spun"
+                },
+                {
+                  "word": "twig"
+                },
+                {
+                  "word": "twin"
+                },
+                {
+                  "word": "twist"
+                },
+                {
+                  "word": "scrap"
+                },
+                {
+                  "word": "scratch"
+                },
+                {
+                  "word": "scream"
+                },
+                {
+                  "word": "scrub"
+                },
+                {
+                  "word": "splash"
+                },
+                {
+                  "word": "split"
+                },
+                {
+                  "word": "spray"
+                },
+                {
+                  "word": "spring"
+                },
+                {
+                  "word": "strap"
+                },
+                {
+                  "word": "street"
+                },
+                {
+                  "word": "string"
+                },
+                {
+                  "word": "strip"
+                },
+                {
+                  "word": "strong"
                 }
               ]
             }
@@ -3429,28 +5674,172 @@
               ],
               "extraWords": [
                 {
-                  "word": "seek"
+                  "word": "beef"
                 },
                 {
-                  "word": "week"
+                  "word": "cheep"
                 },
                 {
                   "word": "deep"
                 },
                 {
+                  "word": "feed"
+                },
+                {
+                  "word": "feel"
+                },
+                {
+                  "word": "free"
+                },
+                {
+                  "word": "heel"
+                },
+                {
+                  "word": "jeep"
+                },
+                {
+                  "word": "keen"
+                },
+                {
                   "word": "keep"
+                },
+                {
+                  "word": "meet"
+                },
+                {
+                  "word": "need"
+                },
+                {
+                  "word": "peek"
+                },
+                {
+                  "word": "peep"
+                },
+                {
+                  "word": "queen"
+                },
+                {
+                  "word": "reed"
+                },
+                {
+                  "word": "reef"
+                },
+                {
+                  "word": "screen"
+                },
+                {
+                  "word": "seek"
+                },
+                {
+                  "word": "seen"
+                },
+                {
+                  "word": "sheep"
+                },
+                {
+                  "word": "sheet"
+                },
+                {
+                  "word": "sleep"
+                },
+                {
+                  "word": "steep"
+                },
+                {
+                  "word": "sweet"
+                },
+                {
+                  "word": "teeth"
+                },
+                {
+                  "word": "weed"
+                },
+                {
+                  "word": "week"
+                },
+                {
+                  "word": "beach"
+                },
+                {
+                  "word": "bead"
+                },
+                {
+                  "word": "beak"
                 },
                 {
                   "word": "beam"
                 },
                 {
+                  "word": "bean"
+                },
+                {
                   "word": "beat"
+                },
+                {
+                  "word": "clean"
+                },
+                {
+                  "word": "cream"
+                },
+                {
+                  "word": "deal"
+                },
+                {
+                  "word": "dream"
+                },
+                {
+                  "word": "each"
+                },
+                {
+                  "word": "feast"
+                },
+                {
+                  "word": "heal"
+                },
+                {
+                  "word": "heap"
                 },
                 {
                   "word": "heat"
                 },
                 {
                   "word": "lead"
+                },
+                {
+                  "word": "lean"
+                },
+                {
+                  "word": "meal"
+                },
+                {
+                  "word": "neat"
+                },
+                {
+                  "word": "peach"
+                },
+                {
+                  "word": "peak"
+                },
+                {
+                  "word": "reach"
+                },
+                {
+                  "word": "read"
+                },
+                {
+                  "word": "real"
+                },
+                {
+                  "word": "seam"
+                },
+                {
+                  "word": "speak"
+                },
+                {
+                  "word": "steam"
+                },
+                {
+                  "word": "team"
                 }
               ],
               "sightWords": [
@@ -3471,6 +5860,98 @@
                 },
                 {
                   "word": "the"
+                }
+              ],
+              "bonusWords": [
+                {
+                  "word": "high"
+                },
+                {
+                  "word": "night"
+                },
+                {
+                  "word": "light"
+                },
+                {
+                  "word": "bright"
+                },
+                {
+                  "word": "right"
+                },
+                {
+                  "word": "tight"
+                },
+                {
+                  "word": "fight"
+                },
+                {
+                  "word": "sight"
+                },
+                {
+                  "word": "few"
+                },
+                {
+                  "word": "new"
+                },
+                {
+                  "word": "chew"
+                },
+                {
+                  "word": "blew"
+                },
+                {
+                  "word": "flew"
+                },
+                {
+                  "word": "grew"
+                },
+                {
+                  "word": "glue"
+                },
+                {
+                  "word": "blue"
+                },
+                {
+                  "word": "clue"
+                },
+                {
+                  "word": "true"
+                },
+                {
+                  "word": "key"
+                },
+                {
+                  "word": "monkey"
+                },
+                {
+                  "word": "donkey"
+                },
+                {
+                  "word": "honey"
+                },
+                {
+                  "word": "pie"
+                },
+                {
+                  "word": "tie"
+                },
+                {
+                  "word": "lie"
+                },
+                {
+                  "word": "die"
+                },
+                {
+                  "word": "phone"
+                },
+                {
+                  "word": "photo"
+                },
+                {
+                  "word": "dolphin"
+                },
+                {
+                  "word": "graph"
                 }
               ]
             },
@@ -3547,16 +6028,61 @@
               ],
               "extraWords": [
                 {
-                  "word": "load"
+                  "word": "cloak"
                 },
                 {
-                  "word": "toad"
+                  "word": "coach"
+                },
+                {
+                  "word": "coal"
+                },
+                {
+                  "word": "coast"
+                },
+                {
+                  "word": "float"
                 },
                 {
                   "word": "foam"
                 },
                 {
+                  "word": "gloat"
+                },
+                {
+                  "word": "groan"
+                },
+                {
+                  "word": "load"
+                },
+                {
+                  "word": "loaf"
+                },
+                {
                   "word": "loan"
+                },
+                {
+                  "word": "moan"
+                },
+                {
+                  "word": "oak"
+                },
+                {
+                  "word": "oat"
+                },
+                {
+                  "word": "roach"
+                },
+                {
+                  "word": "roam"
+                },
+                {
+                  "word": "soak"
+                },
+                {
+                  "word": "throat"
+                },
+                {
+                  "word": "toad"
                 },
                 {
                   "word": "crow"
@@ -3569,6 +6095,21 @@
                 },
                 {
                   "word": "grow"
+                },
+                {
+                  "word": "low"
+                },
+                {
+                  "word": "mow"
+                },
+                {
+                  "word": "row"
+                },
+                {
+                  "word": "slow"
+                },
+                {
+                  "word": "show"
                 }
               ],
               "sightWords": [
@@ -3601,6 +6142,98 @@
                 },
                 {
                   "word": "want"
+                }
+              ],
+              "bonusWords": [
+                {
+                  "word": "high"
+                },
+                {
+                  "word": "night"
+                },
+                {
+                  "word": "light"
+                },
+                {
+                  "word": "bright"
+                },
+                {
+                  "word": "right"
+                },
+                {
+                  "word": "tight"
+                },
+                {
+                  "word": "fight"
+                },
+                {
+                  "word": "sight"
+                },
+                {
+                  "word": "few"
+                },
+                {
+                  "word": "new"
+                },
+                {
+                  "word": "chew"
+                },
+                {
+                  "word": "blew"
+                },
+                {
+                  "word": "flew"
+                },
+                {
+                  "word": "grew"
+                },
+                {
+                  "word": "glue"
+                },
+                {
+                  "word": "blue"
+                },
+                {
+                  "word": "clue"
+                },
+                {
+                  "word": "true"
+                },
+                {
+                  "word": "key"
+                },
+                {
+                  "word": "monkey"
+                },
+                {
+                  "word": "donkey"
+                },
+                {
+                  "word": "honey"
+                },
+                {
+                  "word": "pie"
+                },
+                {
+                  "word": "tie"
+                },
+                {
+                  "word": "lie"
+                },
+                {
+                  "word": "die"
+                },
+                {
+                  "word": "phone"
+                },
+                {
+                  "word": "photo"
+                },
+                {
+                  "word": "dolphin"
+                },
+                {
+                  "word": "graph"
                 }
               ]
             },
@@ -3680,13 +6313,73 @@
                   "word": "aim"
                 },
                 {
+                  "word": "bail"
+                },
+                {
                   "word": "bait"
+                },
+                {
+                  "word": "braid"
+                },
+                {
+                  "word": "brain"
+                },
+                {
+                  "word": "chain"
+                },
+                {
+                  "word": "claim"
+                },
+                {
+                  "word": "drain"
+                },
+                {
+                  "word": "fail"
+                },
+                {
+                  "word": "faint"
                 },
                 {
                   "word": "gain"
                 },
                 {
+                  "word": "grain"
+                },
+                {
                   "word": "hail"
+                },
+                {
+                  "word": "jail"
+                },
+                {
+                  "word": "maid"
+                },
+                {
+                  "word": "main"
+                },
+                {
+                  "word": "pain"
+                },
+                {
+                  "word": "paint"
+                },
+                {
+                  "word": "plain"
+                },
+                {
+                  "word": "sail"
+                },
+                {
+                  "word": "snail"
+                },
+                {
+                  "word": "stain"
+                },
+                {
+                  "word": "trail"
+                },
+                {
+                  "word": "wait"
                 },
                 {
                   "word": "bay"
@@ -3698,7 +6391,28 @@
                   "word": "jay"
                 },
                 {
+                  "word": "lay"
+                },
+                {
                   "word": "may"
+                },
+                {
+                  "word": "pay"
+                },
+                {
+                  "word": "ray"
+                },
+                {
+                  "word": "say"
+                },
+                {
+                  "word": "stay"
+                },
+                {
+                  "word": "sway"
+                },
+                {
+                  "word": "way"
                 }
               ],
               "sightWords": [
@@ -3731,6 +6445,98 @@
                 },
                 {
                   "word": "with"
+                }
+              ],
+              "bonusWords": [
+                {
+                  "word": "high"
+                },
+                {
+                  "word": "night"
+                },
+                {
+                  "word": "light"
+                },
+                {
+                  "word": "bright"
+                },
+                {
+                  "word": "right"
+                },
+                {
+                  "word": "tight"
+                },
+                {
+                  "word": "fight"
+                },
+                {
+                  "word": "sight"
+                },
+                {
+                  "word": "few"
+                },
+                {
+                  "word": "new"
+                },
+                {
+                  "word": "chew"
+                },
+                {
+                  "word": "blew"
+                },
+                {
+                  "word": "flew"
+                },
+                {
+                  "word": "grew"
+                },
+                {
+                  "word": "glue"
+                },
+                {
+                  "word": "blue"
+                },
+                {
+                  "word": "clue"
+                },
+                {
+                  "word": "true"
+                },
+                {
+                  "word": "key"
+                },
+                {
+                  "word": "monkey"
+                },
+                {
+                  "word": "donkey"
+                },
+                {
+                  "word": "honey"
+                },
+                {
+                  "word": "pie"
+                },
+                {
+                  "word": "tie"
+                },
+                {
+                  "word": "lie"
+                },
+                {
+                  "word": "die"
+                },
+                {
+                  "word": "phone"
+                },
+                {
+                  "word": "photo"
+                },
+                {
+                  "word": "dolphin"
+                },
+                {
+                  "word": "graph"
                 }
               ]
             },
@@ -3807,22 +6613,55 @@
               ],
               "extraWords": [
                 {
-                  "word": "join"
-                },
-                {
-                  "word": "void"
-                },
-                {
-                  "word": "voice"
+                  "word": "broil"
                 },
                 {
                   "word": "choice"
                 },
                 {
+                  "word": "groin"
+                },
+                {
+                  "word": "hoist"
+                },
+                {
+                  "word": "join"
+                },
+                {
+                  "word": "joint"
+                },
+                {
+                  "word": "moist"
+                },
+                {
+                  "word": "noise"
+                },
+                {
+                  "word": "spoil"
+                },
+                {
+                  "word": "toil"
+                },
+                {
+                  "word": "voice"
+                },
+                {
+                  "word": "void"
+                },
+                {
                   "word": "coy"
                 },
                 {
+                  "word": "ploy"
+                },
+                {
+                  "word": "roy"
+                },
+                {
                   "word": "soy"
+                },
+                {
+                  "word": "troy"
                 }
               ],
               "sightWords": [
@@ -3855,6 +6694,98 @@
                 },
                 {
                   "word": "wow"
+                }
+              ],
+              "bonusWords": [
+                {
+                  "word": "high"
+                },
+                {
+                  "word": "night"
+                },
+                {
+                  "word": "light"
+                },
+                {
+                  "word": "bright"
+                },
+                {
+                  "word": "right"
+                },
+                {
+                  "word": "tight"
+                },
+                {
+                  "word": "fight"
+                },
+                {
+                  "word": "sight"
+                },
+                {
+                  "word": "few"
+                },
+                {
+                  "word": "new"
+                },
+                {
+                  "word": "chew"
+                },
+                {
+                  "word": "blew"
+                },
+                {
+                  "word": "flew"
+                },
+                {
+                  "word": "grew"
+                },
+                {
+                  "word": "glue"
+                },
+                {
+                  "word": "blue"
+                },
+                {
+                  "word": "clue"
+                },
+                {
+                  "word": "true"
+                },
+                {
+                  "word": "key"
+                },
+                {
+                  "word": "monkey"
+                },
+                {
+                  "word": "donkey"
+                },
+                {
+                  "word": "honey"
+                },
+                {
+                  "word": "pie"
+                },
+                {
+                  "word": "tie"
+                },
+                {
+                  "word": "lie"
+                },
+                {
+                  "word": "die"
+                },
+                {
+                  "word": "phone"
+                },
+                {
+                  "word": "photo"
+                },
+                {
+                  "word": "dolphin"
+                },
+                {
+                  "word": "graph"
                 }
               ]
             },
@@ -3931,25 +6862,91 @@
               ],
               "extraWords": [
                 {
-                  "word": "how"
+                  "word": "bow"
                 },
                 {
-                  "word": "now"
-                },
-                {
-                  "word": "town"
+                  "word": "crowd"
                 },
                 {
                   "word": "down"
                 },
                 {
+                  "word": "drown"
+                },
+                {
+                  "word": "frown"
+                },
+                {
+                  "word": "growl"
+                },
+                {
+                  "word": "how"
+                },
+                {
+                  "word": "howl"
+                },
+                {
+                  "word": "now"
+                },
+                {
+                  "word": "plow"
+                },
+                {
+                  "word": "prowl"
+                },
+                {
+                  "word": "town"
+                },
+                {
+                  "word": "vow"
+                },
+                {
+                  "word": "couch"
+                },
+                {
+                  "word": "found"
+                },
+                {
+                  "word": "ground"
+                },
+                {
+                  "word": "hound"
+                },
+                {
                   "word": "loud"
+                },
+                {
+                  "word": "mount"
+                },
+                {
+                  "word": "ouch"
+                },
+                {
+                  "word": "pouch"
+                },
+                {
+                  "word": "pound"
                 },
                 {
                   "word": "proud"
                 },
                 {
-                  "word": "pound"
+                  "word": "round"
+                },
+                {
+                  "word": "shout"
+                },
+                {
+                  "word": "snout"
+                },
+                {
+                  "word": "sound"
+                },
+                {
+                  "word": "south"
+                },
+                {
+                  "word": "sprout"
                 }
               ],
               "sightWords": [
@@ -3991,6 +6988,98 @@
                 },
                 {
                   "word": "watch out"
+                }
+              ],
+              "bonusWords": [
+                {
+                  "word": "high"
+                },
+                {
+                  "word": "night"
+                },
+                {
+                  "word": "light"
+                },
+                {
+                  "word": "bright"
+                },
+                {
+                  "word": "right"
+                },
+                {
+                  "word": "tight"
+                },
+                {
+                  "word": "fight"
+                },
+                {
+                  "word": "sight"
+                },
+                {
+                  "word": "few"
+                },
+                {
+                  "word": "new"
+                },
+                {
+                  "word": "chew"
+                },
+                {
+                  "word": "blew"
+                },
+                {
+                  "word": "flew"
+                },
+                {
+                  "word": "grew"
+                },
+                {
+                  "word": "glue"
+                },
+                {
+                  "word": "blue"
+                },
+                {
+                  "word": "clue"
+                },
+                {
+                  "word": "true"
+                },
+                {
+                  "word": "key"
+                },
+                {
+                  "word": "monkey"
+                },
+                {
+                  "word": "donkey"
+                },
+                {
+                  "word": "honey"
+                },
+                {
+                  "word": "pie"
+                },
+                {
+                  "word": "tie"
+                },
+                {
+                  "word": "lie"
+                },
+                {
+                  "word": "die"
+                },
+                {
+                  "word": "phone"
+                },
+                {
+                  "word": "photo"
+                },
+                {
+                  "word": "dolphin"
+                },
+                {
+                  "word": "graph"
                 }
               ]
             },
@@ -4068,6 +7157,9 @@
               ],
               "extraWords": [
                 {
+                  "word": "chirp"
+                },
+                {
                   "word": "dirt"
                 },
                 {
@@ -4077,7 +7169,46 @@
                   "word": "first"
                 },
                 {
+                  "word": "sir"
+                },
+                {
+                  "word": "stir"
+                },
+                {
+                  "word": "third"
+                },
+                {
+                  "word": "twirl"
+                },
+                {
+                  "word": "clerk"
+                },
+                {
+                  "word": "fern"
+                },
+                {
+                  "word": "germ"
+                },
+                {
                   "word": "her"
+                },
+                {
+                  "word": "herd"
+                },
+                {
+                  "word": "jerk"
+                },
+                {
+                  "word": "perch"
+                },
+                {
+                  "word": "perk"
+                },
+                {
+                  "word": "serve"
+                },
+                {
+                  "word": "stern"
                 },
                 {
                   "word": "term"
@@ -4086,10 +7217,31 @@
                   "word": "verb"
                 },
                 {
+                  "word": "blur"
+                },
+                {
                   "word": "burn"
                 },
                 {
+                  "word": "burst"
+                },
+                {
+                  "word": "church"
+                },
+                {
                   "word": "curl"
+                },
+                {
+                  "word": "fur"
+                },
+                {
+                  "word": "hurt"
+                },
+                {
+                  "word": "surf"
+                },
+                {
+                  "word": "turn"
                 }
               ],
               "sightWords": [
@@ -4128,6 +7280,98 @@
                 },
                 {
                   "word": "with"
+                }
+              ],
+              "bonusWords": [
+                {
+                  "word": "high"
+                },
+                {
+                  "word": "night"
+                },
+                {
+                  "word": "light"
+                },
+                {
+                  "word": "bright"
+                },
+                {
+                  "word": "right"
+                },
+                {
+                  "word": "tight"
+                },
+                {
+                  "word": "fight"
+                },
+                {
+                  "word": "sight"
+                },
+                {
+                  "word": "few"
+                },
+                {
+                  "word": "new"
+                },
+                {
+                  "word": "chew"
+                },
+                {
+                  "word": "blew"
+                },
+                {
+                  "word": "flew"
+                },
+                {
+                  "word": "grew"
+                },
+                {
+                  "word": "glue"
+                },
+                {
+                  "word": "blue"
+                },
+                {
+                  "word": "clue"
+                },
+                {
+                  "word": "true"
+                },
+                {
+                  "word": "key"
+                },
+                {
+                  "word": "monkey"
+                },
+                {
+                  "word": "donkey"
+                },
+                {
+                  "word": "honey"
+                },
+                {
+                  "word": "pie"
+                },
+                {
+                  "word": "tie"
+                },
+                {
+                  "word": "lie"
+                },
+                {
+                  "word": "die"
+                },
+                {
+                  "word": "phone"
+                },
+                {
+                  "word": "photo"
+                },
+                {
+                  "word": "dolphin"
+                },
+                {
+                  "word": "graph"
                 }
               ]
             },
@@ -4204,28 +7448,115 @@
               ],
               "extraWords": [
                 {
-                  "word": "bar"
+                  "word": "bark"
                 },
                 {
-                  "word": "far"
+                  "word": "barn"
                 },
                 {
-                  "word": "jar"
+                  "word": "chart"
                 },
                 {
                   "word": "dark"
                 },
                 {
+                  "word": "farm"
+                },
+                {
+                  "word": "hard"
+                },
+                {
+                  "word": "harm"
+                },
+                {
+                  "word": "harp"
+                },
+                {
+                  "word": "jar"
+                },
+                {
+                  "word": "march"
+                },
+                {
+                  "word": "mark"
+                },
+                {
+                  "word": "part"
+                },
+                {
+                  "word": "scar"
+                },
+                {
+                  "word": "scarf"
+                },
+                {
+                  "word": "shark"
+                },
+                {
+                  "word": "sharp"
+                },
+                {
+                  "word": "smart"
+                },
+                {
+                  "word": "spark"
+                },
+                {
+                  "word": "tart"
+                },
+                {
+                  "word": "yard"
+                },
+                {
+                  "word": "born"
+                },
+                {
+                  "word": "cord"
+                },
+                {
+                  "word": "dorm"
+                },
+                {
                   "word": "for"
                 },
                 {
-                  "word": "nor"
+                  "word": "fort"
+                },
+                {
+                  "word": "horn"
+                },
+                {
+                  "word": "lord"
+                },
+                {
+                  "word": "pork"
                 },
                 {
                   "word": "port"
                 },
                 {
+                  "word": "scorn"
+                },
+                {
+                  "word": "short"
+                },
+                {
+                  "word": "snort"
+                },
+                {
                   "word": "sort"
+                },
+                {
+                  "word": "storm"
+                },
+                {
+                  "word": "torch"
+                },
+                {
+                  "word": "torn"
+                },
+                {
+                  "word": "worn"
                 }
               ],
               "sightWords": [
@@ -4261,6 +7592,98 @@
                 },
                 {
                   "word": "the"
+                }
+              ],
+              "bonusWords": [
+                {
+                  "word": "high"
+                },
+                {
+                  "word": "night"
+                },
+                {
+                  "word": "light"
+                },
+                {
+                  "word": "bright"
+                },
+                {
+                  "word": "right"
+                },
+                {
+                  "word": "tight"
+                },
+                {
+                  "word": "fight"
+                },
+                {
+                  "word": "sight"
+                },
+                {
+                  "word": "few"
+                },
+                {
+                  "word": "new"
+                },
+                {
+                  "word": "chew"
+                },
+                {
+                  "word": "blew"
+                },
+                {
+                  "word": "flew"
+                },
+                {
+                  "word": "grew"
+                },
+                {
+                  "word": "glue"
+                },
+                {
+                  "word": "blue"
+                },
+                {
+                  "word": "clue"
+                },
+                {
+                  "word": "true"
+                },
+                {
+                  "word": "key"
+                },
+                {
+                  "word": "monkey"
+                },
+                {
+                  "word": "donkey"
+                },
+                {
+                  "word": "honey"
+                },
+                {
+                  "word": "pie"
+                },
+                {
+                  "word": "tie"
+                },
+                {
+                  "word": "lie"
+                },
+                {
+                  "word": "die"
+                },
+                {
+                  "word": "phone"
+                },
+                {
+                  "word": "photo"
+                },
+                {
+                  "word": "dolphin"
+                },
+                {
+                  "word": "graph"
                 }
               ]
             },
@@ -4336,25 +7759,91 @@
               ],
               "extraWords": [
                 {
+                  "word": "brook"
+                },
+                {
+                  "word": "crook"
+                },
+                {
                   "word": "good"
                 },
                 {
                   "word": "hood"
                 },
                 {
+                  "word": "shook"
+                },
+                {
                   "word": "soot"
+                },
+                {
+                  "word": "stood"
+                },
+                {
+                  "word": "took"
                 },
                 {
                   "word": "wool"
                 },
                 {
+                  "word": "bloom"
+                },
+                {
+                  "word": "boom"
+                },
+                {
+                  "word": "boot"
+                },
+                {
+                  "word": "broom"
+                },
+                {
                   "word": "cool"
+                },
+                {
+                  "word": "doom"
                 },
                 {
                   "word": "fool"
                 },
                 {
+                  "word": "hoof"
+                },
+                {
+                  "word": "loom"
+                },
+                {
+                  "word": "loop"
+                },
+                {
+                  "word": "mood"
+                },
+                {
+                  "word": "noon"
+                },
+                {
+                  "word": "roof"
+                },
+                {
+                  "word": "room"
+                },
+                {
                   "word": "root"
+                },
+                {
+                  "word": "shoot"
+                },
+                {
+                  "word": "smooth"
+                },
+                {
+                  "word": "soon"
+                },
+                {
+                  "word": "tool"
+                },
+                {
+                  "word": "zoom"
                 }
               ],
               "sightWords": [
@@ -4399,6 +7888,98 @@
                 },
                 {
                   "word": "you"
+                }
+              ],
+              "bonusWords": [
+                {
+                  "word": "high"
+                },
+                {
+                  "word": "night"
+                },
+                {
+                  "word": "light"
+                },
+                {
+                  "word": "bright"
+                },
+                {
+                  "word": "right"
+                },
+                {
+                  "word": "tight"
+                },
+                {
+                  "word": "fight"
+                },
+                {
+                  "word": "sight"
+                },
+                {
+                  "word": "few"
+                },
+                {
+                  "word": "new"
+                },
+                {
+                  "word": "chew"
+                },
+                {
+                  "word": "blew"
+                },
+                {
+                  "word": "flew"
+                },
+                {
+                  "word": "grew"
+                },
+                {
+                  "word": "glue"
+                },
+                {
+                  "word": "blue"
+                },
+                {
+                  "word": "clue"
+                },
+                {
+                  "word": "true"
+                },
+                {
+                  "word": "key"
+                },
+                {
+                  "word": "monkey"
+                },
+                {
+                  "word": "donkey"
+                },
+                {
+                  "word": "honey"
+                },
+                {
+                  "word": "pie"
+                },
+                {
+                  "word": "tie"
+                },
+                {
+                  "word": "lie"
+                },
+                {
+                  "word": "die"
+                },
+                {
+                  "word": "phone"
+                },
+                {
+                  "word": "photo"
+                },
+                {
+                  "word": "dolphin"
+                },
+                {
+                  "word": "graph"
                 }
               ]
             },
@@ -4476,34 +8057,156 @@
               ],
               "extraWords": [
                 {
-                  "word": "haunt"
+                  "word": "audio"
                 },
                 {
                   "word": "author"
                 },
                 {
-                  "word": "audio"
+                  "word": "fault"
+                },
+                {
+                  "word": "haunt"
+                },
+                {
+                  "word": "vault"
                 },
                 {
                   "word": "claw"
                 },
                 {
+                  "word": "dawn"
+                },
+                {
                   "word": "hawk"
+                },
+                {
+                  "word": "jaw"
+                },
+                {
+                  "word": "lawn"
+                },
+                {
+                  "word": "paw"
+                },
+                {
+                  "word": "raw"
                 },
                 {
                   "word": "saw"
                 },
                 {
-                  "word": "wall"
+                  "word": "shawl"
+                },
+                {
+                  "word": "straw"
                 },
                 {
                   "word": "call"
                 },
                 {
-                  "word": "stall"
+                  "word": "fall"
+                },
+                {
+                  "word": "hall"
+                },
+                {
+                  "word": "wall"
                 }
               ],
-              "sightWords": []
+              "sightWords": [],
+              "bonusWords": [
+                {
+                  "word": "high"
+                },
+                {
+                  "word": "night"
+                },
+                {
+                  "word": "light"
+                },
+                {
+                  "word": "bright"
+                },
+                {
+                  "word": "right"
+                },
+                {
+                  "word": "tight"
+                },
+                {
+                  "word": "fight"
+                },
+                {
+                  "word": "sight"
+                },
+                {
+                  "word": "few"
+                },
+                {
+                  "word": "new"
+                },
+                {
+                  "word": "chew"
+                },
+                {
+                  "word": "blew"
+                },
+                {
+                  "word": "flew"
+                },
+                {
+                  "word": "grew"
+                },
+                {
+                  "word": "glue"
+                },
+                {
+                  "word": "blue"
+                },
+                {
+                  "word": "clue"
+                },
+                {
+                  "word": "true"
+                },
+                {
+                  "word": "key"
+                },
+                {
+                  "word": "monkey"
+                },
+                {
+                  "word": "donkey"
+                },
+                {
+                  "word": "honey"
+                },
+                {
+                  "word": "pie"
+                },
+                {
+                  "word": "tie"
+                },
+                {
+                  "word": "lie"
+                },
+                {
+                  "word": "die"
+                },
+                {
+                  "word": "phone"
+                },
+                {
+                  "word": "photo"
+                },
+                {
+                  "word": "dolphin"
+                },
+                {
+                  "word": "graph"
+                }
+              ]
             },
             {
               "id": "L5U10",
@@ -4579,13 +8282,37 @@
               ],
               "extraWords": [
                 {
-                  "word": "numb"
+                  "word": "bomb"
+                },
+                {
+                  "word": "crumb"
+                },
+                {
+                  "word": "dumb"
                 },
                 {
                   "word": "limb"
                 },
                 {
-                  "word": "bomb"
+                  "word": "numb"
+                },
+                {
+                  "word": "tomb"
+                },
+                {
+                  "word": "knack"
+                },
+                {
+                  "word": "knead"
+                },
+                {
+                  "word": "knelt"
+                },
+                {
+                  "word": "knick"
+                },
+                {
+                  "word": "knob"
                 },
                 {
                   "word": "knot"
@@ -4594,19 +8321,114 @@
                   "word": "know"
                 },
                 {
-                  "word": "knob"
+                  "word": "wreck"
                 },
                 {
-                  "word": "wreck"
+                  "word": "wren"
                 },
                 {
                   "word": "wrench"
                 },
                 {
-                  "word": "wreath"
+                  "word": "wrestle"
+                },
+                {
+                  "word": "wring"
                 }
               ],
-              "sightWords": []
+              "sightWords": [],
+              "bonusWords": [
+                {
+                  "word": "high"
+                },
+                {
+                  "word": "night"
+                },
+                {
+                  "word": "light"
+                },
+                {
+                  "word": "bright"
+                },
+                {
+                  "word": "right"
+                },
+                {
+                  "word": "tight"
+                },
+                {
+                  "word": "fight"
+                },
+                {
+                  "word": "sight"
+                },
+                {
+                  "word": "few"
+                },
+                {
+                  "word": "new"
+                },
+                {
+                  "word": "chew"
+                },
+                {
+                  "word": "blew"
+                },
+                {
+                  "word": "flew"
+                },
+                {
+                  "word": "grew"
+                },
+                {
+                  "word": "glue"
+                },
+                {
+                  "word": "blue"
+                },
+                {
+                  "word": "clue"
+                },
+                {
+                  "word": "true"
+                },
+                {
+                  "word": "key"
+                },
+                {
+                  "word": "monkey"
+                },
+                {
+                  "word": "donkey"
+                },
+                {
+                  "word": "honey"
+                },
+                {
+                  "word": "pie"
+                },
+                {
+                  "word": "tie"
+                },
+                {
+                  "word": "lie"
+                },
+                {
+                  "word": "die"
+                },
+                {
+                  "word": "phone"
+                },
+                {
+                  "word": "photo"
+                },
+                {
+                  "word": "dolphin"
+                },
+                {
+                  "word": "graph"
+                }
+              ]
             }
           ]
         }

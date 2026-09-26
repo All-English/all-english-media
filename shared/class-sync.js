@@ -1214,28 +1214,54 @@
           if (!title && unit.name) {
             title = unit.name.replace(/^Unit\s+\d+:\s*/i, '');
           }
-          if (bookNum === 1 && unit.targetLetters && unit.targetLetters.length) {
-            title = unit.targetLetters.join('').toUpperCase();
+          let l1Letters = null;
+          if (bookNum === 1) {
+            if (Array.isArray(unit.targetLetters) && unit.targetLetters.length) {
+              l1Letters = unit.targetLetters.map(l => String(l).toLowerCase());
+            } else if (unit.targetSound) {
+              const parts = String(unit.targetSound).split(/[,/ ]+/).filter(Boolean);
+              if (parts.length && parts.every(p => p.length === 1 && /[a-zA-Z]/.test(p))) {
+                l1Letters = parts.map(p => p.toLowerCase());
+              }
+            } else if (unit.name) {
+              const m = String(unit.name).match(/:\s*([a-zA-Z]+)/);
+              if (m) l1Letters = m[1].toLowerCase().split('');
+            }
+            if (!l1Letters && Array.isArray(unit.words) && unit.words.length) {
+              const set = new Set();
+              unit.words.forEach(w => {
+                const txt = typeof w === 'string' ? w : (w.word || '');
+                if (txt && /^[a-zA-Z]/.test(txt)) set.add(txt[0].toLowerCase());
+              });
+              if (set.size > 0 && set.size <= 4) l1Letters = Array.from(set);
+            }
+          }
+
+          if (l1Letters && l1Letters.length) {
+            title = l1Letters.join('').toUpperCase();
           }
 
           let words = [];
           let extraWords = [];
+          let bonusWords = [];
 
-          if (bookNum === 1 && unit.targetLetters && unit.targetLetters.length) {
-            for (const l of unit.targetLetters) {
+          if (l1Letters && l1Letters.length) {
+            for (const l of l1Letters) {
               words.push(l.toUpperCase(), l.toLowerCase());
               extraWords.push(l.toUpperCase() + l.toLowerCase());
             }
           } else {
             words = [...new Set((unit.words || []).map(w => typeof w === 'string' ? w : w.word))];
             extraWords = (unit.extraWords || []).map(w => typeof w === 'string' ? w : (w.word || ''));
+            bonusWords = (unit.bonusWords || []).map(w => typeof w === 'string' ? w : (w.word || ''));
           }
 
           bank[levelKey][unitKey] = {
             targetSound: unit.targetSound || '',
             unitTitle: title || `Unit ${unitNum}`,
             words,
-            extraWords
+            extraWords,
+            bonusWords
           };
         }
       }

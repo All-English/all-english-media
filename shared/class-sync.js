@@ -20,6 +20,7 @@
   const SHARED_SETS_KEY = 'shared_player_sets';
   const SHARED_ACTIVE_PLAYERS_KEY = 'shared_active_players';
   const SHARED_ACTIVE_CLASS_KEY = 'shared_active_class';
+  const SHARED_ACTIVE_UNITS_KEY = 'shared_active_units';
   const SHARED_CLASS_PROFILES_KEY = 'shared_class_profiles';
   const SHARED_HIDDEN_BOOKS_KEY = 'shared_hidden_books';
   const SHARED_COOKIE_NAME = 'ae_shared_sync';
@@ -74,21 +75,57 @@
       matchedDays = ['Mon', 'Wed', 'Fri'];
     }
 
-    // 2. Extract Start Time
-    const timeMatch = className.match(/(\d{1,2}):(\d{2})/);
+    const pad = n => String(n).padStart(2, '0');
+
+    // 2. Check for explicit time range: e.g. 4:00-5:00, 4:00~4:50, 4-5pm, 4 to 5
+    const rangeMatch = className.match(/(\d{1,2})(?::(\d{2}))?\s*(am|pm)?\s*(?:-|~|to)\s*(\d{1,2})(?::(\d{2}))?\s*(am|pm)?/i);
+    if (rangeMatch) {
+      let startHour = parseInt(rangeMatch[1], 10);
+      let startMin = rangeMatch[2] ? parseInt(rangeMatch[2], 10) : 0;
+      const startAmPm = (rangeMatch[3] || rangeMatch[7] || '').toLowerCase();
+
+      let endHour = parseInt(rangeMatch[4], 10);
+      let endMin = rangeMatch[5] ? parseInt(rangeMatch[5], 10) : 0;
+      const endAmPm = (rangeMatch[6] || rangeMatch[3] || '').toLowerCase();
+
+      if (startAmPm === 'pm' && startHour < 12) startHour += 12;
+      else if (startAmPm === 'am' && startHour === 12) startHour = 0;
+      else if (!startAmPm && startHour >= 1 && startHour <= 8) startHour += 12;
+
+      if (endAmPm === 'pm' && endHour < 12) endHour += 12;
+      else if (endAmPm === 'am' && endHour === 12) endHour = 0;
+      else if (!endAmPm && endHour >= 1 && endHour <= 8) endHour += 12;
+
+      if (endHour * 60 + endMin <= startHour * 60 + startMin) {
+        endHour = startHour + 1;
+      }
+
+      return {
+        days: matchedDays,
+        startTime: `${pad(startHour)}:${pad(startMin)}`,
+        endTime: `${pad(endHour)}:${pad(endMin)}`
+      };
+    }
+
+    // 3. Single time match: e.g. 4:00, 4:00pm, 4pm, 4 PM, 4
+    const timeMatch = className.match(/(\d{1,2})(?::(\d{2}))?\s*(am|pm)?/i);
     let startHour = 15;
     let startMin = 0;
 
-    if (timeMatch) {
+    if (timeMatch && timeMatch[1]) {
       startHour = parseInt(timeMatch[1], 10);
-      startMin = parseInt(timeMatch[2], 10);
-      // Auto-convert single-digit or early morning afternoon times (e.g. 3:00 -> 15:00)
-      if (startHour >= 1 && startHour <= 8) {
+      startMin = timeMatch[2] ? parseInt(timeMatch[2], 10) : 0;
+      const ampm = (timeMatch[3] || '').toLowerCase();
+
+      if (ampm === 'pm' && startHour < 12) {
+        startHour += 12;
+      } else if (ampm === 'am' && startHour === 12) {
+        startHour = 0;
+      } else if (!ampm && startHour >= 1 && startHour <= 8) {
         startHour += 12;
       }
     }
 
-    const pad = n => String(n).padStart(2, '0');
     const startTime = `${pad(startHour)}:${pad(startMin)}`;
 
     // Default 50-60 min session length
@@ -254,6 +291,15 @@
       const series = 'smart-phonics';
       const level = parseInt(m[1], 10);
       const unit = parseInt(m[2], 10);
+      return { series, seriesName: toSeriesDisplayName(series), level, unit, id: `${series}:L${level}U${unit}` };
+    }
+
+    // 7. EditorStore custom book format: <series>_L<lvl>_U<unit> or <series>_L<lvl>U<unit>
+    m = str.match(/^([a-z0-9_-]+)_L(\d+)_?U(\d+)$/i);
+    if (m) {
+      const series = toSeriesSlug(m[1]);
+      const level = parseInt(m[2], 10);
+      const unit = parseInt(m[3], 10);
       return { series, seriesName: toSeriesDisplayName(series), level, unit, id: `${series}:L${level}U${unit}` };
     }
 
@@ -635,6 +681,17 @@
     if (typeof localStorage !== 'undefined') {
       url = localStorage.getItem(UPSTASH_URL_KEY) || '';
       token = localStorage.getItem(UPSTASH_TOKEN_KEY) || '';
+      if (!url || !token) {
+        try {
+          const pfLocal = JSON.parse(localStorage.getItem('phonics-flash-upstash-config') || '{}');
+          if (pfLocal && pfLocal.url && pfLocal.token) {
+            url = pfLocal.url.trim();
+            token = pfLocal.token.trim();
+            localStorage.setItem(UPSTASH_URL_KEY, url);
+            localStorage.setItem(UPSTASH_TOKEN_KEY, token);
+          }
+        } catch {}
+      }
     }
 
     if (!url || !token) {
@@ -677,7 +734,15 @@
 
       if (typeof data.result === 'string') {
         try {
-          return JSON.parse(data.result);
+          const parsed = JSON.parse(data.result);
+          if (typeof parsed === 'string') {
+            try {
+              return JSON.parse(parsed);
+            } catch {
+              return parsed;
+            }
+          }
+          return parsed;
         } catch {
           return data.result;
         }
@@ -726,7 +791,12 @@
       }
     }
 
-    const cloudSets = await fetchUpstash(SHARED_SETS_KEY);
+    const [cloudSets, cloudProfiles, cloudPfClasses] = await Promise.all([
+      fetchUpstash(SHARED_SETS_KEY),
+      fetchUpstash(SHARED_CLASS_PROFILES_KEY),
+      fetchUpstash('phonics_flash:classes')
+    ]);
+
     if (cloudSets && typeof cloudSets === 'object') {
       playerSets = cloudSets;
       if (typeof localStorage !== 'undefined') {
@@ -734,12 +804,114 @@
       }
     }
 
-    const cloudProfiles = await fetchUpstash(SHARED_CLASS_PROFILES_KEY);
+    let profilesChanged = false;
     if (cloudProfiles && typeof cloudProfiles === 'object') {
-      classProfiles = cloudProfiles;
-      if (typeof localStorage !== 'undefined') {
-        localStorage.setItem(SHARED_CLASS_PROFILES_KEY, JSON.stringify(cloudProfiles));
+      const mergedProfiles = { ...cloudProfiles };
+      for (const [k, localProf] of Object.entries(classProfiles)) {
+        const cloudProf = mergedProfiles[k];
+        if (!cloudProf) {
+          mergedProfiles[k] = localProf;
+          profilesChanged = true;
+        } else if ((localProf.updatedAt || 0) > (cloudProf.updatedAt || 0)) {
+          mergedProfiles[k] = localProf;
+          profilesChanged = true;
+        }
       }
+      classProfiles = mergedProfiles;
+    }
+
+    // Also reconcile any classes saved in Phonics Flash's `phonics_flash:classes` (cloud or local)
+    const pfSources = [];
+    if (cloudPfClasses && typeof cloudPfClasses === 'object' && Array.isArray(cloudPfClasses.classes)) {
+      pfSources.push(cloudPfClasses);
+    }
+    if (typeof localStorage !== 'undefined') {
+      try {
+        const localPfRaw = localStorage.getItem('phonics-flash-classes');
+        if (localPfRaw) {
+          const localPf = JSON.parse(localPfRaw);
+          if (localPf && Array.isArray(localPf.classes)) {
+            pfSources.push(localPf);
+          }
+        }
+      } catch {}
+    }
+
+    for (const pfStore of pfSources) {
+      for (const pfCls of pfStore.classes) {
+        if (!pfCls || !pfCls.name) continue;
+        const pfUnits = Array.isArray(pfCls.selectedUnits)
+          ? pfCls.selectedUnits.map(u => toCanonicalUnit(u)?.id).filter(Boolean)
+          : [];
+        const pfTime = pfCls.updatedAt || pfStore.updatedAt || 0;
+        const existingProf = classProfiles[pfCls.name];
+
+        if (!existingProf) {
+          classProfiles[pfCls.name] = {
+            schedule: pfCls.schedule || parseScheduleFromName(pfCls.name),
+            curriculumId: pfCls.curriculumId || 'smart-phonics',
+            units: pfUnits,
+            updatedAt: pfTime
+          };
+          profilesChanged = true;
+        } else if (pfTime > (existingProf.updatedAt || 0) && pfUnits.length > 0) {
+          existingProf.units = pfUnits;
+          if (pfCls.curriculumId) existingProf.curriculumId = pfCls.curriculumId;
+          if (pfCls.schedule) existingProf.schedule = pfCls.schedule;
+          existingProf.updatedAt = pfTime;
+          profilesChanged = true;
+        }
+
+        // If this was the active class in Phonics Flash and has recent units, ensure shared_active_units knows about it
+        if (pfStore.activeClassId && pfCls.id === pfStore.activeClassId && pfUnits.length > 0) {
+          const currentActive = getActiveUnits();
+          if (pfTime > (currentActive.updatedAt || 0)) {
+            const payload = {
+              units: pfUnits,
+              curriculumId: pfCls.curriculumId || 'smart-phonics',
+              className: pfCls.name,
+              updatedAt: pfTime
+            };
+            if (typeof localStorage !== 'undefined') {
+              try {
+                localStorage.setItem(SHARED_ACTIVE_UNITS_KEY, JSON.stringify(payload));
+              } catch {}
+            }
+            writeSharedSyncCookie({
+              actUnits: pfUnits,
+              actCur: payload.curriculumId,
+              actUnitsAt: pfTime
+            });
+          }
+        }
+      }
+    }
+
+    if (typeof localStorage !== 'undefined') {
+      localStorage.setItem(SHARED_CLASS_PROFILES_KEY, JSON.stringify(classProfiles));
+    }
+
+    try {
+      const cloudActiveUnits = await fetchUpstash(SHARED_ACTIVE_UNITS_KEY);
+      const localActiveUnits = getActiveUnits();
+      if (cloudActiveUnits && typeof cloudActiveUnits === 'object' && Array.isArray(cloudActiveUnits.units)) {
+        if ((cloudActiveUnits.updatedAt || 0) >= (localActiveUnits.updatedAt || 0)) {
+          if (typeof localStorage !== 'undefined') {
+            localStorage.setItem(SHARED_ACTIVE_UNITS_KEY, JSON.stringify(cloudActiveUnits));
+          }
+          writeSharedSyncCookie({
+            actUnits: cloudActiveUnits.units,
+            actCur: cloudActiveUnits.curriculumId || 'smart-phonics',
+            actUnitsAt: cloudActiveUnits.updatedAt || Date.now()
+          });
+        } else if (localActiveUnits.units.length > 0) {
+          syncUpstash(SHARED_ACTIVE_UNITS_KEY, localActiveUnits);
+        }
+      } else if (localActiveUnits && Array.isArray(localActiveUnits.units) && localActiveUnits.units.length > 0) {
+        syncUpstash(SHARED_ACTIVE_UNITS_KEY, localActiveUnits);
+      }
+    } catch (e) {
+      console.warn('[SharedClassSync] Error syncing active units:', e);
     }
 
     try {
@@ -754,7 +926,6 @@
       console.warn('[SharedClassSync] Error fetching cloud hidden books:', e);
     }
 
-    let profilesChanged = false;
     for (const className of Object.keys(playerSets)) {
       if (!classProfiles[className]) {
         classProfiles[className] = {
@@ -769,6 +940,56 @@
       }
     }
 
+    // Also include active session class if present and not yet in profiles
+    const activeSession = getActiveSession();
+    if (activeSession && activeSession.className) {
+      const sessClass = activeSession.className;
+      if (!playerSets[sessClass] && Array.isArray(activeSession.players) && activeSession.players.length > 0) {
+        playerSets[sessClass] = activeSession.players;
+        if (typeof localStorage !== 'undefined') {
+          localStorage.setItem(SHARED_SETS_KEY, JSON.stringify(playerSets));
+        }
+      }
+      if (!classProfiles[sessClass]) {
+        classProfiles[sessClass] = {
+          schedule: parseScheduleFromName(sessClass),
+          units: [],
+          updatedAt: activeSession.updatedAt || Date.now()
+        };
+        profilesChanged = true;
+      }
+    }
+
+    // Reconcile latest cross-app active units into active/scheduled class profile if newer
+    const latestActiveUnits = getActiveUnits();
+    if (latestActiveUnits && Array.isArray(latestActiveUnits.units) && latestActiveUnits.units.length > 0) {
+      const isRecent = (Date.now() - (latestActiveUnits.updatedAt || 0)) < 2 * 60 * 60 * 1000;
+      if (isRecent) {
+        const targetClassNames = new Set();
+        if (latestActiveUnits.className && classProfiles[latestActiveUnits.className]) {
+          targetClassNames.add(latestActiveUnits.className);
+        }
+        const scheduledMatch = findActiveScheduledClass(classProfiles);
+        if (scheduledMatch && scheduledMatch.className) {
+          targetClassNames.add(scheduledMatch.className);
+        }
+        if (activeSession && activeSession.className && classProfiles[activeSession.className]) {
+          targetClassNames.add(activeSession.className);
+        }
+        for (const cName of targetClassNames) {
+          const prof = classProfiles[cName];
+          if (prof && (latestActiveUnits.updatedAt || 0) > (prof.updatedAt || 0)) {
+            prof.units = [...latestActiveUnits.units];
+            if (latestActiveUnits.curriculumId) {
+              prof.curriculumId = latestActiveUnits.curriculumId;
+            }
+            prof.updatedAt = latestActiveUnits.updatedAt;
+            profilesChanged = true;
+          }
+        }
+      }
+    }
+
     if (profilesChanged) {
       if (typeof localStorage !== 'undefined') {
         localStorage.setItem(SHARED_CLASS_PROFILES_KEY, JSON.stringify(classProfiles));
@@ -779,8 +1000,141 @@
     return { playerSets, classProfiles };
   }
 
+  function getActiveUnits() {
+    let localData = { units: [], curriculumId: 'smart-phonics', className: '', updatedAt: 0 };
+    if (typeof localStorage !== 'undefined') {
+      try {
+        const raw = localStorage.getItem(SHARED_ACTIVE_UNITS_KEY);
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          if (parsed && Array.isArray(parsed.units)) {
+            localData = {
+              units: parsed.units,
+              curriculumId: parsed.curriculumId || 'smart-phonics',
+              className: parsed.className || '',
+              updatedAt: parsed.updatedAt || 0
+            };
+          }
+        }
+      } catch {}
+    }
+
+    const cookie = readSharedSyncCookie();
+    if (cookie && Array.isArray(cookie.actUnits) && cookie.actUnits.length > 0) {
+      const cookieUpdatedAt = cookie.actUnitsAt || cookie.updatedAt || 0;
+      if (cookieUpdatedAt > (localData.updatedAt || 0)) {
+        localData = {
+          units: cookie.actUnits,
+          curriculumId: cookie.actCur || 'smart-phonics',
+          className: cookie.actClass || localData.className || '',
+          updatedAt: cookieUpdatedAt
+        };
+        if (typeof localStorage !== 'undefined') {
+          try {
+            localStorage.setItem(SHARED_ACTIVE_UNITS_KEY, JSON.stringify(localData));
+          } catch {}
+        }
+      }
+    }
+
+    return localData;
+  }
+
+  async function saveActiveUnits(unitsArray, curriculumId = null, className = null, { skipClassProfile = false } = {}) {
+    const rawList = Array.isArray(unitsArray) ? unitsArray : [];
+    const fallbackSeries = curriculumId ? toSeriesSlug(curriculumId) : 'smart-phonics';
+    const canonicals = rawList.map(u => {
+      const c = toCanonicalUnit(u);
+      if (c) {
+        if (typeof u === 'string' && !u.includes(':') && !u.includes('|') && !u.includes('_L') && fallbackSeries !== 'smart-phonics') {
+          return `${fallbackSeries}:L${c.level}U${c.unit}`;
+        }
+        return c.id;
+      }
+      return u;
+    }).filter(Boolean);
+
+    let resolvedSeries = fallbackSeries;
+    if (!curriculumId && canonicals.length > 0) {
+      const firstC = toCanonicalUnit(canonicals[0]);
+      if (firstC && firstC.series) resolvedSeries = firstC.series;
+    }
+
+    let resolvedClassName = typeof className === 'string' ? className.trim() : '';
+    if (!resolvedClassName) {
+      const session = getActiveSession();
+      if (session && session.className) {
+        resolvedClassName = session.className;
+      }
+    }
+
+    const now = Date.now();
+    const payload = {
+      units: canonicals,
+      curriculumId: resolvedSeries,
+      className: resolvedClassName,
+      updatedAt: now
+    };
+
+    if (typeof localStorage !== 'undefined') {
+      try {
+        localStorage.setItem(SHARED_ACTIVE_UNITS_KEY, JSON.stringify(payload));
+      } catch {}
+    }
+
+    const cookieUpdates = {
+      actUnits: canonicals,
+      actCur: resolvedSeries,
+      actUnitsAt: now
+    };
+    if (resolvedClassName) {
+      cookieUpdates.actClass = resolvedClassName;
+    }
+    writeSharedSyncCookie(cookieUpdates);
+
+    if (!skipClassProfile && canonicals.length > 0) {
+      let profiles = {};
+      if (typeof localStorage !== 'undefined') {
+        try {
+          profiles = JSON.parse(localStorage.getItem(SHARED_CLASS_PROFILES_KEY) || '{}');
+        } catch {}
+      }
+      const targetClasses = new Set();
+      if (resolvedClassName) targetClasses.add(resolvedClassName);
+      const scheduledMatch = findActiveScheduledClass(profiles);
+      if (scheduledMatch && scheduledMatch.className) {
+        targetClasses.add(scheduledMatch.className);
+      }
+      if (targetClasses.size > 0) {
+        for (const cName of targetClasses) {
+          if (!profiles[cName]) {
+            profiles[cName] = {
+              schedule: parseScheduleFromName(cName),
+              units: [],
+              curriculumId: resolvedSeries,
+              updatedAt: now
+            };
+          }
+          profiles[cName].units = canonicals;
+          profiles[cName].curriculumId = resolvedSeries;
+          profiles[cName].updatedAt = now;
+        }
+        if (typeof localStorage !== 'undefined') {
+          try {
+            localStorage.setItem(SHARED_CLASS_PROFILES_KEY, JSON.stringify(profiles));
+          } catch {}
+        }
+        syncUpstash(SHARED_CLASS_PROFILES_KEY, profiles);
+      }
+    }
+
+    return syncUpstash(SHARED_ACTIVE_UNITS_KEY, payload);
+  }
+
   async function saveClassUnits(className, canonicalUnitsArray, curriculumId) {
-    if (!className) return false;
+    if (!className) {
+      return saveActiveUnits(canonicalUnitsArray, curriculumId, null);
+    }
     let profiles = {};
     if (typeof localStorage !== 'undefined') {
       try {
@@ -797,11 +1151,11 @@
       };
     }
 
-    const series = curriculumId ? toSeriesSlug(curriculumId) : 'smart-phonics';
+    const series = curriculumId ? toSeriesSlug(curriculumId) : (profiles[className].curriculumId ? toSeriesSlug(profiles[className].curriculumId) : 'smart-phonics');
     const canonicals = (canonicalUnitsArray || []).map(u => {
       const c = toCanonicalUnit(u);
       if (c) {
-        if (typeof u === 'string' && !u.includes(':') && series !== 'smart-phonics') {
+        if (typeof u === 'string' && !u.includes(':') && !u.includes('|') && !u.includes('_L') && series !== 'smart-phonics') {
           return `${series}:L${c.level}U${c.unit}`;
         }
         return c.id;
@@ -809,15 +1163,23 @@
       return u;
     });
 
+    const now = Date.now();
     profiles[className].units = canonicals;
     if (curriculumId) {
-      profiles[className].curriculumId = curriculumId;
+      profiles[className].curriculumId = series;
+    } else if (!profiles[className].curriculumId && canonicals.length > 0) {
+      const firstC = toCanonicalUnit(canonicals[0]);
+      if (firstC && firstC.series) profiles[className].curriculumId = firstC.series;
     }
-    profiles[className].updatedAt = Date.now();
+    profiles[className].updatedAt = now;
 
     if (typeof localStorage !== 'undefined') {
       localStorage.setItem(SHARED_CLASS_PROFILES_KEY, JSON.stringify(profiles));
     }
+
+    // Also update shared active units (localStorage + cross-subdomain cookie + Upstash)
+    saveActiveUnits(canonicals, profiles[className].curriculumId || series, className, { skipClassProfile: true });
+
     return syncUpstash(SHARED_CLASS_PROFILES_KEY, profiles);
   }
 
@@ -1583,6 +1945,9 @@
     isBookHidden,
     getVisibleSeries,
     SHARED_ACTIVE_CLASS_KEY,
+    SHARED_ACTIVE_UNITS_KEY,
+    getActiveUnits,
+    saveActiveUnits,
     getActivePlayers,
     getActiveSession,
     saveActivePlayers,

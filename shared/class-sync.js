@@ -1439,6 +1439,32 @@
       return null;
     },
 
+    inferTargetSound(unit) {
+      if (!unit || typeof unit !== "object") return "";
+      const rawTarget = unit.targetLetters || unit.targetSound || unit.sound;
+      let tl = "";
+      if (Array.isArray(rawTarget) && rawTarget.length) {
+        tl = rawTarget.join(", ");
+      } else if (typeof rawTarget === "string" && rawTarget.trim()) {
+        tl = rawTarget.trim();
+      } else if (unit.name) {
+        const m = unit.name.match(/:\s*(.+)$/);
+        if (m) {
+          const candidate = m[1].trim();
+          const longVowelMatch = candidate.match(/long\s+vowel\s+([a-z])/i);
+          const shortVowelMatch = candidate.match(/short\s+vowel\s+([a-z])/i);
+          if (longVowelMatch) {
+            tl = `${longVowelMatch[1].toLowerCase()}_e`;
+          } else if (shortVowelMatch) {
+            tl = shortVowelMatch[1].toLowerCase();
+          } else if (!/vowel/i.test(candidate)) {
+            tl = candidate;
+          }
+        }
+      }
+      return tl;
+    },
+
     resolveUrl(path, base) {
       if (!path) return '';
       if (path.startsWith('data:') || path.startsWith('blob:')) {
@@ -1475,14 +1501,18 @@
         name: sp.name || toSeriesDisplayName(sp.id),
         levels: (sp.levels || []).map(lvl => ({
           ...lvl,
-          units: (lvl.units || []).map(unit => ({
-            ...unit,
-            words: (unit.words || []).map(w => ({
-              ...w,
-              image: this.resolveUrl(w.image, activeBase),
-              audio: this.resolveUrl(w.audio, activeBase)
-            }))
-          }))
+          units: (lvl.units || []).map(unit => {
+            const inferred = this.inferTargetSound(unit);
+            return {
+              ...unit,
+              ...(inferred ? { targetSound: unit.targetSound || inferred } : {}),
+              words: (unit.words || []).map(w => ({
+                ...w,
+                image: this.resolveUrl(w.image, activeBase),
+                audio: this.resolveUrl(w.audio, activeBase)
+              }))
+            };
+          })
         }))
       };
     },
@@ -1515,9 +1545,9 @@
 
         for (const unit of lvl.units || []) {
           const cardList = [];
-          if (unit.targetLetters && unit.targetLetters.length) {
-            const tl = Array.isArray(unit.targetLetters) ? unit.targetLetters.join(', ') : unit.targetLetters;
-            cardList.push({ targetLetters: tl });
+          const tl = this.inferTargetSound(unit);
+          if (tl) {
+            cardList.push({ targetLetters: tl, targetSound: tl });
           }
 
           for (const w of unit.words || []) {
@@ -1618,8 +1648,9 @@
             bonusWords = (unit.bonusWords || []).map(w => typeof w === 'string' ? w : (w.word || ''));
           }
 
+          const inferredSound = this.inferTargetSound(unit);
           bank[levelKey][unitKey] = {
-            targetSound: unit.targetSound || '',
+            targetSound: unit.targetSound || inferredSound || '',
             unitTitle: title || `Unit ${unitNum}`,
             words,
             extraWords,
@@ -1736,7 +1767,7 @@
             const uId = unit.id || `${lvlId}_U${uNumber}`;
             const uName = unit.name || `Unit ${uNumber}`;
 
-            let targetSound = (unit.targetSound || unit.sound || '').trim();
+            let targetSound = (this.inferTargetSound(unit) || '').trim();
             if (/^[aiou]\s*,\s*e$/i.test(targetSound)) {
               targetSound = targetSound.replace(/\s*,\s*/, '_').toLowerCase();
             }
@@ -1953,6 +1984,7 @@
     saveActivePlayers,
     clearActivePlayers,
     resolveClassRoster,
+    inferTargetSound: (unit) => CurriculumAdapter.inferTargetSound(unit),
     CurriculumAdapter,
     CurriculumLoader
   };

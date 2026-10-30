@@ -173,6 +173,37 @@
     return candidates[0];
   }
 
+  function isTimestampInCurrentClassSession(timestamp, className, profile, date = new Date()) {
+    if (!timestamp || timestamp <= 0) return false;
+    const nowMs = date.getTime();
+    if (nowMs - timestamp > 90 * 60 * 1000 || timestamp > nowMs + 5 * 60 * 1000) return false;
+
+    const tsDate = new Date(timestamp);
+    if (
+      tsDate.getFullYear() !== date.getFullYear() ||
+      tsDate.getMonth() !== date.getMonth() ||
+      tsDate.getDate() !== date.getDate()
+    ) {
+      return false;
+    }
+
+    const schedule = profile?.schedule || parseScheduleFromName(className);
+    const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    const currentDay = dayNames[date.getDay()];
+    if (!schedule || !Array.isArray(schedule.days) || !schedule.days.includes(currentDay)) {
+      return false;
+    }
+
+    const startParts = (schedule.startTime || '00:00').split(':').map(Number);
+    const endParts = (schedule.endTime || '23:59').split(':').map(Number);
+    const startMin = (startParts[0] || 0) * 60 + (startParts[1] || 0);
+    let endMin = (endParts[0] || 0) * 60 + (endParts[1] || 0);
+    if (endMin <= startMin) endMin = startMin + 60;
+
+    const tsMinutes = tsDate.getHours() * 60 + tsDate.getMinutes();
+    return tsMinutes >= (startMin - 15) && tsMinutes <= endMin;
+  }
+
   // ── 3. Universal Phonics Unit Translators & Slug Helpers ──────
   function toSeriesSlug(str) {
     if (!str) return 'smart-phonics';
@@ -843,8 +874,8 @@
         const pfUnits = Array.isArray(pfCls.selectedUnits)
           ? pfCls.selectedUnits.map(u => toCanonicalUnit(u)?.id).filter(Boolean)
           : [];
-        const pfTime = pfCls.updatedAt || pfStore.updatedAt || 0;
         const existingProf = classProfiles[pfCls.name];
+        const pfTime = pfCls.updatedAt || ((!existingProf || !Array.isArray(existingProf.units) || existingProf.units.length === 0) ? (pfStore.updatedAt || 0) : 0);
 
         if (!existingProf) {
           classProfiles[pfCls.name] = {
@@ -859,6 +890,12 @@
           if (pfCls.curriculumId) existingProf.curriculumId = pfCls.curriculumId;
           if (pfCls.schedule) existingProf.schedule = pfCls.schedule;
           existingProf.updatedAt = pfTime;
+          profilesChanged = true;
+        } else if ((!Array.isArray(existingProf.units) || existingProf.units.length === 0) && pfUnits.length > 0) {
+          existingProf.units = pfUnits;
+          if (pfCls.curriculumId) existingProf.curriculumId = pfCls.curriculumId;
+          if (pfCls.schedule) existingProf.schedule = pfCls.schedule;
+          if (pfTime > (existingProf.updatedAt || 0)) existingProf.updatedAt = pfTime;
           profilesChanged = true;
         }
 
@@ -894,7 +931,7 @@
     try {
       const cloudActiveUnits = await fetchUpstash(SHARED_ACTIVE_UNITS_KEY);
       const localActiveUnits = getActiveUnits();
-      if (cloudActiveUnits && typeof cloudActiveUnits === 'object' && Array.isArray(cloudActiveUnits.units)) {
+      if (cloudActiveUnits && typeof cloudActiveUnits === 'object' && Array.isArray(cloudActiveUnits.units) && cloudActiveUnits.units.length > 0) {
         if ((cloudActiveUnits.updatedAt || 0) >= (localActiveUnits.updatedAt || 0)) {
           if (typeof localStorage !== 'undefined') {
             localStorage.setItem(SHARED_ACTIVE_UNITS_KEY, JSON.stringify(cloudActiveUnits));
@@ -931,7 +968,7 @@
         classProfiles[className] = {
           schedule: parseScheduleFromName(className),
           units: [],
-          updatedAt: Date.now()
+          updatedAt: 0
         };
         profilesChanged = true;
       } else if (!classProfiles[className].schedule) {
@@ -954,38 +991,36 @@
         classProfiles[sessClass] = {
           schedule: parseScheduleFromName(sessClass),
           units: [],
-          updatedAt: activeSession.updatedAt || Date.now()
+          updatedAt: 0
         };
         profilesChanged = true;
       }
     }
 
-    // Reconcile latest cross-app active units into active/scheduled class profile if newer
+    // Reconcile latest cross-app active units into class profile ONLY when it belongs to that class or current class session
     const latestActiveUnits = getActiveUnits();
     if (latestActiveUnits && Array.isArray(latestActiveUnits.units) && latestActiveUnits.units.length > 0) {
-      const isRecent = (Date.now() - (latestActiveUnits.updatedAt || 0)) < 2 * 60 * 60 * 1000;
-      if (isRecent) {
-        const targetClassNames = new Set();
-        if (latestActiveUnits.className && classProfiles[latestActiveUnits.className]) {
-          targetClassNames.add(latestActiveUnits.className);
-        }
-        const scheduledMatch = findActiveScheduledClass(classProfiles);
-        if (scheduledMatch && scheduledMatch.className) {
+      const scheduledMatch = findActiveScheduledClass(classProfiles);
+      const targetClassNames = new Set();
+
+      if (latestActiveUnits.className && classProfiles[latestActiveUnits.className]) {
+        targetClassNames.add(latestActiveUnits.className);
+      } else if (!latestActiveUnits.className && scheduledMatch && scheduledMatch.className) {
+        const schedProf = classProfiles[scheduledMatch.className];
+        if (isTimestampInCurrentClassSession(latestActiveUnits.updatedAt, scheduledMatch.className, schedProf)) {
           targetClassNames.add(scheduledMatch.className);
         }
-        if (activeSession && activeSession.className && classProfiles[activeSession.className]) {
-          targetClassNames.add(activeSession.className);
-        }
-        for (const cName of targetClassNames) {
-          const prof = classProfiles[cName];
-          if (prof && (latestActiveUnits.updatedAt || 0) > (prof.updatedAt || 0)) {
-            prof.units = [...latestActiveUnits.units];
-            if (latestActiveUnits.curriculumId) {
-              prof.curriculumId = latestActiveUnits.curriculumId;
-            }
-            prof.updatedAt = latestActiveUnits.updatedAt;
-            profilesChanged = true;
+      }
+
+      for (const cName of targetClassNames) {
+        const prof = classProfiles[cName];
+        if (prof && (latestActiveUnits.updatedAt || 0) > (prof.updatedAt || 0)) {
+          prof.units = [...latestActiveUnits.units];
+          if (latestActiveUnits.curriculumId) {
+            prof.curriculumId = latestActiveUnits.curriculumId;
           }
+          prof.updatedAt = latestActiveUnits.updatedAt;
+          profilesChanged = true;
         }
       }
     }
@@ -1042,7 +1077,9 @@
 
   async function saveActiveUnits(unitsArray, curriculumId = null, className = null, { skipClassProfile = false } = {}) {
     const rawList = Array.isArray(unitsArray) ? unitsArray : [];
-    const fallbackSeries = curriculumId ? toSeriesSlug(curriculumId) : 'smart-phonics';
+    const fallbackSeries = curriculumId
+      ? (/^custom_/i.test(curriculumId) ? curriculumId : toSeriesSlug(curriculumId))
+      : 'smart-phonics';
     const canonicals = rawList.map(u => {
       const c = toCanonicalUnit(u);
       if (c) {
@@ -1054,19 +1091,18 @@
       return u;
     }).filter(Boolean);
 
+    // Do not wipe shared active units or class profiles with an empty selection
+    if (canonicals.length === 0) {
+      return false;
+    }
+
     let resolvedSeries = fallbackSeries;
     if (!curriculumId && canonicals.length > 0) {
       const firstC = toCanonicalUnit(canonicals[0]);
       if (firstC && firstC.series) resolvedSeries = firstC.series;
     }
 
-    let resolvedClassName = typeof className === 'string' ? className.trim() : '';
-    if (!resolvedClassName) {
-      const session = getActiveSession();
-      if (session && session.className) {
-        resolvedClassName = session.className;
-      }
-    }
+    const resolvedClassName = typeof className === 'string' ? className.trim() : '';
 
     const now = Date.now();
     const payload = {
@@ -1100,10 +1136,13 @@
         } catch {}
       }
       const targetClasses = new Set();
-      if (resolvedClassName) targetClasses.add(resolvedClassName);
-      const scheduledMatch = findActiveScheduledClass(profiles);
-      if (scheduledMatch && scheduledMatch.className) {
-        targetClasses.add(scheduledMatch.className);
+      if (resolvedClassName) {
+        targetClasses.add(resolvedClassName);
+      } else {
+        const scheduledMatch = findActiveScheduledClass(profiles);
+        if (scheduledMatch && scheduledMatch.className) {
+          targetClasses.add(scheduledMatch.className);
+        }
       }
       if (targetClasses.size > 0) {
         for (const cName of targetClasses) {
@@ -1151,7 +1190,14 @@
       };
     }
 
-    const series = curriculumId ? toSeriesSlug(curriculumId) : (profiles[className].curriculumId ? toSeriesSlug(profiles[className].curriculumId) : 'smart-phonics');
+    const resolveSlugOrCustom = (id) => {
+      if (!id) return 'smart-phonics';
+      return /^custom_/i.test(id) ? id : toSeriesSlug(id);
+    };
+    const series = curriculumId
+      ? resolveSlugOrCustom(curriculumId)
+      : (profiles[className].curriculumId ? resolveSlugOrCustom(profiles[className].curriculumId) : 'smart-phonics');
+
     const canonicals = (canonicalUnitsArray || []).map(u => {
       const c = toCanonicalUnit(u);
       if (c) {
@@ -1161,10 +1207,12 @@
         return c.id;
       }
       return u;
-    });
+    }).filter(Boolean);
 
     const now = Date.now();
-    profiles[className].units = canonicals;
+    if (canonicals.length > 0 || !Array.isArray(profiles[className].units) || profiles[className].units.length === 0) {
+      profiles[className].units = canonicals;
+    }
     if (curriculumId) {
       profiles[className].curriculumId = series;
     } else if (!profiles[className].curriculumId && canonicals.length > 0) {
@@ -1177,8 +1225,9 @@
       localStorage.setItem(SHARED_CLASS_PROFILES_KEY, JSON.stringify(profiles));
     }
 
-    // Also update shared active units (localStorage + cross-subdomain cookie + Upstash)
-    saveActiveUnits(canonicals, profiles[className].curriculumId || series, className, { skipClassProfile: true });
+    if (canonicals.length > 0) {
+      saveActiveUnits(canonicals, profiles[className].curriculumId || series, className, { skipClassProfile: true });
+    }
 
     return syncUpstash(SHARED_CLASS_PROFILES_KEY, profiles);
   }
@@ -1942,6 +1991,7 @@
     getMediaBase,
     parseScheduleFromName,
     findActiveScheduledClass,
+    isTimestampInCurrentClassSession,
     toSeriesSlug,
     toPascalCase,
     toSeriesDisplayName,

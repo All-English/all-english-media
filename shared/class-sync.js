@@ -19,6 +19,8 @@
 
   const SHARED_SETS_KEY = 'shared_player_sets';
   const SHARED_ACTIVE_PLAYERS_KEY = 'shared_active_players';
+  const SHARED_ACTIVE_PLAYERS_UPDATED_AT_KEY = 'shared_active_players_updated_at';
+  const SHARED_ACTIVE_SESSION_KEY = 'shared_active_session';
   const SHARED_ACTIVE_CLASS_KEY = 'shared_active_class';
   const SHARED_ACTIVE_UNITS_KEY = 'shared_active_units';
   const SHARED_CLASS_PROFILES_KEY = 'shared_class_profiles';
@@ -618,6 +620,11 @@
       localActiveClass = localStorage.getItem(SHARED_ACTIVE_CLASS_KEY) || '';
     } catch {}
 
+    let localActUpdatedAt = 0;
+    try {
+      localActUpdatedAt = parseInt(localStorage.getItem(SHARED_ACTIVE_PLAYERS_UPDATED_AT_KEY) || '0', 10) || 0;
+    } catch {}
+
     const updatesForCookie = {};
     let cookieChanged = false;
 
@@ -659,21 +666,36 @@
         cookieChanged = true;
       }
 
-      if (Array.isArray(cookie.act) && cookie.act.length > 0 && localActive.length === 0) {
+      const cookieActUpdatedAt = cookie.actUpdatedAt || cookie.updatedAt || 0;
+
+      // Reconcile active players based on timestamp
+      if (cookieActUpdatedAt > localActUpdatedAt && Array.isArray(cookie.act)) {
         try {
           localStorage.setItem(SHARED_ACTIVE_PLAYERS_KEY, JSON.stringify(cookie.act));
+          localStorage.setItem(SHARED_ACTIVE_PLAYERS_UPDATED_AT_KEY, String(cookieActUpdatedAt));
+          if (cookie.actClass) {
+            localStorage.setItem(SHARED_ACTIVE_CLASS_KEY, cookie.actClass);
+          } else {
+            localStorage.removeItem(SHARED_ACTIVE_CLASS_KEY);
+          }
+        } catch {}
+      } else if (localActUpdatedAt > cookieActUpdatedAt && localActive.length > 0) {
+        updatesForCookie.act = localActive;
+        if (localActiveClass) updatesForCookie.actClass = localActiveClass;
+        updatesForCookie.actUpdatedAt = localActUpdatedAt;
+        cookieChanged = true;
+      } else if (Array.isArray(cookie.act) && cookie.act.length > 0 && localActive.length === 0) {
+        try {
+          localStorage.setItem(SHARED_ACTIVE_PLAYERS_KEY, JSON.stringify(cookie.act));
+          localStorage.setItem(SHARED_ACTIVE_PLAYERS_UPDATED_AT_KEY, String(cookieActUpdatedAt || Date.now()));
+          if (cookie.actClass) {
+            localStorage.setItem(SHARED_ACTIVE_CLASS_KEY, cookie.actClass);
+          }
         } catch {}
       } else if (localActive.length > 0 && (!cookie.act || cookie.act.length === 0)) {
         updatesForCookie.act = localActive;
-        cookieChanged = true;
-      }
-
-      if (cookie.actClass && !localActiveClass) {
-        try {
-          localStorage.setItem(SHARED_ACTIVE_CLASS_KEY, cookie.actClass);
-        } catch {}
-      } else if (localActiveClass && !cookie.actClass) {
-        updatesForCookie.actClass = localActiveClass;
+        if (localActiveClass) updatesForCookie.actClass = localActiveClass;
+        updatesForCookie.actUpdatedAt = localActUpdatedAt || Date.now();
         cookieChanged = true;
       }
     } else {
@@ -692,6 +714,7 @@
       }
       if (localActive.length > 0) {
         updatesForCookie.act = localActive;
+        updatesForCookie.actUpdatedAt = localActUpdatedAt || Date.now();
         cookieChanged = true;
       }
       if (localActiveClass) {
@@ -822,10 +845,12 @@
       }
     }
 
-    const [cloudSets, cloudProfiles, cloudPfClasses] = await Promise.all([
+    const [cloudSets, cloudProfiles, cloudPfClasses, cloudActiveSession, cloudActivePlayers] = await Promise.all([
       fetchUpstash(SHARED_SETS_KEY),
       fetchUpstash(SHARED_CLASS_PROFILES_KEY),
-      fetchUpstash('phonics_flash:classes')
+      fetchUpstash('phonics_flash:classes'),
+      fetchUpstash(SHARED_ACTIVE_SESSION_KEY),
+      fetchUpstash(SHARED_ACTIVE_PLAYERS_KEY)
     ]);
 
     if (cloudSets && typeof cloudSets === 'object') {
@@ -963,6 +988,32 @@
       console.warn('[SharedClassSync] Error fetching cloud hidden books:', e);
     }
 
+    try {
+      const localSession = getActiveSession();
+      let resolvedCloudSession = null;
+      if (cloudActiveSession && typeof cloudActiveSession === 'object' && Array.isArray(cloudActiveSession.players)) {
+        resolvedCloudSession = cloudActiveSession;
+      } else if (Array.isArray(cloudActivePlayers) && cloudActivePlayers.length > 0) {
+        resolvedCloudSession = {
+          players: cloudActivePlayers,
+          className: '',
+          updatedAt: 0
+        };
+      }
+
+      if (resolvedCloudSession && Array.isArray(resolvedCloudSession.players) && resolvedCloudSession.players.length > 0) {
+        const cloudTime = resolvedCloudSession.updatedAt || 0;
+        const localTime = localSession.updatedAt || 0;
+        if (cloudTime >= localTime) {
+          saveActivePlayers(resolvedCloudSession.players, resolvedCloudSession.className || null, cloudTime || Date.now());
+        } else if (localTime > cloudTime && localSession.players.length > 0) {
+          syncUpstash(SHARED_ACTIVE_SESSION_KEY, localSession);
+        }
+      }
+    } catch (e) {
+      console.warn('[SharedClassSync] Error reconciling cloud active session:', e);
+    }
+
     for (const className of Object.keys(playerSets)) {
       if (!classProfiles[className]) {
         classProfiles[className] = {
@@ -1075,7 +1126,7 @@
     return localData;
   }
 
-  async function saveActiveUnits(unitsArray, curriculumId = null, className = null, { skipClassProfile = false } = {}) {
+  async function saveActiveUnits(unitsArray, curriculumId = null, className = null, { skipClassProfile = false, customUpdatedAt = null } = {}) {
     const rawList = Array.isArray(unitsArray) ? unitsArray : [];
     const fallbackSeries = curriculumId
       ? (/^custom_/i.test(curriculumId) ? curriculumId : toSeriesSlug(curriculumId))
@@ -1104,7 +1155,7 @@
 
     const resolvedClassName = typeof className === 'string' ? className.trim() : '';
 
-    const now = Date.now();
+    const now = typeof customUpdatedAt === 'number' && customUpdatedAt > 0 ? customUpdatedAt : Date.now();
     const payload = {
       units: canonicals,
       curriculumId: resolvedSeries,
@@ -1170,9 +1221,9 @@
     return syncUpstash(SHARED_ACTIVE_UNITS_KEY, payload);
   }
 
-  async function saveClassUnits(className, canonicalUnitsArray, curriculumId) {
+  async function saveClassUnits(className, canonicalUnitsArray, curriculumId, customUpdatedAt = null) {
     if (!className) {
-      return saveActiveUnits(canonicalUnitsArray, curriculumId, null);
+      return saveActiveUnits(canonicalUnitsArray, curriculumId, null, { customUpdatedAt });
     }
     let profiles = {};
     if (typeof localStorage !== 'undefined') {
@@ -1181,12 +1232,14 @@
       } catch {}
     }
 
+    const now = typeof customUpdatedAt === 'number' && customUpdatedAt > 0 ? customUpdatedAt : Date.now();
+
     if (!profiles[className]) {
       profiles[className] = {
         schedule: parseScheduleFromName(className),
         units: [],
         curriculumId: curriculumId || 'smart-phonics',
-        updatedAt: Date.now()
+        updatedAt: now
       };
     }
 
@@ -1209,7 +1262,6 @@
       return u;
     }).filter(Boolean);
 
-    const now = Date.now();
     if (canonicals.length > 0 || !Array.isArray(profiles[className].units) || profiles[className].units.length === 0) {
       profiles[className].units = canonicals;
     }
@@ -1226,7 +1278,7 @@
     }
 
     if (canonicals.length > 0) {
-      saveActiveUnits(canonicals, profiles[className].curriculumId || series, className, { skipClassProfile: true });
+      saveActiveUnits(canonicals, profiles[className].curriculumId || series, className, { skipClassProfile: true, customUpdatedAt: now });
     }
 
     return syncUpstash(SHARED_CLASS_PROFILES_KEY, profiles);
@@ -1310,46 +1362,62 @@
   }
 
   // ── 5c. Active Session Players & Attendance Management ────────
-  function getActivePlayers() {
-    let list = [];
+  function getActiveSession() {
+    let localPlayers = [];
+    let localClass = '';
+    let localUpdatedAt = 0;
+
     if (typeof localStorage !== 'undefined') {
       try {
         const stored = localStorage.getItem(SHARED_ACTIVE_PLAYERS_KEY);
-        if (stored) list = JSON.parse(stored) || [];
-      } catch {
-        list = [];
-      }
-    }
-    if (list.length === 0) {
-      const cookie = readSharedSyncCookie();
-      if (cookie && Array.isArray(cookie.act) && cookie.act.length > 0) {
-        list = cookie.act;
-        if (typeof localStorage !== 'undefined') {
-          try {
-            localStorage.setItem(SHARED_ACTIVE_PLAYERS_KEY, JSON.stringify(list));
-          } catch {}
-        }
-      }
-    }
-    return list;
-  }
-
-  function getActiveSession() {
-    const players = getActivePlayers();
-    let className = '';
-    if (typeof localStorage !== 'undefined') {
-      try {
-        className = localStorage.getItem(SHARED_ACTIVE_CLASS_KEY) || '';
+        if (stored) localPlayers = JSON.parse(stored) || [];
+        localClass = localStorage.getItem(SHARED_ACTIVE_CLASS_KEY) || '';
+        localUpdatedAt = parseInt(localStorage.getItem(SHARED_ACTIVE_PLAYERS_UPDATED_AT_KEY) || '0', 10) || 0;
       } catch {}
     }
-    if (!className) {
-      const cookie = readSharedSyncCookie();
-      if (cookie && cookie.actClass) {
-        className = cookie.actClass;
-      }
-    }
+
     const cookie = readSharedSyncCookie();
-    const updatedAt = (cookie && cookie.updatedAt) || 0;
+    const cookiePlayers = (cookie && Array.isArray(cookie.act)) ? cookie.act : [];
+    const cookieClass = (cookie && cookie.actClass) || '';
+    const cookieUpdatedAt = (cookie && (cookie.actUpdatedAt || cookie.updatedAt)) || 0;
+
+    // Determine freshest source between localStorage and Cookie
+    if (cookieUpdatedAt > localUpdatedAt && cookiePlayers.length > 0) {
+      if (typeof localStorage !== 'undefined') {
+        try {
+          localStorage.setItem(SHARED_ACTIVE_PLAYERS_KEY, JSON.stringify(cookiePlayers));
+          if (cookieClass) {
+            localStorage.setItem(SHARED_ACTIVE_CLASS_KEY, cookieClass);
+          } else {
+            localStorage.removeItem(SHARED_ACTIVE_CLASS_KEY);
+          }
+          localStorage.setItem(SHARED_ACTIVE_PLAYERS_UPDATED_AT_KEY, String(cookieUpdatedAt));
+        } catch {}
+      }
+      return {
+        players: cookiePlayers,
+        className: cookieClass,
+        updatedAt: cookieUpdatedAt
+      };
+    }
+
+    if (localUpdatedAt > cookieUpdatedAt && localPlayers.length > 0) {
+      writeSharedSyncCookie({
+        act: localPlayers,
+        actClass: localClass || undefined,
+        actUpdatedAt: localUpdatedAt
+      });
+      return {
+        players: localPlayers,
+        className: localClass,
+        updatedAt: localUpdatedAt
+      };
+    }
+
+    const players = localPlayers.length > 0 ? localPlayers : cookiePlayers;
+    const className = localClass || cookieClass || '';
+    const updatedAt = Math.max(localUpdatedAt, cookieUpdatedAt);
+
     return {
       players,
       className,
@@ -1357,7 +1425,11 @@
     };
   }
 
-  function saveActivePlayers(players, className = null) {
+  function getActivePlayers() {
+    return getActiveSession().players;
+  }
+
+  function saveActivePlayers(players, className = null, customUpdatedAt = null) {
     let cleanPlayers = [];
     if (Array.isArray(players)) {
       cleanPlayers = players
@@ -1371,14 +1443,28 @@
       cleanClassName = localStorage.getItem(SHARED_ACTIVE_CLASS_KEY) || null;
     }
 
+    const updatedAt = typeof customUpdatedAt === 'number' && customUpdatedAt > 0
+      ? customUpdatedAt
+      : Date.now();
+
     if (typeof localStorage !== 'undefined') {
       localStorage.setItem(SHARED_ACTIVE_PLAYERS_KEY, JSON.stringify(cleanPlayers));
+      localStorage.setItem(SHARED_ACTIVE_PLAYERS_UPDATED_AT_KEY, String(updatedAt));
     }
 
+    const sessionPayload = {
+      players: cleanPlayers,
+      className: cleanClassName || '',
+      updatedAt
+    };
+
     if (cleanPlayers.length > 0) {
-      const updates = { act: cleanPlayers };
+      const updates = {
+        act: cleanPlayers,
+        actClass: cleanClassName || undefined,
+        actUpdatedAt: updatedAt
+      };
       if (cleanClassName) {
-        updates.actClass = cleanClassName;
         if (typeof localStorage !== 'undefined') {
           localStorage.setItem(SHARED_ACTIVE_CLASS_KEY, cleanClassName);
         }
@@ -1393,6 +1479,7 @@
       if (cookie) {
         delete cookie.act;
         delete cookie.actClass;
+        delete cookie.actUpdatedAt;
         cookie.updatedAt = Date.now();
         const rootDomain = getRootDomain();
         writeCookie(SHARED_COOKIE_NAME, JSON.stringify(cookie), {
@@ -1405,6 +1492,7 @@
     }
 
     syncUpstash(SHARED_ACTIVE_PLAYERS_KEY, cleanPlayers);
+    syncUpstash(SHARED_ACTIVE_SESSION_KEY, sessionPayload);
     return cleanPlayers;
   }
 
@@ -1983,6 +2071,8 @@
   return {
     SHARED_SETS_KEY,
     SHARED_ACTIVE_PLAYERS_KEY,
+    SHARED_ACTIVE_PLAYERS_UPDATED_AT_KEY,
+    SHARED_ACTIVE_SESSION_KEY,
     SHARED_CLASS_PROFILES_KEY,
     UPSTASH_URL_KEY,
     UPSTASH_TOKEN_KEY,

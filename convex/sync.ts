@@ -1,11 +1,59 @@
-import { query, mutation } from "./_generated/server";
+import { query, mutation, internalMutation } from "./_generated/server";
 import { v } from "convex/values";
 
+const ALLOW_PUBLIC_WORKSPACE_CREATION = false;
 const MAX_CLASSES_PER_WORKSPACE = 60;
 const MAX_PLAYERS_PER_CLASS = 60;
 const MAX_UNITS_PER_CLASS = 200;
 const MAX_CURRICULUM_OVERRIDES = 30;
 const MAX_LEVELS_JSON_LENGTH = 600_000;
+
+export function isAllowedOrigin(origin?: string | null): boolean {
+  if (!origin) return true;
+  const trimmed = origin.trim().toLowerCase();
+  if (trimmed === "null" || trimmed.startsWith("file://")) return true;
+
+  let hostname = "";
+  try {
+    const parsed = new URL(trimmed);
+    hostname = parsed.hostname.toLowerCase();
+  } catch {
+    hostname = trimmed.replace(/^https?:\/\//, "").split("/")[0].split(":")[0];
+  }
+
+  if (!hostname) return false;
+
+  if (
+    hostname === "localhost" ||
+    hostname === "127.0.0.1" ||
+    hostname === "::1" ||
+    hostname.endsWith(".local")
+  ) {
+    return true;
+  }
+
+  if (hostname === "allenglish.link" || hostname.endsWith(".allenglish.link")) {
+    return true;
+  }
+
+  if (hostname.endsWith(".netlify.app")) {
+    return (
+      hostname.includes("all-english") ||
+      hostname.includes("allenglish") ||
+      hostname.includes("phonics") ||
+      hostname.includes("matchmaker") ||
+      hostname.includes("sunken-treasure") ||
+      hostname.includes("word-tac-toe") ||
+      hostname.includes("tic-tac-toe")
+    );
+  }
+
+  if (hostname === "all-english.github.io") {
+    return true;
+  }
+
+  return false;
+}
 
 const scheduleValidator = v.object({
   days: v.array(v.string()),
@@ -60,7 +108,9 @@ const snapshotResultValidator = v.union(
       v.literal("INVALID_CODE"),
       v.literal("INVALID_PIN"),
       v.literal("ALREADY_TAKEN"),
-      v.literal("NOT_FOUND")
+      v.literal("NOT_FOUND"),
+      v.literal("LOCKED"),
+      v.literal("FORBIDDEN_ORIGIN")
     ),
     message: v.string(),
   })
@@ -109,6 +159,7 @@ function sanitizeUnits(units: string[]): string[] {
 export const checkSyncCode = query({
   args: {
     syncCode: v.string(),
+    origin: v.optional(v.string()),
   },
   returns: v.object({
     exists: v.boolean(),
@@ -117,7 +168,7 @@ export const checkSyncCode = query({
   }),
   handler: async (ctx, args) => {
     const normalizedCode = normalizeSyncCode(args.syncCode);
-    if (!isValidSyncCode(normalizedCode)) {
+    if (!isAllowedOrigin(args.origin) || !isValidSyncCode(normalizedCode)) {
       return { exists: false, hasPin: false, normalizedCode };
     }
     const ws = await ctx.db
@@ -136,9 +187,18 @@ export const getWorkspaceSnapshot = query({
   args: {
     syncCode: v.string(),
     pin: v.optional(v.string()),
+    origin: v.optional(v.string()),
   },
   returns: snapshotResultValidator,
   handler: async (ctx, args) => {
+    if (!isAllowedOrigin(args.origin)) {
+      return {
+        ok: false as const,
+        errorCode: "FORBIDDEN_ORIGIN" as const,
+        message: "Access from this domain is not authorized.",
+      };
+    }
+
     const normalizedCode = normalizeSyncCode(args.syncCode);
     if (!isValidSyncCode(normalizedCode)) {
       return {
@@ -158,28 +218,33 @@ export const getWorkspaceSnapshot = query({
       return {
         ok: false as const,
         errorCode: "NOT_FOUND" as const,
-        message:
-          "Sync Code not found. Click 'Create New' if you are setting up a new Sync Code.",
+        message: "Sync Code not found.",
       };
     }
 
-    if (ws.hasPin && ws.pinHash) {
-      const cleanPin = normalizePin(args.pin);
-      if (!cleanPin) {
-        return {
-          ok: false as const,
-          errorCode: "INVALID_PIN" as const,
-          message: "This Sync Code is protected by a 4-digit PIN.",
-        };
-      }
-      const suppliedHash = await computePinHash(normalizedCode, cleanPin);
-      if (suppliedHash !== ws.pinHash) {
-        return {
-          ok: false as const,
-          errorCode: "INVALID_PIN" as const,
-          message: "Incorrect 4-digit PIN for this Sync Code.",
-        };
-      }
+    if (!ws.hasPin || !ws.pinHash) {
+      return {
+        ok: false as const,
+        errorCode: "INVALID_PIN" as const,
+        message: "This Sync Code requires a 4-digit PIN.",
+      };
+    }
+
+    const cleanPin = normalizePin(args.pin);
+    if (!cleanPin) {
+      return {
+        ok: false as const,
+        errorCode: "INVALID_PIN" as const,
+        message: "This Sync Code is protected by a 4-digit PIN.",
+      };
+    }
+    const suppliedHash = await computePinHash(normalizedCode, cleanPin);
+    if (suppliedHash !== ws.pinHash) {
+      return {
+        ok: false as const,
+        errorCode: "INVALID_PIN" as const,
+        message: "Incorrect 4-digit PIN for this Sync Code.",
+      };
     }
 
     const classRows = await ctx.db
@@ -233,6 +298,47 @@ export const createWorkspace = mutation({
   args: {
     syncCode: v.string(),
     pin: v.optional(v.string()),
+    origin: v.optional(v.string()),
+    initialState: v.optional(
+      v.object({
+        activeClassName: v.optional(v.string()),
+        activePlayers: v.optional(v.array(v.string())),
+        activePlayersUpdatedAt: v.optional(v.number()),
+        activeCurriculumId: v.optional(v.string()),
+        activeUnits: v.optional(v.array(v.string())),
+        activeUnitsClassName: v.optional(v.string()),
+        activeUnitsUpdatedAt: v.optional(v.number()),
+        hiddenBooks: v.optional(v.array(v.string())),
+        hideBuiltIn: v.optional(v.boolean()),
+        classes: v.optional(v.array(classItemValidator)),
+        curriculumOverrides: v.optional(
+          v.array(curriculumOverrideItemValidator)
+        ),
+      })
+    ),
+  },
+  returns: snapshotResultValidator,
+  handler: async () => {
+    if (!ALLOW_PUBLIC_WORKSPACE_CREATION) {
+      return {
+        ok: false as const,
+        errorCode: "LOCKED" as const,
+        message:
+          "Creating new Sync Codes is locked on this server. Please click 'Connect Existing' and enter your Sync Code and 4-digit PIN.",
+      };
+    }
+    return {
+      ok: false as const,
+      errorCode: "LOCKED" as const,
+      message: "Creating new Sync Codes is disabled.",
+    };
+  },
+});
+
+export const adminCreateWorkspace = internalMutation({
+  args: {
+    syncCode: v.string(),
+    pin: v.string(),
     initialState: v.optional(
       v.object({
         activeClassName: v.optional(v.string()),
@@ -264,11 +370,11 @@ export const createWorkspace = mutation({
     }
 
     const cleanPin = normalizePin(args.pin);
-    if (!isValidPinFormat(cleanPin)) {
+    if (!/^\d{4}$/.test(cleanPin)) {
       return {
         ok: false as const,
         errorCode: "INVALID_PIN" as const,
-        message: "PIN must be exactly 4 digits (or left blank for no PIN).",
+        message: "PIN must be a 4-digit number.",
       };
     }
 
@@ -281,15 +387,13 @@ export const createWorkspace = mutation({
       return {
         ok: false as const,
         errorCode: "ALREADY_TAKEN" as const,
-        message: `The Sync Code "${normalizedCode}" is already taken! Try adding your school or numbers you'll remember (or click 'Connect Existing' if it's yours).`,
+        message: `The Sync Code "${normalizedCode}" already exists.`,
       };
     }
 
     const now = Date.now();
-    const hasPin = cleanPin.length === 4;
-    const pinHash = hasPin
-      ? await computePinHash(normalizedCode, cleanPin)
-      : undefined;
+    const hasPin = true;
+    const pinHash = await computePinHash(normalizedCode, cleanPin);
 
     const init = args.initialState;
     const activeClassName = (init?.activeClassName ?? "").trim();
@@ -429,6 +533,7 @@ export const saveWorkspaceState = mutation({
   args: {
     syncCode: v.string(),
     pin: v.optional(v.string()),
+    origin: v.optional(v.string()),
     activeClassName: v.optional(v.string()),
     activePlayers: v.optional(v.array(v.string())),
     activePlayersUpdatedAt: v.optional(v.number()),
@@ -449,6 +554,15 @@ export const saveWorkspaceState = mutation({
     updatedAt: v.number(),
   }),
   handler: async (ctx, args) => {
+    if (!isAllowedOrigin(args.origin)) {
+      return {
+        ok: false,
+        errorCode: "FORBIDDEN_ORIGIN",
+        message: "Access from this domain is not authorized.",
+        updatedAt: 0,
+      };
+    }
+
     const normalizedCode = normalizeSyncCode(args.syncCode);
     if (!isValidSyncCode(normalizedCode)) {
       return {
@@ -473,17 +587,24 @@ export const saveWorkspaceState = mutation({
       };
     }
 
-    if (ws.hasPin && ws.pinHash) {
-      const cleanPin = normalizePin(args.pin);
-      const suppliedHash = await computePinHash(normalizedCode, cleanPin);
-      if (!cleanPin || suppliedHash !== ws.pinHash) {
-        return {
-          ok: false,
-          errorCode: "INVALID_PIN",
-          message: "Incorrect PIN for this Sync Code.",
-          updatedAt: 0,
-        };
-      }
+    if (!ws.hasPin || !ws.pinHash) {
+      return {
+        ok: false,
+        errorCode: "INVALID_PIN",
+        message: "This Sync Code requires a 4-digit PIN.",
+        updatedAt: 0,
+      };
+    }
+
+    const cleanPin = normalizePin(args.pin);
+    const suppliedHash = await computePinHash(normalizedCode, cleanPin);
+    if (!cleanPin || suppliedHash !== ws.pinHash) {
+      return {
+        ok: false,
+        errorCode: "INVALID_PIN",
+        message: "Incorrect PIN for this Sync Code.",
+        updatedAt: 0,
+      };
     }
 
     const now = Date.now();
@@ -613,6 +734,7 @@ export const saveCurriculumOverrides = mutation({
   args: {
     syncCode: v.string(),
     pin: v.optional(v.string()),
+    origin: v.optional(v.string()),
     hideBuiltIn: v.optional(v.boolean()),
     activeCurriculumId: v.optional(v.string()),
     overrides: v.array(curriculumOverrideItemValidator),
@@ -625,6 +747,15 @@ export const saveCurriculumOverrides = mutation({
     updatedAt: v.number(),
   }),
   handler: async (ctx, args) => {
+    if (!isAllowedOrigin(args.origin)) {
+      return {
+        ok: false,
+        errorCode: "FORBIDDEN_ORIGIN",
+        message: "Access from this domain is not authorized.",
+        updatedAt: 0,
+      };
+    }
+
     const normalizedCode = normalizeSyncCode(args.syncCode);
     if (!isValidSyncCode(normalizedCode)) {
       return {
@@ -649,17 +780,24 @@ export const saveCurriculumOverrides = mutation({
       };
     }
 
-    if (ws.hasPin && ws.pinHash) {
-      const cleanPin = normalizePin(args.pin);
-      const suppliedHash = await computePinHash(normalizedCode, cleanPin);
-      if (!cleanPin || suppliedHash !== ws.pinHash) {
-        return {
-          ok: false,
-          errorCode: "INVALID_PIN",
-          message: "Incorrect PIN for this Sync Code.",
-          updatedAt: 0,
-        };
-      }
+    if (!ws.hasPin || !ws.pinHash) {
+      return {
+        ok: false,
+        errorCode: "INVALID_PIN",
+        message: "This Sync Code requires a 4-digit PIN.",
+        updatedAt: 0,
+      };
+    }
+
+    const cleanPin = normalizePin(args.pin);
+    const suppliedHash = await computePinHash(normalizedCode, cleanPin);
+    if (!cleanPin || suppliedHash !== ws.pinHash) {
+      return {
+        ok: false,
+        errorCode: "INVALID_PIN",
+        message: "Incorrect PIN for this Sync Code.",
+        updatedAt: 0,
+      };
     }
 
     const now = Date.now();

@@ -816,14 +816,88 @@
   }
 
   // ── 4b. Convex HTTP API & Live WebSocket Subscription ──────────
-  async function convexQuery(fnPath, args = {}) {
+  function getClientOrigin() {
+    if (typeof window !== 'undefined' && window.location) {
+      return window.location.origin || `${window.location.protocol}//${window.location.host}`;
+    }
+    return '';
+  }
+
+  function isAllowedClientDomain() {
+    if (typeof window === 'undefined' || !window.location) return true;
+    const protocol = (window.location.protocol || '').toLowerCase();
+    if (protocol === 'file:') return true;
+    const hostname = (window.location.hostname || '').toLowerCase();
+    if (!hostname) return true;
+    if (
+      hostname === 'localhost' ||
+      hostname === '127.0.0.1' ||
+      hostname === '::1' ||
+      hostname.endsWith('.local')
+    ) {
+      return true;
+    }
+    if (hostname === 'allenglish.link' || hostname.endsWith('.allenglish.link')) {
+      return true;
+    }
+    if (hostname.endsWith('.netlify.app')) {
+      return (
+        hostname.includes('all-english') ||
+        hostname.includes('allenglish') ||
+        hostname.includes('phonics') ||
+        hostname.includes('matchmaker') ||
+        hostname.includes('sunken-treasure') ||
+        hostname.includes('word-tac-toe') ||
+        hostname.includes('tic-tac-toe')
+      );
+    }
+    if (hostname === 'all-english.github.io') {
+      return true;
+    }
+    return false;
+  }
+
+  function getConvexSiteUrl() {
+    const cloudUrl = getConvexUrl();
+    if (!cloudUrl) return '';
+    return cloudUrl.replace(/\.convex\.cloud$/, '.convex.site');
+  }
+
+  async function convexHttpSync(kind, fnPath, args = {}) {
+    if (!isAllowedClientDomain()) {
+      console.warn('[SharedClassSync] Cloud Sync blocked on unauthorized domain.');
+      return null;
+    }
     const baseUrl = getConvexUrl();
     if (!baseUrl) return null;
+    const siteUrl = getConvexSiteUrl();
+    const origin = getClientOrigin();
+    const argsWithOrigin = origin ? { ...args, origin } : { ...args };
+
+    if (siteUrl) {
+      try {
+        const res = await fetch(`${siteUrl}/api/sync`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ path: fnPath, args: argsWithOrigin })
+        });
+        if (res.status === 403) {
+          return null;
+        }
+        if (res.ok) {
+          const data = await res.json();
+          if (data && data.status === 'success') {
+            return data.value;
+          }
+        }
+      } catch {}
+    }
+
     try {
-      const res = await fetch(`${baseUrl}/api/query`, {
+      const res = await fetch(`${baseUrl}/api/${kind}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ path: fnPath, args, format: 'json' })
+        body: JSON.stringify({ path: fnPath, args: argsWithOrigin, format: 'json' })
       });
       if (!res.ok) return null;
       const data = await res.json();
@@ -832,30 +906,17 @@
       }
       return null;
     } catch (err) {
-      console.warn(`[SharedClassSync] Convex query "${fnPath}" error:`, err);
+      console.warn(`[SharedClassSync] Convex ${kind} "${fnPath}" error:`, err);
       return null;
     }
   }
 
+  async function convexQuery(fnPath, args = {}) {
+    return convexHttpSync('query', fnPath, args);
+  }
+
   async function convexMutation(fnPath, args = {}) {
-    const baseUrl = getConvexUrl();
-    if (!baseUrl) return null;
-    try {
-      const res = await fetch(`${baseUrl}/api/mutation`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ path: fnPath, args, format: 'json' })
-      });
-      if (!res.ok) return null;
-      const data = await res.json();
-      if (data && data.status === 'success') {
-        return data.value;
-      }
-      return null;
-    } catch (err) {
-      console.warn(`[SharedClassSync] Convex mutation "${fnPath}" error:`, err);
-      return null;
-    }
+    return convexHttpSync('mutation', fnPath, args);
   }
 
   let liveConvexClient = null;
@@ -877,6 +938,10 @@
 
   async function startLiveSubscription() {
     if (typeof window === 'undefined') return;
+    if (!isAllowedClientDomain()) {
+      stopLiveSubscription();
+      return;
+    }
     const { syncCode, pin, convexUrl } = getSyncConfig();
     if (!syncCode || !convexUrl) {
       stopLiveSubscription();
@@ -895,8 +960,10 @@
       if (liveSubscribedKey !== targetKey) return;
 
       liveConvexClient = new mod.ConvexClient(convexUrl);
+      const origin = getClientOrigin();
       const queryArgs = { syncCode };
       if (pin) queryArgs.pin = pin;
+      if (origin) queryArgs.origin = origin;
 
       liveUnsubscribe = liveConvexClient.onUpdate(
         'sync:getWorkspaceSnapshot',

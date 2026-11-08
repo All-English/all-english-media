@@ -318,19 +318,183 @@ export const createWorkspace = mutation({
     ),
   },
   returns: snapshotResultValidator,
-  handler: async () => {
-    if (!ALLOW_PUBLIC_WORKSPACE_CREATION) {
+  handler: async (ctx, args) => {
+    if (!isAllowedOrigin(args.origin)) {
       return {
         ok: false as const,
-        errorCode: "LOCKED" as const,
-        message:
-          "Creating new Sync Codes is locked on this server. Please click 'Connect Existing' and enter your Sync Code and 4-digit PIN.",
+        errorCode: "FORBIDDEN_ORIGIN" as const,
+        message: "Access from this domain is not authorized.",
       };
     }
+
+    const normalizedCode = normalizeSyncCode(args.syncCode);
+    if (!isValidSyncCode(normalizedCode)) {
+      return {
+        ok: false as const,
+        errorCode: "INVALID_CODE" as const,
+        message:
+          "Sync Code must be 2–48 characters (letters, numbers, spaces, hyphens, or underscores).",
+      };
+    }
+
+    const cleanPin = normalizePin(args.pin);
+    if (!isValidPinFormat(cleanPin)) {
+      return {
+        ok: false as const,
+        errorCode: "INVALID_PIN" as const,
+        message: "PIN must be exactly 4 digits (or left blank for no PIN).",
+      };
+    }
+
+    const existing = await ctx.db
+      .query("workspaces")
+      .withIndex("by_sync_code", (q) => q.eq("syncCode", normalizedCode))
+      .unique();
+
+    if (existing) {
+      return {
+        ok: false as const,
+        errorCode: "ALREADY_TAKEN" as const,
+        message: `The Sync Code "${normalizedCode}" is already taken! Try adding your school or numbers you'll remember (or click 'Connect Existing' if it's yours).`,
+      };
+    }
+
+    const now = Date.now();
+    const hasPin = cleanPin.length === 4;
+    const pinHash = hasPin
+      ? await computePinHash(normalizedCode, cleanPin)
+      : undefined;
+
+    const init = args.initialState;
+    const activeClassName = (init?.activeClassName ?? "").trim();
+    const activePlayers = sanitizePlayers(init?.activePlayers ?? []);
+    const activePlayersUpdatedAt = init?.activePlayersUpdatedAt ?? (activePlayers.length > 0 ? now : 0);
+    const activeCurriculumId = (init?.activeCurriculumId ?? "smart-phonics").trim() || "smart-phonics";
+    const activeUnits = sanitizeUnits(init?.activeUnits ?? []);
+    const activeUnitsClassName = (init?.activeUnitsClassName ?? "").trim();
+    const activeUnitsUpdatedAt = init?.activeUnitsUpdatedAt ?? (activeUnits.length > 0 ? now : 0);
+    const hiddenBooks = (init?.hiddenBooks ?? []).slice(0, 50);
+    const hideBuiltIn = init?.hideBuiltIn ?? false;
+
+    await ctx.db.insert("workspaces", {
+      syncCode: normalizedCode,
+      pinHash,
+      hasPin,
+      activeClassName,
+      activePlayers,
+      activePlayersUpdatedAt,
+      activeCurriculumId,
+      activeUnits,
+      activeUnitsClassName,
+      activeUnitsUpdatedAt,
+      hiddenBooks,
+      hideBuiltIn,
+      updatedAt: now,
+    });
+
+    const savedClasses: Array<{
+      name: string;
+      players: string[];
+      curriculumId: string;
+      units: string[];
+      schedule: { days: string[]; startTime: string; endTime: string };
+      pfClassId?: string;
+      updatedAt: number;
+    }> = [];
+
+    const initialClasses = (init?.classes ?? []).slice(
+      0,
+      MAX_CLASSES_PER_WORKSPACE
+    );
+    const seenNames = new Set<string>();
+    for (const cls of initialClasses) {
+      const cleanName = cls.name.trim();
+      if (!cleanName || seenNames.has(cleanName)) continue;
+      seenNames.add(cls.name.trim());
+      const row = {
+        syncCode: normalizedCode,
+        name: cleanName,
+        players: sanitizePlayers(cls.players),
+        curriculumId: cls.curriculumId || "smart-phonics",
+        units: sanitizeUnits(cls.units),
+        schedule: cls.schedule,
+        pfClassId: cls.pfClassId,
+        updatedAt: cls.updatedAt || now,
+      };
+      await ctx.db.insert("classes", row);
+      savedClasses.push({
+        name: row.name,
+        players: row.players,
+        curriculumId: row.curriculumId,
+        units: row.units,
+        schedule: row.schedule,
+        pfClassId: row.pfClassId,
+        updatedAt: row.updatedAt,
+      });
+    }
+
+    const savedOverrides: Array<{
+      seriesId: string;
+      name: string;
+      isCustom: boolean;
+      description: string;
+      levelsJson: string;
+      updatedAt: number;
+    }> = [];
+
+    const initialOverrides = (init?.curriculumOverrides ?? []).slice(
+      0,
+      MAX_CURRICULUM_OVERRIDES
+    );
+    const seenSeries = new Set<string>();
+    for (const ov of initialOverrides) {
+      const cleanSeriesId = ov.seriesId.trim();
+      if (
+        !cleanSeriesId ||
+        seenSeries.has(cleanSeriesId) ||
+        ov.levelsJson.length > MAX_LEVELS_JSON_LENGTH
+      ) {
+        continue;
+      }
+      seenSeries.add(cleanSeriesId);
+      const row = {
+        syncCode: normalizedCode,
+        seriesId: cleanSeriesId,
+        name: ov.name.trim() || cleanSeriesId,
+        isCustom: ov.isCustom,
+        description: ov.description.slice(0, 500),
+        levelsJson: ov.levelsJson,
+        updatedAt: ov.updatedAt || now,
+      };
+      await ctx.db.insert("curriculumOverrides", row);
+      savedOverrides.push({
+        seriesId: row.seriesId,
+        name: row.name,
+        isCustom: row.isCustom,
+        description: row.description,
+        levelsJson: row.levelsJson,
+        updatedAt: row.updatedAt,
+      });
+    }
+
     return {
-      ok: false as const,
-      errorCode: "LOCKED" as const,
-      message: "Creating new Sync Codes is disabled.",
+      ok: true as const,
+      snapshot: {
+        syncCode: normalizedCode,
+        hasPin,
+        activeClassName,
+        activePlayers,
+        activePlayersUpdatedAt,
+        activeCurriculumId,
+        activeUnits,
+        activeUnitsClassName,
+        activeUnitsUpdatedAt,
+        hiddenBooks,
+        hideBuiltIn,
+        updatedAt: now,
+        classes: savedClasses,
+        curriculumOverrides: savedOverrides,
+      },
     };
   },
 });

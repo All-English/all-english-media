@@ -1,7 +1,6 @@
 import { query, mutation, internalMutation } from "./_generated/server";
 import { v } from "convex/values";
 
-const ALLOW_PUBLIC_WORKSPACE_CREATION = false;
 const MAX_CLASSES_PER_WORKSPACE = 60;
 const MAX_PLAYERS_PER_CLASS = 60;
 const MAX_UNITS_PER_CLASS = 200;
@@ -225,29 +224,23 @@ export const getWorkspaceSnapshot = query({
       };
     }
 
-    if (!ws.hasPin || !ws.pinHash) {
-      return {
-        ok: false as const,
-        errorCode: "INVALID_PIN" as const,
-        message: "This Sync Code requires a 4-digit PIN.",
-      };
-    }
-
-    const cleanPin = normalizePin(args.pin);
-    if (!cleanPin) {
-      return {
-        ok: false as const,
-        errorCode: "INVALID_PIN" as const,
-        message: "This Sync Code is protected by a 4-digit PIN.",
-      };
-    }
-    const suppliedHash = await computePinHash(normalizedCode, cleanPin);
-    if (suppliedHash !== ws.pinHash) {
-      return {
-        ok: false as const,
-        errorCode: "INVALID_PIN" as const,
-        message: "Incorrect 4-digit PIN for this Sync Code.",
-      };
+    if (ws.hasPin && ws.pinHash) {
+      const cleanPin = normalizePin(args.pin);
+      if (!cleanPin) {
+        return {
+          ok: false as const,
+          errorCode: "INVALID_PIN" as const,
+          message: "This Sync Code is protected by a 4-digit PIN.",
+        };
+      }
+      const suppliedHash = await computePinHash(normalizedCode, cleanPin);
+      if (suppliedHash !== ws.pinHash) {
+        return {
+          ok: false as const,
+          errorCode: "INVALID_PIN" as const,
+          message: "Incorrect 4-digit PIN for this Sync Code.",
+        };
+      }
     }
 
     const classRows = await ctx.db
@@ -754,24 +747,25 @@ export const saveWorkspaceState = mutation({
       };
     }
 
-    if (!ws.hasPin || !ws.pinHash) {
-      return {
-        ok: false,
-        errorCode: "INVALID_PIN",
-        message: "This Sync Code requires a 4-digit PIN.",
-        updatedAt: 0,
-      };
-    }
-
-    const cleanPin = normalizePin(args.pin);
-    const suppliedHash = await computePinHash(normalizedCode, cleanPin);
-    if (!cleanPin || suppliedHash !== ws.pinHash) {
-      return {
-        ok: false,
-        errorCode: "INVALID_PIN",
-        message: "Incorrect PIN for this Sync Code.",
-        updatedAt: 0,
-      };
+    if (ws.hasPin && ws.pinHash) {
+      const cleanPin = normalizePin(args.pin);
+      if (!cleanPin) {
+        return {
+          ok: false,
+          errorCode: "INVALID_PIN",
+          message: "This Sync Code is protected by a 4-digit PIN.",
+          updatedAt: 0,
+        };
+      }
+      const suppliedHash = await computePinHash(normalizedCode, cleanPin);
+      if (suppliedHash !== ws.pinHash) {
+        return {
+          ok: false,
+          errorCode: "INVALID_PIN",
+          message: "Incorrect PIN for this Sync Code.",
+          updatedAt: 0,
+        };
+      }
     }
 
     const now = Date.now();
@@ -868,7 +862,7 @@ export const saveWorkspaceState = mutation({
             updatedAt: cls.updatedAt || now,
           });
         } else if (byName.size < MAX_CLASSES_PER_WORKSPACE) {
-          await ctx.db.insert("classes", {
+          const newDoc = {
             syncCode: normalizedCode,
             name: cleanName,
             players: nextPlayers,
@@ -877,7 +871,9 @@ export const saveWorkspaceState = mutation({
             schedule: cls.schedule,
             pfClassId: cls.pfClassId,
             updatedAt: cls.updatedAt || now,
-          });
+          };
+          await ctx.db.insert("classes", newDoc);
+          byName.set(cleanName, newDoc as any);
         }
       }
 
@@ -947,24 +943,25 @@ export const saveCurriculumOverrides = mutation({
       };
     }
 
-    if (!ws.hasPin || !ws.pinHash) {
-      return {
-        ok: false,
-        errorCode: "INVALID_PIN",
-        message: "This Sync Code requires a 4-digit PIN.",
-        updatedAt: 0,
-      };
-    }
-
-    const cleanPin = normalizePin(args.pin);
-    const suppliedHash = await computePinHash(normalizedCode, cleanPin);
-    if (!cleanPin || suppliedHash !== ws.pinHash) {
-      return {
-        ok: false,
-        errorCode: "INVALID_PIN",
-        message: "Incorrect PIN for this Sync Code.",
-        updatedAt: 0,
-      };
+    if (ws.hasPin && ws.pinHash) {
+      const cleanPin = normalizePin(args.pin);
+      if (!cleanPin) {
+        return {
+          ok: false,
+          errorCode: "INVALID_PIN",
+          message: "This Sync Code is protected by a 4-digit PIN.",
+          updatedAt: 0,
+        };
+      }
+      const suppliedHash = await computePinHash(normalizedCode, cleanPin);
+      if (suppliedHash !== ws.pinHash) {
+        return {
+          ok: false,
+          errorCode: "INVALID_PIN",
+          message: "Incorrect PIN for this Sync Code.",
+          updatedAt: 0,
+        };
+      }
     }
 
     const now = Date.now();

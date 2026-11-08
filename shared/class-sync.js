@@ -1238,16 +1238,71 @@
     };
   }
 
+  function deleteClass(className) {
+    const cleanName = (className || '').trim();
+    if (!cleanName) return false;
+
+    if (typeof localStorage !== 'undefined') {
+      try {
+        const rawSets = localStorage.getItem(SHARED_SETS_KEY);
+        if (rawSets) {
+          const sets = JSON.parse(rawSets) || {};
+          if (sets[cleanName]) {
+            delete sets[cleanName];
+            localStorage.setItem(SHARED_SETS_KEY, JSON.stringify(sets));
+          }
+        }
+
+        const rawProfs = localStorage.getItem(SHARED_CLASS_PROFILES_KEY);
+        if (rawProfs) {
+          const profs = JSON.parse(rawProfs) || {};
+          if (profs[cleanName]) {
+            delete profs[cleanName];
+            localStorage.setItem(SHARED_CLASS_PROFILES_KEY, JSON.stringify(profs));
+          }
+        }
+
+        const rawPf = localStorage.getItem('phonics-flash-classes');
+        if (rawPf) {
+          const pf = JSON.parse(rawPf) || null;
+          if (pf && Array.isArray(pf.classes)) {
+            const origLen = pf.classes.length;
+            pf.classes = pf.classes.filter(c => (c.name || '').trim() !== cleanName && String(c.id || '') !== cleanName);
+            if (pf.classes.length !== origLen) {
+              localStorage.setItem('phonics-flash-classes', JSON.stringify(pf));
+            }
+          }
+        }
+
+        if (localStorage.getItem(SHARED_ACTIVE_CLASS_KEY) === cleanName) {
+          localStorage.removeItem(SHARED_ACTIVE_CLASS_KEY);
+        }
+      } catch (e) {
+        console.warn('[SharedClassSync] Error deleting class from local storage:', e);
+      }
+    }
+
+    pendingDeletedClassNames.add(cleanName);
+    schedulePushToConvex({ replaceAllClasses: true, deleteClassName: cleanName });
+    return true;
+  }
+
   let pushTimer = null;
   let pendingDeletedClassNames = new Set();
+  let pendingReplaceAllClasses = false;
 
   function schedulePushToConvex({ replaceAllClasses = false, deleteClassName = null } = {}) {
     if (deleteClassName) {
       pendingDeletedClassNames.add(deleteClassName);
     }
+    if (replaceAllClasses) {
+      pendingReplaceAllClasses = true;
+    }
     if (pushTimer) clearTimeout(pushTimer);
     pushTimer = setTimeout(() => {
-      pushLocalStateToConvex({ replaceAllClasses });
+      const doReplaceAll = pendingReplaceAllClasses;
+      pendingReplaceAllClasses = false;
+      pushLocalStateToConvex({ replaceAllClasses: doReplaceAll });
     }, 250);
   }
 
@@ -1308,8 +1363,13 @@
     return res;
   }
 
+  const LEGACY_UPSTASH_MIGRATED_KEY = 'ae_legacy_upstash_migrated';
+
   async function pullLegacyUpstashFromBrowserOnce() {
     if (typeof localStorage === 'undefined') return false;
+    if (localStorage.getItem(LEGACY_UPSTASH_MIGRATED_KEY) === 'true') {
+      return false;
+    }
     let url = (localStorage.getItem(UPSTASH_URL_KEY) || '').trim();
     let token = (localStorage.getItem(UPSTASH_TOKEN_KEY) || '').trim();
     if (!url || !token) {
@@ -1321,7 +1381,10 @@
         }
       } catch {}
     }
-    if (!url || !token) return false;
+    if (!url || !token) {
+      localStorage.setItem(LEGACY_UPSTASH_MIGRATED_KEY, 'true');
+      return false;
+    }
     const cleanUrl = url.replace(/\/$/, '');
 
     const getKey = async (k) => {
@@ -1401,8 +1464,15 @@
           }
         }
       }
+      localStorage.setItem(LEGACY_UPSTASH_MIGRATED_KEY, 'true');
+      try {
+        localStorage.removeItem(UPSTASH_URL_KEY);
+        localStorage.removeItem(UPSTASH_TOKEN_KEY);
+        localStorage.removeItem('phonics-flash-upstash-config');
+      } catch {}
       return true;
     } catch {
+      localStorage.setItem(LEGACY_UPSTASH_MIGRATED_KEY, 'true');
       return false;
     }
   }
@@ -1564,7 +1634,29 @@
 
     if (typeof localStorage !== 'undefined' && value !== undefined) {
       try {
-        if (key === SHARED_SETS_KEY && typeof value === 'object') {
+        if (key === SHARED_SETS_KEY && typeof value === 'object' && value !== null) {
+          const oldSets = JSON.parse(localStorage.getItem(SHARED_SETS_KEY) || '{}') || {};
+          const newKeys = new Set(Object.keys(value));
+          for (const oldName of Object.keys(oldSets)) {
+            if (!newKeys.has(oldName)) {
+              const cleanOld = oldName.trim();
+              if (cleanOld) {
+                pendingDeletedClassNames.add(cleanOld);
+                try {
+                  const profs = JSON.parse(localStorage.getItem(SHARED_CLASS_PROFILES_KEY) || '{}') || {};
+                  if (profs[cleanOld]) {
+                    delete profs[cleanOld];
+                    localStorage.setItem(SHARED_CLASS_PROFILES_KEY, JSON.stringify(profs));
+                  }
+                  const pf = JSON.parse(localStorage.getItem('phonics-flash-classes') || 'null');
+                  if (pf && Array.isArray(pf.classes)) {
+                    pf.classes = pf.classes.filter(c => (c.name || '').trim() !== cleanOld);
+                    localStorage.setItem('phonics-flash-classes', JSON.stringify(pf));
+                  }
+                } catch {}
+              }
+            }
+          }
           localStorage.setItem(SHARED_SETS_KEY, JSON.stringify(value));
         } else if (key === SHARED_CLASS_PROFILES_KEY && typeof value === 'object') {
           localStorage.setItem(SHARED_CLASS_PROFILES_KEY, JSON.stringify(value));
@@ -2757,6 +2849,23 @@
   };
 
   // ── 7. Unified Curriculum Loader & Delta Overrides ─────────────
+  function getCanonicalLevelId(lvl) {
+    if (!lvl) return '';
+    if (lvl.id) return String(lvl.id);
+    if (lvl.level != null) return `L${lvl.level}`;
+    if (lvl.bookNumber != null) return `L${lvl.bookNumber}`;
+    return String(lvl.name || '');
+  }
+
+  function getCanonicalUnitId(u, levelId = '') {
+    if (!u) return '';
+    if (u.id) return String(u.id);
+    const num = u.unit ?? u.unitNumber;
+    if (num != null && levelId) return `${levelId}U${num}`;
+    if (num != null) return String(num);
+    return String(u.name || u.title || '');
+  }
+
   function computeCurriculumOverrides(curriculaList, baselineData) {
     if (!Array.isArray(curriculaList) || curriculaList.length === 0) return [];
     const baseNorm = baselineData ? CurriculumAdapter.normalize(baselineData) : null;
@@ -2779,20 +2888,20 @@
       } else {
         const masterUnitMap = new Map();
         for (const lvl of (masterSeries.levels || [])) {
-          const lNum = lvl.level ?? lvl.id;
+          const lKey = getCanonicalLevelId(lvl);
           for (const u of (lvl.units || [])) {
-            const uNum = u.unit ?? u.unitNumber ?? u.id;
-            masterUnitMap.set(`${lNum}:${uNum}`, JSON.stringify(u));
+            const uKey = getCanonicalUnitId(u, lKey);
+            masterUnitMap.set(`${lKey}:${uKey}`, JSON.stringify(u));
           }
         }
 
         const diffLevels = [];
         for (const lvl of (s.levels || [])) {
-          const lNum = lvl.level ?? lvl.id;
+          const lKey = getCanonicalLevelId(lvl);
           const diffUnits = [];
           for (const u of (lvl.units || [])) {
-            const uNum = u.unit ?? u.unitNumber ?? u.id;
-            const key = `${lNum}:${uNum}`;
+            const uKey = getCanonicalUnitId(u, lKey);
+            const key = `${lKey}:${uKey}`;
             if (masterUnitMap.get(key) !== JSON.stringify(u)) {
               diffUnits.push(u);
             }
@@ -2852,24 +2961,41 @@
         }
       } else {
         targetSeries.updatedAt = Math.max(targetSeries.updatedAt || 0, ov.updatedAt || 0);
-        const levelByNum = new Map((targetSeries.levels || []).map(l => [String(l.level ?? l.id), l]));
+        const levelByKey = new Map();
+        for (const l of (targetSeries.levels || [])) {
+          const lKey = getCanonicalLevelId(l);
+          if (lKey) levelByKey.set(lKey, l);
+          if (l.id) levelByKey.set(String(l.id), l);
+        }
         for (const ovLvl of parsedLevels) {
-          const lKey = String(ovLvl.level ?? ovLvl.id);
-          const targetLvl = levelByNum.get(lKey);
+          const lKey = getCanonicalLevelId(ovLvl);
+          const targetLvl = levelByKey.get(lKey) || (ovLvl.id ? levelByKey.get(String(ovLvl.id)) : null);
           if (!targetLvl) {
             targetSeries.levels.push(ovLvl);
-            levelByNum.set(lKey, ovLvl);
+            if (lKey) levelByKey.set(lKey, ovLvl);
           } else {
             const unitByIdx = new Map();
             (targetLvl.units || []).forEach((u, idx) => {
-              unitByIdx.set(String(u.unit ?? u.unitNumber ?? u.id), idx);
+              const cId = getCanonicalUnitId(u, lKey);
+              if (cId) unitByIdx.set(cId, idx);
+              if (u.id) unitByIdx.set(String(u.id), idx);
+              if (u.name) unitByIdx.set(`name:${u.name.trim()}`, idx);
             });
             for (const ovUnit of (ovLvl.units || [])) {
-              const uKey = String(ovUnit.unit ?? ovUnit.unitNumber ?? ovUnit.id);
-              if (unitByIdx.has(uKey)) {
-                targetLvl.units[unitByIdx.get(uKey)] = ovUnit;
+              const cId = getCanonicalUnitId(ovUnit, lKey);
+              const existingIdx =
+                (cId && unitByIdx.has(cId)) ? unitByIdx.get(cId) :
+                (ovUnit.id && unitByIdx.has(String(ovUnit.id))) ? unitByIdx.get(String(ovUnit.id)) :
+                (ovUnit.name && unitByIdx.has(`name:${ovUnit.name.trim()}`)) ? unitByIdx.get(`name:${ovUnit.name.trim()}`) :
+                undefined;
+              if (existingIdx !== undefined) {
+                targetLvl.units[existingIdx] = { ...targetLvl.units[existingIdx], ...ovUnit };
               } else {
+                const newIdx = targetLvl.units.length;
                 targetLvl.units.push(ovUnit);
+                if (cId) unitByIdx.set(cId, newIdx);
+                if (ovUnit.id) unitByIdx.set(String(ovUnit.id), newIdx);
+                if (ovUnit.name) unitByIdx.set(`name:${ovUnit.name.trim()}`, newIdx);
               }
             }
           }
@@ -3032,8 +3158,11 @@
     readSharedSyncCookie,
     writeSharedSyncCookie,
     reconcileCookieWithLocalStorage,
+    deleteClass,
     fetchUpstash,
     syncUpstash,
+    fetchFromCloud: fetchUpstash,
+    syncToCloud: syncUpstash,
     loadAllClasses,
     saveClassUnits,
     SHARED_HIDDEN_BOOKS_KEY,

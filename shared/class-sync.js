@@ -26,11 +26,27 @@
   const SHARED_CLASS_PROFILES_KEY = 'shared_class_profiles';
   const SHARED_HIDDEN_BOOKS_KEY = 'shared_hidden_books';
   const SHARED_COOKIE_NAME = 'ae_shared_sync';
+  const CONVEX_SYNC_CODE_KEY = 'convex_sync_code';
+  const CONVEX_SYNC_PIN_KEY = 'convex_sync_pin';
+  const CONVEX_CURRICULUM_OVERRIDES_KEY = 'convex_curriculum_overrides';
+  const CONVEX_URL_STORAGE_KEY = 'convex_cloud_url';
+  const DEFAULT_CONVEX_URL = 'https://shiny-tapir-482.ap-southeast-2.convex.cloud';
   const UPSTASH_URL_KEY = 'upstash_redis_url';
   const UPSTASH_TOKEN_KEY = 'upstash_redis_token';
   const UPSTASH_SHARED_CURRICULUM_KEY = 'shared_phonics_curriculum';
   const ELEVENLABS_KEY = 'elevenlabs_api_key';
   const PHONICS_FLASH_ELEVENLABS_KEY = 'phonics-flash-elevenlabs-key';
+
+  function getConvexUrl() {
+    if (typeof window !== 'undefined' && window.CONVEX_URL) {
+      return String(window.CONVEX_URL).trim().replace(/\/$/, '');
+    }
+    if (typeof localStorage !== 'undefined') {
+      const stored = localStorage.getItem(CONVEX_URL_STORAGE_KEY);
+      if (stored && stored.trim()) return stored.trim().replace(/\/$/, '');
+    }
+    return DEFAULT_CONVEX_URL;
+  }
   
   function getMediaBase() {
     if (typeof window !== 'undefined') {
@@ -508,25 +524,72 @@
     }
   }
 
-  function saveCredentials(url, token) {
-    const cleanUrl = (url || '').trim().replace(/\/$/, '');
-    const cleanToken = (token || '').trim();
+  function normalizeSyncCode(raw) {
+    return String(raw || '').trim().replace(/\s+/g, ' ').toLowerCase();
+  }
+
+  function getSyncConfig() {
+    let syncCode = '';
+    let pin = '';
 
     if (typeof localStorage !== 'undefined') {
-      if (cleanUrl && cleanToken) {
-        localStorage.setItem(UPSTASH_URL_KEY, cleanUrl);
-        localStorage.setItem(UPSTASH_TOKEN_KEY, cleanToken);
-      } else {
-        localStorage.removeItem(UPSTASH_URL_KEY);
-        localStorage.removeItem(UPSTASH_TOKEN_KEY);
+      syncCode = normalizeSyncCode(localStorage.getItem(CONVEX_SYNC_CODE_KEY) || '');
+      pin = (localStorage.getItem(CONVEX_SYNC_PIN_KEY) || '').trim();
+    }
+
+    if (!syncCode) {
+      const cookie = readSharedSyncCookie();
+      if (cookie && cookie.sCode) {
+        syncCode = normalizeSyncCode(cookie.sCode);
+        pin = (cookie.sPin || '').trim();
+        if (typeof localStorage !== 'undefined' && syncCode) {
+          try {
+            localStorage.setItem(CONVEX_SYNC_CODE_KEY, syncCode);
+            if (pin) localStorage.setItem(CONVEX_SYNC_PIN_KEY, pin);
+          } catch {}
+        }
       }
     }
 
-    if (cleanUrl && cleanToken) {
-      writeSharedSyncCookie({ uUrl: cleanUrl, uTok: cleanToken });
+    return {
+      syncCode,
+      pin,
+      convexUrl: getConvexUrl()
+    };
+  }
+
+  function saveSyncConfig(syncCode, pin = '') {
+    const cleanCode = normalizeSyncCode(syncCode);
+    const cleanPin = String(pin || '').trim();
+
+    if (typeof localStorage !== 'undefined') {
+      if (cleanCode) {
+        localStorage.setItem(CONVEX_SYNC_CODE_KEY, cleanCode);
+        if (cleanPin) {
+          localStorage.setItem(CONVEX_SYNC_PIN_KEY, cleanPin);
+        } else {
+          localStorage.removeItem(CONVEX_SYNC_PIN_KEY);
+        }
+      } else {
+        localStorage.removeItem(CONVEX_SYNC_CODE_KEY);
+        localStorage.removeItem(CONVEX_SYNC_PIN_KEY);
+      }
+    }
+
+    if (cleanCode) {
+      writeSharedSyncCookie({
+        sCode: cleanCode,
+        sPin: cleanPin || null,
+        uUrl: null,
+        uTok: null
+      });
+      startLiveSubscription();
     } else {
+      stopLiveSubscription();
       const cookie = readSharedSyncCookie();
       if (cookie) {
+        delete cookie.sCode;
+        delete cookie.sPin;
         delete cookie.uUrl;
         delete cookie.uTok;
         cookie.updatedAt = Date.now();
@@ -538,11 +601,21 @@
         });
       }
     }
-    return { url: cleanUrl, token: cleanToken };
+
+    return { syncCode: cleanCode, pin: cleanPin };
+  }
+
+  function clearSyncConfig() {
+    return saveSyncConfig('', '');
+  }
+
+  // Backward-compatible credential aliases
+  function saveCredentials(codeOrUrl, pinOrToken) {
+    return saveSyncConfig(codeOrUrl, pinOrToken);
   }
 
   function clearCredentials() {
-    return saveCredentials('', '');
+    return clearSyncConfig();
   }
 
   function getSharedApiKey() {
@@ -600,8 +673,8 @@
 
     let cookie = readSharedSyncCookie();
 
-    const localUrl = localStorage.getItem(UPSTASH_URL_KEY) || '';
-    const localToken = localStorage.getItem(UPSTASH_TOKEN_KEY) || '';
+    const localSyncCode = normalizeSyncCode(localStorage.getItem(CONVEX_SYNC_CODE_KEY) || '');
+    const localSyncPin = (localStorage.getItem(CONVEX_SYNC_PIN_KEY) || '').trim();
     const localElKey = localStorage.getItem(ELEVENLABS_KEY) || localStorage.getItem(PHONICS_FLASH_ELEVENLABS_KEY) || '';
     let localHidden = [];
     try {
@@ -629,14 +702,16 @@
     let cookieChanged = false;
 
     if (cookie) {
-      if (cookie.uUrl && cookie.uTok && (!localUrl || !localToken)) {
+      if (cookie.sCode && !localSyncCode) {
         try {
-          localStorage.setItem(UPSTASH_URL_KEY, cookie.uUrl);
-          localStorage.setItem(UPSTASH_TOKEN_KEY, cookie.uTok);
+          localStorage.setItem(CONVEX_SYNC_CODE_KEY, normalizeSyncCode(cookie.sCode));
+          if (cookie.sPin) {
+            localStorage.setItem(CONVEX_SYNC_PIN_KEY, String(cookie.sPin).trim());
+          }
         } catch {}
-      } else if (localUrl && localToken && (!cookie.uUrl || !cookie.uTok)) {
-        updatesForCookie.uUrl = localUrl;
-        updatesForCookie.uTok = localToken;
+      } else if (localSyncCode && (!cookie.sCode || normalizeSyncCode(cookie.sCode) !== localSyncCode)) {
+        updatesForCookie.sCode = localSyncCode;
+        if (localSyncPin) updatesForCookie.sPin = localSyncPin;
         cookieChanged = true;
       }
 
@@ -699,9 +774,9 @@
         cookieChanged = true;
       }
     } else {
-      if (localUrl && localToken) {
-        updatesForCookie.uUrl = localUrl;
-        updatesForCookie.uTok = localToken;
+      if (localSyncCode) {
+        updatesForCookie.sCode = localSyncCode;
+        if (localSyncPin) updatesForCookie.sPin = localSyncPin;
         cookieChanged = true;
       }
       if (localElKey) {
@@ -729,104 +804,712 @@
   }
 
   function getCredentials() {
-    let url = '';
-    let token = '';
-
-    if (typeof localStorage !== 'undefined') {
-      url = localStorage.getItem(UPSTASH_URL_KEY) || '';
-      token = localStorage.getItem(UPSTASH_TOKEN_KEY) || '';
-      if (!url || !token) {
-        try {
-          const pfLocal = JSON.parse(localStorage.getItem('phonics-flash-upstash-config') || '{}');
-          if (pfLocal && pfLocal.url && pfLocal.token) {
-            url = pfLocal.url.trim();
-            token = pfLocal.token.trim();
-            localStorage.setItem(UPSTASH_URL_KEY, url);
-            localStorage.setItem(UPSTASH_TOKEN_KEY, token);
-          }
-        } catch {}
-      }
-    }
-
-    if (!url || !token) {
-      const cookie = readSharedSyncCookie();
-      if (cookie && cookie.uUrl && cookie.uTok) {
-        url = cookie.uUrl;
-        token = cookie.uTok;
-        if (typeof localStorage !== 'undefined') {
-          try {
-            localStorage.setItem(UPSTASH_URL_KEY, url);
-            localStorage.setItem(UPSTASH_TOKEN_KEY, token);
-          } catch {}
-        }
-      }
-    }
-
-    if (!url && typeof window !== 'undefined' && window.UPSTASH_CONFIG) {
-      url = window.UPSTASH_CONFIG.url || '';
-      token = window.UPSTASH_CONFIG.token || '';
-    }
-
-    if (url && url.endsWith('/')) {
-      url = url.slice(0, -1);
-    }
-
-    return { url, token };
+    const { syncCode, pin, convexUrl } = getSyncConfig();
+    return {
+      syncCode,
+      pin,
+      convexUrl,
+      // Legacy properties mapped so truthiness checks (creds.url && creds.token) still work if any caller checks them
+      url: syncCode ? convexUrl : '',
+      token: syncCode || ''
+    };
   }
 
-  async function fetchUpstash(key) {
-    const { url, token } = getCredentials();
-    if (!url || !token) return null;
-
+  // ── 4b. Convex HTTP API & Live WebSocket Subscription ──────────
+  async function convexQuery(fnPath, args = {}) {
+    const baseUrl = getConvexUrl();
+    if (!baseUrl) return null;
     try {
-      const res = await fetch(`${url}/get/${encodeURIComponent(key)}`, {
-        headers: { Authorization: `Bearer ${token}` }
+      const res = await fetch(`${baseUrl}/api/query`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ path: fnPath, args, format: 'json' })
       });
       if (!res.ok) return null;
       const data = await res.json();
-      if (!data || data.result === null || data.result === undefined) return null;
-
-      if (typeof data.result === 'string') {
-        try {
-          const parsed = JSON.parse(data.result);
-          if (typeof parsed === 'string') {
-            try {
-              return JSON.parse(parsed);
-            } catch {
-              return parsed;
-            }
-          }
-          return parsed;
-        } catch {
-          return data.result;
-        }
+      if (data && data.status === 'success') {
+        return data.value;
       }
-      return data.result;
+      return null;
     } catch (err) {
-      console.warn(`[SharedClassSync] Fetch error for key "${key}":`, err);
+      console.warn(`[SharedClassSync] Convex query "${fnPath}" error:`, err);
       return null;
     }
   }
 
-  async function syncUpstash(key, value) {
-    const { url, token } = getCredentials();
-    if (!url || !token) return false;
+  async function convexMutation(fnPath, args = {}) {
+    const baseUrl = getConvexUrl();
+    if (!baseUrl) return null;
+    try {
+      const res = await fetch(`${baseUrl}/api/mutation`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ path: fnPath, args, format: 'json' })
+      });
+      if (!res.ok) return null;
+      const data = await res.json();
+      if (data && data.status === 'success') {
+        return data.value;
+      }
+      return null;
+    } catch (err) {
+      console.warn(`[SharedClassSync] Convex mutation "${fnPath}" error:`, err);
+      return null;
+    }
+  }
+
+  let liveConvexClient = null;
+  let liveUnsubscribe = null;
+  let liveSubscribedKey = '';
+  let lastSnapshotHash = '';
+
+  function stopLiveSubscription() {
+    if (typeof liveUnsubscribe === 'function') {
+      try { liveUnsubscribe(); } catch {}
+    }
+    liveUnsubscribe = null;
+    liveSubscribedKey = '';
+    if (liveConvexClient && typeof liveConvexClient.close === 'function') {
+      try { liveConvexClient.close(); } catch {}
+    }
+    liveConvexClient = null;
+  }
+
+  async function startLiveSubscription() {
+    if (typeof window === 'undefined') return;
+    const { syncCode, pin, convexUrl } = getSyncConfig();
+    if (!syncCode || !convexUrl) {
+      stopLiveSubscription();
+      return;
+    }
+    const targetKey = `${convexUrl}|${syncCode}|${pin}`;
+    if (liveSubscribedKey === targetKey && liveUnsubscribe) {
+      return;
+    }
+    stopLiveSubscription();
+    liveSubscribedKey = targetKey;
 
     try {
-      const payload = typeof value === 'string' ? value : JSON.stringify(value);
-      const res = await fetch(`${url}/set/${encodeURIComponent(key)}`, {
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json'
-        },
-        body: payload
-      });
-      return res.ok;
+      const mod = await import('https://esm.sh/convex@1.21.0/browser');
+      if (!mod || !mod.ConvexClient) return;
+      if (liveSubscribedKey !== targetKey) return;
+
+      liveConvexClient = new mod.ConvexClient(convexUrl);
+      const queryArgs = { syncCode };
+      if (pin) queryArgs.pin = pin;
+
+      liveUnsubscribe = liveConvexClient.onUpdate(
+        'sync:getWorkspaceSnapshot',
+        queryArgs,
+        (result) => {
+          if (result && result.ok && result.snapshot) {
+            const hash = JSON.stringify(result.snapshot);
+            if (hash !== lastSnapshotHash) {
+              lastSnapshotHash = hash;
+              applySnapshotToLocal(result.snapshot, { fromLiveUpdate: true });
+            }
+          }
+        }
+      );
     } catch (err) {
-      console.warn(`[SharedClassSync] Sync error for key "${key}":`, err);
+      // Graceful fallback to HTTP queries if ESM CDN is unreachable
+      console.debug('[SharedClassSync] Live WebSocket subscription unavailable, using HTTP sync.');
+    }
+  }
+
+  function applySnapshotToLocal(snapshot, { fromLiveUpdate = false } = {}) {
+    if (!snapshot || typeof localStorage === 'undefined') return;
+
+    const playerSets = {};
+    const classProfiles = {};
+    let existingProfiles = {};
+    try {
+      existingProfiles = JSON.parse(localStorage.getItem(SHARED_CLASS_PROFILES_KEY) || '{}') || {};
+    } catch {}
+
+    const pfClassesList = [];
+    let existingPfStore = { classes: [], activeClassId: null, updatedAt: Date.now() };
+    try {
+      const rawPf = localStorage.getItem('phonics-flash-classes');
+      if (rawPf) existingPfStore = JSON.parse(rawPf) || existingPfStore;
+    } catch {}
+    const existingPfByName = new Map(
+      (Array.isArray(existingPfStore.classes) ? existingPfStore.classes : []).map(c => [c.name, c])
+    );
+
+    if (Array.isArray(snapshot.classes)) {
+      for (const cls of snapshot.classes) {
+        if (!cls || !cls.name) continue;
+        const cName = cls.name.trim();
+        if (!cName) continue;
+
+        if (Array.isArray(cls.players) && cls.players.length > 0) {
+          playerSets[cName] = cls.players;
+        } else if (!playerSets[cName]) {
+          playerSets[cName] = [];
+        }
+
+        const localProf = existingProfiles[cName];
+        const useLocalProf = localProf && (localProf.updatedAt || 0) > (cls.updatedAt || 0);
+
+        classProfiles[cName] = useLocalProf
+          ? localProf
+          : {
+              schedule: cls.schedule || parseScheduleFromName(cName),
+              curriculumId: cls.curriculumId || 'smart-phonics',
+              units: Array.isArray(cls.units) ? cls.units : [],
+              updatedAt: cls.updatedAt || Date.now()
+            };
+
+        const prevPf = existingPfByName.get(cName);
+        pfClassesList.push({
+          id: cls.pfClassId || prevPf?.id || `cls_${cName.replace(/\W+/g, '_').toLowerCase()}`,
+          name: cName,
+          schedule: classProfiles[cName].schedule,
+          curriculumId: classProfiles[cName].curriculumId || 'smart-phonics',
+          selectedUnits: classProfiles[cName].units || [],
+          updatedAt: classProfiles[cName].updatedAt || Date.now()
+        });
+      }
+    }
+
+    try {
+      localStorage.setItem(SHARED_SETS_KEY, JSON.stringify(playerSets));
+      localStorage.setItem(SHARED_CLASS_PROFILES_KEY, JSON.stringify(classProfiles));
+      if (pfClassesList.length > 0) {
+        const matchedActivePf = pfClassesList.find(c => c.name === snapshot.activeClassName);
+        localStorage.setItem('phonics-flash-classes', JSON.stringify({
+          classes: pfClassesList,
+          activeClassId: matchedActivePf ? matchedActivePf.id : (existingPfStore.activeClassId || pfClassesList[0].id),
+          updatedAt: snapshot.updatedAt || Date.now()
+        }));
+      }
+    } catch {}
+
+    // Active units
+    if (Array.isArray(snapshot.activeUnits) && snapshot.activeUnits.length > 0) {
+      const localUnits = getActiveUnits();
+      if ((snapshot.activeUnitsUpdatedAt || 0) >= (localUnits.updatedAt || 0)) {
+        const unitsPayload = {
+          units: snapshot.activeUnits,
+          curriculumId: snapshot.activeCurriculumId || 'smart-phonics',
+          className: snapshot.activeUnitsClassName || snapshot.activeClassName || '',
+          updatedAt: snapshot.activeUnitsUpdatedAt || snapshot.updatedAt || Date.now()
+        };
+        try {
+          localStorage.setItem(SHARED_ACTIVE_UNITS_KEY, JSON.stringify(unitsPayload));
+        } catch {}
+        writeSharedSyncCookie({
+          actUnits: unitsPayload.units,
+          actCur: unitsPayload.curriculumId,
+          actUnitsAt: unitsPayload.updatedAt
+        });
+      }
+    }
+
+    // Hidden books
+    if (Array.isArray(snapshot.hiddenBooks)) {
+      try {
+        localStorage.setItem(SHARED_HIDDEN_BOOKS_KEY, JSON.stringify(snapshot.hiddenBooks));
+      } catch {}
+      writeSharedSyncCookie({ hidden: snapshot.hiddenBooks });
+    }
+    if (typeof snapshot.hideBuiltIn === 'boolean') {
+      try {
+        localStorage.setItem('phonics-flash-hide-builtin', snapshot.hideBuiltIn ? 'true' : 'false');
+      } catch {}
+    }
+
+    // Active players / session
+    if (Array.isArray(snapshot.activePlayers) && snapshot.activePlayers.length > 0) {
+      const localSession = getActiveSession();
+      if ((snapshot.activePlayersUpdatedAt || 0) >= (localSession.updatedAt || 0)) {
+        try {
+          localStorage.setItem(SHARED_ACTIVE_PLAYERS_KEY, JSON.stringify(snapshot.activePlayers));
+          localStorage.setItem(SHARED_ACTIVE_PLAYERS_UPDATED_AT_KEY, String(snapshot.activePlayersUpdatedAt || Date.now()));
+          if (snapshot.activeClassName) {
+            localStorage.setItem(SHARED_ACTIVE_CLASS_KEY, snapshot.activeClassName);
+          }
+        } catch {}
+        writeSharedSyncCookie({
+          act: snapshot.activePlayers,
+          actClass: snapshot.activeClassName || undefined,
+          actUpdatedAt: snapshot.activePlayersUpdatedAt || Date.now()
+        });
+      }
+    }
+
+    // Curriculum overrides
+    if (Array.isArray(snapshot.curriculumOverrides)) {
+      try {
+        localStorage.setItem(CONVEX_CURRICULUM_OVERRIDES_KEY, JSON.stringify(snapshot.curriculumOverrides));
+        CurriculumLoader.cachedCurriculum = null;
+      } catch {}
+    }
+
+    if (fromLiveUpdate && typeof window !== 'undefined' && typeof window.dispatchEvent === 'function') {
+      try {
+        window.dispatchEvent(new CustomEvent('ae-cloud-sync-updated', {
+          detail: { snapshot, playerSets, classProfiles }
+        }));
+      } catch {}
+    }
+  }
+
+  function collectLocalStateForUpload() {
+    let playerSets = {};
+    let classProfiles = {};
+    let pfStore = null;
+    let hiddenBooks = getHiddenBooks();
+    let hideBuiltIn = false;
+    let curriculumOverrides = [];
+
+    if (typeof localStorage !== 'undefined') {
+      try {
+        playerSets = JSON.parse(localStorage.getItem(SHARED_SETS_KEY) || '{}') || {};
+      } catch {}
+      try {
+        classProfiles = JSON.parse(localStorage.getItem(SHARED_CLASS_PROFILES_KEY) || '{}') || {};
+      } catch {}
+      try {
+        pfStore = JSON.parse(localStorage.getItem('phonics-flash-classes') || 'null');
+      } catch {}
+      try {
+        hideBuiltIn = localStorage.getItem('phonics-flash-hide-builtin') === 'true';
+      } catch {}
+      try {
+        curriculumOverrides = JSON.parse(localStorage.getItem(CONVEX_CURRICULUM_OVERRIDES_KEY) || '[]') || [];
+      } catch {}
+    }
+
+    const classMap = new Map();
+    for (const [name, players] of Object.entries(playerSets)) {
+      const cleanName = name.trim();
+      if (!cleanName) continue;
+      classMap.set(cleanName, {
+        name: cleanName,
+        players: Array.isArray(players) ? players.map(String) : [],
+        curriculumId: 'smart-phonics',
+        units: [],
+        schedule: parseScheduleFromName(cleanName),
+        updatedAt: Date.now()
+      });
+    }
+
+    for (const [name, prof] of Object.entries(classProfiles)) {
+      const cleanName = name.trim();
+      if (!cleanName || !prof || typeof prof !== 'object') continue;
+      const existing = classMap.get(cleanName) || {
+        name: cleanName,
+        players: Array.isArray(playerSets[cleanName]) ? playerSets[cleanName].map(String) : [],
+        curriculumId: 'smart-phonics',
+        units: [],
+        schedule: parseScheduleFromName(cleanName),
+        updatedAt: Date.now()
+      };
+      if (Array.isArray(prof.units)) existing.units = prof.units.map(String);
+      if (prof.curriculumId) existing.curriculumId = String(prof.curriculumId);
+      if (prof.schedule && Array.isArray(prof.schedule.days)) {
+        existing.schedule = {
+          days: prof.schedule.days.map(String),
+          startTime: String(prof.schedule.startTime || '15:00'),
+          endTime: String(prof.schedule.endTime || '16:00')
+        };
+      }
+      if (typeof prof.updatedAt === 'number' && prof.updatedAt > 0) {
+        existing.updatedAt = prof.updatedAt;
+      }
+      classMap.set(cleanName, existing);
+    }
+
+    if (pfStore && Array.isArray(pfStore.classes)) {
+      for (const pfCls of pfStore.classes) {
+        if (!pfCls || !pfCls.name) continue;
+        const cleanName = pfCls.name.trim();
+        const pfUnits = Array.isArray(pfCls.selectedUnits)
+          ? pfCls.selectedUnits.map(u => toCanonicalUnit(u)?.id || u).filter(Boolean)
+          : [];
+        const existing = classMap.get(cleanName) || {
+          name: cleanName,
+          players: [],
+          curriculumId: pfCls.curriculumId || 'smart-phonics',
+          units: pfUnits,
+          schedule: pfCls.schedule || parseScheduleFromName(cleanName),
+          updatedAt: pfCls.updatedAt || Date.now()
+        };
+        if (pfCls.id) existing.pfClassId = String(pfCls.id);
+        if (existing.units.length === 0 && pfUnits.length > 0) {
+          existing.units = pfUnits;
+        }
+        if (pfCls.curriculumId) existing.curriculumId = String(pfCls.curriculumId);
+        if (pfCls.schedule && Array.isArray(pfCls.schedule.days)) {
+          existing.schedule = {
+            days: pfCls.schedule.days.map(String),
+            startTime: String(pfCls.schedule.startTime || '15:00'),
+            endTime: String(pfCls.schedule.endTime || '16:00')
+          };
+        }
+        classMap.set(cleanName, existing);
+      }
+    }
+
+    const activeSession = getActiveSession();
+    const activeUnitsObj = getActiveUnits();
+
+    return {
+      activeClassName: activeSession.className || '',
+      activePlayers: activeSession.players || [],
+      activePlayersUpdatedAt: activeSession.updatedAt || 0,
+      activeCurriculumId: activeUnitsObj.curriculumId || 'smart-phonics',
+      activeUnits: activeUnitsObj.units || [],
+      activeUnitsClassName: activeUnitsObj.className || '',
+      activeUnitsUpdatedAt: activeUnitsObj.updatedAt || 0,
+      hiddenBooks,
+      hideBuiltIn,
+      classes: Array.from(classMap.values()),
+      curriculumOverrides
+    };
+  }
+
+  let pushTimer = null;
+  let pendingDeletedClassNames = new Set();
+
+  function schedulePushToConvex({ replaceAllClasses = false, deleteClassName = null } = {}) {
+    if (deleteClassName) {
+      pendingDeletedClassNames.add(deleteClassName);
+    }
+    if (pushTimer) clearTimeout(pushTimer);
+    pushTimer = setTimeout(() => {
+      pushLocalStateToConvex({ replaceAllClasses });
+    }, 250);
+  }
+
+  async function pushLocalStateToConvex({ replaceAllClasses = false } = {}) {
+    const { syncCode, pin } = getSyncConfig();
+    if (!syncCode) return false;
+
+    const state = collectLocalStateForUpload();
+    const deleteNames = Array.from(pendingDeletedClassNames);
+    pendingDeletedClassNames.clear();
+
+    const args = {
+      syncCode,
+      activeClassName: state.activeClassName,
+      activePlayers: state.activePlayers,
+      activePlayersUpdatedAt: state.activePlayersUpdatedAt,
+      activeCurriculumId: state.activeCurriculumId,
+      activeUnits: state.activeUnits,
+      activeUnitsClassName: state.activeUnitsClassName,
+      activeUnitsUpdatedAt: state.activeUnitsUpdatedAt,
+      hiddenBooks: state.hiddenBooks,
+      hideBuiltIn: state.hideBuiltIn,
+      upsertClasses: state.classes,
+      replaceAllClasses
+    };
+    if (pin) args.pin = pin;
+    if (deleteNames.length > 0) args.deleteClassNames = deleteNames;
+
+    const res = await convexMutation('sync:saveWorkspaceState', args);
+    return Boolean(res && res.ok);
+  }
+
+  async function createSyncWorkspace(syncCode, pin = '') {
+    const cleanCode = normalizeSyncCode(syncCode);
+    const cleanPin = String(pin || '').trim();
+    if (!cleanCode) {
+      return { ok: false, errorCode: 'INVALID_CODE', message: 'Please enter a Sync Code.' };
+    }
+    if (cleanPin && !/^\d{4}$/.test(cleanPin)) {
+      return { ok: false, errorCode: 'INVALID_PIN', message: 'PIN must be 4 digits (or left blank).' };
+    }
+
+    const initialState = collectLocalStateForUpload();
+    const args = {
+      syncCode: cleanCode,
+      initialState
+    };
+    if (cleanPin) args.pin = cleanPin;
+
+    const res = await convexMutation('sync:createWorkspace', args);
+    if (!res) {
+      return { ok: false, errorCode: 'NETWORK_ERROR', message: 'Could not reach Cloud Sync server.' };
+    }
+    if (res.ok && res.snapshot) {
+      saveSyncConfig(res.snapshot.syncCode, cleanPin);
+      applySnapshotToLocal(res.snapshot);
+    }
+    return res;
+  }
+
+  async function pullLegacyUpstashFromBrowserOnce() {
+    if (typeof localStorage === 'undefined') return false;
+    let url = (localStorage.getItem(UPSTASH_URL_KEY) || '').trim();
+    let token = (localStorage.getItem(UPSTASH_TOKEN_KEY) || '').trim();
+    if (!url || !token) {
+      try {
+        const pfLocal = JSON.parse(localStorage.getItem('phonics-flash-upstash-config') || '{}');
+        if (pfLocal && pfLocal.url && pfLocal.token) {
+          url = pfLocal.url.trim();
+          token = pfLocal.token.trim();
+        }
+      } catch {}
+    }
+    if (!url || !token) return false;
+    const cleanUrl = url.replace(/\/$/, '');
+
+    const getKey = async (k) => {
+      try {
+        const r = await fetch(`${cleanUrl}/get/${encodeURIComponent(k)}`, {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        if (!r.ok) return null;
+        const d = await r.json();
+        if (!d || d.result == null) return null;
+        if (typeof d.result === 'string') {
+          try {
+            const p = JSON.parse(d.result);
+            return typeof p === 'string' ? JSON.parse(p) : p;
+          } catch {
+            return d.result;
+          }
+        }
+        return d.result;
+      } catch {
+        return null;
+      }
+    };
+
+    try {
+      const [uSets, uProfiles, uPfClasses, uActiveSession, uActivePlayers, uActiveUnits, uHidden, uCur] = await Promise.all([
+        getKey(SHARED_SETS_KEY),
+        getKey(SHARED_CLASS_PROFILES_KEY),
+        getKey('phonics_flash:classes'),
+        getKey(SHARED_ACTIVE_SESSION_KEY),
+        getKey(SHARED_ACTIVE_PLAYERS_KEY),
+        getKey(SHARED_ACTIVE_UNITS_KEY),
+        getKey(SHARED_HIDDEN_BOOKS_KEY),
+        getKey(UPSTASH_SHARED_CURRICULUM_KEY)
+      ]);
+
+      if (uSets && typeof uSets === 'object' && Object.keys(uSets).length > 0) {
+        const localSets = JSON.parse(localStorage.getItem(SHARED_SETS_KEY) || '{}') || {};
+        localStorage.setItem(SHARED_SETS_KEY, JSON.stringify({ ...uSets, ...localSets }));
+      }
+      if (uProfiles && typeof uProfiles === 'object' && Object.keys(uProfiles).length > 0) {
+        const localProf = JSON.parse(localStorage.getItem(SHARED_CLASS_PROFILES_KEY) || '{}') || {};
+        localStorage.setItem(SHARED_CLASS_PROFILES_KEY, JSON.stringify({ ...uProfiles, ...localProf }));
+      }
+      if (uPfClasses && typeof uPfClasses === 'object' && Array.isArray(uPfClasses.classes)) {
+        const existingPf = localStorage.getItem('phonics-flash-classes');
+        if (!existingPf) {
+          localStorage.setItem('phonics-flash-classes', JSON.stringify(uPfClasses));
+        }
+      }
+      if (uActiveUnits && Array.isArray(uActiveUnits.units) && uActiveUnits.units.length > 0) {
+        const curU = getActiveUnits();
+        if (!curU.units || curU.units.length === 0) {
+          localStorage.setItem(SHARED_ACTIVE_UNITS_KEY, JSON.stringify(uActiveUnits));
+        }
+      }
+      if (Array.isArray(uHidden) && uHidden.length > 0) {
+        const curH = getHiddenBooks();
+        if (curH.length === 0) {
+          localStorage.setItem(SHARED_HIDDEN_BOOKS_KEY, JSON.stringify(uHidden));
+        }
+      }
+      const sessPlayers = Array.isArray(uActiveSession?.players) ? uActiveSession.players : (Array.isArray(uActivePlayers) ? uActivePlayers : []);
+      if (sessPlayers.length > 0 && getActivePlayers().length === 0) {
+        localStorage.setItem(SHARED_ACTIVE_PLAYERS_KEY, JSON.stringify(sessPlayers));
+        if (uActiveSession?.className) {
+          localStorage.setItem(SHARED_ACTIVE_CLASS_KEY, uActiveSession.className);
+        }
+      }
+      if (uCur && typeof uCur === 'object') {
+        const seriesList = Array.isArray(uCur.series) ? uCur.series : (Array.isArray(uCur.curricula) ? uCur.curricula : []);
+        if (seriesList.length > 0) {
+          const masterBase = CurriculumLoader.cachedMasterCurriculum || null;
+          const computed = computeCurriculumOverrides(seriesList, masterBase);
+          if (computed.length > 0) {
+            localStorage.setItem(CONVEX_CURRICULUM_OVERRIDES_KEY, JSON.stringify(computed));
+          }
+        }
+      }
+      return true;
+    } catch {
       return false;
     }
+  }
+
+  async function connectSyncWorkspace(syncCode, pin = '') {
+    const cleanCode = normalizeSyncCode(syncCode);
+    const cleanPin = String(pin || '').trim();
+    if (!cleanCode) {
+      return { ok: false, errorCode: 'INVALID_CODE', message: 'Please enter your Sync Code.' };
+    }
+
+    await pullLegacyUpstashFromBrowserOnce();
+    const localBeforeConnect = collectLocalStateForUpload();
+
+    const args = { syncCode: cleanCode };
+    if (cleanPin) args.pin = cleanPin;
+
+    const res = await convexQuery('sync:getWorkspaceSnapshot', args);
+    if (!res) {
+      return { ok: false, errorCode: 'NETWORK_ERROR', message: 'Could not reach Cloud Sync server.' };
+    }
+    if (res.ok && res.snapshot) {
+      saveSyncConfig(res.snapshot.syncCode, cleanPin);
+
+      // If this cloud workspace is newly created/empty and this browser already has local classes or custom edits, push them up!
+      const cloudEmpty = (!res.snapshot.classes || res.snapshot.classes.length === 0) &&
+                         (!res.snapshot.curriculumOverrides || res.snapshot.curriculumOverrides.length === 0);
+      const localHasData = (localBeforeConnect.classes && localBeforeConnect.classes.length > 0) ||
+                           (localBeforeConnect.curriculumOverrides && localBeforeConnect.curriculumOverrides.length > 0) ||
+                           (localBeforeConnect.activePlayers && localBeforeConnect.activePlayers.length > 0);
+
+      if (cloudEmpty && localHasData) {
+        await pushLocalStateToConvex();
+        if (localBeforeConnect.curriculumOverrides && localBeforeConnect.curriculumOverrides.length > 0) {
+          await saveCurriculumOverridesToConvex({
+            overrides: localBeforeConnect.curriculumOverrides,
+            hideBuiltIn: localBeforeConnect.hideBuiltIn,
+            activeCurriculumId: localBeforeConnect.activeCurriculumId,
+            replaceAll: false
+          });
+        }
+        const refreshed = await convexQuery('sync:getWorkspaceSnapshot', args);
+        if (refreshed && refreshed.ok && refreshed.snapshot) {
+          applySnapshotToLocal(refreshed.snapshot);
+          return refreshed;
+        }
+      }
+
+      applySnapshotToLocal(res.snapshot);
+    }
+    return res;
+  }
+
+  async function syncNow() {
+    const { syncCode, pin } = getSyncConfig();
+    if (!syncCode) {
+      return { ok: false, message: 'No Sync Code configured.' };
+    }
+    const res = await connectSyncWorkspace(syncCode, pin);
+    if (res && res.ok) {
+      await pushLocalStateToConvex();
+    }
+    return res;
+  }
+
+  // Legacy shims so existing fetchUpstash / syncUpstash call sites work transparently via Convex
+  let cachedSnapshotPromise = null;
+  let cachedSnapshotAt = 0;
+
+  async function fetchSnapshotCached() {
+    const { syncCode, pin } = getSyncConfig();
+    if (!syncCode) return null;
+    const now = Date.now();
+    if (cachedSnapshotPromise && (now - cachedSnapshotAt) < 1500) {
+      return cachedSnapshotPromise;
+    }
+    cachedSnapshotAt = now;
+    cachedSnapshotPromise = convexQuery('sync:getWorkspaceSnapshot', pin ? { syncCode, pin } : { syncCode })
+      .then(res => {
+        if (res && res.ok && res.snapshot) {
+          applySnapshotToLocal(res.snapshot);
+          return res.snapshot;
+        }
+        return null;
+      })
+      .catch(() => null);
+    return cachedSnapshotPromise;
+  }
+
+  async function fetchUpstash(key) {
+    const snapshot = await fetchSnapshotCached();
+    if (!snapshot) return null;
+
+    if (key === SHARED_SETS_KEY) {
+      const sets = {};
+      for (const c of snapshot.classes || []) {
+        sets[c.name] = c.players || [];
+      }
+      return sets;
+    }
+    if (key === SHARED_CLASS_PROFILES_KEY) {
+      const profiles = {};
+      for (const c of snapshot.classes || []) {
+        profiles[c.name] = {
+          schedule: c.schedule || parseScheduleFromName(c.name),
+          curriculumId: c.curriculumId || 'smart-phonics',
+          units: c.units || [],
+          updatedAt: c.updatedAt || snapshot.updatedAt || Date.now()
+        };
+      }
+      return profiles;
+    }
+    if (key === 'phonics_flash:classes') {
+      return {
+        classes: (snapshot.classes || []).map(c => ({
+          id: c.pfClassId || `cls_${c.name.replace(/\W+/g, '_').toLowerCase()}`,
+          name: c.name,
+          schedule: c.schedule || parseScheduleFromName(c.name),
+          curriculumId: c.curriculumId || 'smart-phonics',
+          selectedUnits: c.units || [],
+          updatedAt: c.updatedAt || snapshot.updatedAt || Date.now()
+        })),
+        updatedAt: snapshot.updatedAt || Date.now()
+      };
+    }
+    if (key === SHARED_ACTIVE_SESSION_KEY) {
+      return {
+        players: snapshot.activePlayers || [],
+        className: snapshot.activeClassName || '',
+        updatedAt: snapshot.activePlayersUpdatedAt || 0
+      };
+    }
+    if (key === SHARED_ACTIVE_PLAYERS_KEY) {
+      return snapshot.activePlayers || [];
+    }
+    if (key === SHARED_ACTIVE_CLASS_KEY) {
+      return snapshot.activeClassName || '';
+    }
+    if (key === SHARED_ACTIVE_UNITS_KEY) {
+      return {
+        units: snapshot.activeUnits || [],
+        curriculumId: snapshot.activeCurriculumId || 'smart-phonics',
+        className: snapshot.activeUnitsClassName || snapshot.activeClassName || '',
+        updatedAt: snapshot.activeUnitsUpdatedAt || 0
+      };
+    }
+    if (key === SHARED_HIDDEN_BOOKS_KEY) {
+      return snapshot.hiddenBooks || [];
+    }
+    if (key === UPSTASH_SHARED_CURRICULUM_KEY || key === 'phonics_flash:curriculum') {
+      return snapshot.curriculumOverrides || null;
+    }
+    return null;
+  }
+
+  async function syncUpstash(key, value) {
+    const { syncCode } = getSyncConfig();
+    if (!syncCode) return false;
+
+    if (typeof localStorage !== 'undefined' && value !== undefined) {
+      try {
+        if (key === SHARED_SETS_KEY && typeof value === 'object') {
+          localStorage.setItem(SHARED_SETS_KEY, JSON.stringify(value));
+        } else if (key === SHARED_CLASS_PROFILES_KEY && typeof value === 'object') {
+          localStorage.setItem(SHARED_CLASS_PROFILES_KEY, JSON.stringify(value));
+        } else if (key === 'phonics_flash:classes' && typeof value === 'object') {
+          localStorage.setItem('phonics-flash-classes', JSON.stringify(value));
+        }
+      } catch {}
+    }
+
+    const replaceAll = (key === SHARED_SETS_KEY || key === SHARED_CLASS_PROFILES_KEY || key === 'phonics_flash:classes');
+    schedulePushToConvex({ replaceAllClasses: replaceAll });
+    return true;
   }
 
   // ── 5. Unified Profile Loader & Manager ────────────────────────
@@ -2006,64 +2689,222 @@
     }
   };
 
-  // ── 7. Unified Curriculum Loader ──────────────────────────────
+  // ── 7. Unified Curriculum Loader & Delta Overrides ─────────────
+  function computeCurriculumOverrides(curriculaList, baselineData) {
+    if (!Array.isArray(curriculaList) || curriculaList.length === 0) return [];
+    const baseNorm = baselineData ? CurriculumAdapter.normalize(baselineData) : null;
+    const masterSeriesList = Array.isArray(baseNorm?.series) ? baseNorm.series : [];
+    const masterById = new Map(masterSeriesList.map(s => [s.id, s]));
+
+    const overrides = [];
+    for (const s of curriculaList) {
+      if (!s || !s.id) continue;
+      const masterSeries = masterById.get(s.id);
+      if (s.isCustom || !masterSeries) {
+        overrides.push({
+          seriesId: s.id,
+          name: s.name || s.id,
+          isCustom: true,
+          description: s.description || '',
+          levelsJson: JSON.stringify(s.levels || []),
+          updatedAt: s.updatedAt || Date.now()
+        });
+      } else {
+        const masterUnitMap = new Map();
+        for (const lvl of (masterSeries.levels || [])) {
+          const lNum = lvl.level ?? lvl.id;
+          for (const u of (lvl.units || [])) {
+            const uNum = u.unit ?? u.unitNumber ?? u.id;
+            masterUnitMap.set(`${lNum}:${uNum}`, JSON.stringify(u));
+          }
+        }
+
+        const diffLevels = [];
+        for (const lvl of (s.levels || [])) {
+          const lNum = lvl.level ?? lvl.id;
+          const diffUnits = [];
+          for (const u of (lvl.units || [])) {
+            const uNum = u.unit ?? u.unitNumber ?? u.id;
+            const key = `${lNum}:${uNum}`;
+            if (masterUnitMap.get(key) !== JSON.stringify(u)) {
+              diffUnits.push(u);
+            }
+          }
+          if (diffUnits.length > 0) {
+            diffLevels.push({ ...lvl, units: diffUnits });
+          }
+        }
+
+        if (diffLevels.length > 0) {
+          overrides.push({
+            seriesId: s.id,
+            name: s.name || masterSeries.name || s.id,
+            isCustom: false,
+            description: s.description || masterSeries.description || '',
+            levelsJson: JSON.stringify(diffLevels),
+            updatedAt: s.updatedAt || Date.now()
+          });
+        }
+      }
+    }
+    return overrides;
+  }
+
+  function applyCurriculumOverrides(baseNormalized, overridesList) {
+    if (!baseNormalized || !Array.isArray(baseNormalized.series)) return baseNormalized;
+    if (!Array.isArray(overridesList) || overridesList.length === 0) return baseNormalized;
+
+    const cloned = JSON.parse(JSON.stringify(baseNormalized));
+    const seriesById = new Map(cloned.series.map(s => [s.id, s]));
+
+    for (const ov of overridesList) {
+      if (!ov || !ov.seriesId || !ov.levelsJson) continue;
+      let parsedLevels = [];
+      try {
+        parsedLevels = JSON.parse(ov.levelsJson);
+      } catch {
+        continue;
+      }
+      if (!Array.isArray(parsedLevels)) continue;
+
+      const targetSeries = seriesById.get(ov.seriesId);
+      if (ov.isCustom || !targetSeries) {
+        const customEntry = {
+          id: ov.seriesId,
+          name: ov.name || ov.seriesId,
+          isCustom: true,
+          description: ov.description || '',
+          updatedAt: ov.updatedAt || Date.now(),
+          levels: parsedLevels
+        };
+        if (targetSeries) {
+          Object.assign(targetSeries, customEntry);
+        } else {
+          cloned.series.push(customEntry);
+          seriesById.set(ov.seriesId, customEntry);
+        }
+      } else {
+        targetSeries.updatedAt = Math.max(targetSeries.updatedAt || 0, ov.updatedAt || 0);
+        const levelByNum = new Map((targetSeries.levels || []).map(l => [String(l.level ?? l.id), l]));
+        for (const ovLvl of parsedLevels) {
+          const lKey = String(ovLvl.level ?? ovLvl.id);
+          const targetLvl = levelByNum.get(lKey);
+          if (!targetLvl) {
+            targetSeries.levels.push(ovLvl);
+            levelByNum.set(lKey, ovLvl);
+          } else {
+            const unitByIdx = new Map();
+            (targetLvl.units || []).forEach((u, idx) => {
+              unitByIdx.set(String(u.unit ?? u.unitNumber ?? u.id), idx);
+            });
+            for (const ovUnit of (ovLvl.units || [])) {
+              const uKey = String(ovUnit.unit ?? ovUnit.unitNumber ?? ovUnit.id);
+              if (unitByIdx.has(uKey)) {
+                targetLvl.units[unitByIdx.get(uKey)] = ovUnit;
+              } else {
+                targetLvl.units.push(ovUnit);
+              }
+            }
+          }
+        }
+      }
+    }
+
+    return CurriculumAdapter.normalize(cloned) || cloned;
+  }
+
+  async function saveCurriculumOverridesToConvex({ overrides = [], hideBuiltIn = false, activeCurriculumId = 'smart-phonics', replaceAll = true } = {}) {
+    if (typeof localStorage !== 'undefined') {
+      try {
+        localStorage.setItem(CONVEX_CURRICULUM_OVERRIDES_KEY, JSON.stringify(overrides));
+      } catch {}
+    }
+    CurriculumLoader.cachedCurriculum = null;
+
+    const { syncCode, pin } = getSyncConfig();
+    if (!syncCode) return false;
+
+    const args = {
+      syncCode,
+      hideBuiltIn: Boolean(hideBuiltIn),
+      activeCurriculumId: String(activeCurriculumId || 'smart-phonics'),
+      overrides,
+      replaceAll: Boolean(replaceAll)
+    };
+    if (pin) args.pin = pin;
+
+    const res = await convexMutation('sync:saveCurriculumOverrides', args);
+    return Boolean(res && res.ok);
+  }
+
   const CurriculumLoader = {
     cachedCurriculum: null,
+    cachedMasterCurriculum: null,
 
     /**
-     * 3-Tier Load Chain: Upstash -> CDN -> Local Fallback
+     * Load Master Built-In Curriculum (CDN -> Local Fallback) and overlay Per-Teacher Convex Overrides
      */
     async load({ cdnBase = null, fallbackData = null, forceRefresh = false } = {}) {
       if (this.cachedCurriculum && !forceRefresh) {
         return this.cachedCurriculum;
       }
 
-      // 1. Check Upstash live edits if credentials exist
-      try {
-        const cloudData = await fetchUpstash(UPSTASH_SHARED_CURRICULUM_KEY);
-        if (cloudData) {
-          const normalized = CurriculumAdapter.normalize(cloudData);
-          if (normalized) {
-            this.cachedCurriculum = normalized;
-            return normalized;
-          }
-        }
-      } catch (e) {
-        console.warn('[CurriculumLoader] Upstash check skipped/failed:', e);
-      }
+      let baseNormalized = null;
 
-      // 2. Fetch from CDN curriculum.json with cache buster
+      // 1. Fetch master built-in curriculum.json from CDN (GitHub/Netlify)
       try {
         const cleanCdn = (cdnBase || getMediaBase()).replace(/\/$/, '');
         const res = await fetch(`${cleanCdn}/curriculum.json?v=2.0`);
         if (res.ok) {
           const cdnJson = await res.json();
-          const normalized = CurriculumAdapter.normalize(cdnJson);
-          if (normalized) {
-            this.cachedCurriculum = normalized;
-            return normalized;
+          baseNormalized = CurriculumAdapter.normalize(cdnJson);
+          if (baseNormalized) {
+            this.cachedMasterCurriculum = JSON.parse(JSON.stringify(baseNormalized));
           }
         }
       } catch (e) {
         console.warn('[CurriculumLoader] CDN fetch failed, falling back to local bundle:', e);
       }
 
-      // 3. Bundled offline fallback
-      if (fallbackData) {
-        const normalized = CurriculumAdapter.normalize(fallbackData);
-        if (normalized) {
-          this.cachedCurriculum = normalized;
-          return normalized;
+      // 2. Bundled offline fallback if CDN unreachable
+      if (!baseNormalized && fallbackData) {
+        baseNormalized = CurriculumAdapter.normalize(fallbackData);
+        if (baseNormalized && !this.cachedMasterCurriculum) {
+          this.cachedMasterCurriculum = JSON.parse(JSON.stringify(baseNormalized));
         }
+      }
+
+      // 3. Overlay per-teacher custom curriculum overrides from Convex (or localStorage cache)
+      let overrides = [];
+      if (typeof localStorage !== 'undefined') {
+        try {
+          overrides = JSON.parse(localStorage.getItem(CONVEX_CURRICULUM_OVERRIDES_KEY) || '[]') || [];
+        } catch {}
+      }
+
+      try {
+        const cloudOverrides = await fetchUpstash(UPSTASH_SHARED_CURRICULUM_KEY);
+        if (Array.isArray(cloudOverrides)) {
+          overrides = cloudOverrides;
+        }
+      } catch (e) {
+        console.warn('[CurriculumLoader] Cloud curriculum override check skipped:', e);
+      }
+
+      if (baseNormalized) {
+        const merged = applyCurriculumOverrides(baseNormalized, overrides);
+        this.cachedCurriculum = merged;
+        return merged;
       }
 
       return null;
     }
   };
 
-  // Reconcile cookie with localStorage on load
+  // Reconcile cookie with localStorage on load and start live Convex subscription if connected
   try {
     reconcileCookieWithLocalStorage();
+    startLiveSubscription();
   } catch (e) {
     console.warn('[SharedClassSync] Initial cookie reconciliation error:', e);
   }
@@ -2074,11 +2915,29 @@
     SHARED_ACTIVE_PLAYERS_UPDATED_AT_KEY,
     SHARED_ACTIVE_SESSION_KEY,
     SHARED_CLASS_PROFILES_KEY,
+    CONVEX_SYNC_CODE_KEY,
+    CONVEX_SYNC_PIN_KEY,
+    CONVEX_CURRICULUM_OVERRIDES_KEY,
     UPSTASH_URL_KEY,
     UPSTASH_TOKEN_KEY,
     UPSTASH_SHARED_CURRICULUM_KEY,
     DEFAULT_MEDIA_BASE,
     getMediaBase,
+    getConvexUrl,
+    normalizeSyncCode,
+    getSyncConfig,
+    saveSyncConfig,
+    clearSyncConfig,
+    createSyncWorkspace,
+    connectSyncWorkspace,
+    syncNow,
+    convexQuery,
+    convexMutation,
+    computeCurriculumOverrides,
+    applyCurriculumOverrides,
+    saveCurriculumOverridesToConvex,
+    schedulePushToConvex,
+    pushLocalStateToConvex,
     parseScheduleFromName,
     findActiveScheduledClass,
     isTimestampInCurrentClassSession,

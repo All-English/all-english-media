@@ -150,10 +150,13 @@ function sanitizePlayers(players: string[]): string[] {
 }
 
 function sanitizeUnits(units: string[]): string[] {
-  return units
-    .map((u) => u.trim())
-    .filter((u) => u.length > 0 && u.length <= 80)
-    .slice(0, MAX_UNITS_PER_CLASS);
+  return Array.from(
+    new Set(
+      units
+        .map((u) => u.trim())
+        .filter((u) => u.length > 0 && u.length <= 80)
+    )
+  ).slice(0, MAX_UNITS_PER_CLASS);
 }
 
 export const checkSyncCode = query({
@@ -1031,5 +1034,39 @@ export const saveCurriculumOverrides = mutation({
       ok: true,
       updatedAt: now,
     };
+  },
+});
+
+export const cleanupDuplicateOverrides = internalMutation({
+  args: {},
+  returns: v.null(),
+  handler: async (ctx) => {
+    const overrides = await ctx.db.query("curriculumOverrides").collect();
+    for (const ov of overrides) {
+      if (!ov.isCustom && ov.seriesId === "smart-phonics") {
+        await ctx.db.delete(ov._id);
+      }
+    }
+
+    const workspaces = await ctx.db.query("workspaces").collect();
+    for (const ws of workspaces) {
+      if (ws.syncCode === "teacher-sarah") {
+        await ctx.db.delete(ws._id);
+        continue;
+      }
+      const dedupedUnits = sanitizeUnits(ws.activeUnits || []);
+      if (dedupedUnits.length !== (ws.activeUnits || []).length) {
+        await ctx.db.patch(ws._id, { activeUnits: dedupedUnits });
+      }
+    }
+
+    const classes = await ctx.db.query("classes").collect();
+    for (const c of classes) {
+      const dedupedUnits = sanitizeUnits(c.units || []);
+      if (dedupedUnits.length !== (c.units || []).length) {
+        await ctx.db.patch(c._id, { units: dedupedUnits });
+      }
+    }
+    return null;
   },
 });

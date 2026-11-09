@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "convex dev",
     "deploy": "convex deploy",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "backup": "bash scripts/backup.sh"
   },
   "dependencies": {
     "convex": "^1.21.0"

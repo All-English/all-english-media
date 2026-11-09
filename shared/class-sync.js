@@ -984,7 +984,7 @@
     }
   }
 
-  function applySnapshotToLocal(snapshot, { fromLiveUpdate = false } = {}) {
+  function applySnapshotToLocal(snapshot, { fromLiveUpdate = false, preserveLocalOnlyClasses = [] } = {}) {
     if (!snapshot || typeof localStorage === 'undefined') return;
 
     const playerSets = {};
@@ -1037,6 +1037,51 @@
           selectedUnits: classProfiles[cName].units || [],
           updatedAt: classProfiles[cName].updatedAt || Date.now()
         });
+      }
+    }
+
+    // Preserve non-conflicting local classes during connect
+    if (Array.isArray(preserveLocalOnlyClasses) && preserveLocalOnlyClasses.length > 0) {
+      for (const loc of preserveLocalOnlyClasses) {
+        if (!loc || !loc.name) continue;
+        const cName = loc.name.trim();
+        if (!cName || playerSets[cName]) continue;
+        playerSets[cName] = Array.isArray(loc.players) ? loc.players : [];
+        classProfiles[cName] = {
+          schedule: loc.schedule || parseScheduleFromName(cName),
+          curriculumId: loc.curriculumId || 'smart-phonics',
+          units: Array.isArray(loc.units) ? loc.units : [],
+          updatedAt: loc.updatedAt || Date.now()
+        };
+        const prevPf = existingPfByName.get(cName);
+        pfClassesList.push({
+          id: loc.pfClassId || prevPf?.id || `cls_${cName.replace(/\W+/g, '_').toLowerCase()}`,
+          name: cName,
+          schedule: classProfiles[cName].schedule,
+          curriculumId: classProfiles[cName].curriculumId || 'smart-phonics',
+          selectedUnits: classProfiles[cName].units || [],
+          updatedAt: classProfiles[cName].updatedAt || Date.now()
+        });
+      }
+    }
+
+    // Preserve local unsaved edits during live update if created/edited locally after snapshot
+    if (fromLiveUpdate && existingProfiles) {
+      for (const [cName, locProf] of Object.entries(existingProfiles)) {
+        if (!cName || playerSets[cName]) continue;
+        if ((locProf.updatedAt || 0) > (snapshot.updatedAt || 0)) {
+          playerSets[cName] = [];
+          classProfiles[cName] = locProf;
+          const prevPf = existingPfByName.get(cName);
+          pfClassesList.push({
+            id: prevPf?.id || `cls_${cName.replace(/\W+/g, '_').toLowerCase()}`,
+            name: cName,
+            schedule: locProf.schedule || parseScheduleFromName(cName),
+            curriculumId: locProf.curriculumId || 'smart-phonics',
+            selectedUnits: locProf.units || [],
+            updatedAt: locProf.updatedAt || Date.now()
+          });
+        }
       }
     }
 
@@ -1107,17 +1152,39 @@
     }
 
     // Curriculum overrides
+    let curriculumChanged = false;
     if (Array.isArray(snapshot.curriculumOverrides)) {
       try {
-        localStorage.setItem(CONVEX_CURRICULUM_OVERRIDES_KEY, JSON.stringify(snapshot.curriculumOverrides));
-        CurriculumLoader.cachedCurriculum = null;
+        const prevOverrides = localStorage.getItem(CONVEX_CURRICULUM_OVERRIDES_KEY) || '[]';
+        const nextOverrides = JSON.stringify(snapshot.curriculumOverrides);
+        if (prevOverrides !== nextOverrides) {
+          curriculumChanged = true;
+          localStorage.setItem(CONVEX_CURRICULUM_OVERRIDES_KEY, nextOverrides);
+          CurriculumLoader.cachedCurriculum = null;
+        }
+      } catch {}
+    }
+
+    if (typeof snapshot.hideBuiltIn === 'boolean') {
+      try {
+        const prevHide = localStorage.getItem('phonics-flash-hide-builtin') === 'true';
+        if (prevHide !== snapshot.hideBuiltIn) {
+          curriculumChanged = true;
+          localStorage.setItem('phonics-flash-hide-builtin', snapshot.hideBuiltIn ? 'true' : 'false');
+          CurriculumLoader.cachedCurriculum = null;
+        }
       } catch {}
     }
 
     if (fromLiveUpdate && typeof window !== 'undefined' && typeof window.dispatchEvent === 'function') {
       try {
         window.dispatchEvent(new CustomEvent('ae-cloud-sync-updated', {
-          detail: { snapshot, playerSets, classProfiles }
+          detail: {
+            snapshot,
+            playerSets,
+            classProfiles,
+            curriculumChanged
+          }
         }));
       } catch {}
     }
@@ -1521,7 +1588,16 @@
         }
       }
 
-      applySnapshotToLocal(res.snapshot);
+      // If connecting to an existing cloud workspace, preserve non-conflicting local classes
+      const cloudNames = new Set((res.snapshot.classes || []).map(c => (c.name || '').trim().toLowerCase()));
+      const localOnlyClasses = (localBeforeConnect.classes || []).filter(c => c && c.name && !cloudNames.has(c.name.trim().toLowerCase()));
+
+      applySnapshotToLocal(res.snapshot, { preserveLocalOnlyClasses: localOnlyClasses });
+
+      if (localOnlyClasses.length > 0) {
+        // Upload the merged local-only classes to Convex
+        await pushLocalStateToConvex();
+      }
     }
     return res;
   }
@@ -1666,8 +1742,9 @@
       } catch {}
     }
 
-    const replaceAll = (key === SHARED_SETS_KEY || key === SHARED_CLASS_PROFILES_KEY || key === 'phonics_flash:classes');
-    schedulePushToConvex({ replaceAllClasses: replaceAll });
+    // Do NOT set replaceAllClasses: true on routine profile/set updates.
+    // Deletions are tracked explicitly via pendingDeletedClassNames (and deleteClass API).
+    schedulePushToConvex({ replaceAllClasses: false });
     return true;
   }
 
@@ -3044,26 +3121,31 @@
 
       let baseNormalized = null;
 
-      // 1. Fetch master built-in curriculum.json from CDN (GitHub/Netlify)
-      try {
-        const cleanCdn = (cdnBase || getMediaBase()).replace(/\/$/, '');
-        const res = await fetch(`${cleanCdn}/curriculum.json?v=2.0`);
-        if (res.ok) {
-          const cdnJson = await res.json();
-          baseNormalized = CurriculumAdapter.normalize(cdnJson);
-          if (baseNormalized) {
+      // 1. Master built-in curriculum.json (CDN -> In-memory cached master -> Local offline bundle)
+      // If we already have the master built-in curriculum in memory, do NOT re-fetch 215KB from the CDN!
+      if (this.cachedMasterCurriculum) {
+        baseNormalized = JSON.parse(JSON.stringify(this.cachedMasterCurriculum));
+      } else {
+        try {
+          const cleanCdn = (cdnBase || getMediaBase()).replace(/\/$/, '');
+          const res = await fetch(`${cleanCdn}/curriculum.json?v=2.0`);
+          if (res.ok) {
+            const cdnJson = await res.json();
+            baseNormalized = CurriculumAdapter.normalize(cdnJson);
+            if (baseNormalized) {
+              this.cachedMasterCurriculum = JSON.parse(JSON.stringify(baseNormalized));
+            }
+          }
+        } catch (e) {
+          console.warn('[CurriculumLoader] CDN fetch failed, falling back to local bundle:', e);
+        }
+
+        // Bundled offline fallback if CDN unreachable
+        if (!baseNormalized && fallbackData) {
+          baseNormalized = CurriculumAdapter.normalize(fallbackData);
+          if (baseNormalized && !this.cachedMasterCurriculum) {
             this.cachedMasterCurriculum = JSON.parse(JSON.stringify(baseNormalized));
           }
-        }
-      } catch (e) {
-        console.warn('[CurriculumLoader] CDN fetch failed, falling back to local bundle:', e);
-      }
-
-      // 2. Bundled offline fallback if CDN unreachable
-      if (!baseNormalized && fallbackData) {
-        baseNormalized = CurriculumAdapter.normalize(fallbackData);
-        if (baseNormalized && !this.cachedMasterCurriculum) {
-          this.cachedMasterCurriculum = JSON.parse(JSON.stringify(baseNormalized));
         }
       }
 

@@ -36,14 +36,12 @@ export function isAllowedOrigin(origin?: string | null): boolean {
   }
 
   if (hostname.endsWith(".netlify.app")) {
+    const sub = hostname.replace(/\.netlify\.app$/, "");
     return (
-      hostname.includes("all-english") ||
-      hostname.includes("allenglish") ||
-      hostname.includes("phonics") ||
-      hostname.includes("matchmaker") ||
-      hostname.includes("sunken-treasure") ||
-      hostname.includes("word-tac-toe") ||
-      hostname.includes("tic-tac-toe")
+      sub === "all-english-media" ||
+      sub === "allenglish" ||
+      sub.startsWith("all-english-") ||
+      sub.startsWith("allenglish-")
     );
   }
 
@@ -847,20 +845,28 @@ export const saveWorkspaceState = mutation({
         const nextUnits = sanitizeUnits(cls.units);
 
         if (existingDoc) {
-          await ctx.db.patch(existingDoc._id, {
-            players:
-              nextPlayers.length > 0 || args.replaceAllClasses
-                ? nextPlayers
-                : existingDoc.players,
-            curriculumId: cls.curriculumId || existingDoc.curriculumId || "smart-phonics",
-            units:
-              nextUnits.length > 0 || args.replaceAllClasses
-                ? nextUnits
-                : existingDoc.units,
-            schedule: cls.schedule,
-            pfClassId: cls.pfClassId ?? existingDoc.pfClassId,
-            updatedAt: cls.updatedAt || now,
-          });
+          const isStale =
+            !args.replaceAllClasses &&
+            Boolean(existingDoc.updatedAt && cls.updatedAt && cls.updatedAt < existingDoc.updatedAt);
+
+          if (!isStale) {
+            const patched = {
+              players:
+                nextPlayers.length > 0 || args.replaceAllClasses
+                  ? nextPlayers
+                  : existingDoc.players,
+              curriculumId: cls.curriculumId || existingDoc.curriculumId || "smart-phonics",
+              units:
+                nextUnits.length > 0 || args.replaceAllClasses
+                  ? nextUnits
+                  : existingDoc.units,
+              schedule: cls.schedule,
+              pfClassId: cls.pfClassId ?? existingDoc.pfClassId,
+              updatedAt: cls.updatedAt || now,
+            };
+            await ctx.db.patch(existingDoc._id, patched);
+            byName.set(cleanName, { ...existingDoc, ...patched } as any);
+          }
         } else if (byName.size < MAX_CLASSES_PER_WORKSPACE) {
           const newDoc = {
             syncCode: normalizedCode,
@@ -872,8 +878,8 @@ export const saveWorkspaceState = mutation({
             pfClassId: cls.pfClassId,
             updatedAt: cls.updatedAt || now,
           };
-          await ctx.db.insert("classes", newDoc);
-          byName.set(cleanName, newDoc as any);
+          const newId = await ctx.db.insert("classes", newDoc);
+          byName.set(cleanName, { _id: newId, ...newDoc } as any);
         }
       }
 
@@ -989,25 +995,36 @@ export const saveCurriculumOverrides = mutation({
 
     for (const ov of args.overrides.slice(0, MAX_CURRICULUM_OVERRIDES)) {
       const cleanSeriesId = ov.seriesId.trim();
-      if (
-        !cleanSeriesId ||
-        ov.levelsJson.length > MAX_LEVELS_JSON_LENGTH
-      ) {
-        continue;
+      if (!cleanSeriesId) continue;
+      if (ov.levelsJson.length > MAX_LEVELS_JSON_LENGTH) {
+        return {
+          ok: false,
+          errorCode: "PAYLOAD_TOO_LARGE",
+          message: `Curriculum override levelsJson for ${cleanSeriesId} exceeds size limit (${MAX_LEVELS_JSON_LENGTH} bytes).`,
+          updatedAt: 0,
+        };
       }
       incomingSeries.add(cleanSeriesId);
       const existingDoc = bySeries.get(cleanSeriesId);
 
       if (existingDoc) {
-        await ctx.db.patch(existingDoc._id, {
-          name: ov.name.trim() || cleanSeriesId,
-          isCustom: ov.isCustom,
-          description: ov.description.slice(0, 500),
-          levelsJson: ov.levelsJson,
-          updatedAt: ov.updatedAt || now,
-        });
+        const isStale =
+          !args.replaceAll &&
+          Boolean(existingDoc.updatedAt && ov.updatedAt && ov.updatedAt < existingDoc.updatedAt);
+
+        if (!isStale) {
+          const patched = {
+            name: ov.name.trim() || cleanSeriesId,
+            isCustom: ov.isCustom,
+            description: ov.description.slice(0, 500),
+            levelsJson: ov.levelsJson,
+            updatedAt: ov.updatedAt || now,
+          };
+          await ctx.db.patch(existingDoc._id, patched);
+          bySeries.set(cleanSeriesId, { ...existingDoc, ...patched });
+        }
       } else {
-        await ctx.db.insert("curriculumOverrides", {
+        const insertDoc = {
           syncCode: normalizedCode,
           seriesId: cleanSeriesId,
           name: ov.name.trim() || cleanSeriesId,
@@ -1015,7 +1032,9 @@ export const saveCurriculumOverrides = mutation({
           description: ov.description.slice(0, 500),
           levelsJson: ov.levelsJson,
           updatedAt: ov.updatedAt || now,
-        });
+        };
+        const newId = await ctx.db.insert("curriculumOverrides", insertDoc);
+        bySeries.set(cleanSeriesId, { _id: newId, ...insertDoc } as any);
       }
     }
 
@@ -1031,39 +1050,5 @@ export const saveCurriculumOverrides = mutation({
       ok: true,
       updatedAt: now,
     };
-  },
-});
-
-export const cleanupDuplicateOverrides = internalMutation({
-  args: {},
-  returns: v.null(),
-  handler: async (ctx) => {
-    const overrides = await ctx.db.query("curriculumOverrides").collect();
-    for (const ov of overrides) {
-      if (!ov.isCustom && ov.seriesId === "smart-phonics") {
-        await ctx.db.delete(ov._id);
-      }
-    }
-
-    const workspaces = await ctx.db.query("workspaces").collect();
-    for (const ws of workspaces) {
-      if (ws.syncCode === "teacher-sarah") {
-        await ctx.db.delete(ws._id);
-        continue;
-      }
-      const dedupedUnits = sanitizeUnits(ws.activeUnits || []);
-      if (dedupedUnits.length !== (ws.activeUnits || []).length) {
-        await ctx.db.patch(ws._id, { activeUnits: dedupedUnits });
-      }
-    }
-
-    const classes = await ctx.db.query("classes").collect();
-    for (const c of classes) {
-      const dedupedUnits = sanitizeUnits(c.units || []);
-      if (dedupedUnits.length !== (c.units || []).length) {
-        await ctx.db.patch(c._id, { units: dedupedUnits });
-      }
-    }
-    return null;
   },
 });

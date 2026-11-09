@@ -841,14 +841,12 @@
       return true;
     }
     if (hostname.endsWith('.netlify.app')) {
+      const sub = hostname.replace(/\.netlify\.app$/, '');
       return (
-        hostname.includes('all-english') ||
-        hostname.includes('allenglish') ||
-        hostname.includes('phonics') ||
-        hostname.includes('matchmaker') ||
-        hostname.includes('sunken-treasure') ||
-        hostname.includes('word-tac-toe') ||
-        hostname.includes('tic-tac-toe')
+        sub === 'all-english-media' ||
+        sub === 'allenglish' ||
+        sub.startsWith('all-english-') ||
+        sub.startsWith('allenglish-')
       );
     }
     if (hostname === 'all-english.github.io') {

@@ -1,13 +1,16 @@
 {
   "name": "all-english-media",
   "version": "1.0.0",
+  "type": "module",
   "private": true,
   "description": "Centralized media, canonical curriculum, and Convex cloud sync backend for All-English apps",
   "scripts": {
     "dev": "convex dev",
     "deploy": "convex deploy",
     "typecheck": "tsc --noEmit",
-    "backup": "bash scripts/backup.sh"
+    "backup": "bash scripts/backup.sh",
+    "update-player-audio": "node scripts/manage-player-audio.js sync",
+    "check-player-audio": "node scripts/manage-player-audio.js check"
   },
   "dependencies": {
     "convex": "^1.21.0"

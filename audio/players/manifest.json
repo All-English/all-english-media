@@ -14,36 +14,63 @@
         {
           "version": 1,
           "style": "friendly",
+          "tag": "friendly",
+          "phrase": "Asher's turn!",
+          "text": "[friendly] Asher's turn!",
           "file": "asher_v1.mp3",
           "voice": {
             "id": "cgSgspJ2msm6clMCkdW9",
             "name": "Jessica",
             "gender": "FEMALE"
-          },
-          "text": "[friendly] Asher's turn!"
+          }
         },
         {
           "version": 2,
           "style": "excited",
+          "tag": "excited",
+          "phrase": "It's Asher's turn!",
+          "text": "[excited] It's Asher's turn!",
           "file": "asher_v2.mp3",
           "voice": {
             "id": "TX3LPaxmHKxFdv7VOQHJ",
             "name": "Liam",
             "gender": "MALE"
-          },
-          "text": "[excited] It's Asher's turn!"
+          }
         },
         {
           "version": 3,
           "style": "playful",
+          "tag": "playful",
+          "phrase": "Your turn, Asher!",
+          "text": "[playful] Your turn, Asher!",
           "file": "asher_v3.mp3",
           "voice": {
             "id": "FGY2WhTYpPnrIDTdsKH5",
             "name": "Laura",
             "gender": "FEMALE"
-          },
-          "text": "[playful] Your turn, Asher!"
+          }
         }
+      ],
+      "studentName": "Asher",
+      "usedVoiceIds": [
+        "cgSgspJ2msm6clMCkdW9",
+        "TX3LPaxmHKxFdv7VOQHJ",
+        "FGY2WhTYpPnrIDTdsKH5"
+      ],
+      "usedVoiceNames": [
+        "Jessica",
+        "Liam",
+        "Laura"
+      ],
+      "usedTags": [
+        "friendly",
+        "excited",
+        "playful"
+      ],
+      "usedPhrases": [
+        "Asher's turn!",
+        "It's Asher's turn!",
+        "Your turn, Asher!"
       ]
     },
     "Chaeyeon": {
@@ -57,36 +84,63 @@
         {
           "version": 1,
           "style": "friendly",
+          "tag": "friendly",
+          "phrase": "Chaeyeon's turn!",
+          "text": "[friendly] Chaeyeon's turn!",
           "file": "chaeyeon_v1.mp3",
           "voice": {
             "id": "iP95p4xoKVk53GoZ742B",
             "name": "Chris",
             "gender": "MALE"
-          },
-          "text": "[friendly] Chaeyeon's turn!"
+          }
         },
         {
           "version": 2,
           "style": "excited",
+          "tag": "excited",
+          "phrase": "It's Chaeyeon's turn!",
+          "text": "[excited] It's Chaeyeon's turn!",
           "file": "chaeyeon_v2.mp3",
           "voice": {
             "id": "FGY2WhTYpPnrIDTdsKH5",
             "name": "Laura",
             "gender": "FEMALE"
-          },
-          "text": "[excited] It's Chaeyeon's turn!"
+          }
         },
         {
           "version": 3,
           "style": "playful",
+          "tag": "playful",
+          "phrase": "Your turn, Chaeyeon!",
+          "text": "[playful] Your turn, Chaeyeon!",
           "file": "chaeyeon_v3.mp3",
           "voice": {
             "id": "cjVigY5qzO86Huf0OWal",
             "name": "Eric",
             "gender": "MALE"
-          },
-          "text": "[playful] Your turn, Chaeyeon!"
+          }
         }
+      ],
+      "studentName": "Chaeyeon",
+      "usedVoiceIds": [
+        "iP95p4xoKVk53GoZ742B",
+        "FGY2WhTYpPnrIDTdsKH5",
+        "cjVigY5qzO86Huf0OWal"
+      ],
+      "usedVoiceNames": [
+        "Chris",
+        "Laura",
+        "Eric"
+      ],
+      "usedTags": [
+        "friendly",
+        "excited",
+        "playful"
+      ],
+      "usedPhrases": [
+        "Chaeyeon's turn!",
+        "It's Chaeyeon's turn!",
+        "Your turn, Chaeyeon!"
       ]
     },
     "Chanha": {
@@ -100,36 +154,63 @@
         {
           "version": 1,
           "style": "friendly",
+          "tag": "friendly",
+          "phrase": "Chanha's turn!",
+          "text": "[friendly] Chanha's turn!",
           "file": "chanha_v1.mp3",
           "voice": {
             "id": "hpp4J3VqNfWAUOO0d1Us",
             "name": "Bella",
             "gender": "FEMALE"
-          },
-          "text": "[friendly] Chanha's turn!"
+          }
         },
         {
           "version": 2,
           "style": "excited",
+          "tag": "excited",
+          "phrase": "It's Chanha's turn!",
+          "text": "[excited] It's Chanha's turn!",
           "file": "chanha_v2.mp3",
           "voice": {
             "id": "cjVigY5qzO86Huf0OWal",
             "name": "Eric",
             "gender": "MALE"
-          },
-          "text": "[excited] It's Chanha's turn!"
+          }
         },
         {
           "version": 3,
           "style": "playful",
+          "tag": "playful",
+          "phrase": "Your turn, Chanha!",
+          "text": "[playful] Your turn, Chanha!",
           "file": "chanha_v3.mp3",
           "voice": {
             "id": "Z3R5wn05IrDiVCyEkUrK",
             "name": "Arabella",
             "gender": "FEMALE"
-          },
-          "text": "[playful] Your turn, Chanha!"
+          }
         }
+      ],
+      "studentName": "Chanha",
+      "usedVoiceIds": [
+        "hpp4J3VqNfWAUOO0d1Us",
+        "cjVigY5qzO86Huf0OWal",
+        "Z3R5wn05IrDiVCyEkUrK"
+      ],
+      "usedVoiceNames": [
+        "Bella",
+        "Eric",
+        "Arabella"
+      ],
+      "usedTags": [
+        "friendly",
+        "excited",
+        "playful"
+      ],
+      "usedPhrases": [
+        "Chanha's turn!",
+        "It's Chanha's turn!",
+        "Your turn, Chanha!"
       ]
     },
     "Danny": {
@@ -143,36 +224,63 @@
         {
           "version": 1,
           "style": "friendly",
+          "tag": "friendly",
+          "phrase": "Danny's turn!",
+          "text": "[friendly] Danny's turn!",
           "file": "danny_v1.mp3",
           "voice": {
             "id": "N2lVS1w4EtoT3dr4eOWO",
             "name": "Callum",
             "gender": "MALE"
-          },
-          "text": "[friendly] Danny's turn!"
+          }
         },
         {
           "version": 2,
           "style": "excited",
+          "tag": "excited",
+          "phrase": "It's Danny's turn!",
+          "text": "[excited] It's Danny's turn!",
           "file": "danny_v2.mp3",
           "voice": {
             "id": "Z3R5wn05IrDiVCyEkUrK",
             "name": "Arabella",
             "gender": "FEMALE"
-          },
-          "text": "[excited] It's Danny's turn!"
+          }
         },
         {
           "version": 3,
           "style": "playful",
+          "tag": "playful",
+          "phrase": "Your turn, Danny!",
+          "text": "[playful] Your turn, Danny!",
           "file": "danny_v3.mp3",
           "voice": {
             "id": "bIHbv24MWmeRgasZH58o",
             "name": "Will",
             "gender": "MALE"
-          },
-          "text": "[playful] Your turn, Danny!"
+          }
         }
+      ],
+      "studentName": "Danny",
+      "usedVoiceIds": [
+        "N2lVS1w4EtoT3dr4eOWO",
+        "Z3R5wn05IrDiVCyEkUrK",
+        "bIHbv24MWmeRgasZH58o"
+      ],
+      "usedVoiceNames": [
+        "Callum",
+        "Arabella",
+        "Will"
+      ],
+      "usedTags": [
+        "friendly",
+        "excited",
+        "playful"
+      ],
+      "usedPhrases": [
+        "Danny's turn!",
+        "It's Danny's turn!",
+        "Your turn, Danny!"
       ]
     },
     "Doyoon": {
@@ -186,36 +294,63 @@
         {
           "version": 1,
           "style": "friendly",
+          "tag": "friendly",
+          "phrase": "Doyoon's turn!",
+          "text": "[friendly] Doyoon's turn!",
           "file": "doyoon_v1.mp3",
           "voice": {
             "id": "EXAVITQu4vr4xnSDxMaL",
             "name": "Sarah",
             "gender": "FEMALE"
-          },
-          "text": "[friendly] Doyoon's turn!"
+          }
         },
         {
           "version": 2,
           "style": "excited",
+          "tag": "excited",
+          "phrase": "It's Doyoon's turn!",
+          "text": "[excited] It's Doyoon's turn!",
           "file": "doyoon_v2.mp3",
           "voice": {
             "id": "bIHbv24MWmeRgasZH58o",
             "name": "Will",
             "gender": "MALE"
-          },
-          "text": "[excited] It's Doyoon's turn!"
+          }
         },
         {
           "version": 3,
           "style": "playful",
+          "tag": "playful",
+          "phrase": "Your turn, Doyoon!",
+          "text": "[playful] Your turn, Doyoon!",
           "file": "doyoon_v3.mp3",
           "voice": {
             "id": "XrExE9yKIg1WjnnlVkGX",
             "name": "Matilda",
             "gender": "FEMALE"
-          },
-          "text": "[playful] Your turn, Doyoon!"
+          }
         }
+      ],
+      "studentName": "Doyoon",
+      "usedVoiceIds": [
+        "EXAVITQu4vr4xnSDxMaL",
+        "bIHbv24MWmeRgasZH58o",
+        "XrExE9yKIg1WjnnlVkGX"
+      ],
+      "usedVoiceNames": [
+        "Sarah",
+        "Will",
+        "Matilda"
+      ],
+      "usedTags": [
+        "friendly",
+        "excited",
+        "playful"
+      ],
+      "usedPhrases": [
+        "Doyoon's turn!",
+        "It's Doyoon's turn!",
+        "Your turn, Doyoon!"
       ]
     },
     "Felix": {
@@ -229,36 +364,63 @@
         {
           "version": 1,
           "style": "friendly",
+          "tag": "friendly",
+          "phrase": "Felix's turn!",
+          "text": "[friendly] Felix's turn!",
           "file": "felix_v1.mp3",
           "voice": {
             "id": "TX3LPaxmHKxFdv7VOQHJ",
             "name": "Liam",
             "gender": "MALE"
-          },
-          "text": "[friendly] Felix's turn!"
+          }
         },
         {
           "version": 2,
           "style": "excited",
+          "tag": "excited",
+          "phrase": "It's Felix's turn!",
+          "text": "[excited] It's Felix's turn!",
           "file": "felix_v2.mp3",
           "voice": {
             "id": "XrExE9yKIg1WjnnlVkGX",
             "name": "Matilda",
             "gender": "FEMALE"
-          },
-          "text": "[excited] It's Felix's turn!"
+          }
         },
         {
           "version": 3,
           "style": "playful",
+          "tag": "playful",
+          "phrase": "Your turn, Felix!",
+          "text": "[playful] Your turn, Felix!",
           "file": "felix_v3.mp3",
           "voice": {
             "id": "iP95p4xoKVk53GoZ742B",
             "name": "Chris",
             "gender": "MALE"
-          },
-          "text": "[playful] Your turn, Felix!"
+          }
         }
+      ],
+      "studentName": "Felix",
+      "usedVoiceIds": [
+        "TX3LPaxmHKxFdv7VOQHJ",
+        "XrExE9yKIg1WjnnlVkGX",
+        "iP95p4xoKVk53GoZ742B"
+      ],
+      "usedVoiceNames": [
+        "Liam",
+        "Matilda",
+        "Chris"
+      ],
+      "usedTags": [
+        "friendly",
+        "excited",
+        "playful"
+      ],
+      "usedPhrases": [
+        "Felix's turn!",
+        "It's Felix's turn!",
+        "Your turn, Felix!"
       ]
     },
     "Gaon": {
@@ -272,36 +434,63 @@
         {
           "version": 1,
           "style": "friendly",
+          "tag": "friendly",
+          "phrase": "Gaon's turn!",
+          "text": "[friendly] Gaon's turn!",
           "file": "gaon_v1.mp3",
           "voice": {
             "id": "cgSgspJ2msm6clMCkdW9",
             "name": "Jessica",
             "gender": "FEMALE"
-          },
-          "text": "[friendly] Gaon's turn!"
+          }
         },
         {
           "version": 2,
           "style": "excited",
+          "tag": "excited",
+          "phrase": "It's Gaon's turn!",
+          "text": "[excited] It's Gaon's turn!",
           "file": "gaon_v2.mp3",
           "voice": {
             "id": "iP95p4xoKVk53GoZ742B",
             "name": "Chris",
             "gender": "MALE"
-          },
-          "text": "[excited] It's Gaon's turn!"
+          }
         },
         {
           "version": 3,
           "style": "playful",
+          "tag": "playful",
+          "phrase": "Your turn, Gaon!",
+          "text": "[playful] Your turn, Gaon!",
           "file": "gaon_v3.mp3",
           "voice": {
             "id": "FGY2WhTYpPnrIDTdsKH5",
             "name": "Laura",
             "gender": "FEMALE"
-          },
-          "text": "[playful] Your turn, Gaon!"
+          }
         }
+      ],
+      "studentName": "Gaon",
+      "usedVoiceIds": [
+        "cgSgspJ2msm6clMCkdW9",
+        "iP95p4xoKVk53GoZ742B",
+        "FGY2WhTYpPnrIDTdsKH5"
+      ],
+      "usedVoiceNames": [
+        "Jessica",
+        "Chris",
+        "Laura"
+      ],
+      "usedTags": [
+        "friendly",
+        "excited",
+        "playful"
+      ],
+      "usedPhrases": [
+        "Gaon's turn!",
+        "It's Gaon's turn!",
+        "Your turn, Gaon!"
       ]
     },
     "Geonwoo": {
@@ -315,36 +504,63 @@
         {
           "version": 1,
           "style": "friendly",
+          "tag": "friendly",
+          "phrase": "Geonwoo's turn!",
+          "text": "[friendly] Geonwoo's turn!",
           "file": "geonwoo_v1.mp3",
           "voice": {
             "id": "cjVigY5qzO86Huf0OWal",
             "name": "Eric",
             "gender": "MALE"
-          },
-          "text": "[friendly] Geonwoo's turn!"
+          }
         },
         {
           "version": 2,
           "style": "excited",
+          "tag": "excited",
+          "phrase": "It's Geonwoo's turn!",
+          "text": "[excited] It's Geonwoo's turn!",
           "file": "geonwoo_v2.mp3",
           "voice": {
             "id": "FGY2WhTYpPnrIDTdsKH5",
             "name": "Laura",
             "gender": "FEMALE"
-          },
-          "text": "[excited] It's Geonwoo's turn!"
+          }
         },
         {
           "version": 3,
           "style": "playful",
+          "tag": "playful",
+          "phrase": "Your turn, Geonwoo!",
+          "text": "[playful] Your turn, Geonwoo!",
           "file": "geonwoo_v3.mp3",
           "voice": {
             "id": "N2lVS1w4EtoT3dr4eOWO",
             "name": "Callum",
             "gender": "MALE"
-          },
-          "text": "[playful] Your turn, Geonwoo!"
+          }
         }
+      ],
+      "studentName": "Geonwoo",
+      "usedVoiceIds": [
+        "cjVigY5qzO86Huf0OWal",
+        "FGY2WhTYpPnrIDTdsKH5",
+        "N2lVS1w4EtoT3dr4eOWO"
+      ],
+      "usedVoiceNames": [
+        "Eric",
+        "Laura",
+        "Callum"
+      ],
+      "usedTags": [
+        "friendly",
+        "excited",
+        "playful"
+      ],
+      "usedPhrases": [
+        "Geonwoo's turn!",
+        "It's Geonwoo's turn!",
+        "Your turn, Geonwoo!"
       ]
     },
     "Hanyul": {
@@ -358,36 +574,63 @@
         {
           "version": 1,
           "style": "friendly",
+          "tag": "friendly",
+          "phrase": "Hanyul's turn!",
+          "text": "[friendly] Hanyul's turn!",
           "file": "hanyul_v1.mp3",
           "voice": {
             "id": "hpp4J3VqNfWAUOO0d1Us",
             "name": "Bella",
             "gender": "FEMALE"
-          },
-          "text": "[friendly] Hanyul's turn!"
+          }
         },
         {
           "version": 2,
           "style": "excited",
+          "tag": "excited",
+          "phrase": "It's Hanyul's turn!",
+          "text": "[excited] It's Hanyul's turn!",
           "file": "hanyul_v2.mp3",
           "voice": {
             "id": "N2lVS1w4EtoT3dr4eOWO",
             "name": "Callum",
             "gender": "MALE"
-          },
-          "text": "[excited] It's Hanyul's turn!"
+          }
         },
         {
           "version": 3,
           "style": "playful",
+          "tag": "playful",
+          "phrase": "Your turn, Hanyul!",
+          "text": "[playful] Your turn, Hanyul!",
           "file": "hanyul_v3.mp3",
           "voice": {
             "id": "Z3R5wn05IrDiVCyEkUrK",
             "name": "Arabella",
             "gender": "FEMALE"
-          },
-          "text": "[playful] Your turn, Hanyul!"
+          }
         }
+      ],
+      "studentName": "Hanyul",
+      "usedVoiceIds": [
+        "hpp4J3VqNfWAUOO0d1Us",
+        "N2lVS1w4EtoT3dr4eOWO",
+        "Z3R5wn05IrDiVCyEkUrK"
+      ],
+      "usedVoiceNames": [
+        "Bella",
+        "Callum",
+        "Arabella"
+      ],
+      "usedTags": [
+        "friendly",
+        "excited",
+        "playful"
+      ],
+      "usedPhrases": [
+        "Hanyul's turn!",
+        "It's Hanyul's turn!",
+        "Your turn, Hanyul!"
       ]
     },
     "Henry": {
@@ -401,36 +644,63 @@
         {
           "version": 1,
           "style": "friendly",
+          "tag": "friendly",
+          "phrase": "Henry's turn!",
+          "text": "[friendly] Henry's turn!",
           "file": "henry_v1.mp3",
           "voice": {
             "id": "bIHbv24MWmeRgasZH58o",
             "name": "Will",
             "gender": "MALE"
-          },
-          "text": "[friendly] Henry's turn!"
+          }
         },
         {
           "version": 2,
           "style": "excited",
+          "tag": "excited",
+          "phrase": "It's Henry's turn!",
+          "text": "[excited] It's Henry's turn!",
           "file": "henry_v2.mp3",
           "voice": {
             "id": "Z3R5wn05IrDiVCyEkUrK",
             "name": "Arabella",
             "gender": "FEMALE"
-          },
-          "text": "[excited] It's Henry's turn!"
+          }
         },
         {
           "version": 3,
           "style": "playful",
+          "tag": "playful",
+          "phrase": "Your turn, Henry!",
+          "text": "[playful] Your turn, Henry!",
           "file": "henry_v3.mp3",
           "voice": {
             "id": "TX3LPaxmHKxFdv7VOQHJ",
             "name": "Liam",
             "gender": "MALE"
-          },
-          "text": "[playful] Your turn, Henry!"
+          }
         }
+      ],
+      "studentName": "Henry",
+      "usedVoiceIds": [
+        "bIHbv24MWmeRgasZH58o",
+        "Z3R5wn05IrDiVCyEkUrK",
+        "TX3LPaxmHKxFdv7VOQHJ"
+      ],
+      "usedVoiceNames": [
+        "Will",
+        "Arabella",
+        "Liam"
+      ],
+      "usedTags": [
+        "friendly",
+        "excited",
+        "playful"
+      ],
+      "usedPhrases": [
+        "Henry's turn!",
+        "It's Henry's turn!",
+        "Your turn, Henry!"
       ]
     },
     "Ihan": {
@@ -444,36 +714,63 @@
         {
           "version": 1,
           "style": "friendly",
+          "tag": "friendly",
+          "phrase": "Ihan's turn!",
+          "text": "[friendly] Ihan's turn!",
           "file": "ihan_v1.mp3",
           "voice": {
             "id": "EXAVITQu4vr4xnSDxMaL",
             "name": "Sarah",
             "gender": "FEMALE"
-          },
-          "text": "[friendly] Ihan's turn!"
+          }
         },
         {
           "version": 2,
           "style": "excited",
+          "tag": "excited",
+          "phrase": "It's Ihan's turn!",
+          "text": "[excited] It's Ihan's turn!",
           "file": "ihan_v2.mp3",
           "voice": {
             "id": "TX3LPaxmHKxFdv7VOQHJ",
             "name": "Liam",
             "gender": "MALE"
-          },
-          "text": "[excited] It's Ihan's turn!"
+          }
         },
         {
           "version": 3,
           "style": "playful",
+          "tag": "playful",
+          "phrase": "Your turn, Ihan!",
+          "text": "[playful] Your turn, Ihan!",
           "file": "ihan_v3.mp3",
           "voice": {
             "id": "XrExE9yKIg1WjnnlVkGX",
             "name": "Matilda",
             "gender": "FEMALE"
-          },
-          "text": "[playful] Your turn, Ihan!"
+          }
         }
+      ],
+      "studentName": "Ihan",
+      "usedVoiceIds": [
+        "EXAVITQu4vr4xnSDxMaL",
+        "TX3LPaxmHKxFdv7VOQHJ",
+        "XrExE9yKIg1WjnnlVkGX"
+      ],
+      "usedVoiceNames": [
+        "Sarah",
+        "Liam",
+        "Matilda"
+      ],
+      "usedTags": [
+        "friendly",
+        "excited",
+        "playful"
+      ],
+      "usedPhrases": [
+        "Ihan's turn!",
+        "It's Ihan's turn!",
+        "Your turn, Ihan!"
       ]
     },
     "Jinhyeok": {
@@ -487,36 +784,63 @@
         {
           "version": 1,
           "style": "friendly",
+          "tag": "friendly",
+          "phrase": "Jinhyeok's turn!",
+          "text": "[friendly] Jinhyeok's turn!",
           "file": "jinhyeok_v1.mp3",
           "voice": {
             "id": "iP95p4xoKVk53GoZ742B",
             "name": "Chris",
             "gender": "MALE"
-          },
-          "text": "[friendly] Jinhyeok's turn!"
+          }
         },
         {
           "version": 2,
           "style": "excited",
+          "tag": "excited",
+          "phrase": "It's Jinhyeok's turn!",
+          "text": "[excited] It's Jinhyeok's turn!",
           "file": "jinhyeok_v2.mp3",
           "voice": {
             "id": "XrExE9yKIg1WjnnlVkGX",
             "name": "Matilda",
             "gender": "FEMALE"
-          },
-          "text": "[excited] It's Jinhyeok's turn!"
+          }
         },
         {
           "version": 3,
           "style": "playful",
+          "tag": "playful",
+          "phrase": "Your turn, Jinhyeok!",
+          "text": "[playful] Your turn, Jinhyeok!",
           "file": "jinhyeok_v3.mp3",
           "voice": {
             "id": "cjVigY5qzO86Huf0OWal",
             "name": "Eric",
             "gender": "MALE"
-          },
-          "text": "[playful] Your turn, Jinhyeok!"
+          }
         }
+      ],
+      "studentName": "Jinhyeok",
+      "usedVoiceIds": [
+        "iP95p4xoKVk53GoZ742B",
+        "XrExE9yKIg1WjnnlVkGX",
+        "cjVigY5qzO86Huf0OWal"
+      ],
+      "usedVoiceNames": [
+        "Chris",
+        "Matilda",
+        "Eric"
+      ],
+      "usedTags": [
+        "friendly",
+        "excited",
+        "playful"
+      ],
+      "usedPhrases": [
+        "Jinhyeok's turn!",
+        "It's Jinhyeok's turn!",
+        "Your turn, Jinhyeok!"
       ]
     },
     "Joe": {
@@ -530,36 +854,63 @@
         {
           "version": 1,
           "style": "friendly",
+          "tag": "friendly",
+          "phrase": "Joe's turn!",
+          "text": "[friendly] Joe's turn!",
           "file": "joe_v1.mp3",
           "voice": {
             "id": "cgSgspJ2msm6clMCkdW9",
             "name": "Jessica",
             "gender": "FEMALE"
-          },
-          "text": "[friendly] Joe's turn!"
+          }
         },
         {
           "version": 2,
           "style": "excited",
+          "tag": "excited",
+          "phrase": "It's Joe's turn!",
+          "text": "[excited] It's Joe's turn!",
           "file": "joe_v2.mp3",
           "voice": {
             "id": "cjVigY5qzO86Huf0OWal",
             "name": "Eric",
             "gender": "MALE"
-          },
-          "text": "[excited] It's Joe's turn!"
+          }
         },
         {
           "version": 3,
           "style": "playful",
+          "tag": "playful",
+          "phrase": "Your turn, Joe!",
+          "text": "[playful] Your turn, Joe!",
           "file": "joe_v3.mp3",
           "voice": {
             "id": "FGY2WhTYpPnrIDTdsKH5",
             "name": "Laura",
             "gender": "FEMALE"
-          },
-          "text": "[playful] Your turn, Joe!"
+          }
         }
+      ],
+      "studentName": "Joe",
+      "usedVoiceIds": [
+        "cgSgspJ2msm6clMCkdW9",
+        "cjVigY5qzO86Huf0OWal",
+        "FGY2WhTYpPnrIDTdsKH5"
+      ],
+      "usedVoiceNames": [
+        "Jessica",
+        "Eric",
+        "Laura"
+      ],
+      "usedTags": [
+        "friendly",
+        "excited",
+        "playful"
+      ],
+      "usedPhrases": [
+        "Joe's turn!",
+        "It's Joe's turn!",
+        "Your turn, Joe!"
       ]
     },
     "Juni": {
@@ -573,36 +924,63 @@
         {
           "version": 1,
           "style": "friendly",
+          "tag": "friendly",
+          "phrase": "Juni's turn!",
+          "text": "[friendly] Juni's turn!",
           "file": "juni_v1.mp3",
           "voice": {
             "id": "N2lVS1w4EtoT3dr4eOWO",
             "name": "Callum",
             "gender": "MALE"
-          },
-          "text": "[friendly] Juni's turn!"
+          }
         },
         {
           "version": 2,
           "style": "excited",
+          "tag": "excited",
+          "phrase": "It's Juni's turn!",
+          "text": "[excited] It's Juni's turn!",
           "file": "juni_v2.mp3",
           "voice": {
             "id": "FGY2WhTYpPnrIDTdsKH5",
             "name": "Laura",
             "gender": "FEMALE"
-          },
-          "text": "[excited] It's Juni's turn!"
+          }
         },
         {
           "version": 3,
           "style": "playful",
+          "tag": "playful",
+          "phrase": "Your turn, Juni!",
+          "text": "[playful] Your turn, Juni!",
           "file": "juni_v3.mp3",
           "voice": {
             "id": "bIHbv24MWmeRgasZH58o",
             "name": "Will",
             "gender": "MALE"
-          },
-          "text": "[playful] Your turn, Juni!"
+          }
         }
+      ],
+      "studentName": "Juni",
+      "usedVoiceIds": [
+        "N2lVS1w4EtoT3dr4eOWO",
+        "FGY2WhTYpPnrIDTdsKH5",
+        "bIHbv24MWmeRgasZH58o"
+      ],
+      "usedVoiceNames": [
+        "Callum",
+        "Laura",
+        "Will"
+      ],
+      "usedTags": [
+        "friendly",
+        "excited",
+        "playful"
+      ],
+      "usedPhrases": [
+        "Juni's turn!",
+        "It's Juni's turn!",
+        "Your turn, Juni!"
       ]
     },
     "Kai": {
@@ -616,36 +994,63 @@
         {
           "version": 1,
           "style": "friendly",
+          "tag": "friendly",
+          "phrase": "Kai's turn!",
+          "text": "[friendly] Kai's turn!",
           "file": "kai_v1.mp3",
           "voice": {
             "id": "hpp4J3VqNfWAUOO0d1Us",
             "name": "Bella",
             "gender": "FEMALE"
-          },
-          "text": "[friendly] Kai's turn!"
+          }
         },
         {
           "version": 2,
           "style": "excited",
+          "tag": "excited",
+          "phrase": "It's Kai's turn!",
+          "text": "[excited] It's Kai's turn!",
           "file": "kai_v2.mp3",
           "voice": {
             "id": "bIHbv24MWmeRgasZH58o",
             "name": "Will",
             "gender": "MALE"
-          },
-          "text": "[excited] It's Kai's turn!"
+          }
         },
         {
           "version": 3,
           "style": "playful",
+          "tag": "playful",
+          "phrase": "Your turn, Kai!",
+          "text": "[playful] Your turn, Kai!",
           "file": "kai_v3.mp3",
           "voice": {
             "id": "Z3R5wn05IrDiVCyEkUrK",
             "name": "Arabella",
             "gender": "FEMALE"
-          },
-          "text": "[playful] Your turn, Kai!"
+          }
         }
+      ],
+      "studentName": "Kai",
+      "usedVoiceIds": [
+        "hpp4J3VqNfWAUOO0d1Us",
+        "bIHbv24MWmeRgasZH58o",
+        "Z3R5wn05IrDiVCyEkUrK"
+      ],
+      "usedVoiceNames": [
+        "Bella",
+        "Will",
+        "Arabella"
+      ],
+      "usedTags": [
+        "friendly",
+        "excited",
+        "playful"
+      ],
+      "usedPhrases": [
+        "Kai's turn!",
+        "It's Kai's turn!",
+        "Your turn, Kai!"
       ]
     },
     "Lucas": {
@@ -659,36 +1064,63 @@
         {
           "version": 1,
           "style": "friendly",
+          "tag": "friendly",
+          "phrase": "Lucas's turn!",
+          "text": "[friendly] Lucas's turn!",
           "file": "lucas_v1.mp3",
           "voice": {
             "id": "TX3LPaxmHKxFdv7VOQHJ",
             "name": "Liam",
             "gender": "MALE"
-          },
-          "text": "[friendly] Lucas's turn!"
+          }
         },
         {
           "version": 2,
           "style": "excited",
+          "tag": "excited",
+          "phrase": "It's Lucas's turn!",
+          "text": "[excited] It's Lucas's turn!",
           "file": "lucas_v2.mp3",
           "voice": {
             "id": "Z3R5wn05IrDiVCyEkUrK",
             "name": "Arabella",
             "gender": "FEMALE"
-          },
-          "text": "[excited] It's Lucas's turn!"
+          }
         },
         {
           "version": 3,
           "style": "playful",
+          "tag": "playful",
+          "phrase": "Your turn, Lucas!",
+          "text": "[playful] Your turn, Lucas!",
           "file": "lucas_v3.mp3",
           "voice": {
             "id": "iP95p4xoKVk53GoZ742B",
             "name": "Chris",
             "gender": "MALE"
-          },
-          "text": "[playful] Your turn, Lucas!"
+          }
         }
+      ],
+      "studentName": "Lucas",
+      "usedVoiceIds": [
+        "TX3LPaxmHKxFdv7VOQHJ",
+        "Z3R5wn05IrDiVCyEkUrK",
+        "iP95p4xoKVk53GoZ742B"
+      ],
+      "usedVoiceNames": [
+        "Liam",
+        "Arabella",
+        "Chris"
+      ],
+      "usedTags": [
+        "friendly",
+        "excited",
+        "playful"
+      ],
+      "usedPhrases": [
+        "Lucas's turn!",
+        "It's Lucas's turn!",
+        "Your turn, Lucas!"
       ]
     },
     "Luna": {
@@ -702,36 +1134,63 @@
         {
           "version": 1,
           "style": "friendly",
+          "tag": "friendly",
+          "phrase": "Luna's turn!",
+          "text": "[friendly] Luna's turn!",
           "file": "luna_v1.mp3",
           "voice": {
             "id": "EXAVITQu4vr4xnSDxMaL",
             "name": "Sarah",
             "gender": "FEMALE"
-          },
-          "text": "[friendly] Luna's turn!"
+          }
         },
         {
           "version": 2,
           "style": "excited",
+          "tag": "excited",
+          "phrase": "It's Luna's turn!",
+          "text": "[excited] It's Luna's turn!",
           "file": "luna_v2.mp3",
           "voice": {
             "id": "iP95p4xoKVk53GoZ742B",
             "name": "Chris",
             "gender": "MALE"
-          },
-          "text": "[excited] It's Luna's turn!"
+          }
         },
         {
           "version": 3,
           "style": "playful",
+          "tag": "playful",
+          "phrase": "Your turn, Luna!",
+          "text": "[playful] Your turn, Luna!",
           "file": "luna_v3.mp3",
           "voice": {
             "id": "XrExE9yKIg1WjnnlVkGX",
             "name": "Matilda",
             "gender": "FEMALE"
-          },
-          "text": "[playful] Your turn, Luna!"
+          }
         }
+      ],
+      "studentName": "Luna",
+      "usedVoiceIds": [
+        "EXAVITQu4vr4xnSDxMaL",
+        "iP95p4xoKVk53GoZ742B",
+        "XrExE9yKIg1WjnnlVkGX"
+      ],
+      "usedVoiceNames": [
+        "Sarah",
+        "Chris",
+        "Matilda"
+      ],
+      "usedTags": [
+        "friendly",
+        "excited",
+        "playful"
+      ],
+      "usedPhrases": [
+        "Luna's turn!",
+        "It's Luna's turn!",
+        "Your turn, Luna!"
       ]
     },
     "Ronaldo": {
@@ -745,36 +1204,63 @@
         {
           "version": 1,
           "style": "friendly",
+          "tag": "friendly",
+          "phrase": "Ronaldo's turn!",
+          "text": "[friendly] Ronaldo's turn!",
           "file": "ronaldo_v1.mp3",
           "voice": {
             "id": "cjVigY5qzO86Huf0OWal",
             "name": "Eric",
             "gender": "MALE"
-          },
-          "text": "[friendly] Ronaldo's turn!"
+          }
         },
         {
           "version": 2,
           "style": "excited",
+          "tag": "excited",
+          "phrase": "It's Ronaldo's turn!",
+          "text": "[excited] It's Ronaldo's turn!",
           "file": "ronaldo_v2.mp3",
           "voice": {
             "id": "XrExE9yKIg1WjnnlVkGX",
             "name": "Matilda",
             "gender": "FEMALE"
-          },
-          "text": "[excited] It's Ronaldo's turn!"
+          }
         },
         {
           "version": 3,
           "style": "playful",
+          "tag": "playful",
+          "phrase": "Your turn, Ronaldo!",
+          "text": "[playful] Your turn, Ronaldo!",
           "file": "ronaldo_v3.mp3",
           "voice": {
             "id": "N2lVS1w4EtoT3dr4eOWO",
             "name": "Callum",
             "gender": "MALE"
-          },
-          "text": "[playful] Your turn, Ronaldo!"
+          }
         }
+      ],
+      "studentName": "Ronaldo",
+      "usedVoiceIds": [
+        "cjVigY5qzO86Huf0OWal",
+        "XrExE9yKIg1WjnnlVkGX",
+        "N2lVS1w4EtoT3dr4eOWO"
+      ],
+      "usedVoiceNames": [
+        "Eric",
+        "Matilda",
+        "Callum"
+      ],
+      "usedTags": [
+        "friendly",
+        "excited",
+        "playful"
+      ],
+      "usedPhrases": [
+        "Ronaldo's turn!",
+        "It's Ronaldo's turn!",
+        "Your turn, Ronaldo!"
       ]
     },
     "Sarah": {
@@ -788,36 +1274,63 @@
         {
           "version": 1,
           "style": "friendly",
+          "tag": "friendly",
+          "phrase": "Sarah's turn!",
+          "text": "[friendly] Sarah's turn!",
           "file": "sarah_v1.mp3",
           "voice": {
             "id": "cgSgspJ2msm6clMCkdW9",
             "name": "Jessica",
             "gender": "FEMALE"
-          },
-          "text": "[friendly] Sarah's turn!"
+          }
         },
         {
           "version": 2,
           "style": "excited",
+          "tag": "excited",
+          "phrase": "It's Sarah's turn!",
+          "text": "[excited] It's Sarah's turn!",
           "file": "sarah_v2.mp3",
           "voice": {
             "id": "N2lVS1w4EtoT3dr4eOWO",
             "name": "Callum",
             "gender": "MALE"
-          },
-          "text": "[excited] It's Sarah's turn!"
+          }
         },
         {
           "version": 3,
           "style": "playful",
+          "tag": "playful",
+          "phrase": "Your turn, Sarah!",
+          "text": "[playful] Your turn, Sarah!",
           "file": "sarah_v3.mp3",
           "voice": {
             "id": "FGY2WhTYpPnrIDTdsKH5",
             "name": "Laura",
             "gender": "FEMALE"
-          },
-          "text": "[playful] Your turn, Sarah!"
+          }
         }
+      ],
+      "studentName": "Sarah",
+      "usedVoiceIds": [
+        "cgSgspJ2msm6clMCkdW9",
+        "N2lVS1w4EtoT3dr4eOWO",
+        "FGY2WhTYpPnrIDTdsKH5"
+      ],
+      "usedVoiceNames": [
+        "Jessica",
+        "Callum",
+        "Laura"
+      ],
+      "usedTags": [
+        "friendly",
+        "excited",
+        "playful"
+      ],
+      "usedPhrases": [
+        "Sarah's turn!",
+        "It's Sarah's turn!",
+        "Your turn, Sarah!"
       ]
     },
     "Seven": {
@@ -831,36 +1344,63 @@
         {
           "version": 1,
           "style": "friendly",
+          "tag": "friendly",
+          "phrase": "Seven's turn!",
+          "text": "[friendly] Seven's turn!",
           "file": "seven_v1.mp3",
           "voice": {
             "id": "bIHbv24MWmeRgasZH58o",
             "name": "Will",
             "gender": "MALE"
-          },
-          "text": "[friendly] Seven's turn!"
+          }
         },
         {
           "version": 2,
           "style": "excited",
+          "tag": "excited",
+          "phrase": "It's Seven's turn!",
+          "text": "[excited] It's Seven's turn!",
           "file": "seven_v2.mp3",
           "voice": {
             "id": "FGY2WhTYpPnrIDTdsKH5",
             "name": "Laura",
             "gender": "FEMALE"
-          },
-          "text": "[excited] It's Seven's turn!"
+          }
         },
         {
           "version": 3,
           "style": "playful",
+          "tag": "playful",
+          "phrase": "Your turn, Seven!",
+          "text": "[playful] Your turn, Seven!",
           "file": "seven_v3.mp3",
           "voice": {
             "id": "TX3LPaxmHKxFdv7VOQHJ",
             "name": "Liam",
             "gender": "MALE"
-          },
-          "text": "[playful] Your turn, Seven!"
+          }
         }
+      ],
+      "studentName": "Seven",
+      "usedVoiceIds": [
+        "bIHbv24MWmeRgasZH58o",
+        "FGY2WhTYpPnrIDTdsKH5",
+        "TX3LPaxmHKxFdv7VOQHJ"
+      ],
+      "usedVoiceNames": [
+        "Will",
+        "Laura",
+        "Liam"
+      ],
+      "usedTags": [
+        "friendly",
+        "excited",
+        "playful"
+      ],
+      "usedPhrases": [
+        "Seven's turn!",
+        "It's Seven's turn!",
+        "Your turn, Seven!"
       ]
     },
     "Sia": {
@@ -874,36 +1414,63 @@
         {
           "version": 1,
           "style": "friendly",
+          "tag": "friendly",
+          "phrase": "Sia's turn!",
+          "text": "[friendly] Sia's turn!",
           "file": "sia_v1.mp3",
           "voice": {
             "id": "hpp4J3VqNfWAUOO0d1Us",
             "name": "Bella",
             "gender": "FEMALE"
-          },
-          "text": "[friendly] Sia's turn!"
+          }
         },
         {
           "version": 2,
           "style": "excited",
+          "tag": "excited",
+          "phrase": "It's Sia's turn!",
+          "text": "[excited] It's Sia's turn!",
           "file": "sia_v2.mp3",
           "voice": {
             "id": "TX3LPaxmHKxFdv7VOQHJ",
             "name": "Liam",
             "gender": "MALE"
-          },
-          "text": "[excited] It's Sia's turn!"
+          }
         },
         {
           "version": 3,
           "style": "playful",
+          "tag": "playful",
+          "phrase": "Your turn, Sia!",
+          "text": "[playful] Your turn, Sia!",
           "file": "sia_v3.mp3",
           "voice": {
             "id": "Z3R5wn05IrDiVCyEkUrK",
             "name": "Arabella",
             "gender": "FEMALE"
-          },
-          "text": "[playful] Your turn, Sia!"
+          }
         }
+      ],
+      "studentName": "Sia",
+      "usedVoiceIds": [
+        "hpp4J3VqNfWAUOO0d1Us",
+        "TX3LPaxmHKxFdv7VOQHJ",
+        "Z3R5wn05IrDiVCyEkUrK"
+      ],
+      "usedVoiceNames": [
+        "Bella",
+        "Liam",
+        "Arabella"
+      ],
+      "usedTags": [
+        "friendly",
+        "excited",
+        "playful"
+      ],
+      "usedPhrases": [
+        "Sia's turn!",
+        "It's Sia's turn!",
+        "Your turn, Sia!"
       ]
     },
     "Siwoo": {
@@ -917,36 +1484,63 @@
         {
           "version": 1,
           "style": "friendly",
+          "tag": "friendly",
+          "phrase": "Siwoo's turn!",
+          "text": "[friendly] Siwoo's turn!",
           "file": "siwoo_v1.mp3",
           "voice": {
             "id": "iP95p4xoKVk53GoZ742B",
             "name": "Chris",
             "gender": "MALE"
-          },
-          "text": "[friendly] Siwoo's turn!"
+          }
         },
         {
           "version": 2,
           "style": "excited",
+          "tag": "excited",
+          "phrase": "It's Siwoo's turn!",
+          "text": "[excited] It's Siwoo's turn!",
           "file": "siwoo_v2.mp3",
           "voice": {
             "id": "Z3R5wn05IrDiVCyEkUrK",
             "name": "Arabella",
             "gender": "FEMALE"
-          },
-          "text": "[excited] It's Siwoo's turn!"
+          }
         },
         {
           "version": 3,
           "style": "playful",
+          "tag": "playful",
+          "phrase": "Your turn, Siwoo!",
+          "text": "[playful] Your turn, Siwoo!",
           "file": "siwoo_v3.mp3",
           "voice": {
             "id": "cjVigY5qzO86Huf0OWal",
             "name": "Eric",
             "gender": "MALE"
-          },
-          "text": "[playful] Your turn, Siwoo!"
+          }
         }
+      ],
+      "studentName": "Siwoo",
+      "usedVoiceIds": [
+        "iP95p4xoKVk53GoZ742B",
+        "Z3R5wn05IrDiVCyEkUrK",
+        "cjVigY5qzO86Huf0OWal"
+      ],
+      "usedVoiceNames": [
+        "Chris",
+        "Arabella",
+        "Eric"
+      ],
+      "usedTags": [
+        "friendly",
+        "excited",
+        "playful"
+      ],
+      "usedPhrases": [
+        "Siwoo's turn!",
+        "It's Siwoo's turn!",
+        "Your turn, Siwoo!"
       ]
     },
     "Siyoon": {
@@ -960,36 +1554,63 @@
         {
           "version": 1,
           "style": "friendly",
+          "tag": "friendly",
+          "phrase": "Siyoon's turn!",
+          "text": "[friendly] Siyoon's turn!",
           "file": "siyoon_v1.mp3",
           "voice": {
             "id": "EXAVITQu4vr4xnSDxMaL",
             "name": "Sarah",
             "gender": "FEMALE"
-          },
-          "text": "[friendly] Siyoon's turn!"
+          }
         },
         {
           "version": 2,
           "style": "excited",
+          "tag": "excited",
+          "phrase": "It's Siyoon's turn!",
+          "text": "[excited] It's Siyoon's turn!",
           "file": "siyoon_v2.mp3",
           "voice": {
             "id": "cjVigY5qzO86Huf0OWal",
             "name": "Eric",
             "gender": "MALE"
-          },
-          "text": "[excited] It's Siyoon's turn!"
+          }
         },
         {
           "version": 3,
           "style": "playful",
+          "tag": "playful",
+          "phrase": "Your turn, Siyoon!",
+          "text": "[playful] Your turn, Siyoon!",
           "file": "siyoon_v3.mp3",
           "voice": {
             "id": "XrExE9yKIg1WjnnlVkGX",
             "name": "Matilda",
             "gender": "FEMALE"
-          },
-          "text": "[playful] Your turn, Siyoon!"
+          }
         }
+      ],
+      "studentName": "Siyoon",
+      "usedVoiceIds": [
+        "EXAVITQu4vr4xnSDxMaL",
+        "cjVigY5qzO86Huf0OWal",
+        "XrExE9yKIg1WjnnlVkGX"
+      ],
+      "usedVoiceNames": [
+        "Sarah",
+        "Eric",
+        "Matilda"
+      ],
+      "usedTags": [
+        "friendly",
+        "excited",
+        "playful"
+      ],
+      "usedPhrases": [
+        "Siyoon's turn!",
+        "It's Siyoon's turn!",
+        "Your turn, Siyoon!"
       ]
     },
     "Soye": {
@@ -1003,36 +1624,63 @@
         {
           "version": 1,
           "style": "friendly",
+          "tag": "friendly",
+          "phrase": "Soye's turn!",
+          "text": "[friendly] Soye's turn!",
           "file": "soye_v1.mp3",
           "voice": {
             "id": "N2lVS1w4EtoT3dr4eOWO",
             "name": "Callum",
             "gender": "MALE"
-          },
-          "text": "[friendly] Soye's turn!"
+          }
         },
         {
           "version": 2,
           "style": "excited",
+          "tag": "excited",
+          "phrase": "It's Soye's turn!",
+          "text": "[excited] It's Soye's turn!",
           "file": "soye_v2.mp3",
           "voice": {
             "id": "XrExE9yKIg1WjnnlVkGX",
             "name": "Matilda",
             "gender": "FEMALE"
-          },
-          "text": "[excited] It's Soye's turn!"
+          }
         },
         {
           "version": 3,
           "style": "playful",
+          "tag": "playful",
+          "phrase": "Your turn, Soye!",
+          "text": "[playful] Your turn, Soye!",
           "file": "soye_v3.mp3",
           "voice": {
             "id": "bIHbv24MWmeRgasZH58o",
             "name": "Will",
             "gender": "MALE"
-          },
-          "text": "[playful] Your turn, Soye!"
+          }
         }
+      ],
+      "studentName": "Soye",
+      "usedVoiceIds": [
+        "N2lVS1w4EtoT3dr4eOWO",
+        "XrExE9yKIg1WjnnlVkGX",
+        "bIHbv24MWmeRgasZH58o"
+      ],
+      "usedVoiceNames": [
+        "Callum",
+        "Matilda",
+        "Will"
+      ],
+      "usedTags": [
+        "friendly",
+        "excited",
+        "playful"
+      ],
+      "usedPhrases": [
+        "Soye's turn!",
+        "It's Soye's turn!",
+        "Your turn, Soye!"
       ]
     },
     "Teacher": {
@@ -1046,36 +1694,63 @@
         {
           "version": 1,
           "style": "friendly",
+          "tag": "friendly",
+          "phrase": "Teacher's turn!",
+          "text": "[friendly] Teacher's turn!",
           "file": "teacher_v1.mp3",
           "voice": {
             "id": "cgSgspJ2msm6clMCkdW9",
             "name": "Jessica",
             "gender": "FEMALE"
-          },
-          "text": "[friendly] Teacher's turn!"
+          }
         },
         {
           "version": 2,
           "style": "excited",
+          "tag": "excited",
+          "phrase": "It's Teacher's turn!",
+          "text": "[excited] It's Teacher's turn!",
           "file": "teacher_v2.mp3",
           "voice": {
             "id": "bIHbv24MWmeRgasZH58o",
             "name": "Will",
             "gender": "MALE"
-          },
-          "text": "[excited] It's Teacher's turn!"
+          }
         },
         {
           "version": 3,
           "style": "playful",
+          "tag": "playful",
+          "phrase": "Your turn, Teacher!",
+          "text": "[playful] Your turn, Teacher!",
           "file": "teacher_v3.mp3",
           "voice": {
             "id": "FGY2WhTYpPnrIDTdsKH5",
             "name": "Laura",
             "gender": "FEMALE"
-          },
-          "text": "[playful] Your turn, Teacher!"
+          }
         }
+      ],
+      "studentName": "Teacher",
+      "usedVoiceIds": [
+        "cgSgspJ2msm6clMCkdW9",
+        "bIHbv24MWmeRgasZH58o",
+        "FGY2WhTYpPnrIDTdsKH5"
+      ],
+      "usedVoiceNames": [
+        "Jessica",
+        "Will",
+        "Laura"
+      ],
+      "usedTags": [
+        "friendly",
+        "excited",
+        "playful"
+      ],
+      "usedPhrases": [
+        "Teacher's turn!",
+        "It's Teacher's turn!",
+        "Your turn, Teacher!"
       ]
     },
     "Thomas": {
@@ -1089,36 +1764,63 @@
         {
           "version": 1,
           "style": "friendly",
+          "tag": "friendly",
+          "phrase": "Thomas's turn!",
+          "text": "[friendly] Thomas's turn!",
           "file": "thomas_v1.mp3",
           "voice": {
             "id": "TX3LPaxmHKxFdv7VOQHJ",
             "name": "Liam",
             "gender": "MALE"
-          },
-          "text": "[friendly] Thomas's turn!"
+          }
         },
         {
           "version": 2,
           "style": "excited",
+          "tag": "excited",
+          "phrase": "It's Thomas's turn!",
+          "text": "[excited] It's Thomas's turn!",
           "file": "thomas_v2.mp3",
           "voice": {
             "id": "FGY2WhTYpPnrIDTdsKH5",
             "name": "Laura",
             "gender": "FEMALE"
-          },
-          "text": "[excited] It's Thomas's turn!"
+          }
         },
         {
           "version": 3,
           "style": "playful",
+          "tag": "playful",
+          "phrase": "Your turn, Thomas!",
+          "text": "[playful] Your turn, Thomas!",
           "file": "thomas_v3.mp3",
           "voice": {
             "id": "iP95p4xoKVk53GoZ742B",
             "name": "Chris",
             "gender": "MALE"
-          },
-          "text": "[playful] Your turn, Thomas!"
+          }
         }
+      ],
+      "studentName": "Thomas",
+      "usedVoiceIds": [
+        "TX3LPaxmHKxFdv7VOQHJ",
+        "FGY2WhTYpPnrIDTdsKH5",
+        "iP95p4xoKVk53GoZ742B"
+      ],
+      "usedVoiceNames": [
+        "Liam",
+        "Laura",
+        "Chris"
+      ],
+      "usedTags": [
+        "friendly",
+        "excited",
+        "playful"
+      ],
+      "usedPhrases": [
+        "Thomas's turn!",
+        "It's Thomas's turn!",
+        "Your turn, Thomas!"
       ]
     }
   }

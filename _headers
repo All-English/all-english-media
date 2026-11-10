@@ -11,6 +11,10 @@
   Access-Control-Allow-Origin: *
   Cache-Control: public, max-age=300, must-revalidate
 
+/audio/words/manifest.json
+  Access-Control-Allow-Origin: *
+  Cache-Control: public, max-age=300, must-revalidate
+
 /shared/*
   Access-Control-Allow-Origin: *
   Cache-Control: public, max-age=3600, must-revalidate

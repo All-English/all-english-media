@@ -3120,6 +3120,81 @@
     ];
   }
 
+  function toWordSlug(word) {
+    return String(word || '').trim().toLowerCase().replace(/[^a-z0-9_-]+/g, '_');
+  }
+
+  function getGeneratedWordAudioUrls(word) {
+    const slug = toWordSlug(word);
+    if (!slug) return [];
+    const base = getMediaBase().replace(/\/$/, '');
+    return [
+      `${base}/audio/words/${slug}_v1.mp3`,
+      `${base}/audio/words/${slug}_v2.mp3`,
+      `${base}/audio/words/${slug}_v3.mp3`
+    ];
+  }
+
+  let cachedOfficialWordAudioMap = null;
+
+  function getOfficialWordAudioUrl(word) {
+    const slug = toWordSlug(word);
+    if (!slug) return null;
+
+    if (!cachedOfficialWordAudioMap) {
+      cachedOfficialWordAudioMap = new Map();
+      const curr = CurriculumLoader.cachedCurriculum || CurriculumLoader.cachedMasterCurriculum;
+      if (curr && Array.isArray(curr.series)) {
+        const sp = curr.series.find(s => toSeriesSlug(s.id) === 'smart-phonics') || curr.series[0];
+        if (sp && sp.levels) {
+          for (const lvl of sp.levels) {
+            for (const u of (lvl.units || [])) {
+              for (const w of (u.words || [])) {
+                if (!w) continue;
+                if (lvl.bookNumber === 1 && w.imageAudio) {
+                  const vocab = String(w.imageAudio).split('/').pop().replace(/\.mp3$/i, '').toLowerCase();
+                  if (vocab && !cachedOfficialWordAudioMap.has(vocab)) {
+                    cachedOfficialWordAudioMap.set(vocab, w.imageAudio);
+                  }
+                } else if (w.word && w.audio) {
+                  const wSlug = toWordSlug(w.word);
+                  if (wSlug && !cachedOfficialWordAudioMap.has(wSlug)) {
+                    cachedOfficialWordAudioMap.set(wSlug, w.audio);
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    const pathOrUrl = cachedOfficialWordAudioMap.get(slug);
+    if (!pathOrUrl) return null;
+    return CurriculumAdapter.resolveUrl(pathOrUrl, getMediaBase());
+  }
+
+  function getWordAudioUrls(word, { officialUrl = null, mode = 'mixed' } = {}) {
+    const slug = toWordSlug(word);
+    if (!slug) return [];
+
+    let resolvedOfficial = officialUrl ? CurriculumAdapter.resolveUrl(officialUrl, getMediaBase()) : getOfficialWordAudioUrl(word);
+    const aiUrls = getGeneratedWordAudioUrls(word);
+
+    const normalizedMode = String(mode || 'mixed').toLowerCase().trim();
+    if (normalizedMode === 'official') {
+      return resolvedOfficial ? [resolvedOfficial] : aiUrls;
+    }
+    if (normalizedMode === 'ai') {
+      return aiUrls.length > 0 ? aiUrls : (resolvedOfficial ? [resolvedOfficial] : []);
+    }
+    // Default 'mixed': official + 3 AI voices
+    const list = [];
+    if (resolvedOfficial) list.push(resolvedOfficial);
+    list.push(...aiUrls);
+    return list;
+  }
+
   const CurriculumLoader = {
     cachedCurriculum: null,
     cachedMasterCurriculum: null,
@@ -3278,6 +3353,10 @@
     CurriculumAdapter,
     CurriculumLoader,
     toPlayerSlug,
-    getPlayerTurnAudioUrls
+    getPlayerTurnAudioUrls,
+    toWordSlug,
+    getGeneratedWordAudioUrls,
+    getOfficialWordAudioUrl,
+    getWordAudioUrls
   };
 });

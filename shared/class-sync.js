@@ -3105,6 +3105,21 @@
     return Boolean(res && res.ok);
   }
 
+  function toPlayerSlug(name) {
+    return String(name || '').trim().toLowerCase().replace(/[^a-z0-9_-]+/g, '_');
+  }
+
+  function getPlayerTurnAudioUrls(playerName) {
+    const slug = toPlayerSlug(playerName);
+    if (!slug) return [];
+    const base = getMediaBase().replace(/\/$/, '');
+    return [
+      `${base}/audio/players/${slug}_v1.mp3`,
+      `${base}/audio/players/${slug}_v2.mp3`,
+      `${base}/audio/players/${slug}_v3.mp3`
+    ];
+  }
+
   const CurriculumLoader = {
     cachedCurriculum: null,
     cachedMasterCurriculum: null,
@@ -3261,6 +3276,8 @@
     resolveClassRoster,
     inferTargetSound: (unit) => CurriculumAdapter.inferTargetSound(unit),
     CurriculumAdapter,
-    CurriculumLoader
+    CurriculumLoader,
+    toPlayerSlug,
+    getPlayerTurnAudioUrls
   };
 });

@@ -3105,6 +3105,54 @@
     return Boolean(res && res.ok);
   }
 
+  let cachedPlayerAudioManifest = null;
+  let playerAudioManifestPromise = null;
+
+  async function loadPlayerAudioManifest() {
+    if (cachedPlayerAudioManifest) return cachedPlayerAudioManifest;
+    if (playerAudioManifestPromise) return playerAudioManifestPromise;
+    const base = getMediaBase().replace(/\/$/, '');
+    playerAudioManifestPromise = (async () => {
+      try {
+        const res = await fetch(`${base}/audio/players/manifest.json`, { cache: 'default' });
+        if (res.ok) {
+          cachedPlayerAudioManifest = await res.json();
+          return cachedPlayerAudioManifest;
+        }
+      } catch (e) {}
+      return null;
+    })();
+    return playerAudioManifestPromise;
+  }
+
+  let cachedWordAudioManifest = null;
+  let wordAudioManifestPromise = null;
+
+  async function loadWordAudioManifest() {
+    if (cachedWordAudioManifest) return cachedWordAudioManifest;
+    if (wordAudioManifestPromise) return wordAudioManifestPromise;
+    const base = getMediaBase().replace(/\/$/, '');
+    wordAudioManifestPromise = (async () => {
+      try {
+        const res = await fetch(`${base}/audio/words/manifest.json`, { cache: 'default' });
+        if (res.ok) {
+          cachedWordAudioManifest = await res.json();
+          return cachedWordAudioManifest;
+        }
+      } catch (e) {}
+      return null;
+    })();
+    return wordAudioManifestPromise;
+  }
+
+  // Pre-load manifests in browser environment so extra variations are available immediately
+  if (typeof window !== 'undefined') {
+    setTimeout(() => {
+      loadPlayerAudioManifest().catch(() => {});
+      loadWordAudioManifest().catch(() => {});
+    }, 50);
+  }
+
   function toPlayerSlug(name) {
     return String(name || '').trim().toLowerCase().replace(/[^a-z0-9_-]+/g, '_');
   }
@@ -3113,6 +3161,16 @@
     const slug = toPlayerSlug(playerName);
     if (!slug) return [];
     const base = getMediaBase().replace(/\/$/, '');
+
+    // Dynamic resolution from manifest if loaded (future-proof: returns all variations)
+    if (cachedPlayerAudioManifest && cachedPlayerAudioManifest.students) {
+      const studentData = cachedPlayerAudioManifest.students[playerName] ||
+        Object.values(cachedPlayerAudioManifest.students).find(s => s.slug === slug);
+      if (studentData && Array.isArray(studentData.variations) && studentData.variations.length > 0) {
+        return studentData.variations.map(v => `${base}/audio/players/${v.file}`);
+      }
+    }
+
     return [
       `${base}/audio/players/${slug}_v1.mp3`,
       `${base}/audio/players/${slug}_v2.mp3`,
@@ -3128,6 +3186,15 @@
     const slug = toWordSlug(word);
     if (!slug) return [];
     const base = getMediaBase().replace(/\/$/, '');
+
+    // Dynamic resolution from manifest if loaded (future-proof: returns all variations)
+    if (cachedWordAudioManifest && cachedWordAudioManifest.words) {
+      const entry = cachedWordAudioManifest.words[slug];
+      if (entry && Array.isArray(entry.variations) && entry.variations.length > 0) {
+        return entry.variations.map(v => `${base}/audio/words/${v.file}`);
+      }
+    }
+
     return [
       `${base}/audio/words/${slug}_v1.mp3`,
       `${base}/audio/words/${slug}_v2.mp3`,
@@ -3357,6 +3424,8 @@
     toWordSlug,
     getGeneratedWordAudioUrls,
     getOfficialWordAudioUrl,
-    getWordAudioUrls
+    getWordAudioUrls,
+    loadWordAudioManifest,
+    loadPlayerAudioManifest
   };
 });

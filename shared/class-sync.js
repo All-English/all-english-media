@@ -3145,12 +3145,10 @@
     return wordAudioManifestPromise;
   }
 
-  // Pre-load manifests in browser environment so extra variations are available immediately
+  // Pre-load manifests immediately in browser environment so extra variations are available right away
   if (typeof window !== 'undefined') {
-    setTimeout(() => {
-      loadPlayerAudioManifest().catch(() => {});
-      loadWordAudioManifest().catch(() => {});
-    }, 50);
+    loadPlayerAudioManifest().catch(() => {});
+    loadWordAudioManifest().catch(() => {});
   }
 
   function toPlayerSlug(name) {

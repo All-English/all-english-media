@@ -1,14 +1,49 @@
 {
-  "updatedAt": 1794312178865,
-  "updatedAtISO": "2026-11-10T12:02:58.865Z",
-  "totalStudents": 26,
+  "updatedAt": 1794558141187,
+  "updatedAtISO": "2026-11-13T08:22:21.187Z",
+  "totalStudents": 25,
   "students": {
     "Asher": {
+      "studentName": "Asher",
       "slug": "asher",
+      "usedVoiceIds": [
+        "cgSgspJ2msm6clMCkdW9",
+        "TX3LPaxmHKxFdv7VOQHJ",
+        "FGY2WhTYpPnrIDTdsKH5",
+        "nPczCjzI2devNBz1zQrb",
+        "Z3R5wn05IrDiVCyEkUrK",
+        "iP95p4xoKVk53GoZ742B"
+      ],
+      "usedVoiceNames": [
+        "Jessica",
+        "Liam",
+        "Laura",
+        "Brian",
+        "Arabella",
+        "Chris"
+      ],
+      "usedTags": [
+        "friendly",
+        "excited",
+        "playful",
+        "cheerful",
+        "encouraging"
+      ],
+      "usedPhrases": [
+        "Asher's turn!",
+        "It's Asher's turn!",
+        "Your turn, Asher!",
+        "You're up, Asher!",
+        "Ready, Asher? It's your turn!",
+        "Go for it, Asher!"
+      ],
       "files": [
         "audio/players/asher_v1.mp3",
         "audio/players/asher_v2.mp3",
-        "audio/players/asher_v3.mp3"
+        "audio/players/asher_v3.mp3",
+        "audio/players/asher_v4.mp3",
+        "audio/players/asher_v5.mp3",
+        "audio/players/asher_v6.mp3"
       ],
       "variations": [
         {
@@ -49,36 +84,89 @@
             "name": "Laura",
             "gender": "FEMALE"
           }
+        },
+        {
+          "version": 4,
+          "style": "cheerful",
+          "tag": "cheerful",
+          "phrase": "You're up, Asher!",
+          "text": "[cheerful] You're up, Asher!",
+          "file": "asher_v4.mp3",
+          "voice": {
+            "id": "nPczCjzI2devNBz1zQrb",
+            "name": "Brian",
+            "gender": "MALE"
+          }
+        },
+        {
+          "version": 5,
+          "style": "natural",
+          "tag": null,
+          "phrase": "Ready, Asher? It's your turn!",
+          "text": "Ready, Asher? It's your turn!",
+          "file": "asher_v5.mp3",
+          "voice": {
+            "id": "Z3R5wn05IrDiVCyEkUrK",
+            "name": "Arabella",
+            "gender": "FEMALE"
+          }
+        },
+        {
+          "version": 6,
+          "style": "encouraging",
+          "tag": "encouraging",
+          "phrase": "Go for it, Asher!",
+          "text": "[encouraging] Go for it, Asher!",
+          "file": "asher_v6.mp3",
+          "voice": {
+            "id": "iP95p4xoKVk53GoZ742B",
+            "name": "Chris",
+            "gender": "MALE"
+          }
         }
-      ],
-      "studentName": "Asher",
+      ]
+    },
+    "Chaeyeon": {
+      "studentName": "Chaeyeon",
+      "slug": "chaeyeon",
       "usedVoiceIds": [
+        "iP95p4xoKVk53GoZ742B",
+        "FGY2WhTYpPnrIDTdsKH5",
+        "cjVigY5qzO86Huf0OWal",
         "cgSgspJ2msm6clMCkdW9",
-        "TX3LPaxmHKxFdv7VOQHJ",
-        "FGY2WhTYpPnrIDTdsKH5"
+        "EXAVITQu4vr4xnSDxMaL",
+        "N2lVS1w4EtoT3dr4eOWO"
       ],
       "usedVoiceNames": [
+        "Chris",
+        "Laura",
+        "Eric",
         "Jessica",
-        "Liam",
-        "Laura"
+        "Sarah",
+        "Callum"
       ],
       "usedTags": [
         "friendly",
         "excited",
-        "playful"
+        "playful",
+        "cheerful",
+        "encouraging"
       ],
       "usedPhrases": [
-        "Asher's turn!",
-        "It's Asher's turn!",
-        "Your turn, Asher!"
-      ]
-    },
-    "Chaeyeon": {
-      "slug": "chaeyeon",
+        "Chaeyeon's turn!",
+        "It's Chaeyeon's turn!",
+        "Your turn, Chaeyeon!",
+        "You're up, Chaeyeon!",
+        "Ready, Chaeyeon? It's your turn!",
+        "Go for it, Chaeyeon!"
+      ],
       "files": [
         "audio/players/chaeyeon_v1.mp3",
         "audio/players/chaeyeon_v2.mp3",
-        "audio/players/chaeyeon_v3.mp3"
+        "audio/players/chaeyeon_v3.mp3",
+        "audio/players/chaeyeon_v4.mp3",
+        "audio/players/chaeyeon_v5.mp3",
+        "audio/players/chaeyeon_v6.mp3"
       ],
       "variations": [
         {
@@ -119,36 +207,89 @@
             "name": "Eric",
             "gender": "MALE"
           }
+        },
+        {
+          "version": 4,
+          "style": "cheerful",
+          "tag": "cheerful",
+          "phrase": "You're up, Chaeyeon!",
+          "text": "[cheerful] You're up, Chaeyeon!",
+          "file": "chaeyeon_v4.mp3",
+          "voice": {
+            "id": "cgSgspJ2msm6clMCkdW9",
+            "name": "Jessica",
+            "gender": "FEMALE"
+          }
+        },
+        {
+          "version": 5,
+          "style": "natural",
+          "tag": null,
+          "phrase": "Ready, Chaeyeon? It's your turn!",
+          "text": "Ready, Chaeyeon? It's your turn!",
+          "file": "chaeyeon_v5.mp3",
+          "voice": {
+            "id": "EXAVITQu4vr4xnSDxMaL",
+            "name": "Sarah",
+            "gender": "FEMALE"
+          }
+        },
+        {
+          "version": 6,
+          "style": "encouraging",
+          "tag": "encouraging",
+          "phrase": "Go for it, Chaeyeon!",
+          "text": "[encouraging] Go for it, Chaeyeon!",
+          "file": "chaeyeon_v6.mp3",
+          "voice": {
+            "id": "N2lVS1w4EtoT3dr4eOWO",
+            "name": "Callum",
+            "gender": "MALE"
+          }
         }
-      ],
-      "studentName": "Chaeyeon",
+      ]
+    },
+    "Chanha": {
+      "studentName": "Chanha",
+      "slug": "chanha",
       "usedVoiceIds": [
-        "iP95p4xoKVk53GoZ742B",
-        "FGY2WhTYpPnrIDTdsKH5",
-        "cjVigY5qzO86Huf0OWal"
+        "hpp4J3VqNfWAUOO0d1Us",
+        "cjVigY5qzO86Huf0OWal",
+        "Z3R5wn05IrDiVCyEkUrK",
+        "CwhRBWXzGAHq8TQ4Fs17",
+        "XrExE9yKIg1WjnnlVkGX",
+        "N2lVS1w4EtoT3dr4eOWO"
       ],
       "usedVoiceNames": [
-        "Chris",
-        "Laura",
-        "Eric"
+        "Bella",
+        "Eric",
+        "Arabella",
+        "Roger",
+        "Matilda",
+        "Callum"
       ],
       "usedTags": [
         "friendly",
         "excited",
-        "playful"
+        "playful",
+        "cheerful",
+        "encouraging"
       ],
       "usedPhrases": [
-        "Chaeyeon's turn!",
-        "It's Chaeyeon's turn!",
-        "Your turn, Chaeyeon!"
-      ]
-    },
-    "Chanha": {
-      "slug": "chanha",
+        "Chanha's turn!",
+        "It's Chanha's turn!",
+        "Your turn, Chanha!",
+        "You're up, Chanha!",
+        "Ready, Chanha? It's your turn!",
+        "Go for it, Chanha!"
+      ],
       "files": [
         "audio/players/chanha_v1.mp3",
         "audio/players/chanha_v2.mp3",
-        "audio/players/chanha_v3.mp3"
+        "audio/players/chanha_v3.mp3",
+        "audio/players/chanha_v4.mp3",
+        "audio/players/chanha_v5.mp3",
+        "audio/players/chanha_v6.mp3"
       ],
       "variations": [
         {
@@ -189,36 +330,89 @@
             "name": "Arabella",
             "gender": "FEMALE"
           }
+        },
+        {
+          "version": 4,
+          "style": "cheerful",
+          "tag": "cheerful",
+          "phrase": "You're up, Chanha!",
+          "text": "[cheerful] You're up, Chanha!",
+          "file": "chanha_v4.mp3",
+          "voice": {
+            "id": "CwhRBWXzGAHq8TQ4Fs17",
+            "name": "Roger",
+            "gender": "MALE"
+          }
+        },
+        {
+          "version": 5,
+          "style": "natural",
+          "tag": null,
+          "phrase": "Ready, Chanha? It's your turn!",
+          "text": "Ready, Chanha? It's your turn!",
+          "file": "chanha_v5.mp3",
+          "voice": {
+            "id": "XrExE9yKIg1WjnnlVkGX",
+            "name": "Matilda",
+            "gender": "FEMALE"
+          }
+        },
+        {
+          "version": 6,
+          "style": "encouraging",
+          "tag": "encouraging",
+          "phrase": "Go for it, Chanha!",
+          "text": "[encouraging] Go for it, Chanha!",
+          "file": "chanha_v6.mp3",
+          "voice": {
+            "id": "N2lVS1w4EtoT3dr4eOWO",
+            "name": "Callum",
+            "gender": "MALE"
+          }
         }
-      ],
-      "studentName": "Chanha",
+      ]
+    },
+    "Danny": {
+      "studentName": "Danny",
+      "slug": "danny",
       "usedVoiceIds": [
+        "N2lVS1w4EtoT3dr4eOWO",
+        "Z3R5wn05IrDiVCyEkUrK",
+        "bIHbv24MWmeRgasZH58o",
         "hpp4J3VqNfWAUOO0d1Us",
-        "cjVigY5qzO86Huf0OWal",
-        "Z3R5wn05IrDiVCyEkUrK"
+        "cgSgspJ2msm6clMCkdW9",
+        "nPczCjzI2devNBz1zQrb"
       ],
       "usedVoiceNames": [
+        "Callum",
+        "Arabella",
+        "Will",
         "Bella",
-        "Eric",
-        "Arabella"
+        "Jessica",
+        "Brian"
       ],
       "usedTags": [
         "friendly",
         "excited",
-        "playful"
+        "playful",
+        "cheerful",
+        "encouraging"
       ],
       "usedPhrases": [
-        "Chanha's turn!",
-        "It's Chanha's turn!",
-        "Your turn, Chanha!"
-      ]
-    },
-    "Danny": {
-      "slug": "danny",
+        "Danny's turn!",
+        "It's Danny's turn!",
+        "Your turn, Danny!",
+        "You're up, Danny!",
+        "Ready, Danny? It's your turn!",
+        "Go for it, Danny!"
+      ],
       "files": [
         "audio/players/danny_v1.mp3",
         "audio/players/danny_v2.mp3",
-        "audio/players/danny_v3.mp3"
+        "audio/players/danny_v3.mp3",
+        "audio/players/danny_v4.mp3",
+        "audio/players/danny_v5.mp3",
+        "audio/players/danny_v6.mp3"
       ],
       "variations": [
         {
@@ -259,36 +453,89 @@
             "name": "Will",
             "gender": "MALE"
           }
+        },
+        {
+          "version": 4,
+          "style": "cheerful",
+          "tag": "cheerful",
+          "phrase": "You're up, Danny!",
+          "text": "[cheerful] You're up, Danny!",
+          "file": "danny_v4.mp3",
+          "voice": {
+            "id": "hpp4J3VqNfWAUOO0d1Us",
+            "name": "Bella",
+            "gender": "FEMALE"
+          }
+        },
+        {
+          "version": 5,
+          "style": "natural",
+          "tag": null,
+          "phrase": "Ready, Danny? It's your turn!",
+          "text": "Ready, Danny? It's your turn!",
+          "file": "danny_v5.mp3",
+          "voice": {
+            "id": "cgSgspJ2msm6clMCkdW9",
+            "name": "Jessica",
+            "gender": "FEMALE"
+          }
+        },
+        {
+          "version": 6,
+          "style": "encouraging",
+          "tag": "encouraging",
+          "phrase": "Go for it, Danny!",
+          "text": "[encouraging] Go for it, Danny!",
+          "file": "danny_v6.mp3",
+          "voice": {
+            "id": "nPczCjzI2devNBz1zQrb",
+            "name": "Brian",
+            "gender": "MALE"
+          }
         }
-      ],
-      "studentName": "Danny",
+      ]
+    },
+    "Doyoon": {
+      "studentName": "Doyoon",
+      "slug": "doyoon",
       "usedVoiceIds": [
-        "N2lVS1w4EtoT3dr4eOWO",
-        "Z3R5wn05IrDiVCyEkUrK",
-        "bIHbv24MWmeRgasZH58o"
+        "EXAVITQu4vr4xnSDxMaL",
+        "bIHbv24MWmeRgasZH58o",
+        "XrExE9yKIg1WjnnlVkGX",
+        "iP95p4xoKVk53GoZ742B",
+        "FGY2WhTYpPnrIDTdsKH5",
+        "pqHfZKP75CvOlQylNhV4"
       ],
       "usedVoiceNames": [
-        "Callum",
-        "Arabella",
-        "Will"
+        "Sarah",
+        "Will",
+        "Matilda",
+        "Chris",
+        "Laura",
+        "Bill"
       ],
       "usedTags": [
         "friendly",
         "excited",
-        "playful"
+        "playful",
+        "cheerful",
+        "encouraging"
       ],
       "usedPhrases": [
-        "Danny's turn!",
-        "It's Danny's turn!",
-        "Your turn, Danny!"
-      ]
-    },
-    "Doyoon": {
-      "slug": "doyoon",
+        "Doyoon's turn!",
+        "It's Doyoon's turn!",
+        "Your turn, Doyoon!",
+        "You're up, Doyoon!",
+        "Ready, Doyoon? It's your turn!",
+        "Go for it, Doyoon!"
+      ],
       "files": [
         "audio/players/doyoon_v1.mp3",
         "audio/players/doyoon_v2.mp3",
-        "audio/players/doyoon_v3.mp3"
+        "audio/players/doyoon_v3.mp3",
+        "audio/players/doyoon_v4.mp3",
+        "audio/players/doyoon_v5.mp3",
+        "audio/players/doyoon_v6.mp3"
       ],
       "variations": [
         {
@@ -329,36 +576,89 @@
             "name": "Matilda",
             "gender": "FEMALE"
           }
+        },
+        {
+          "version": 4,
+          "style": "cheerful",
+          "tag": "cheerful",
+          "phrase": "You're up, Doyoon!",
+          "text": "[cheerful] You're up, Doyoon!",
+          "file": "doyoon_v4.mp3",
+          "voice": {
+            "id": "iP95p4xoKVk53GoZ742B",
+            "name": "Chris",
+            "gender": "MALE"
+          }
+        },
+        {
+          "version": 5,
+          "style": "natural",
+          "tag": null,
+          "phrase": "Ready, Doyoon? It's your turn!",
+          "text": "Ready, Doyoon? It's your turn!",
+          "file": "doyoon_v5.mp3",
+          "voice": {
+            "id": "FGY2WhTYpPnrIDTdsKH5",
+            "name": "Laura",
+            "gender": "FEMALE"
+          }
+        },
+        {
+          "version": 6,
+          "style": "encouraging",
+          "tag": "encouraging",
+          "phrase": "Go for it, Doyoon!",
+          "text": "[encouraging] Go for it, Doyoon!",
+          "file": "doyoon_v6.mp3",
+          "voice": {
+            "id": "pqHfZKP75CvOlQylNhV4",
+            "name": "Bill",
+            "gender": "MALE"
+          }
         }
-      ],
-      "studentName": "Doyoon",
+      ]
+    },
+    "Felix": {
+      "studentName": "Felix",
+      "slug": "felix",
       "usedVoiceIds": [
+        "TX3LPaxmHKxFdv7VOQHJ",
+        "XrExE9yKIg1WjnnlVkGX",
+        "iP95p4xoKVk53GoZ742B",
         "EXAVITQu4vr4xnSDxMaL",
-        "bIHbv24MWmeRgasZH58o",
-        "XrExE9yKIg1WjnnlVkGX"
+        "hpp4J3VqNfWAUOO0d1Us",
+        "CwhRBWXzGAHq8TQ4Fs17"
       ],
       "usedVoiceNames": [
+        "Liam",
+        "Matilda",
+        "Chris",
         "Sarah",
-        "Will",
-        "Matilda"
+        "Bella",
+        "Roger"
       ],
       "usedTags": [
         "friendly",
         "excited",
-        "playful"
+        "playful",
+        "cheerful",
+        "encouraging"
       ],
       "usedPhrases": [
-        "Doyoon's turn!",
-        "It's Doyoon's turn!",
-        "Your turn, Doyoon!"
-      ]
-    },
-    "Felix": {
-      "slug": "felix",
+        "Felix's turn!",
+        "It's Felix's turn!",
+        "Your turn, Felix!",
+        "You're up, Felix!",
+        "Ready, Felix? It's your turn!",
+        "Go for it, Felix!"
+      ],
       "files": [
         "audio/players/felix_v1.mp3",
         "audio/players/felix_v2.mp3",
-        "audio/players/felix_v3.mp3"
+        "audio/players/felix_v3.mp3",
+        "audio/players/felix_v4.mp3",
+        "audio/players/felix_v5.mp3",
+        "audio/players/felix_v6.mp3"
       ],
       "variations": [
         {
@@ -399,36 +699,89 @@
             "name": "Chris",
             "gender": "MALE"
           }
+        },
+        {
+          "version": 4,
+          "style": "cheerful",
+          "tag": "cheerful",
+          "phrase": "You're up, Felix!",
+          "text": "[cheerful] You're up, Felix!",
+          "file": "felix_v4.mp3",
+          "voice": {
+            "id": "EXAVITQu4vr4xnSDxMaL",
+            "name": "Sarah",
+            "gender": "FEMALE"
+          }
+        },
+        {
+          "version": 5,
+          "style": "natural",
+          "tag": null,
+          "phrase": "Ready, Felix? It's your turn!",
+          "text": "Ready, Felix? It's your turn!",
+          "file": "felix_v5.mp3",
+          "voice": {
+            "id": "hpp4J3VqNfWAUOO0d1Us",
+            "name": "Bella",
+            "gender": "FEMALE"
+          }
+        },
+        {
+          "version": 6,
+          "style": "encouraging",
+          "tag": "encouraging",
+          "phrase": "Go for it, Felix!",
+          "text": "[encouraging] Go for it, Felix!",
+          "file": "felix_v6.mp3",
+          "voice": {
+            "id": "CwhRBWXzGAHq8TQ4Fs17",
+            "name": "Roger",
+            "gender": "MALE"
+          }
         }
-      ],
-      "studentName": "Felix",
+      ]
+    },
+    "Gaon": {
+      "studentName": "Gaon",
+      "slug": "gaon",
       "usedVoiceIds": [
-        "TX3LPaxmHKxFdv7VOQHJ",
+        "cgSgspJ2msm6clMCkdW9",
+        "iP95p4xoKVk53GoZ742B",
+        "FGY2WhTYpPnrIDTdsKH5",
+        "bIHbv24MWmeRgasZH58o",
         "XrExE9yKIg1WjnnlVkGX",
-        "iP95p4xoKVk53GoZ742B"
+        "TX3LPaxmHKxFdv7VOQHJ"
       ],
       "usedVoiceNames": [
-        "Liam",
+        "Jessica",
+        "Chris",
+        "Laura",
+        "Will",
         "Matilda",
-        "Chris"
+        "Liam"
       ],
       "usedTags": [
         "friendly",
         "excited",
-        "playful"
+        "playful",
+        "cheerful",
+        "encouraging"
       ],
       "usedPhrases": [
-        "Felix's turn!",
-        "It's Felix's turn!",
-        "Your turn, Felix!"
-      ]
-    },
-    "Gaon": {
-      "slug": "gaon",
+        "Gaon's turn!",
+        "It's Gaon's turn!",
+        "Your turn, Gaon!",
+        "You're up, Gaon!",
+        "Ready, Gaon? It's your turn!",
+        "Go for it, Gaon!"
+      ],
       "files": [
         "audio/players/gaon_v1.mp3",
         "audio/players/gaon_v2.mp3",
-        "audio/players/gaon_v3.mp3"
+        "audio/players/gaon_v3.mp3",
+        "audio/players/gaon_v4.mp3",
+        "audio/players/gaon_v5.mp3",
+        "audio/players/gaon_v6.mp3"
       ],
       "variations": [
         {
@@ -469,36 +822,89 @@
             "name": "Laura",
             "gender": "FEMALE"
           }
+        },
+        {
+          "version": 4,
+          "style": "cheerful",
+          "tag": "cheerful",
+          "phrase": "You're up, Gaon!",
+          "text": "[cheerful] You're up, Gaon!",
+          "file": "gaon_v4.mp3",
+          "voice": {
+            "id": "bIHbv24MWmeRgasZH58o",
+            "name": "Will",
+            "gender": "MALE"
+          }
+        },
+        {
+          "version": 5,
+          "style": "natural",
+          "tag": null,
+          "phrase": "Ready, Gaon? It's your turn!",
+          "text": "Ready, Gaon? It's your turn!",
+          "file": "gaon_v5.mp3",
+          "voice": {
+            "id": "XrExE9yKIg1WjnnlVkGX",
+            "name": "Matilda",
+            "gender": "FEMALE"
+          }
+        },
+        {
+          "version": 6,
+          "style": "encouraging",
+          "tag": "encouraging",
+          "phrase": "Go for it, Gaon!",
+          "text": "[encouraging] Go for it, Gaon!",
+          "file": "gaon_v6.mp3",
+          "voice": {
+            "id": "TX3LPaxmHKxFdv7VOQHJ",
+            "name": "Liam",
+            "gender": "MALE"
+          }
         }
-      ],
-      "studentName": "Gaon",
+      ]
+    },
+    "Geonwoo": {
+      "studentName": "Geonwoo",
+      "slug": "geonwoo",
       "usedVoiceIds": [
+        "cjVigY5qzO86Huf0OWal",
+        "FGY2WhTYpPnrIDTdsKH5",
+        "N2lVS1w4EtoT3dr4eOWO",
+        "hpp4J3VqNfWAUOO0d1Us",
         "cgSgspJ2msm6clMCkdW9",
-        "iP95p4xoKVk53GoZ742B",
-        "FGY2WhTYpPnrIDTdsKH5"
+        "iP95p4xoKVk53GoZ742B"
       ],
       "usedVoiceNames": [
+        "Eric",
+        "Laura",
+        "Callum",
+        "Bella",
         "Jessica",
-        "Chris",
-        "Laura"
+        "Chris"
       ],
       "usedTags": [
         "friendly",
         "excited",
-        "playful"
+        "playful",
+        "cheerful",
+        "encouraging"
       ],
       "usedPhrases": [
-        "Gaon's turn!",
-        "It's Gaon's turn!",
-        "Your turn, Gaon!"
-      ]
-    },
-    "Geonwoo": {
-      "slug": "geonwoo",
+        "Geonwoo's turn!",
+        "It's Geonwoo's turn!",
+        "Your turn, Geonwoo!",
+        "You're up, Geonwoo!",
+        "Ready, Geonwoo? It's your turn!",
+        "Go for it, Geonwoo!"
+      ],
       "files": [
         "audio/players/geonwoo_v1.mp3",
         "audio/players/geonwoo_v2.mp3",
-        "audio/players/geonwoo_v3.mp3"
+        "audio/players/geonwoo_v3.mp3",
+        "audio/players/geonwoo_v4.mp3",
+        "audio/players/geonwoo_v5.mp3",
+        "audio/players/geonwoo_v6.mp3"
       ],
       "variations": [
         {
@@ -539,36 +945,89 @@
             "name": "Callum",
             "gender": "MALE"
           }
+        },
+        {
+          "version": 4,
+          "style": "cheerful",
+          "tag": "cheerful",
+          "phrase": "You're up, Geonwoo!",
+          "text": "[cheerful] You're up, Geonwoo!",
+          "file": "geonwoo_v4.mp3",
+          "voice": {
+            "id": "hpp4J3VqNfWAUOO0d1Us",
+            "name": "Bella",
+            "gender": "FEMALE"
+          }
+        },
+        {
+          "version": 5,
+          "style": "natural",
+          "tag": null,
+          "phrase": "Ready, Geonwoo? It's your turn!",
+          "text": "Ready, Geonwoo? It's your turn!",
+          "file": "geonwoo_v5.mp3",
+          "voice": {
+            "id": "cgSgspJ2msm6clMCkdW9",
+            "name": "Jessica",
+            "gender": "FEMALE"
+          }
+        },
+        {
+          "version": 6,
+          "style": "encouraging",
+          "tag": "encouraging",
+          "phrase": "Go for it, Geonwoo!",
+          "text": "[encouraging] Go for it, Geonwoo!",
+          "file": "geonwoo_v6.mp3",
+          "voice": {
+            "id": "iP95p4xoKVk53GoZ742B",
+            "name": "Chris",
+            "gender": "MALE"
+          }
         }
-      ],
-      "studentName": "Geonwoo",
+      ]
+    },
+    "Hanyul": {
+      "studentName": "Hanyul",
+      "slug": "hanyul",
       "usedVoiceIds": [
-        "cjVigY5qzO86Huf0OWal",
+        "hpp4J3VqNfWAUOO0d1Us",
+        "N2lVS1w4EtoT3dr4eOWO",
+        "Z3R5wn05IrDiVCyEkUrK",
+        "pqHfZKP75CvOlQylNhV4",
         "FGY2WhTYpPnrIDTdsKH5",
-        "N2lVS1w4EtoT3dr4eOWO"
+        "cjVigY5qzO86Huf0OWal"
       ],
       "usedVoiceNames": [
-        "Eric",
+        "Bella",
+        "Callum",
+        "Arabella",
+        "Bill",
         "Laura",
-        "Callum"
+        "Eric"
       ],
       "usedTags": [
         "friendly",
         "excited",
-        "playful"
+        "playful",
+        "cheerful",
+        "encouraging"
       ],
       "usedPhrases": [
-        "Geonwoo's turn!",
-        "It's Geonwoo's turn!",
-        "Your turn, Geonwoo!"
-      ]
-    },
-    "Hanyul": {
-      "slug": "hanyul",
+        "Hanyul's turn!",
+        "It's Hanyul's turn!",
+        "Your turn, Hanyul!",
+        "You're up, Hanyul!",
+        "Ready, Hanyul? It's your turn!",
+        "Go for it, Hanyul!"
+      ],
       "files": [
         "audio/players/hanyul_v1.mp3",
         "audio/players/hanyul_v2.mp3",
-        "audio/players/hanyul_v3.mp3"
+        "audio/players/hanyul_v3.mp3",
+        "audio/players/hanyul_v4.mp3",
+        "audio/players/hanyul_v5.mp3",
+        "audio/players/hanyul_v6.mp3"
       ],
       "variations": [
         {
@@ -609,36 +1068,89 @@
             "name": "Arabella",
             "gender": "FEMALE"
           }
+        },
+        {
+          "version": 4,
+          "style": "cheerful",
+          "tag": "cheerful",
+          "phrase": "You're up, Hanyul!",
+          "text": "[cheerful] You're up, Hanyul!",
+          "file": "hanyul_v4.mp3",
+          "voice": {
+            "id": "pqHfZKP75CvOlQylNhV4",
+            "name": "Bill",
+            "gender": "MALE"
+          }
+        },
+        {
+          "version": 5,
+          "style": "natural",
+          "tag": null,
+          "phrase": "Ready, Hanyul? It's your turn!",
+          "text": "Ready, Hanyul? It's your turn!",
+          "file": "hanyul_v5.mp3",
+          "voice": {
+            "id": "FGY2WhTYpPnrIDTdsKH5",
+            "name": "Laura",
+            "gender": "FEMALE"
+          }
+        },
+        {
+          "version": 6,
+          "style": "encouraging",
+          "tag": "encouraging",
+          "phrase": "Go for it, Hanyul!",
+          "text": "[encouraging] Go for it, Hanyul!",
+          "file": "hanyul_v6.mp3",
+          "voice": {
+            "id": "cjVigY5qzO86Huf0OWal",
+            "name": "Eric",
+            "gender": "MALE"
+          }
         }
-      ],
-      "studentName": "Hanyul",
+      ]
+    },
+    "Henry": {
+      "studentName": "Henry",
+      "slug": "henry",
       "usedVoiceIds": [
+        "bIHbv24MWmeRgasZH58o",
+        "Z3R5wn05IrDiVCyEkUrK",
+        "TX3LPaxmHKxFdv7VOQHJ",
+        "EXAVITQu4vr4xnSDxMaL",
         "hpp4J3VqNfWAUOO0d1Us",
-        "N2lVS1w4EtoT3dr4eOWO",
-        "Z3R5wn05IrDiVCyEkUrK"
+        "nPczCjzI2devNBz1zQrb"
       ],
       "usedVoiceNames": [
+        "Will",
+        "Arabella",
+        "Liam",
+        "Sarah",
         "Bella",
-        "Callum",
-        "Arabella"
+        "Brian"
       ],
       "usedTags": [
         "friendly",
         "excited",
-        "playful"
+        "playful",
+        "cheerful",
+        "encouraging"
       ],
       "usedPhrases": [
-        "Hanyul's turn!",
-        "It's Hanyul's turn!",
-        "Your turn, Hanyul!"
-      ]
-    },
-    "Henry": {
-      "slug": "henry",
+        "Henry's turn!",
+        "It's Henry's turn!",
+        "Your turn, Henry!",
+        "You're up, Henry!",
+        "Ready, Henry? It's your turn!",
+        "Go for it, Henry!"
+      ],
       "files": [
         "audio/players/henry_v1.mp3",
         "audio/players/henry_v2.mp3",
-        "audio/players/henry_v3.mp3"
+        "audio/players/henry_v3.mp3",
+        "audio/players/henry_v4.mp3",
+        "audio/players/henry_v5.mp3",
+        "audio/players/henry_v6.mp3"
       ],
       "variations": [
         {
@@ -679,36 +1191,89 @@
             "name": "Liam",
             "gender": "MALE"
           }
+        },
+        {
+          "version": 4,
+          "style": "cheerful",
+          "tag": "cheerful",
+          "phrase": "You're up, Henry!",
+          "text": "[cheerful] You're up, Henry!",
+          "file": "henry_v4.mp3",
+          "voice": {
+            "id": "EXAVITQu4vr4xnSDxMaL",
+            "name": "Sarah",
+            "gender": "FEMALE"
+          }
+        },
+        {
+          "version": 5,
+          "style": "natural",
+          "tag": null,
+          "phrase": "Ready, Henry? It's your turn!",
+          "text": "Ready, Henry? It's your turn!",
+          "file": "henry_v5.mp3",
+          "voice": {
+            "id": "hpp4J3VqNfWAUOO0d1Us",
+            "name": "Bella",
+            "gender": "FEMALE"
+          }
+        },
+        {
+          "version": 6,
+          "style": "encouraging",
+          "tag": "encouraging",
+          "phrase": "Go for it, Henry!",
+          "text": "[encouraging] Go for it, Henry!",
+          "file": "henry_v6.mp3",
+          "voice": {
+            "id": "nPczCjzI2devNBz1zQrb",
+            "name": "Brian",
+            "gender": "MALE"
+          }
         }
-      ],
-      "studentName": "Henry",
+      ]
+    },
+    "Ihan": {
+      "studentName": "Ihan",
+      "slug": "ihan",
       "usedVoiceIds": [
-        "bIHbv24MWmeRgasZH58o",
+        "EXAVITQu4vr4xnSDxMaL",
+        "TX3LPaxmHKxFdv7VOQHJ",
+        "XrExE9yKIg1WjnnlVkGX",
+        "iP95p4xoKVk53GoZ742B",
         "Z3R5wn05IrDiVCyEkUrK",
-        "TX3LPaxmHKxFdv7VOQHJ"
+        "pqHfZKP75CvOlQylNhV4"
       ],
       "usedVoiceNames": [
-        "Will",
+        "Sarah",
+        "Liam",
+        "Matilda",
+        "Chris",
         "Arabella",
-        "Liam"
+        "Bill"
       ],
       "usedTags": [
         "friendly",
         "excited",
-        "playful"
+        "playful",
+        "cheerful",
+        "encouraging"
       ],
       "usedPhrases": [
-        "Henry's turn!",
-        "It's Henry's turn!",
-        "Your turn, Henry!"
-      ]
-    },
-    "Ihan": {
-      "slug": "ihan",
+        "Ihan's turn!",
+        "It's Ihan's turn!",
+        "Your turn, Ihan!",
+        "You're up, Ihan!",
+        "Ready, Ihan? It's your turn!",
+        "Go for it, Ihan!"
+      ],
       "files": [
         "audio/players/ihan_v1.mp3",
         "audio/players/ihan_v2.mp3",
-        "audio/players/ihan_v3.mp3"
+        "audio/players/ihan_v3.mp3",
+        "audio/players/ihan_v4.mp3",
+        "audio/players/ihan_v5.mp3",
+        "audio/players/ihan_v6.mp3"
       ],
       "variations": [
         {
@@ -749,36 +1314,89 @@
             "name": "Matilda",
             "gender": "FEMALE"
           }
+        },
+        {
+          "version": 4,
+          "style": "cheerful",
+          "tag": "cheerful",
+          "phrase": "You're up, Ihan!",
+          "text": "[cheerful] You're up, Ihan!",
+          "file": "ihan_v4.mp3",
+          "voice": {
+            "id": "iP95p4xoKVk53GoZ742B",
+            "name": "Chris",
+            "gender": "MALE"
+          }
+        },
+        {
+          "version": 5,
+          "style": "natural",
+          "tag": null,
+          "phrase": "Ready, Ihan? It's your turn!",
+          "text": "Ready, Ihan? It's your turn!",
+          "file": "ihan_v5.mp3",
+          "voice": {
+            "id": "Z3R5wn05IrDiVCyEkUrK",
+            "name": "Arabella",
+            "gender": "FEMALE"
+          }
+        },
+        {
+          "version": 6,
+          "style": "encouraging",
+          "tag": "encouraging",
+          "phrase": "Go for it, Ihan!",
+          "text": "[encouraging] Go for it, Ihan!",
+          "file": "ihan_v6.mp3",
+          "voice": {
+            "id": "pqHfZKP75CvOlQylNhV4",
+            "name": "Bill",
+            "gender": "MALE"
+          }
         }
-      ],
-      "studentName": "Ihan",
+      ]
+    },
+    "Jinhyeok": {
+      "studentName": "Jinhyeok",
+      "slug": "jinhyeok",
       "usedVoiceIds": [
-        "EXAVITQu4vr4xnSDxMaL",
-        "TX3LPaxmHKxFdv7VOQHJ",
-        "XrExE9yKIg1WjnnlVkGX"
+        "iP95p4xoKVk53GoZ742B",
+        "XrExE9yKIg1WjnnlVkGX",
+        "cjVigY5qzO86Huf0OWal",
+        "cgSgspJ2msm6clMCkdW9",
+        "FGY2WhTYpPnrIDTdsKH5",
+        "CwhRBWXzGAHq8TQ4Fs17"
       ],
       "usedVoiceNames": [
-        "Sarah",
-        "Liam",
-        "Matilda"
+        "Chris",
+        "Matilda",
+        "Eric",
+        "Jessica",
+        "Laura",
+        "Roger"
       ],
       "usedTags": [
         "friendly",
         "excited",
-        "playful"
+        "playful",
+        "cheerful",
+        "encouraging"
       ],
       "usedPhrases": [
-        "Ihan's turn!",
-        "It's Ihan's turn!",
-        "Your turn, Ihan!"
-      ]
-    },
-    "Jinhyeok": {
-      "slug": "jinhyeok",
+        "Jinhyeok's turn!",
+        "It's Jinhyeok's turn!",
+        "Your turn, Jinhyeok!",
+        "You're up, Jinhyeok!",
+        "Ready, Jinhyeok? It's your turn!",
+        "Go for it, Jinhyeok!"
+      ],
       "files": [
         "audio/players/jinhyeok_v1.mp3",
         "audio/players/jinhyeok_v2.mp3",
-        "audio/players/jinhyeok_v3.mp3"
+        "audio/players/jinhyeok_v3.mp3",
+        "audio/players/jinhyeok_v4.mp3",
+        "audio/players/jinhyeok_v5.mp3",
+        "audio/players/jinhyeok_v6.mp3"
       ],
       "variations": [
         {
@@ -819,36 +1437,89 @@
             "name": "Eric",
             "gender": "MALE"
           }
+        },
+        {
+          "version": 4,
+          "style": "cheerful",
+          "tag": "cheerful",
+          "phrase": "You're up, Jinhyeok!",
+          "text": "[cheerful] You're up, Jinhyeok!",
+          "file": "jinhyeok_v4.mp3",
+          "voice": {
+            "id": "cgSgspJ2msm6clMCkdW9",
+            "name": "Jessica",
+            "gender": "FEMALE"
+          }
+        },
+        {
+          "version": 5,
+          "style": "natural",
+          "tag": null,
+          "phrase": "Ready, Jinhyeok? It's your turn!",
+          "text": "Ready, Jinhyeok? It's your turn!",
+          "file": "jinhyeok_v5.mp3",
+          "voice": {
+            "id": "FGY2WhTYpPnrIDTdsKH5",
+            "name": "Laura",
+            "gender": "FEMALE"
+          }
+        },
+        {
+          "version": 6,
+          "style": "encouraging",
+          "tag": "encouraging",
+          "phrase": "Go for it, Jinhyeok!",
+          "text": "[encouraging] Go for it, Jinhyeok!",
+          "file": "jinhyeok_v6.mp3",
+          "voice": {
+            "id": "CwhRBWXzGAHq8TQ4Fs17",
+            "name": "Roger",
+            "gender": "MALE"
+          }
         }
-      ],
-      "studentName": "Jinhyeok",
+      ]
+    },
+    "Joe": {
+      "studentName": "Joe",
+      "slug": "joe",
       "usedVoiceIds": [
-        "iP95p4xoKVk53GoZ742B",
-        "XrExE9yKIg1WjnnlVkGX",
-        "cjVigY5qzO86Huf0OWal"
+        "cgSgspJ2msm6clMCkdW9",
+        "cjVigY5qzO86Huf0OWal",
+        "FGY2WhTYpPnrIDTdsKH5",
+        "N2lVS1w4EtoT3dr4eOWO",
+        "Z3R5wn05IrDiVCyEkUrK",
+        "TX3LPaxmHKxFdv7VOQHJ"
       ],
       "usedVoiceNames": [
-        "Chris",
-        "Matilda",
-        "Eric"
+        "Jessica",
+        "Eric",
+        "Laura",
+        "Callum",
+        "Arabella",
+        "Liam"
       ],
       "usedTags": [
         "friendly",
         "excited",
-        "playful"
+        "playful",
+        "cheerful",
+        "encouraging"
       ],
       "usedPhrases": [
-        "Jinhyeok's turn!",
-        "It's Jinhyeok's turn!",
-        "Your turn, Jinhyeok!"
-      ]
-    },
-    "Joe": {
-      "slug": "joe",
+        "Joe's turn!",
+        "It's Joe's turn!",
+        "Your turn, Joe!",
+        "You're up, Joe!",
+        "Ready, Joe? It's your turn!",
+        "Go for it, Joe!"
+      ],
       "files": [
         "audio/players/joe_v1.mp3",
         "audio/players/joe_v2.mp3",
-        "audio/players/joe_v3.mp3"
+        "audio/players/joe_v3.mp3",
+        "audio/players/joe_v4.mp3",
+        "audio/players/joe_v5.mp3",
+        "audio/players/joe_v6.mp3"
       ],
       "variations": [
         {
@@ -889,36 +1560,89 @@
             "name": "Laura",
             "gender": "FEMALE"
           }
+        },
+        {
+          "version": 4,
+          "style": "cheerful",
+          "tag": "cheerful",
+          "phrase": "You're up, Joe!",
+          "text": "[cheerful] You're up, Joe!",
+          "file": "joe_v4.mp3",
+          "voice": {
+            "id": "N2lVS1w4EtoT3dr4eOWO",
+            "name": "Callum",
+            "gender": "MALE"
+          }
+        },
+        {
+          "version": 5,
+          "style": "natural",
+          "tag": null,
+          "phrase": "Ready, Joe? It's your turn!",
+          "text": "Ready, Joe? It's your turn!",
+          "file": "joe_v5.mp3",
+          "voice": {
+            "id": "Z3R5wn05IrDiVCyEkUrK",
+            "name": "Arabella",
+            "gender": "FEMALE"
+          }
+        },
+        {
+          "version": 6,
+          "style": "encouraging",
+          "tag": "encouraging",
+          "phrase": "Go for it, Joe!",
+          "text": "[encouraging] Go for it, Joe!",
+          "file": "joe_v6.mp3",
+          "voice": {
+            "id": "TX3LPaxmHKxFdv7VOQHJ",
+            "name": "Liam",
+            "gender": "MALE"
+          }
         }
-      ],
-      "studentName": "Joe",
+      ]
+    },
+    "Juni": {
+      "studentName": "Juni",
+      "slug": "juni",
       "usedVoiceIds": [
-        "cgSgspJ2msm6clMCkdW9",
-        "cjVigY5qzO86Huf0OWal",
-        "FGY2WhTYpPnrIDTdsKH5"
+        "N2lVS1w4EtoT3dr4eOWO",
+        "FGY2WhTYpPnrIDTdsKH5",
+        "bIHbv24MWmeRgasZH58o",
+        "Z3R5wn05IrDiVCyEkUrK",
+        "EXAVITQu4vr4xnSDxMaL",
+        "iP95p4xoKVk53GoZ742B"
       ],
       "usedVoiceNames": [
-        "Jessica",
-        "Eric",
-        "Laura"
+        "Callum",
+        "Laura",
+        "Will",
+        "Arabella",
+        "Sarah",
+        "Chris"
       ],
       "usedTags": [
         "friendly",
         "excited",
-        "playful"
+        "playful",
+        "cheerful",
+        "encouraging"
       ],
       "usedPhrases": [
-        "Joe's turn!",
-        "It's Joe's turn!",
-        "Your turn, Joe!"
-      ]
-    },
-    "Juni": {
-      "slug": "juni",
+        "Juni's turn!",
+        "It's Juni's turn!",
+        "Your turn, Juni!",
+        "You're up, Juni!",
+        "Ready, Juni? It's your turn!",
+        "Go for it, Juni!"
+      ],
       "files": [
         "audio/players/juni_v1.mp3",
         "audio/players/juni_v2.mp3",
-        "audio/players/juni_v3.mp3"
+        "audio/players/juni_v3.mp3",
+        "audio/players/juni_v4.mp3",
+        "audio/players/juni_v5.mp3",
+        "audio/players/juni_v6.mp3"
       ],
       "variations": [
         {
@@ -959,36 +1683,89 @@
             "name": "Will",
             "gender": "MALE"
           }
+        },
+        {
+          "version": 4,
+          "style": "cheerful",
+          "tag": "cheerful",
+          "phrase": "You're up, Juni!",
+          "text": "[cheerful] You're up, Juni!",
+          "file": "juni_v4.mp3",
+          "voice": {
+            "id": "Z3R5wn05IrDiVCyEkUrK",
+            "name": "Arabella",
+            "gender": "FEMALE"
+          }
+        },
+        {
+          "version": 5,
+          "style": "natural",
+          "tag": null,
+          "phrase": "Ready, Juni? It's your turn!",
+          "text": "Ready, Juni? It's your turn!",
+          "file": "juni_v5.mp3",
+          "voice": {
+            "id": "EXAVITQu4vr4xnSDxMaL",
+            "name": "Sarah",
+            "gender": "FEMALE"
+          }
+        },
+        {
+          "version": 6,
+          "style": "encouraging",
+          "tag": "encouraging",
+          "phrase": "Go for it, Juni!",
+          "text": "[encouraging] Go for it, Juni!",
+          "file": "juni_v6.mp3",
+          "voice": {
+            "id": "iP95p4xoKVk53GoZ742B",
+            "name": "Chris",
+            "gender": "MALE"
+          }
         }
-      ],
-      "studentName": "Juni",
+      ]
+    },
+    "Kai": {
+      "studentName": "Kai",
+      "slug": "kai",
       "usedVoiceIds": [
-        "N2lVS1w4EtoT3dr4eOWO",
-        "FGY2WhTYpPnrIDTdsKH5",
-        "bIHbv24MWmeRgasZH58o"
+        "hpp4J3VqNfWAUOO0d1Us",
+        "bIHbv24MWmeRgasZH58o",
+        "Z3R5wn05IrDiVCyEkUrK",
+        "nPczCjzI2devNBz1zQrb",
+        "XrExE9yKIg1WjnnlVkGX",
+        "cjVigY5qzO86Huf0OWal"
       ],
       "usedVoiceNames": [
-        "Callum",
-        "Laura",
-        "Will"
+        "Bella",
+        "Will",
+        "Arabella",
+        "Brian",
+        "Matilda",
+        "Eric"
       ],
       "usedTags": [
         "friendly",
         "excited",
-        "playful"
+        "playful",
+        "cheerful",
+        "encouraging"
       ],
       "usedPhrases": [
-        "Juni's turn!",
-        "It's Juni's turn!",
-        "Your turn, Juni!"
-      ]
-    },
-    "Kai": {
-      "slug": "kai",
+        "Kai's turn!",
+        "It's Kai's turn!",
+        "Your turn, Kai!",
+        "You're up, Kai!",
+        "Ready, Kai? It's your turn!",
+        "Go for it, Kai!"
+      ],
       "files": [
         "audio/players/kai_v1.mp3",
         "audio/players/kai_v2.mp3",
-        "audio/players/kai_v3.mp3"
+        "audio/players/kai_v3.mp3",
+        "audio/players/kai_v4.mp3",
+        "audio/players/kai_v5.mp3",
+        "audio/players/kai_v6.mp3"
       ],
       "variations": [
         {
@@ -1029,36 +1806,89 @@
             "name": "Arabella",
             "gender": "FEMALE"
           }
+        },
+        {
+          "version": 4,
+          "style": "cheerful",
+          "tag": "cheerful",
+          "phrase": "You're up, Kai!",
+          "text": "[cheerful] You're up, Kai!",
+          "file": "kai_v4.mp3",
+          "voice": {
+            "id": "nPczCjzI2devNBz1zQrb",
+            "name": "Brian",
+            "gender": "MALE"
+          }
+        },
+        {
+          "version": 5,
+          "style": "natural",
+          "tag": null,
+          "phrase": "Ready, Kai? It's your turn!",
+          "text": "Ready, Kai? It's your turn!",
+          "file": "kai_v5.mp3",
+          "voice": {
+            "id": "XrExE9yKIg1WjnnlVkGX",
+            "name": "Matilda",
+            "gender": "FEMALE"
+          }
+        },
+        {
+          "version": 6,
+          "style": "encouraging",
+          "tag": "encouraging",
+          "phrase": "Go for it, Kai!",
+          "text": "[encouraging] Go for it, Kai!",
+          "file": "kai_v6.mp3",
+          "voice": {
+            "id": "cjVigY5qzO86Huf0OWal",
+            "name": "Eric",
+            "gender": "MALE"
+          }
         }
-      ],
-      "studentName": "Kai",
+      ]
+    },
+    "Lucas": {
+      "studentName": "Lucas",
+      "slug": "lucas",
       "usedVoiceIds": [
-        "hpp4J3VqNfWAUOO0d1Us",
-        "bIHbv24MWmeRgasZH58o",
-        "Z3R5wn05IrDiVCyEkUrK"
+        "TX3LPaxmHKxFdv7VOQHJ",
+        "Z3R5wn05IrDiVCyEkUrK",
+        "iP95p4xoKVk53GoZ742B",
+        "XrExE9yKIg1WjnnlVkGX",
+        "cgSgspJ2msm6clMCkdW9",
+        "nPczCjzI2devNBz1zQrb"
       ],
       "usedVoiceNames": [
-        "Bella",
-        "Will",
-        "Arabella"
+        "Liam",
+        "Arabella",
+        "Chris",
+        "Matilda",
+        "Jessica",
+        "Brian"
       ],
       "usedTags": [
         "friendly",
         "excited",
-        "playful"
+        "playful",
+        "cheerful",
+        "encouraging"
       ],
       "usedPhrases": [
-        "Kai's turn!",
-        "It's Kai's turn!",
-        "Your turn, Kai!"
-      ]
-    },
-    "Lucas": {
-      "slug": "lucas",
+        "Lucas's turn!",
+        "It's Lucas's turn!",
+        "Your turn, Lucas!",
+        "You're up, Lucas!",
+        "Ready, Lucas? It's your turn!",
+        "Go for it, Lucas!"
+      ],
       "files": [
         "audio/players/lucas_v1.mp3",
         "audio/players/lucas_v2.mp3",
-        "audio/players/lucas_v3.mp3"
+        "audio/players/lucas_v3.mp3",
+        "audio/players/lucas_v4.mp3",
+        "audio/players/lucas_v5.mp3",
+        "audio/players/lucas_v6.mp3"
       ],
       "variations": [
         {
@@ -1099,36 +1929,89 @@
             "name": "Chris",
             "gender": "MALE"
           }
+        },
+        {
+          "version": 4,
+          "style": "cheerful",
+          "tag": "cheerful",
+          "phrase": "You're up, Lucas!",
+          "text": "[cheerful] You're up, Lucas!",
+          "file": "lucas_v4.mp3",
+          "voice": {
+            "id": "XrExE9yKIg1WjnnlVkGX",
+            "name": "Matilda",
+            "gender": "FEMALE"
+          }
+        },
+        {
+          "version": 5,
+          "style": "natural",
+          "tag": null,
+          "phrase": "Ready, Lucas? It's your turn!",
+          "text": "Ready, Lucas? It's your turn!",
+          "file": "lucas_v5.mp3",
+          "voice": {
+            "id": "cgSgspJ2msm6clMCkdW9",
+            "name": "Jessica",
+            "gender": "FEMALE"
+          }
+        },
+        {
+          "version": 6,
+          "style": "encouraging",
+          "tag": "encouraging",
+          "phrase": "Go for it, Lucas!",
+          "text": "[encouraging] Go for it, Lucas!",
+          "file": "lucas_v6.mp3",
+          "voice": {
+            "id": "nPczCjzI2devNBz1zQrb",
+            "name": "Brian",
+            "gender": "MALE"
+          }
         }
-      ],
-      "studentName": "Lucas",
+      ]
+    },
+    "Luna": {
+      "studentName": "Luna",
+      "slug": "luna",
       "usedVoiceIds": [
-        "TX3LPaxmHKxFdv7VOQHJ",
-        "Z3R5wn05IrDiVCyEkUrK",
-        "iP95p4xoKVk53GoZ742B"
+        "EXAVITQu4vr4xnSDxMaL",
+        "iP95p4xoKVk53GoZ742B",
+        "XrExE9yKIg1WjnnlVkGX",
+        "CwhRBWXzGAHq8TQ4Fs17",
+        "FGY2WhTYpPnrIDTdsKH5",
+        "nPczCjzI2devNBz1zQrb"
       ],
       "usedVoiceNames": [
-        "Liam",
-        "Arabella",
-        "Chris"
+        "Sarah",
+        "Chris",
+        "Matilda",
+        "Roger",
+        "Laura",
+        "Brian"
       ],
       "usedTags": [
         "friendly",
         "excited",
-        "playful"
+        "playful",
+        "cheerful",
+        "encouraging"
       ],
       "usedPhrases": [
-        "Lucas's turn!",
-        "It's Lucas's turn!",
-        "Your turn, Lucas!"
-      ]
-    },
-    "Luna": {
-      "slug": "luna",
+        "Luna's turn!",
+        "It's Luna's turn!",
+        "Your turn, Luna!",
+        "You're up, Luna!",
+        "Ready, Luna? It's your turn!",
+        "Go for it, Luna!"
+      ],
       "files": [
         "audio/players/luna_v1.mp3",
         "audio/players/luna_v2.mp3",
-        "audio/players/luna_v3.mp3"
+        "audio/players/luna_v3.mp3",
+        "audio/players/luna_v4.mp3",
+        "audio/players/luna_v5.mp3",
+        "audio/players/luna_v6.mp3"
       ],
       "variations": [
         {
@@ -1169,36 +2052,89 @@
             "name": "Matilda",
             "gender": "FEMALE"
           }
+        },
+        {
+          "version": 4,
+          "style": "cheerful",
+          "tag": "cheerful",
+          "phrase": "You're up, Luna!",
+          "text": "[cheerful] You're up, Luna!",
+          "file": "luna_v4.mp3",
+          "voice": {
+            "id": "CwhRBWXzGAHq8TQ4Fs17",
+            "name": "Roger",
+            "gender": "MALE"
+          }
+        },
+        {
+          "version": 5,
+          "style": "natural",
+          "tag": null,
+          "phrase": "Ready, Luna? It's your turn!",
+          "text": "Ready, Luna? It's your turn!",
+          "file": "luna_v5.mp3",
+          "voice": {
+            "id": "FGY2WhTYpPnrIDTdsKH5",
+            "name": "Laura",
+            "gender": "FEMALE"
+          }
+        },
+        {
+          "version": 6,
+          "style": "encouraging",
+          "tag": "encouraging",
+          "phrase": "Go for it, Luna!",
+          "text": "[encouraging] Go for it, Luna!",
+          "file": "luna_v6.mp3",
+          "voice": {
+            "id": "nPczCjzI2devNBz1zQrb",
+            "name": "Brian",
+            "gender": "MALE"
+          }
         }
-      ],
-      "studentName": "Luna",
+      ]
+    },
+    "Ronaldo": {
+      "studentName": "Ronaldo",
+      "slug": "ronaldo",
       "usedVoiceIds": [
-        "EXAVITQu4vr4xnSDxMaL",
-        "iP95p4xoKVk53GoZ742B",
-        "XrExE9yKIg1WjnnlVkGX"
+        "cjVigY5qzO86Huf0OWal",
+        "XrExE9yKIg1WjnnlVkGX",
+        "N2lVS1w4EtoT3dr4eOWO",
+        "FGY2WhTYpPnrIDTdsKH5",
+        "Z3R5wn05IrDiVCyEkUrK",
+        "CwhRBWXzGAHq8TQ4Fs17"
       ],
       "usedVoiceNames": [
-        "Sarah",
-        "Chris",
-        "Matilda"
+        "Eric",
+        "Matilda",
+        "Callum",
+        "Laura",
+        "Arabella",
+        "Roger"
       ],
       "usedTags": [
         "friendly",
         "excited",
-        "playful"
+        "playful",
+        "cheerful",
+        "encouraging"
       ],
       "usedPhrases": [
-        "Luna's turn!",
-        "It's Luna's turn!",
-        "Your turn, Luna!"
-      ]
-    },
-    "Ronaldo": {
-      "slug": "ronaldo",
+        "Ronaldo's turn!",
+        "It's Ronaldo's turn!",
+        "Your turn, Ronaldo!",
+        "You're up, Ronaldo!",
+        "Ready, Ronaldo? It's your turn!",
+        "Go for it, Ronaldo!"
+      ],
       "files": [
         "audio/players/ronaldo_v1.mp3",
         "audio/players/ronaldo_v2.mp3",
-        "audio/players/ronaldo_v3.mp3"
+        "audio/players/ronaldo_v3.mp3",
+        "audio/players/ronaldo_v4.mp3",
+        "audio/players/ronaldo_v5.mp3",
+        "audio/players/ronaldo_v6.mp3"
       ],
       "variations": [
         {
@@ -1239,36 +2175,89 @@
             "name": "Callum",
             "gender": "MALE"
           }
+        },
+        {
+          "version": 4,
+          "style": "cheerful",
+          "tag": "cheerful",
+          "phrase": "You're up, Ronaldo!",
+          "text": "[cheerful] You're up, Ronaldo!",
+          "file": "ronaldo_v4.mp3",
+          "voice": {
+            "id": "FGY2WhTYpPnrIDTdsKH5",
+            "name": "Laura",
+            "gender": "FEMALE"
+          }
+        },
+        {
+          "version": 5,
+          "style": "natural",
+          "tag": null,
+          "phrase": "Ready, Ronaldo? It's your turn!",
+          "text": "Ready, Ronaldo? It's your turn!",
+          "file": "ronaldo_v5.mp3",
+          "voice": {
+            "id": "Z3R5wn05IrDiVCyEkUrK",
+            "name": "Arabella",
+            "gender": "FEMALE"
+          }
+        },
+        {
+          "version": 6,
+          "style": "encouraging",
+          "tag": "encouraging",
+          "phrase": "Go for it, Ronaldo!",
+          "text": "[encouraging] Go for it, Ronaldo!",
+          "file": "ronaldo_v6.mp3",
+          "voice": {
+            "id": "CwhRBWXzGAHq8TQ4Fs17",
+            "name": "Roger",
+            "gender": "MALE"
+          }
         }
-      ],
-      "studentName": "Ronaldo",
+      ]
+    },
+    "Sarah": {
+      "studentName": "Sarah",
+      "slug": "sarah",
       "usedVoiceIds": [
-        "cjVigY5qzO86Huf0OWal",
+        "cgSgspJ2msm6clMCkdW9",
+        "N2lVS1w4EtoT3dr4eOWO",
+        "FGY2WhTYpPnrIDTdsKH5",
+        "iP95p4xoKVk53GoZ742B",
         "XrExE9yKIg1WjnnlVkGX",
-        "N2lVS1w4EtoT3dr4eOWO"
+        "TX3LPaxmHKxFdv7VOQHJ"
       ],
       "usedVoiceNames": [
-        "Eric",
+        "Jessica",
+        "Callum",
+        "Laura",
+        "Chris",
         "Matilda",
-        "Callum"
+        "Liam"
       ],
       "usedTags": [
         "friendly",
         "excited",
-        "playful"
+        "playful",
+        "cheerful",
+        "encouraging"
       ],
       "usedPhrases": [
-        "Ronaldo's turn!",
-        "It's Ronaldo's turn!",
-        "Your turn, Ronaldo!"
-      ]
-    },
-    "Sarah": {
-      "slug": "sarah",
+        "Sarah's turn!",
+        "It's Sarah's turn!",
+        "Your turn, Sarah!",
+        "You're up, Sarah!",
+        "Ready, Sarah? It's your turn!",
+        "Go for it, Sarah!"
+      ],
       "files": [
         "audio/players/sarah_v1.mp3",
         "audio/players/sarah_v2.mp3",
-        "audio/players/sarah_v3.mp3"
+        "audio/players/sarah_v3.mp3",
+        "audio/players/sarah_v4.mp3",
+        "audio/players/sarah_v5.mp3",
+        "audio/players/sarah_v6.mp3"
       ],
       "variations": [
         {
@@ -1309,36 +2298,89 @@
             "name": "Laura",
             "gender": "FEMALE"
           }
+        },
+        {
+          "version": 4,
+          "style": "cheerful",
+          "tag": "cheerful",
+          "phrase": "You're up, Sarah!",
+          "text": "[cheerful] You're up, Sarah!",
+          "file": "sarah_v4.mp3",
+          "voice": {
+            "id": "iP95p4xoKVk53GoZ742B",
+            "name": "Chris",
+            "gender": "MALE"
+          }
+        },
+        {
+          "version": 5,
+          "style": "natural",
+          "tag": null,
+          "phrase": "Ready, Sarah? It's your turn!",
+          "text": "Ready, Sarah? It's your turn!",
+          "file": "sarah_v5.mp3",
+          "voice": {
+            "id": "XrExE9yKIg1WjnnlVkGX",
+            "name": "Matilda",
+            "gender": "FEMALE"
+          }
+        },
+        {
+          "version": 6,
+          "style": "encouraging",
+          "tag": "encouraging",
+          "phrase": "Go for it, Sarah!",
+          "text": "[encouraging] Go for it, Sarah!",
+          "file": "sarah_v6.mp3",
+          "voice": {
+            "id": "TX3LPaxmHKxFdv7VOQHJ",
+            "name": "Liam",
+            "gender": "MALE"
+          }
         }
-      ],
-      "studentName": "Sarah",
+      ]
+    },
+    "Seven": {
+      "studentName": "Seven",
+      "slug": "seven",
       "usedVoiceIds": [
+        "bIHbv24MWmeRgasZH58o",
+        "FGY2WhTYpPnrIDTdsKH5",
+        "TX3LPaxmHKxFdv7VOQHJ",
+        "EXAVITQu4vr4xnSDxMaL",
         "cgSgspJ2msm6clMCkdW9",
-        "N2lVS1w4EtoT3dr4eOWO",
-        "FGY2WhTYpPnrIDTdsKH5"
+        "cjVigY5qzO86Huf0OWal"
       ],
       "usedVoiceNames": [
+        "Will",
+        "Laura",
+        "Liam",
+        "Sarah",
         "Jessica",
-        "Callum",
-        "Laura"
+        "Eric"
       ],
       "usedTags": [
         "friendly",
         "excited",
-        "playful"
+        "playful",
+        "cheerful",
+        "encouraging"
       ],
       "usedPhrases": [
-        "Sarah's turn!",
-        "It's Sarah's turn!",
-        "Your turn, Sarah!"
-      ]
-    },
-    "Seven": {
-      "slug": "seven",
+        "Seven's turn!",
+        "It's Seven's turn!",
+        "Your turn, Seven!",
+        "You're up, Seven!",
+        "Ready, Seven? It's your turn!",
+        "Go for it, Seven!"
+      ],
       "files": [
         "audio/players/seven_v1.mp3",
         "audio/players/seven_v2.mp3",
-        "audio/players/seven_v3.mp3"
+        "audio/players/seven_v3.mp3",
+        "audio/players/seven_v4.mp3",
+        "audio/players/seven_v5.mp3",
+        "audio/players/seven_v6.mp3"
       ],
       "variations": [
         {
@@ -1379,36 +2421,89 @@
             "name": "Liam",
             "gender": "MALE"
           }
+        },
+        {
+          "version": 4,
+          "style": "cheerful",
+          "tag": "cheerful",
+          "phrase": "You're up, Seven!",
+          "text": "[cheerful] You're up, Seven!",
+          "file": "seven_v4.mp3",
+          "voice": {
+            "id": "EXAVITQu4vr4xnSDxMaL",
+            "name": "Sarah",
+            "gender": "FEMALE"
+          }
+        },
+        {
+          "version": 5,
+          "style": "natural",
+          "tag": null,
+          "phrase": "Ready, Seven? It's your turn!",
+          "text": "Ready, Seven? It's your turn!",
+          "file": "seven_v5.mp3",
+          "voice": {
+            "id": "cgSgspJ2msm6clMCkdW9",
+            "name": "Jessica",
+            "gender": "FEMALE"
+          }
+        },
+        {
+          "version": 6,
+          "style": "encouraging",
+          "tag": "encouraging",
+          "phrase": "Go for it, Seven!",
+          "text": "[encouraging] Go for it, Seven!",
+          "file": "seven_v6.mp3",
+          "voice": {
+            "id": "cjVigY5qzO86Huf0OWal",
+            "name": "Eric",
+            "gender": "MALE"
+          }
         }
-      ],
-      "studentName": "Seven",
+      ]
+    },
+    "Sia": {
+      "studentName": "Sia",
+      "slug": "sia",
       "usedVoiceIds": [
+        "hpp4J3VqNfWAUOO0d1Us",
+        "TX3LPaxmHKxFdv7VOQHJ",
+        "Z3R5wn05IrDiVCyEkUrK",
         "bIHbv24MWmeRgasZH58o",
         "FGY2WhTYpPnrIDTdsKH5",
-        "TX3LPaxmHKxFdv7VOQHJ"
+        "N2lVS1w4EtoT3dr4eOWO"
       ],
       "usedVoiceNames": [
+        "Bella",
+        "Liam",
+        "Arabella",
         "Will",
         "Laura",
-        "Liam"
+        "Callum"
       ],
       "usedTags": [
         "friendly",
         "excited",
-        "playful"
+        "playful",
+        "cheerful",
+        "encouraging"
       ],
       "usedPhrases": [
-        "Seven's turn!",
-        "It's Seven's turn!",
-        "Your turn, Seven!"
-      ]
-    },
-    "Sia": {
-      "slug": "sia",
+        "Sia's turn!",
+        "It's Sia's turn!",
+        "Your turn, Sia!",
+        "You're up, Sia!",
+        "Ready, Sia? It's your turn!",
+        "Go for it, Sia!"
+      ],
       "files": [
         "audio/players/sia_v1.mp3",
         "audio/players/sia_v2.mp3",
-        "audio/players/sia_v3.mp3"
+        "audio/players/sia_v3.mp3",
+        "audio/players/sia_v4.mp3",
+        "audio/players/sia_v5.mp3",
+        "audio/players/sia_v6.mp3"
       ],
       "variations": [
         {
@@ -1449,36 +2544,89 @@
             "name": "Arabella",
             "gender": "FEMALE"
           }
+        },
+        {
+          "version": 4,
+          "style": "cheerful",
+          "tag": "cheerful",
+          "phrase": "You're up, Sia!",
+          "text": "[cheerful] You're up, Sia!",
+          "file": "sia_v4.mp3",
+          "voice": {
+            "id": "bIHbv24MWmeRgasZH58o",
+            "name": "Will",
+            "gender": "MALE"
+          }
+        },
+        {
+          "version": 5,
+          "style": "natural",
+          "tag": null,
+          "phrase": "Ready, Sia? It's your turn!",
+          "text": "Ready, Sia? It's your turn!",
+          "file": "sia_v5.mp3",
+          "voice": {
+            "id": "FGY2WhTYpPnrIDTdsKH5",
+            "name": "Laura",
+            "gender": "FEMALE"
+          }
+        },
+        {
+          "version": 6,
+          "style": "encouraging",
+          "tag": "encouraging",
+          "phrase": "Go for it, Sia!",
+          "text": "[encouraging] Go for it, Sia!",
+          "file": "sia_v6.mp3",
+          "voice": {
+            "id": "N2lVS1w4EtoT3dr4eOWO",
+            "name": "Callum",
+            "gender": "MALE"
+          }
         }
-      ],
-      "studentName": "Sia",
+      ]
+    },
+    "Siwoo": {
+      "studentName": "Siwoo",
+      "slug": "siwoo",
       "usedVoiceIds": [
-        "hpp4J3VqNfWAUOO0d1Us",
-        "TX3LPaxmHKxFdv7VOQHJ",
-        "Z3R5wn05IrDiVCyEkUrK"
+        "iP95p4xoKVk53GoZ742B",
+        "Z3R5wn05IrDiVCyEkUrK",
+        "cjVigY5qzO86Huf0OWal",
+        "cgSgspJ2msm6clMCkdW9",
+        "EXAVITQu4vr4xnSDxMaL",
+        "nPczCjzI2devNBz1zQrb"
       ],
       "usedVoiceNames": [
-        "Bella",
-        "Liam",
-        "Arabella"
+        "Chris",
+        "Arabella",
+        "Eric",
+        "Jessica",
+        "Sarah",
+        "Brian"
       ],
       "usedTags": [
         "friendly",
         "excited",
-        "playful"
+        "playful",
+        "cheerful",
+        "encouraging"
       ],
       "usedPhrases": [
-        "Sia's turn!",
-        "It's Sia's turn!",
-        "Your turn, Sia!"
-      ]
-    },
-    "Siwoo": {
-      "slug": "siwoo",
+        "Siwoo's turn!",
+        "It's Siwoo's turn!",
+        "Your turn, Siwoo!",
+        "You're up, Siwoo!",
+        "Ready, Siwoo? It's your turn!",
+        "Go for it, Siwoo!"
+      ],
       "files": [
         "audio/players/siwoo_v1.mp3",
         "audio/players/siwoo_v2.mp3",
-        "audio/players/siwoo_v3.mp3"
+        "audio/players/siwoo_v3.mp3",
+        "audio/players/siwoo_v4.mp3",
+        "audio/players/siwoo_v5.mp3",
+        "audio/players/siwoo_v6.mp3"
       ],
       "variations": [
         {
@@ -1519,36 +2667,89 @@
             "name": "Eric",
             "gender": "MALE"
           }
+        },
+        {
+          "version": 4,
+          "style": "cheerful",
+          "tag": "cheerful",
+          "phrase": "You're up, Siwoo!",
+          "text": "[cheerful] You're up, Siwoo!",
+          "file": "siwoo_v4.mp3",
+          "voice": {
+            "id": "cgSgspJ2msm6clMCkdW9",
+            "name": "Jessica",
+            "gender": "FEMALE"
+          }
+        },
+        {
+          "version": 5,
+          "style": "natural",
+          "tag": null,
+          "phrase": "Ready, Siwoo? It's your turn!",
+          "text": "Ready, Siwoo? It's your turn!",
+          "file": "siwoo_v5.mp3",
+          "voice": {
+            "id": "EXAVITQu4vr4xnSDxMaL",
+            "name": "Sarah",
+            "gender": "FEMALE"
+          }
+        },
+        {
+          "version": 6,
+          "style": "encouraging",
+          "tag": "encouraging",
+          "phrase": "Go for it, Siwoo!",
+          "text": "[encouraging] Go for it, Siwoo!",
+          "file": "siwoo_v6.mp3",
+          "voice": {
+            "id": "nPczCjzI2devNBz1zQrb",
+            "name": "Brian",
+            "gender": "MALE"
+          }
         }
-      ],
-      "studentName": "Siwoo",
+      ]
+    },
+    "Siyoon": {
+      "studentName": "Siyoon",
+      "slug": "siyoon",
       "usedVoiceIds": [
-        "iP95p4xoKVk53GoZ742B",
+        "EXAVITQu4vr4xnSDxMaL",
+        "cjVigY5qzO86Huf0OWal",
+        "XrExE9yKIg1WjnnlVkGX",
+        "pqHfZKP75CvOlQylNhV4",
         "Z3R5wn05IrDiVCyEkUrK",
-        "cjVigY5qzO86Huf0OWal"
+        "nPczCjzI2devNBz1zQrb"
       ],
       "usedVoiceNames": [
-        "Chris",
+        "Sarah",
+        "Eric",
+        "Matilda",
+        "Bill",
         "Arabella",
-        "Eric"
+        "Brian"
       ],
       "usedTags": [
         "friendly",
         "excited",
-        "playful"
+        "playful",
+        "cheerful",
+        "encouraging"
       ],
       "usedPhrases": [
-        "Siwoo's turn!",
-        "It's Siwoo's turn!",
-        "Your turn, Siwoo!"
-      ]
-    },
-    "Siyoon": {
-      "slug": "siyoon",
+        "Siyoon's turn!",
+        "It's Siyoon's turn!",
+        "Your turn, Siyoon!",
+        "You're up, Siyoon!",
+        "Ready, Siyoon? It's your turn!",
+        "Go for it, Siyoon!"
+      ],
       "files": [
         "audio/players/siyoon_v1.mp3",
         "audio/players/siyoon_v2.mp3",
-        "audio/players/siyoon_v3.mp3"
+        "audio/players/siyoon_v3.mp3",
+        "audio/players/siyoon_v4.mp3",
+        "audio/players/siyoon_v5.mp3",
+        "audio/players/siyoon_v6.mp3"
       ],
       "variations": [
         {
@@ -1589,36 +2790,89 @@
             "name": "Matilda",
             "gender": "FEMALE"
           }
+        },
+        {
+          "version": 4,
+          "style": "cheerful",
+          "tag": "cheerful",
+          "phrase": "You're up, Siyoon!",
+          "text": "[cheerful] You're up, Siyoon!",
+          "file": "siyoon_v4.mp3",
+          "voice": {
+            "id": "pqHfZKP75CvOlQylNhV4",
+            "name": "Bill",
+            "gender": "MALE"
+          }
+        },
+        {
+          "version": 5,
+          "style": "natural",
+          "tag": null,
+          "phrase": "Ready, Siyoon? It's your turn!",
+          "text": "Ready, Siyoon? It's your turn!",
+          "file": "siyoon_v5.mp3",
+          "voice": {
+            "id": "Z3R5wn05IrDiVCyEkUrK",
+            "name": "Arabella",
+            "gender": "FEMALE"
+          }
+        },
+        {
+          "version": 6,
+          "style": "encouraging",
+          "tag": "encouraging",
+          "phrase": "Go for it, Siyoon!",
+          "text": "[encouraging] Go for it, Siyoon!",
+          "file": "siyoon_v6.mp3",
+          "voice": {
+            "id": "nPczCjzI2devNBz1zQrb",
+            "name": "Brian",
+            "gender": "MALE"
+          }
         }
-      ],
-      "studentName": "Siyoon",
+      ]
+    },
+    "Soye": {
+      "studentName": "Soye",
+      "slug": "soye",
       "usedVoiceIds": [
-        "EXAVITQu4vr4xnSDxMaL",
-        "cjVigY5qzO86Huf0OWal",
-        "XrExE9yKIg1WjnnlVkGX"
+        "N2lVS1w4EtoT3dr4eOWO",
+        "XrExE9yKIg1WjnnlVkGX",
+        "bIHbv24MWmeRgasZH58o",
+        "hpp4J3VqNfWAUOO0d1Us",
+        "cgSgspJ2msm6clMCkdW9",
+        "CwhRBWXzGAHq8TQ4Fs17"
       ],
       "usedVoiceNames": [
-        "Sarah",
-        "Eric",
-        "Matilda"
+        "Callum",
+        "Matilda",
+        "Will",
+        "Bella",
+        "Jessica",
+        "Roger"
       ],
       "usedTags": [
         "friendly",
         "excited",
-        "playful"
+        "playful",
+        "cheerful",
+        "encouraging"
       ],
       "usedPhrases": [
-        "Siyoon's turn!",
-        "It's Siyoon's turn!",
-        "Your turn, Siyoon!"
-      ]
-    },
-    "Soye": {
-      "slug": "soye",
+        "Soye's turn!",
+        "It's Soye's turn!",
+        "Your turn, Soye!",
+        "You're up, Soye!",
+        "Ready, Soye? It's your turn!",
+        "Go for it, Soye!"
+      ],
       "files": [
         "audio/players/soye_v1.mp3",
         "audio/players/soye_v2.mp3",
-        "audio/players/soye_v3.mp3"
+        "audio/players/soye_v3.mp3",
+        "audio/players/soye_v4.mp3",
+        "audio/players/soye_v5.mp3",
+        "audio/players/soye_v6.mp3"
       ],
       "variations": [
         {
@@ -1659,36 +2913,89 @@
             "name": "Will",
             "gender": "MALE"
           }
+        },
+        {
+          "version": 4,
+          "style": "cheerful",
+          "tag": "cheerful",
+          "phrase": "You're up, Soye!",
+          "text": "[cheerful] You're up, Soye!",
+          "file": "soye_v4.mp3",
+          "voice": {
+            "id": "hpp4J3VqNfWAUOO0d1Us",
+            "name": "Bella",
+            "gender": "FEMALE"
+          }
+        },
+        {
+          "version": 5,
+          "style": "natural",
+          "tag": null,
+          "phrase": "Ready, Soye? It's your turn!",
+          "text": "Ready, Soye? It's your turn!",
+          "file": "soye_v5.mp3",
+          "voice": {
+            "id": "cgSgspJ2msm6clMCkdW9",
+            "name": "Jessica",
+            "gender": "FEMALE"
+          }
+        },
+        {
+          "version": 6,
+          "style": "encouraging",
+          "tag": "encouraging",
+          "phrase": "Go for it, Soye!",
+          "text": "[encouraging] Go for it, Soye!",
+          "file": "soye_v6.mp3",
+          "voice": {
+            "id": "CwhRBWXzGAHq8TQ4Fs17",
+            "name": "Roger",
+            "gender": "MALE"
+          }
         }
-      ],
-      "studentName": "Soye",
+      ]
+    },
+    "Teacher": {
+      "studentName": "Teacher",
+      "slug": "teacher",
       "usedVoiceIds": [
-        "N2lVS1w4EtoT3dr4eOWO",
-        "XrExE9yKIg1WjnnlVkGX",
-        "bIHbv24MWmeRgasZH58o"
+        "cgSgspJ2msm6clMCkdW9",
+        "bIHbv24MWmeRgasZH58o",
+        "FGY2WhTYpPnrIDTdsKH5",
+        "TX3LPaxmHKxFdv7VOQHJ",
+        "Z3R5wn05IrDiVCyEkUrK",
+        "iP95p4xoKVk53GoZ742B"
       ],
       "usedVoiceNames": [
-        "Callum",
-        "Matilda",
-        "Will"
+        "Jessica",
+        "Will",
+        "Laura",
+        "Liam",
+        "Arabella",
+        "Chris"
       ],
       "usedTags": [
         "friendly",
         "excited",
-        "playful"
+        "playful",
+        "cheerful",
+        "encouraging"
       ],
       "usedPhrases": [
-        "Soye's turn!",
-        "It's Soye's turn!",
-        "Your turn, Soye!"
-      ]
-    },
-    "Teacher": {
-      "slug": "teacher",
+        "Teacher's turn!",
+        "It's Teacher's turn!",
+        "Your turn, Teacher!",
+        "You're up, Teacher!",
+        "Ready, Teacher? It's your turn!",
+        "Go for it, Teacher!"
+      ],
       "files": [
         "audio/players/teacher_v1.mp3",
         "audio/players/teacher_v2.mp3",
-        "audio/players/teacher_v3.mp3"
+        "audio/players/teacher_v3.mp3",
+        "audio/players/teacher_v4.mp3",
+        "audio/players/teacher_v5.mp3",
+        "audio/players/teacher_v6.mp3"
       ],
       "variations": [
         {
@@ -1729,45 +3036,14 @@
             "name": "Laura",
             "gender": "FEMALE"
           }
-        }
-      ],
-      "studentName": "Teacher",
-      "usedVoiceIds": [
-        "cgSgspJ2msm6clMCkdW9",
-        "bIHbv24MWmeRgasZH58o",
-        "FGY2WhTYpPnrIDTdsKH5"
-      ],
-      "usedVoiceNames": [
-        "Jessica",
-        "Will",
-        "Laura"
-      ],
-      "usedTags": [
-        "friendly",
-        "excited",
-        "playful"
-      ],
-      "usedPhrases": [
-        "Teacher's turn!",
-        "It's Teacher's turn!",
-        "Your turn, Teacher!"
-      ]
-    },
-    "Thomas": {
-      "slug": "thomas",
-      "files": [
-        "audio/players/thomas_v1.mp3",
-        "audio/players/thomas_v2.mp3",
-        "audio/players/thomas_v3.mp3"
-      ],
-      "variations": [
+        },
         {
-          "version": 1,
-          "style": "friendly",
-          "tag": "friendly",
-          "phrase": "Thomas's turn!",
-          "text": "[friendly] Thomas's turn!",
-          "file": "thomas_v1.mp3",
+          "version": 4,
+          "style": "cheerful",
+          "tag": "cheerful",
+          "phrase": "You're up, Teacher!",
+          "text": "[cheerful] You're up, Teacher!",
+          "file": "teacher_v4.mp3",
           "voice": {
             "id": "TX3LPaxmHKxFdv7VOQHJ",
             "name": "Liam",
@@ -1775,52 +3051,31 @@
           }
         },
         {
-          "version": 2,
-          "style": "excited",
-          "tag": "excited",
-          "phrase": "It's Thomas's turn!",
-          "text": "[excited] It's Thomas's turn!",
-          "file": "thomas_v2.mp3",
+          "version": 5,
+          "style": "natural",
+          "tag": null,
+          "phrase": "Ready, Teacher? It's your turn!",
+          "text": "Ready, Teacher? It's your turn!",
+          "file": "teacher_v5.mp3",
           "voice": {
-            "id": "FGY2WhTYpPnrIDTdsKH5",
-            "name": "Laura",
+            "id": "Z3R5wn05IrDiVCyEkUrK",
+            "name": "Arabella",
             "gender": "FEMALE"
           }
         },
         {
-          "version": 3,
-          "style": "playful",
-          "tag": "playful",
-          "phrase": "Your turn, Thomas!",
-          "text": "[playful] Your turn, Thomas!",
-          "file": "thomas_v3.mp3",
+          "version": 6,
+          "style": "encouraging",
+          "tag": "encouraging",
+          "phrase": "Go for it, Teacher!",
+          "text": "[encouraging] Go for it, Teacher!",
+          "file": "teacher_v6.mp3",
           "voice": {
             "id": "iP95p4xoKVk53GoZ742B",
             "name": "Chris",
             "gender": "MALE"
           }
         }
-      ],
-      "studentName": "Thomas",
-      "usedVoiceIds": [
-        "TX3LPaxmHKxFdv7VOQHJ",
-        "FGY2WhTYpPnrIDTdsKH5",
-        "iP95p4xoKVk53GoZ742B"
-      ],
-      "usedVoiceNames": [
-        "Liam",
-        "Laura",
-        "Chris"
-      ],
-      "usedTags": [
-        "friendly",
-        "excited",
-        "playful"
-      ],
-      "usedPhrases": [
-        "Thomas's turn!",
-        "It's Thomas's turn!",
-        "Your turn, Thomas!"
       ]
     }
   }

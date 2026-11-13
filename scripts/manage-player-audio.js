@@ -53,9 +53,15 @@ const MALE_VOICES = [
   { id: "bIHbv24MWmeRgasZH58o", name: "Will", gender: "MALE" },
   { id: "nPczCjzI2devNBz1zQrb", name: "Brian", gender: "MALE" },
   { id: "pqHfZKP75CvOlQylNhV4", name: "Bill", gender: "MALE" },
+  { id: "CwhRBWXzGAHq8TQ4Fs17", name: "Roger", gender: "MALE" },
 ];
 
-const ALL_VOICES = [...FEMALE_VOICES, ...MALE_VOICES];
+const NEUTRAL_VOICES = [
+  { id: "SAz9YHcvj6GT2YYXdXww", name: "River", gender: "NEUTRAL" },
+];
+
+const ALL_VOICES = [...FEMALE_VOICES, ...MALE_VOICES, ...NEUTRAL_VOICES];
+const DEFAULT_VARIATION_COUNT = 6;
 
 const STYLE_TEMPLATES = [
   {
@@ -85,18 +91,26 @@ const STYLE_TEMPLATES = [
   {
     version: 4,
     suffix: "_v4.mp3",
-    style: "encouraging",
-    tag: "encouraging",
-    phraseTemplate: (name) => `Go for it, ${name}!`,
-    promptTemplate: (name) => `[encouraging] Go for it, ${name}!`,
+    style: "cheerful",
+    tag: "cheerful",
+    phraseTemplate: (name) => `You're up, ${name}!`,
+    promptTemplate: (name) => `[cheerful] You're up, ${name}!`,
   },
   {
     version: 5,
     suffix: "_v5.mp3",
-    style: "cheerful",
-    tag: "cheerful",
-    phraseTemplate: (name) => `Here we go, ${name}!`,
-    promptTemplate: (name) => `[cheerful] Here we go, ${name}!`,
+    style: "natural",
+    tag: null,
+    phraseTemplate: (name) => `Ready, ${name}? It's your turn!`,
+    promptTemplate: (name) => `Ready, ${name}? It's your turn!`,
+  },
+  {
+    version: 6,
+    suffix: "_v6.mp3",
+    style: "encouraging",
+    tag: "encouraging",
+    phraseTemplate: (name) => `Go for it, ${name}!`,
+    promptTemplate: (name) => `[encouraging] Go for it, ${name}!`,
   },
 ];
 
@@ -118,7 +132,7 @@ function loadManifest() {
   }
 }
 
-function getVoicePlanForStudent(studentName, index, targetCount = 3, existingManifest = {}) {
+function getVoicePlanForStudent(studentName, index, targetCount = DEFAULT_VARIATION_COUNT, existingManifest = {}) {
   const slug = toStudentSlug(studentName);
   const existing = existingManifest[studentName];
   const variations = [];
@@ -127,10 +141,10 @@ function getVoicePlanForStudent(studentName, index, targetCount = 3, existingMan
   if (existing && Array.isArray(existing.variations)) {
     for (const v of existing.variations) {
       if (v.voice?.id) usedVoiceIds.add(v.voice.id);
-      const style = v.style || v.tag || "friendly";
-      const tag = v.tag || style;
+      const style = v.style || v.tag || "natural";
+      const tag = v.tag === null ? null : (v.tag || (style === "natural" ? null : style));
       const phrase = v.phrase || v.text?.replace(/^\[[^\]]+\]\s*/, "") || `${studentName}'s turn!`;
-      const text = v.text || `[${tag}] ${phrase}`;
+      const text = v.text || (tag ? `[${tag}] ${phrase}` : phrase);
       const fileName = v.file || `${slug}_v${v.version}.mp3`;
       variations.push({
         studentName,
@@ -194,22 +208,20 @@ function getVoicePlanForStudent(studentName, index, targetCount = 3, existingMan
       promptTemplate: (n) => `[friendly] ${n}'s turn!`,
     };
 
-    // Filter out previously used voices
+    // Filter out previously used voices (strict 0 duplicate voices per student)
     const availableVoices = ALL_VOICES.filter((v) => !usedVoiceIds.has(v.id));
     if (availableVoices.length === 0) {
       console.warn(`[manage-player-audio] Ran out of unused voices for ${studentName}`);
       break;
     }
 
-    // Balance gender
+    // Balance gender and rotate by student index + version for diverse distribution
     const femaleCount = variations.filter((v) => v.voice?.gender === "FEMALE").length;
     const maleCount = variations.filter((v) => v.voice?.gender === "MALE").length;
-    let chosenVoice;
-    if (femaleCount <= maleCount) {
-      chosenVoice = availableVoices.find((v) => v.gender === "FEMALE") || availableVoices[0];
-    } else {
-      chosenVoice = availableVoices.find((v) => v.gender === "MALE") || availableVoices[0];
-    }
+    const targetGender = femaleCount <= maleCount ? "FEMALE" : "MALE";
+    let pool = availableVoices.filter((v) => v.gender === targetGender);
+    if (pool.length === 0) pool = availableVoices;
+    const chosenVoice = pool[(index + nextVer) % pool.length];
 
     usedVoiceIds.add(chosenVoice.id);
     const fileName = `${slug}${tpl.suffix}`;
@@ -270,7 +282,7 @@ async function fetchEnrolledStudents(syncCode, pin, convexUrl) {
   );
 }
 
-function analyzeAudioFiles(students, targetCount = 3) {
+function analyzeAudioFiles(students, targetCount = DEFAULT_VARIATION_COUNT) {
   if (!fs.existsSync(AUDIO_DIR)) {
     fs.mkdirSync(AUDIO_DIR, { recursive: true });
   }
@@ -291,7 +303,7 @@ function analyzeAudioFiles(students, targetCount = 3) {
     const slug = toStudentSlug(student);
     const usedVoiceIds = plan.map((p) => p.voice.id);
     const usedVoiceNames = plan.map((p) => p.voice.name);
-    const usedTags = plan.map((p) => p.tag);
+    const usedTags = plan.map((p) => p.tag).filter(Boolean);
     const usedPhrases = plan.map((p) => p.phrase);
 
     studentManifest[student] = {
@@ -400,7 +412,7 @@ async function main() {
   const verbose = args.includes("--verbose") || args.includes("-v");
 
   const countArgIdx = args.indexOf("--count");
-  const targetCount = countArgIdx !== -1 && args[countArgIdx + 1] ? parseInt(args[countArgIdx + 1], 10) : 3;
+  const targetCount = countArgIdx !== -1 && args[countArgIdx + 1] ? parseInt(args[countArgIdx + 1], 10) : DEFAULT_VARIATION_COUNT;
 
   const studentFilterIdx = args.indexOf("--student");
   const studentFilter = studentFilterIdx !== -1 ? args[studentFilterIdx + 1] : null;

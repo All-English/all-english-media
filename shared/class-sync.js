@@ -3151,6 +3151,132 @@
     loadWordAudioManifest().catch(() => {});
   }
 
+  const APPROVED_TURN_VOICES = [
+    { id: 'cgSgspJ2msm6clMCkdW9', name: 'Jessica', gender: 'FEMALE' },
+    { id: 'FGY2WhTYpPnrIDTdsKH5', name: 'Laura', gender: 'FEMALE' },
+    { id: 'hpp4J3VqNfWAUOO0d1Us', name: 'Bella', gender: 'FEMALE' },
+    { id: 'Z3R5wn05IrDiVCyEkUrK', name: 'Arabella', gender: 'FEMALE' },
+    { id: 'EXAVITQu4vr4xnSDxMaL', name: 'Sarah', gender: 'FEMALE' },
+    { id: 'XrExE9yKIg1WjnnlVkGX', name: 'Matilda', gender: 'FEMALE' },
+    { id: 'TX3LPaxmHKxFdv7VOQHJ', name: 'Liam', gender: 'MALE' },
+    { id: 'iP95p4xoKVk53GoZ742B', name: 'Chris', gender: 'MALE' },
+    { id: 'cjVigY5qzO86Huf0OWal', name: 'Eric', gender: 'MALE' },
+    { id: 'N2lVS1w4EtoT3dr4eOWO', name: 'Callum', gender: 'MALE' },
+    { id: 'bIHbv24MWmeRgasZH58o', name: 'Will', gender: 'MALE' },
+    { id: 'nPczCjzI2devNBz1zQrb', name: 'Brian', gender: 'MALE' },
+    { id: 'pqHfZKP75CvOlQylNhV4', name: 'Bill', gender: 'MALE' },
+    { id: 'CwhRBWXzGAHq8TQ4Fs17', name: 'Roger', gender: 'MALE' },
+    { id: 'SAz9YHcvj6GT2YYXdXww', name: 'River', gender: 'NEUTRAL' }
+  ];
+
+  const PLAYER_TURN_TEMPLATES = [
+    {
+      version: 1,
+      style: 'friendly',
+      tag: 'friendly',
+      phrase: (name) => `${name}'s turn!`,
+      prompt: (name) => `[friendly] ${name}'s turn!`
+    },
+    {
+      version: 2,
+      style: 'excited',
+      tag: 'excited',
+      phrase: (name) => `It's ${name}'s turn!`,
+      prompt: (name) => `[excited] It's ${name}'s turn!`
+    },
+    {
+      version: 3,
+      style: 'playful',
+      tag: 'playful',
+      phrase: (name) => `Your turn, ${name}!`,
+      prompt: (name) => `[playful] Your turn, ${name}!`
+    },
+    {
+      version: 4,
+      style: 'cheerful',
+      tag: 'cheerful',
+      phrase: (name) => `You're up, ${name}!`,
+      prompt: (name) => `[cheerful] You're up, ${name}!`
+    },
+    {
+      version: 5,
+      style: 'natural',
+      tag: null,
+      phrase: (name) => `Ready, ${name}? It's your turn!`,
+      prompt: (name) => `Ready, ${name}? It's your turn!`
+    },
+    {
+      version: 6,
+      style: 'encouraging',
+      tag: 'encouraging',
+      phrase: (name) => `Go for it, ${name}!`,
+      prompt: (name) => `[encouraging] Go for it, ${name}!`
+    }
+  ];
+
+  function hashPlayerSeed(name) {
+    const str = String(name || '').trim().toLowerCase();
+    let h = 0;
+    for (let i = 0; i < str.length; i++) {
+      h = (h * 31 + str.charCodeAt(i)) >>> 0;
+    }
+    return h;
+  }
+
+  function getNextDynamicTurnSpec(playerName, usedVoiceIds = [], variationIndex = null, preferredFirstVoiceId = null) {
+    const cleanName = String(playerName || '').trim();
+    if (!cleanName) return null;
+
+    const usedSet = new Set(Array.isArray(usedVoiceIds) ? usedVoiceIds.filter(Boolean) : []);
+    const idx = variationIndex !== null && variationIndex !== undefined ? variationIndex : usedSet.size;
+    if (idx >= PLAYER_TURN_TEMPLATES.length) return null;
+
+    const tpl = PLAYER_TURN_TEMPLATES[idx];
+    const availableVoices = APPROVED_TURN_VOICES.filter(v => !usedSet.has(v.id));
+    if (availableVoices.length === 0) return null;
+
+    const seed = hashPlayerSeed(cleanName);
+    let chosenVoice = null;
+
+    if (idx === 0 && preferredFirstVoiceId) {
+      chosenVoice = availableVoices.find(v => v.id === preferredFirstVoiceId) || null;
+    }
+
+    if (!chosenVoice) {
+      // Alternate female and male across variations for this player
+      const usedVoices = APPROVED_TURN_VOICES.filter(v => usedSet.has(v.id));
+      const femaleCount = usedVoices.filter(v => v.gender === 'FEMALE').length;
+      const maleCount = usedVoices.filter(v => v.gender === 'MALE').length;
+      let targetGender;
+      if (femaleCount === maleCount) {
+        targetGender = (seed % 2 === 0) ? 'FEMALE' : 'MALE';
+      } else {
+        targetGender = femaleCount < maleCount ? 'FEMALE' : 'MALE';
+      }
+      let pool = availableVoices.filter(v => v.gender === targetGender);
+      if (pool.length === 0) pool = availableVoices;
+      chosenVoice = pool[(seed + idx) % pool.length];
+    }
+
+    return {
+      version: tpl.version,
+      style: tpl.style,
+      tag: tpl.tag,
+      phrase: tpl.phrase(cleanName),
+      text: tpl.prompt(cleanName),
+      voiceId: chosenVoice.id,
+      voiceName: chosenVoice.name,
+      gender: chosenVoice.gender
+    };
+  }
+
+  function getRandomTurnPhrase(playerName) {
+    const cleanName = String(playerName || '').trim();
+    if (!cleanName) return '';
+    const tpl = PLAYER_TURN_TEMPLATES[Math.floor(Math.random() * PLAYER_TURN_TEMPLATES.length)];
+    return tpl.phrase(cleanName);
+  }
+
   function toPlayerSlug(name) {
     return String(name || '').trim().toLowerCase().replace(/[^a-z0-9_-]+/g, '_');
   }
@@ -3173,7 +3299,10 @@
     return [
       `${base}/audio/players/${slug}_v1.mp3`,
       `${base}/audio/players/${slug}_v2.mp3`,
-      `${base}/audio/players/${slug}_v3.mp3`
+      `${base}/audio/players/${slug}_v3.mp3`,
+      `${base}/audio/players/${slug}_v4.mp3`,
+      `${base}/audio/players/${slug}_v5.mp3`,
+      `${base}/audio/players/${slug}_v6.mp3`
     ];
   }
 
@@ -3423,6 +3552,10 @@
     inferTargetSound: (unit) => CurriculumAdapter.inferTargetSound(unit),
     CurriculumAdapter,
     CurriculumLoader,
+    APPROVED_TURN_VOICES,
+    PLAYER_TURN_TEMPLATES,
+    getNextDynamicTurnSpec,
+    getRandomTurnPhrase,
     toPlayerSlug,
     getPlayerTurnAudioUrls,
     toWordSlug,

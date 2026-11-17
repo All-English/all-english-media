@@ -12,7 +12,9 @@
     "update-player-audio": "node scripts/manage-player-audio.js sync",
     "check-player-audio": "node scripts/manage-player-audio.js check",
     "update-word-audio": "node scripts/manage-word-audio.js sync",
-    "check-word-audio": "node scripts/manage-word-audio.js check"
+    "check-word-audio": "node scripts/manage-word-audio.js check",
+    "normalize-audio": "node scripts/normalize-audio.js all",
+    "check-audio-volume": "node scripts/normalize-audio.js check"
   },
   "dependencies": {
     "convex": "^1.21.0"

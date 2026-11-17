@@ -23,6 +23,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { hasFfmpeg, normalizeMp3File } from "./normalize-audio.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT_DIR = path.resolve(__dirname, "..");
@@ -252,7 +253,10 @@ export async function synthesizeToFile(text, voiceId, targetPath, apiKey) {
 
       const buffer = Buffer.from(await res.arrayBuffer());
       fs.writeFileSync(targetPath, buffer);
-      return buffer.length;
+      if (await hasFfmpeg()) {
+        await normalizeMp3File(targetPath);
+      }
+      return fs.statSync(targetPath).size;
     } catch (err) {
       if (attempt >= 3) throw err;
       console.warn(`[Retry ${attempt}] ${path.basename(targetPath)}: ${err.message}. Retrying in 1.5s...`);

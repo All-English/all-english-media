@@ -6,7 +6,7 @@
  * Enforces project policies (from elevenlabs-voice-synthesis skill):
  * - Model: eleven_v4_turbo
  * - Speed: 0.85
- * - Korean Pronunciation Dictionary: sKcMTMc7IZdOIqGSuKGL (v: mP7aeKcxpImcYdvw1JQt)
+ * - Korean Pronunciation Dictionary: sKcMTMc7IZdOIqGSuKGL (v: 3mTzTQzzgwh88Eo3YcRd)
  * - Approved American voice roster (rotates 3 voices per student, at least 1 boy and 1 girl)
  *
  * Usage:
@@ -30,7 +30,7 @@ const MANIFEST_PATH = path.join(AUDIO_DIR, "manifest.json");
 const ELEVENLABS_MODEL_ID = "eleven_v4_turbo";
 const ELEVENLABS_SPEED = 0.85;
 const ELEVENLABS_PRONUNCIATION_DICT_ID = "sKcMTMc7IZdOIqGSuKGL";
-const ELEVENLABS_PRONUNCIATION_VERSION_ID = "mP7aeKcxpImcYdvw1JQt";
+const ELEVENLABS_PRONUNCIATION_VERSION_ID = "3mTzTQzzgwh88Eo3YcRd";
 
 const DEFAULT_CONVEX_URL = "https://shiny-tapir-482.ap-southeast-2.convex.cloud";
 const DEFAULT_SYNC_CODE = "all english";

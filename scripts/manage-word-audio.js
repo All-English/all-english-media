@@ -7,7 +7,7 @@
  * - Model: eleven_v4_turbo
  * - Speed: 0.85, Stability: 0.65, Similarity Boost: 0.80 (teacher-like, clear pronunciation)
  * - Text: Plain word (no emotion tags)
- * - Korean Pronunciation Dictionary: sKcMTMc7IZdOIqGSuKGL (v: lBWAKvEKQsfx4Ajakhf7)
+ * - Korean Pronunciation Dictionary: sKcMTMc7IZdOIqGSuKGL (v: mP7aeKcxpImcYdvw1JQt)
  * - Approved American voice roster (rotates female and male voices, strictly avoiding duplicate voices per word)
  * - Persistent manifest: audio/words/manifest.json tracks usedVoiceIds per word
  *
@@ -37,7 +37,7 @@ const ELEVENLABS_SPEED = 0.85;
 const ELEVENLABS_STABILITY = 0.65;
 const ELEVENLABS_SIMILARITY = 0.8;
 const ELEVENLABS_PRONUNCIATION_DICT_ID = "sKcMTMc7IZdOIqGSuKGL";
-const ELEVENLABS_PRONUNCIATION_VERSION_ID = "lBWAKvEKQsfx4Ajakhf7";
+const ELEVENLABS_PRONUNCIATION_VERSION_ID = "mP7aeKcxpImcYdvw1JQt";
 
 // Approved American Voices
 export const FEMALE_VOICES = [

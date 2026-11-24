@@ -1,4 +1,11 @@
-import { query, mutation, internalMutation } from "./_generated/server";
+import {
+  query,
+  mutation,
+  internalMutation,
+  QueryCtx,
+  MutationCtx,
+} from "./_generated/server";
+import type { Doc } from "./_generated/dataModel";
 import { v } from "convex/values";
 
 const MAX_CLASSES_PER_WORKSPACE = 60;
@@ -113,16 +120,16 @@ const snapshotResultValidator = v.union(
   })
 );
 
-function normalizeSyncCode(raw: string): string {
+export function normalizeSyncCode(raw: string): string {
   return raw.trim().replace(/\s+/g, " ").toLowerCase();
 }
 
-function isValidSyncCode(code: string): boolean {
+export function isValidSyncCode(code: string): boolean {
   if (code.length < 2 || code.length > 48) return false;
   return /^[a-z0-9 _.-]+$/.test(code);
 }
 
-function normalizePin(pin?: string | null): string {
+export function normalizePin(pin?: string | null): string {
   return (pin ?? "").trim();
 }
 
@@ -131,12 +138,90 @@ function isValidPinFormat(pin: string): boolean {
   return /^\d{4}$/.test(pin);
 }
 
-async function computePinHash(syncCode: string, pin: string): Promise<string> {
+export async function computePinHash(
+  syncCode: string,
+  pin: string
+): Promise<string> {
   const input = `${syncCode}:${pin}`;
   const data = new TextEncoder().encode(input);
   const hashBuffer = await crypto.subtle.digest("SHA-256", data);
   const hashArray = Array.from(new Uint8Array(hashBuffer));
   return hashArray.map((b) => b.toString(16).padStart(2, "0")).join("");
+}
+
+export type WorkspaceAuthError = {
+  ok: false;
+  errorCode:
+    | "FORBIDDEN_ORIGIN"
+    | "INVALID_CODE"
+    | "NOT_FOUND"
+    | "INVALID_PIN";
+  message: string;
+};
+
+export type WorkspaceAuthResult =
+  | {
+      ok: true;
+      normalizedCode: string;
+      ws: Doc<"workspaces">;
+    }
+  | WorkspaceAuthError;
+
+export async function authorizeWorkspace(
+  ctx: QueryCtx | MutationCtx,
+  args: { syncCode: string; pin?: string; origin?: string }
+): Promise<WorkspaceAuthResult> {
+  if (!isAllowedOrigin(args.origin)) {
+    return {
+      ok: false,
+      errorCode: "FORBIDDEN_ORIGIN",
+      message: "Access from this domain is not authorized.",
+    };
+  }
+
+  const normalizedCode = normalizeSyncCode(args.syncCode);
+  if (!isValidSyncCode(normalizedCode)) {
+    return {
+      ok: false,
+      errorCode: "INVALID_CODE",
+      message:
+        "Sync Code must be 2–48 characters (letters, numbers, spaces, hyphens, or underscores).",
+    };
+  }
+
+  const ws = await ctx.db
+    .query("workspaces")
+    .withIndex("by_sync_code", (q) => q.eq("syncCode", normalizedCode))
+    .unique();
+
+  if (!ws) {
+    return {
+      ok: false,
+      errorCode: "NOT_FOUND",
+      message: "Sync Code not found.",
+    };
+  }
+
+  if (ws.hasPin && ws.pinHash) {
+    const cleanPin = normalizePin(args.pin);
+    if (!cleanPin) {
+      return {
+        ok: false,
+        errorCode: "INVALID_PIN",
+        message: "This Sync Code is protected by a 4-digit PIN.",
+      };
+    }
+    const suppliedHash = await computePinHash(normalizedCode, cleanPin);
+    if (suppliedHash !== ws.pinHash) {
+      return {
+        ok: false,
+        errorCode: "INVALID_PIN",
+        message: "Incorrect 4-digit PIN for this Sync Code.",
+      };
+    }
+  }
+
+  return { ok: true, normalizedCode, ws };
 }
 
 function sanitizePlayers(players: string[]): string[] {

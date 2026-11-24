@@ -46,4 +46,21 @@ export default defineSchema({
   })
     .index("by_sync_code", ["syncCode"])
     .index("by_sync_code_and_series", ["syncCode", "seriesId"]),
+
+  gameStats: defineTable({
+    syncCode: v.string(),
+    game: v.string(),
+    playerName: v.string(),
+    statsJson: v.string(),
+    totalPointsAllTime: v.number(),
+    totalGamesPlayed: v.number(),
+    updatedAt: v.number(),
+    deletedAt: v.optional(v.number()),
+  })
+    .index("by_sync_code_and_game", ["syncCode", "game"])
+    .index("by_sync_code_and_game_and_player", [
+      "syncCode",
+      "game",
+      "playerName",
+    ]),
 });

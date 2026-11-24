@@ -74,6 +74,10 @@ http.route({
         value = await ctx.runMutation(api.sync.saveWorkspaceState, argsWithOrigin);
       } else if (fnPath === "sync:saveCurriculumOverrides") {
         value = await ctx.runMutation(api.sync.saveCurriculumOverrides, argsWithOrigin);
+      } else if (fnPath === "leaderboard:getGameStats") {
+        value = await ctx.runQuery(api.leaderboard.getGameStats, argsWithOrigin);
+      } else if (fnPath === "leaderboard:saveGameStats") {
+        value = await ctx.runMutation(api.leaderboard.saveGameStats, argsWithOrigin);
       } else {
         return new Response(
           JSON.stringify({ status: "error", errorMessage: "Unknown sync endpoint" }),

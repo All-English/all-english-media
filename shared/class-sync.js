@@ -64,9 +64,11 @@
   // ── 1. Schedule Parsing from Class Name ────────────────────────
   const DAY_PATTERNS = [
     { pattern: /\bMWF\b/i, days: ['Mon', 'Wed', 'Fri'] },
-    { pattern: /\b(TTh|TuTh|TT)\b/i, days: ['Tue', 'Thu'] },
+    { pattern: /\b(TThS|TTS)\b/i, days: ['Tue', 'Thu', 'Sat'] },
+    { pattern: /\b(TTh|TuTh|TR|TT)\b/i, days: ['Tue', 'Thu'] },
     { pattern: /\bWF\b/i, days: ['Wed', 'Fri'] },
     { pattern: /\bMW\b/i, days: ['Mon', 'Wed'] },
+    { pattern: /\bMF\b/i, days: ['Mon', 'Fri'] },
     { pattern: /\bMon(day)?\b/i, days: ['Mon'] },
     { pattern: /\bTue(s|sday)?\b/i, days: ['Tue'] },
     { pattern: /\bWed(nesday)?\b/i, days: ['Wed'] },
@@ -96,23 +98,34 @@
     const pad = n => String(n).padStart(2, '0');
 
     // 2. Check for explicit time range: e.g. 4:00-5:00, 4:00~4:50, 4-5pm, 4 to 5
-    const rangeMatch = className.match(/(\d{1,2})(?::(\d{2}))?\s*(am|pm)?\s*(?:-|~|to)\s*(\d{1,2})(?::(\d{2}))?\s*(am|pm)?/i);
-    if (rangeMatch) {
+    const rangeMatch = className.match(/\b(\d{1,2})(?::(\d{2}))?\s*(am|pm)?\s*(?:-|~|to)\s*(\d{1,2})(?::(\d{2}))?\s*(am|pm)?\b/i);
+    if (rangeMatch && (rangeMatch[2] !== undefined || rangeMatch[3] !== undefined || rangeMatch[5] !== undefined || rangeMatch[6] !== undefined || !/:\d{2}|\b\d{1,2}\s*(?:am|pm)\b/i.test(className))) {
       let startHour = parseInt(rangeMatch[1], 10);
-      let startMin = rangeMatch[2] ? parseInt(rangeMatch[2], 10) : 0;
-      const startAmPm = (rangeMatch[3] || rangeMatch[7] || '').toLowerCase();
+      const startMin = rangeMatch[2] ? parseInt(rangeMatch[2], 10) : 0;
+      const rawStartAmPm = (rangeMatch[3] || '').toLowerCase();
 
-      let endHour = parseInt(rangeMatch[4], 10);
-      let endMin = rangeMatch[5] ? parseInt(rangeMatch[5], 10) : 0;
-      const endAmPm = (rangeMatch[6] || rangeMatch[3] || '').toLowerCase();
-
-      if (startAmPm === 'pm' && startHour < 12) startHour += 12;
-      else if (startAmPm === 'am' && startHour === 12) startHour = 0;
-      else if (!startAmPm && startHour >= 1 && startHour <= 8) startHour += 12;
+      const rawEndHour = parseInt(rangeMatch[4], 10);
+      let endHour = rawEndHour;
+      const endMin = rangeMatch[5] ? parseInt(rangeMatch[5], 10) : 0;
+      const rawEndAmPm = (rangeMatch[6] || '').toLowerCase();
+      const endAmPm = rawEndAmPm || rawStartAmPm;
 
       if (endAmPm === 'pm' && endHour < 12) endHour += 12;
       else if (endAmPm === 'am' && endHour === 12) endHour = 0;
       else if (!endAmPm && endHour >= 1 && endHour <= 8) endHour += 12;
+
+      let startAmPm = rawStartAmPm;
+      if (!startAmPm && rawEndAmPm) {
+        if (rawEndAmPm === 'pm' && startHour <= rawEndHour && rawEndHour < 12 && startHour < 12) {
+          startAmPm = 'pm';
+        } else if (rawEndAmPm === 'am') {
+          startAmPm = 'am';
+        }
+      }
+
+      if (startAmPm === 'pm' && startHour < 12) startHour += 12;
+      else if (startAmPm === 'am' && startHour === 12) startHour = 0;
+      else if (!startAmPm && startHour >= 1 && startHour <= 8) startHour += 12;
 
       if (endHour * 60 + endMin <= startHour * 60 + startMin) {
         endHour = startHour + 1;
@@ -125,16 +138,37 @@
       };
     }
 
-    // 3. Single time match: e.g. 4:00, 4:00pm, 4pm, 4 PM, 4
-    const timeMatch = className.match(/(\d{1,2})(?::(\d{2}))?\s*(am|pm)?/i);
+    // 3. Single time match (in priority order so numbers like "Level 2" aren't treated as times)
     let startHour = 15;
     let startMin = 0;
+    let matchedSingle = false;
 
-    if (timeMatch && timeMatch[1]) {
-      startHour = parseInt(timeMatch[1], 10);
-      startMin = timeMatch[2] ? parseInt(timeMatch[2], 10) : 0;
-      const ampm = (timeMatch[3] || '').toLowerCase();
+    const colonMatch = className.match(/\b(\d{1,2}):(\d{2})\s*(am|pm)?\b/i);
+    const ampmMatch = !colonMatch && className.match(/\b(\d{1,2})\s*(am|pm)\b/i);
+    const prefixMatch = !colonMatch && !ampmMatch && className.match(/(?:@|\b(?:at|mon(?:day)?|tue(?:s|sday)?|wed(?:nesday)?|thu(?:r|rs|rsday)?|fri(?:day)?|sat(?:urday)?|sun(?:day)?|mwf|tth|tuth|tts|tt|mw|wf|mf))\s+(\d{1,2})\b/i);
 
+    let ampm = '';
+    if (colonMatch) {
+      startHour = parseInt(colonMatch[1], 10);
+      startMin = parseInt(colonMatch[2], 10);
+      ampm = (colonMatch[3] || '').toLowerCase();
+      matchedSingle = true;
+    } else if (ampmMatch) {
+      startHour = parseInt(ampmMatch[1], 10);
+      startMin = 0;
+      ampm = (ampmMatch[2] || '').toLowerCase();
+      matchedSingle = true;
+    } else if (prefixMatch) {
+      const h = parseInt(prefixMatch[1], 10);
+      if (h >= 1 && h <= 12) {
+        startHour = h;
+        startMin = 0;
+        ampm = '';
+        matchedSingle = true;
+      }
+    }
+
+    if (matchedSingle) {
       if (ampm === 'pm' && startHour < 12) {
         startHour += 12;
       } else if (ampm === 'am' && startHour === 12) {
@@ -382,6 +416,46 @@
     const c = typeof canonical === 'string' ? toCanonicalUnit(canonical) : canonical;
     if (!c) return null;
     return c.series === 'smart-phonics' ? `level${c.level}:unit${c.unit}` : `${c.series}:level${c.level}:unit${c.unit}`;
+  }
+
+  function resolveSeriesId(id) {
+    if (!id) return 'smart-phonics';
+    return /^custom_/i.test(id) ? id : toSeriesSlug(id);
+  }
+
+  function canonicalizeUnitsForSeries(unitsArray, curriculumId = 'smart-phonics') {
+    if (!Array.isArray(unitsArray)) return [];
+    const fallbackSeries = resolveSeriesId(curriculumId);
+    const out = [];
+    for (const u of unitsArray) {
+      if (!u) continue;
+      const c = toCanonicalUnit(u);
+      let next = null;
+      if (c) {
+        if (typeof u === 'string' && !u.includes(':') && !u.includes('|') && !u.includes('_L') && fallbackSeries !== 'smart-phonics') {
+          next = `${fallbackSeries}:L${c.level}U${c.unit}`;
+        } else {
+          next = c.id;
+        }
+      } else {
+        next = String(u).trim();
+      }
+      if (next && !out.includes(next)) {
+        out.push(next);
+      }
+    }
+    return out;
+  }
+
+  function sanitizeSchedule(sched, className) {
+    if (sched && Array.isArray(sched.days) && sched.days.length > 0) {
+      return {
+        days: sched.days.map(String),
+        startTime: String(sched.startTime || '15:00'),
+        endTime: String(sched.endTime || '16:00')
+      };
+    }
+    return parseScheduleFromName(className);
   }
 
   function getHighestUnit(unitsArray) {
@@ -741,7 +815,7 @@
         cookieChanged = true;
       }
 
-      const cookieActUpdatedAt = cookie.actUpdatedAt || cookie.updatedAt || 0;
+      const cookieActUpdatedAt = cookie.actUpdatedAt || 0;
 
       // Reconcile active players based on timestamp
       if (cookieActUpdatedAt > localActUpdatedAt && Array.isArray(cookie.act)) {
@@ -861,7 +935,7 @@
     return cloudUrl.replace(/\.convex\.cloud$/, '.convex.site');
   }
 
-  async function convexHttpSync(kind, fnPath, args = {}) {
+  async function convexHttpSync(kind, fnPath, args = {}, opts = {}) {
     if (!isAllowedClientDomain()) {
       console.warn('[SharedClassSync] Cloud Sync blocked on unauthorized domain.');
       return null;
@@ -871,14 +945,18 @@
     const siteUrl = getConvexSiteUrl();
     const origin = getClientOrigin();
     const argsWithOrigin = origin ? { ...args, origin } : { ...args };
+    const syncBody = JSON.stringify({ path: fnPath, args: argsWithOrigin });
+    const useKeepalive = Boolean(opts.keepalive) && syncBody.length < 60000;
 
     if (siteUrl) {
       try {
-        const res = await fetch(`${siteUrl}/api/sync`, {
+        const fetchOpts = {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ path: fnPath, args: argsWithOrigin })
-        });
+          body: syncBody
+        };
+        if (useKeepalive) fetchOpts.keepalive = true;
+        const res = await fetch(`${siteUrl}/api/sync`, fetchOpts);
         if (res.status === 403) {
           return null;
         }
@@ -892,11 +970,16 @@
     }
 
     try {
-      const res = await fetch(`${baseUrl}/api/${kind}`, {
+      const fallbackBody = JSON.stringify({ path: fnPath, args: argsWithOrigin, format: 'json' });
+      const fetchOpts = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ path: fnPath, args: argsWithOrigin, format: 'json' })
-      });
+        body: fallbackBody
+      };
+      if (Boolean(opts.keepalive) && fallbackBody.length < 60000) {
+        fetchOpts.keepalive = true;
+      }
+      const res = await fetch(`${baseUrl}/api/${kind}`, fetchOpts);
       if (!res.ok) return null;
       const data = await res.json();
       if (data && data.status === 'success') {
@@ -913,8 +996,8 @@
     return convexHttpSync('query', fnPath, args);
   }
 
-  async function convexMutation(fnPath, args = {}) {
-    return convexHttpSync('mutation', fnPath, args);
+  async function convexMutation(fnPath, args = {}, opts = {}) {
+    return convexHttpSync('mutation', fnPath, args, opts);
   }
 
   let liveConvexClient = null;
@@ -985,9 +1068,17 @@
   function applySnapshotToLocal(snapshot, { fromLiveUpdate = false, preserveLocalOnlyClasses = [] } = {}) {
     if (!snapshot || typeof localStorage === 'undefined') return;
 
+    try {
+      lastSnapshotHash = JSON.stringify(snapshot);
+    } catch {}
+
     const playerSets = {};
     const classProfiles = {};
+    let existingSets = {};
     let existingProfiles = {};
+    try {
+      existingSets = JSON.parse(localStorage.getItem(SHARED_SETS_KEY) || '{}') || {};
+    } catch {}
     try {
       existingProfiles = JSON.parse(localStorage.getItem(SHARED_CLASS_PROFILES_KEY) || '{}') || {};
     } catch {}
@@ -998,42 +1089,85 @@
       const rawPf = localStorage.getItem('phonics-flash-classes');
       if (rawPf) existingPfStore = JSON.parse(rawPf) || existingPfStore;
     } catch {}
-    const existingPfByName = new Map(
-      (Array.isArray(existingPfStore.classes) ? existingPfStore.classes : []).map(c => [c.name, c])
-    );
+    const existingPfList = Array.isArray(existingPfStore.classes) ? existingPfStore.classes : [];
+    const existingPfByName = new Map(existingPfList.map(c => [c.name, c]));
+    const prevActivePfCls = existingPfStore.activeClassId
+      ? existingPfList.find(c => c && c.id === existingPfStore.activeClassId)
+      : null;
 
     if (Array.isArray(snapshot.classes)) {
       for (const cls of snapshot.classes) {
         if (!cls || !cls.name) continue;
         const cName = cls.name.trim();
-        if (!cName) continue;
+        if (!cName || pendingDeletedClassNames.has(cName)) continue;
 
-        if (Array.isArray(cls.players) && cls.players.length > 0) {
-          playerSets[cName] = cls.players;
-        } else if (!playerSets[cName]) {
+        const prevPf = existingPfByName.get(cName);
+        const localProf = existingProfiles[cName];
+        const localProfTime = localProf?.updatedAt || 0;
+        const prevPfTime = prevPf?.updatedAt || 0;
+        const cloudTime = cls.updatedAt || 0;
+
+        const cloudPlayers = Array.isArray(cls.players) ? cls.players : [];
+        const localPlayers = Array.isArray(existingSets[cName])
+          ? existingSets[cName]
+          : (Array.isArray(prevPf?.players) ? prevPf.players : []);
+        if (cloudPlayers.length > 0) {
+          playerSets[cName] = cloudPlayers;
+        } else if (Math.max(localProfTime, prevPfTime) > cloudTime && localPlayers.length > 0) {
+          playerSets[cName] = localPlayers;
+        } else {
           playerSets[cName] = [];
         }
 
-        const localProf = existingProfiles[cName];
-        const useLocalProf = localProf && (localProf.updatedAt || 0) > (cls.updatedAt || 0);
+        const localProfUnits = Array.isArray(localProf?.units) ? localProf.units : [];
+        const prevPfUnits = Array.isArray(prevPf?.selectedUnits) ? prevPf.selectedUnits : [];
+        const cloudUnits = Array.isArray(cls.units) ? cls.units : [];
 
-        classProfiles[cName] = useLocalProf
-          ? localProf
-          : {
-              schedule: cls.schedule || parseScheduleFromName(cName),
-              curriculumId: cls.curriculumId || 'smart-phonics',
-              units: Array.isArray(cls.units) ? cls.units : [],
-              updatedAt: cls.updatedAt || Date.now()
-            };
+        let resolvedProf;
+        if (prevPfTime > cloudTime && prevPfTime >= localProfTime && prevPfUnits.length > 0) {
+          const curId = prevPf.curriculumId || localProf?.curriculumId || cls.curriculumId || 'smart-phonics';
+          resolvedProf = {
+            schedule: sanitizeSchedule(prevPf.schedule || localProf?.schedule || cls.schedule, cName),
+            curriculumId: curId,
+            units: canonicalizeUnitsForSeries(prevPfUnits, curId),
+            updatedAt: prevPfTime
+          };
+        } else if (localProfTime > cloudTime && localProfUnits.length > 0) {
+          const curId = localProf.curriculumId || cls.curriculumId || 'smart-phonics';
+          resolvedProf = {
+            schedule: sanitizeSchedule(localProf.schedule || cls.schedule, cName),
+            curriculumId: curId,
+            units: canonicalizeUnitsForSeries(localProfUnits, curId),
+            updatedAt: localProfTime
+          };
+        } else {
+          const fallbackUnits = localProfUnits.length > 0
+            ? canonicalizeUnitsForSeries(localProfUnits, localProf?.curriculumId || cls.curriculumId || 'smart-phonics')
+            : canonicalizeUnitsForSeries(prevPfUnits, prevPf?.curriculumId || cls.curriculumId || 'smart-phonics');
+          const curId = cls.curriculumId || localProf?.curriculumId || prevPf?.curriculumId || 'smart-phonics';
+          const resolvedUnits = cloudUnits.length > 0
+            ? canonicalizeUnitsForSeries(cloudUnits, curId)
+            : fallbackUnits;
+          resolvedProf = {
+            schedule: sanitizeSchedule(cls.schedule || localProf?.schedule, cName),
+            curriculumId: curId,
+            units: resolvedUnits,
+            updatedAt: cloudTime || Math.max(localProfTime, prevPfTime) || 0
+          };
+        }
 
-        const prevPf = existingPfByName.get(cName);
+        classProfiles[cName] = resolvedProf;
+
+        const pfUnits = (resolvedProf.units || []).map(u => toPhonicsFlash(u) || u).filter(Boolean);
         pfClassesList.push({
+          ...(prevPf || {}),
           id: cls.pfClassId || prevPf?.id || `cls_${cName.replace(/\W+/g, '_').toLowerCase()}`,
           name: cName,
-          schedule: classProfiles[cName].schedule,
-          curriculumId: classProfiles[cName].curriculumId || 'smart-phonics',
-          selectedUnits: classProfiles[cName].units || [],
-          updatedAt: classProfiles[cName].updatedAt || Date.now()
+          schedule: resolvedProf.schedule,
+          curriculumId: resolvedProf.curriculumId || 'smart-phonics',
+          selectedUnits: pfUnits,
+          players: playerSets[cName],
+          updatedAt: resolvedProf.updatedAt || 0
         });
       }
     }
@@ -1043,54 +1177,101 @@
       for (const loc of preserveLocalOnlyClasses) {
         if (!loc || !loc.name) continue;
         const cName = loc.name.trim();
-        if (!cName || playerSets[cName]) continue;
+        if (!cName || playerSets[cName] || pendingDeletedClassNames.has(cName)) continue;
         playerSets[cName] = Array.isArray(loc.players) ? loc.players : [];
+        const locCurId = loc.curriculumId || 'smart-phonics';
+        const locUnits = canonicalizeUnitsForSeries(loc.units || [], locCurId);
         classProfiles[cName] = {
-          schedule: loc.schedule || parseScheduleFromName(cName),
-          curriculumId: loc.curriculumId || 'smart-phonics',
-          units: Array.isArray(loc.units) ? loc.units : [],
-          updatedAt: loc.updatedAt || Date.now()
+          schedule: sanitizeSchedule(loc.schedule, cName),
+          curriculumId: locCurId,
+          units: locUnits,
+          updatedAt: loc.updatedAt || 1
         };
         const prevPf = existingPfByName.get(cName);
         pfClassesList.push({
+          ...(prevPf || {}),
           id: loc.pfClassId || prevPf?.id || `cls_${cName.replace(/\W+/g, '_').toLowerCase()}`,
           name: cName,
           schedule: classProfiles[cName].schedule,
           curriculumId: classProfiles[cName].curriculumId || 'smart-phonics',
-          selectedUnits: classProfiles[cName].units || [],
-          updatedAt: classProfiles[cName].updatedAt || Date.now()
+          selectedUnits: (classProfiles[cName].units || []).map(u => toPhonicsFlash(u) || u).filter(Boolean),
+          players: playerSets[cName],
+          updatedAt: classProfiles[cName].updatedAt || 0
         });
       }
     }
 
-    // Preserve local unsaved edits during live update if created/edited locally after snapshot
-    if (fromLiveUpdate && existingProfiles) {
+    // Preserve local unsaved edits created/edited locally after snapshot
+    const handledNames = new Set(Object.keys(playerSets));
+    if (existingProfiles) {
       for (const [cName, locProf] of Object.entries(existingProfiles)) {
-        if (!cName || playerSets[cName]) continue;
-        if ((locProf.updatedAt || 0) > (snapshot.updatedAt || 0)) {
-          playerSets[cName] = [];
-          classProfiles[cName] = locProf;
-          const prevPf = existingPfByName.get(cName);
+        const cleanName = String(cName || '').trim();
+        if (!cleanName || handledNames.has(cleanName) || pendingDeletedClassNames.has(cleanName)) continue;
+        if ((locProf?.updatedAt || 0) > (snapshot.updatedAt || 0)) {
+          const prevPf = existingPfByName.get(cleanName);
+          const localPlayers = Array.isArray(existingSets[cleanName])
+            ? existingSets[cleanName]
+            : (Array.isArray(prevPf?.players) ? prevPf.players : []);
+          playerSets[cleanName] = localPlayers;
+          classProfiles[cleanName] = locProf;
+          handledNames.add(cleanName);
           pfClassesList.push({
-            id: prevPf?.id || `cls_${cName.replace(/\W+/g, '_').toLowerCase()}`,
-            name: cName,
-            schedule: locProf.schedule || parseScheduleFromName(cName),
+            ...(prevPf || {}),
+            id: prevPf?.id || `cls_${cleanName.replace(/\W+/g, '_').toLowerCase()}`,
+            name: cleanName,
+            schedule: sanitizeSchedule(locProf.schedule, cleanName),
             curriculumId: locProf.curriculumId || 'smart-phonics',
-            selectedUnits: locProf.units || [],
-            updatedAt: locProf.updatedAt || Date.now()
+            selectedUnits: (locProf.units || []).map(u => toPhonicsFlash(u) || u).filter(Boolean),
+            players: localPlayers,
+            updatedAt: locProf.updatedAt || 0
           });
         }
+      }
+    }
+    for (const prevPf of existingPfList) {
+      const cleanName = String(prevPf?.name || '').trim();
+      if (!cleanName || handledNames.has(cleanName) || pendingDeletedClassNames.has(cleanName)) continue;
+      if ((prevPf.updatedAt || 0) > (snapshot.updatedAt || 0)) {
+        const pfCurId = prevPf.curriculumId || 'smart-phonics';
+        const canonUnits = canonicalizeUnitsForSeries(prevPf.selectedUnits || [], pfCurId);
+        const localPlayers = Array.isArray(existingSets[cleanName])
+          ? existingSets[cleanName]
+          : (Array.isArray(prevPf.players) ? prevPf.players : []);
+        playerSets[cleanName] = localPlayers;
+        classProfiles[cleanName] = {
+          schedule: sanitizeSchedule(prevPf.schedule, cleanName),
+          curriculumId: pfCurId,
+          units: canonUnits,
+          updatedAt: prevPf.updatedAt || 0
+        };
+        handledNames.add(cleanName);
+        pfClassesList.push({
+          ...prevPf,
+          name: cleanName,
+          curriculumId: pfCurId,
+          selectedUnits: canonUnits.map(u => toPhonicsFlash(u) || u).filter(Boolean),
+          players: localPlayers
+        });
       }
     }
 
     try {
       localStorage.setItem(SHARED_SETS_KEY, JSON.stringify(playerSets));
       localStorage.setItem(SHARED_CLASS_PROFILES_KEY, JSON.stringify(classProfiles));
-      if (pfClassesList.length > 0) {
-        const matchedActivePf = pfClassesList.find(c => c.name === snapshot.activeClassName);
+      if (pfClassesList.length > 0 || existingPfList.length > 0) {
+        let nextActiveId = null;
+        if (existingPfStore.activeClassId) {
+          const byId = pfClassesList.find(c => c.id === existingPfStore.activeClassId);
+          if (byId) {
+            nextActiveId = byId.id;
+          } else if (prevActivePfCls && prevActivePfCls.name) {
+            const byName = pfClassesList.find(c => c.name === prevActivePfCls.name);
+            if (byName) nextActiveId = byName.id;
+          }
+        }
         localStorage.setItem('phonics-flash-classes', JSON.stringify({
           classes: pfClassesList,
-          activeClassId: matchedActivePf ? matchedActivePf.id : (existingPfStore.activeClassId || pfClassesList[0].id),
+          activeClassId: nextActiveId,
           updatedAt: snapshot.updatedAt || Date.now()
         }));
       }
@@ -1112,6 +1293,7 @@
         writeSharedSyncCookie({
           actUnits: unitsPayload.units,
           actCur: unitsPayload.curriculumId,
+          actUnitsClass: unitsPayload.className,
           actUnitsAt: unitsPayload.updatedAt
         });
       }
@@ -1223,30 +1405,29 @@
         players: Array.isArray(players) ? players.map(String) : [],
         curriculumId: 'smart-phonics',
         units: [],
-        schedule: parseScheduleFromName(cleanName),
-        updatedAt: Date.now()
+        schedule: sanitizeSchedule(null, cleanName),
+        updatedAt: 1
       });
     }
 
     for (const [name, prof] of Object.entries(classProfiles)) {
       const cleanName = name.trim();
       if (!cleanName || !prof || typeof prof !== 'object') continue;
+      const curId = prof.curriculumId ? resolveSeriesId(prof.curriculumId) : 'smart-phonics';
       const existing = classMap.get(cleanName) || {
         name: cleanName,
         players: Array.isArray(playerSets[cleanName]) ? playerSets[cleanName].map(String) : [],
-        curriculumId: 'smart-phonics',
+        curriculumId: curId,
         units: [],
-        schedule: parseScheduleFromName(cleanName),
-        updatedAt: Date.now()
+        schedule: sanitizeSchedule(null, cleanName),
+        updatedAt: 1
       };
-      if (Array.isArray(prof.units)) existing.units = prof.units.map(String);
-      if (prof.curriculumId) existing.curriculumId = String(prof.curriculumId);
+      if (Array.isArray(prof.units)) {
+        existing.units = canonicalizeUnitsForSeries(prof.units, curId);
+      }
+      if (prof.curriculumId) existing.curriculumId = curId;
       if (prof.schedule && Array.isArray(prof.schedule.days)) {
-        existing.schedule = {
-          days: prof.schedule.days.map(String),
-          startTime: String(prof.schedule.startTime || '15:00'),
-          endTime: String(prof.schedule.endTime || '16:00')
-        };
+        existing.schedule = sanitizeSchedule(prof.schedule, cleanName);
       }
       if (typeof prof.updatedAt === 'number' && prof.updatedAt > 0) {
         existing.updatedAt = prof.updatedAt;
@@ -1258,30 +1439,45 @@
       for (const pfCls of pfStore.classes) {
         if (!pfCls || !pfCls.name) continue;
         const cleanName = pfCls.name.trim();
-        const pfUnits = Array.isArray(pfCls.selectedUnits)
-          ? pfCls.selectedUnits.map(u => toCanonicalUnit(u)?.id || u).filter(Boolean)
-          : [];
-        const existing = classMap.get(cleanName) || {
-          name: cleanName,
-          players: [],
-          curriculumId: pfCls.curriculumId || 'smart-phonics',
-          units: pfUnits,
-          schedule: pfCls.schedule || parseScheduleFromName(cleanName),
-          updatedAt: pfCls.updatedAt || Date.now()
-        };
-        if (pfCls.id) existing.pfClassId = String(pfCls.id);
-        if (existing.units.length === 0 && pfUnits.length > 0) {
-          existing.units = pfUnits;
+        if (!cleanName) continue;
+        const pfCurId = pfCls.curriculumId ? resolveSeriesId(pfCls.curriculumId) : 'smart-phonics';
+        const pfUnits = canonicalizeUnitsForSeries(pfCls.selectedUnits || [], pfCurId);
+        const pfTime = Number(pfCls.updatedAt) || 0;
+        const pfPlayers = Array.isArray(pfCls.players) ? pfCls.players.map(String) : [];
+
+        const existing = classMap.get(cleanName);
+        if (!existing) {
+          classMap.set(cleanName, {
+            name: cleanName,
+            players: pfPlayers,
+            curriculumId: pfCurId,
+            units: pfUnits,
+            schedule: sanitizeSchedule(pfCls.schedule, cleanName),
+            ...(pfCls.id ? { pfClassId: String(pfCls.id) } : {}),
+            updatedAt: pfTime > 0 ? pfTime : 1
+          });
+        } else {
+          if (pfCls.id) existing.pfClassId = String(pfCls.id);
+          if (existing.players.length === 0 && pfPlayers.length > 0) {
+            existing.players = pfPlayers;
+          }
+          const existingTime = existing.updatedAt || 0;
+          if ((pfTime > existingTime && pfUnits.length > 0) || (existing.units.length === 0 && pfUnits.length > 0)) {
+            existing.units = pfUnits;
+            existing.curriculumId = pfCurId;
+            if (pfCls.schedule && Array.isArray(pfCls.schedule.days)) {
+              existing.schedule = sanitizeSchedule(pfCls.schedule, cleanName);
+            }
+            existing.updatedAt = Math.max(existingTime, pfTime > 0 ? pfTime : 1);
+          } else if (pfTime > existingTime && pfCls.curriculumId) {
+            existing.curriculumId = pfCurId;
+            if (pfCls.schedule && Array.isArray(pfCls.schedule.days)) {
+              existing.schedule = sanitizeSchedule(pfCls.schedule, cleanName);
+            }
+            existing.updatedAt = pfTime;
+          }
+          classMap.set(cleanName, existing);
         }
-        if (pfCls.curriculumId) existing.curriculumId = String(pfCls.curriculumId);
-        if (pfCls.schedule && Array.isArray(pfCls.schedule.days)) {
-          existing.schedule = {
-            days: pfCls.schedule.days.map(String),
-            startTime: String(pfCls.schedule.startTime || '15:00'),
-            endTime: String(pfCls.schedule.endTime || '16:00')
-          };
-        }
-        classMap.set(cleanName, existing);
       }
     }
 
@@ -1348,7 +1544,7 @@
     }
 
     pendingDeletedClassNames.add(cleanName);
-    schedulePushToConvex({ replaceAllClasses: true, deleteClassName: cleanName });
+    schedulePushToConvex({ replaceAllClasses: false, deleteClassName: cleanName });
     return true;
   }
 
@@ -1365,13 +1561,27 @@
     }
     if (pushTimer) clearTimeout(pushTimer);
     pushTimer = setTimeout(() => {
+      pushTimer = null;
       const doReplaceAll = pendingReplaceAllClasses;
       pendingReplaceAllClasses = false;
       pushLocalStateToConvex({ replaceAllClasses: doReplaceAll });
     }, 250);
   }
 
-  async function pushLocalStateToConvex({ replaceAllClasses = false } = {}) {
+  function flushPendingPush({ keepalive = false } = {}) {
+    if (!pushTimer && pendingDeletedClassNames.size === 0 && !pendingReplaceAllClasses) {
+      return false;
+    }
+    if (pushTimer) {
+      clearTimeout(pushTimer);
+      pushTimer = null;
+    }
+    const doReplaceAll = pendingReplaceAllClasses;
+    pendingReplaceAllClasses = false;
+    return pushLocalStateToConvex({ replaceAllClasses: doReplaceAll, keepalive });
+  }
+
+  async function pushLocalStateToConvex({ replaceAllClasses = false, keepalive = false } = {}) {
     const { syncCode, pin } = getSyncConfig();
     if (!syncCode) return false;
 
@@ -1396,7 +1606,7 @@
     if (pin) args.pin = pin;
     if (deleteNames.length > 0) args.deleteClassNames = deleteNames;
 
-    const res = await convexMutation('sync:saveWorkspaceState', args);
+    const res = await convexMutation('sync:saveWorkspaceState', args, { keepalive });
     return Boolean(res && res.ok);
   }
 
@@ -1771,9 +1981,16 @@
     ]);
 
     if (cloudSets && typeof cloudSets === 'object') {
-      playerSets = cloudSets;
+      const mergedSets = { ...cloudSets };
+      for (const [k, localPlayers] of Object.entries(playerSets)) {
+        if (pendingDeletedClassNames.has(k)) continue;
+        if (!mergedSets[k] || (Array.isArray(localPlayers) && localPlayers.length > 0 && (!Array.isArray(mergedSets[k]) || mergedSets[k].length === 0))) {
+          mergedSets[k] = localPlayers;
+        }
+      }
+      playerSets = mergedSets;
       if (typeof localStorage !== 'undefined') {
-        localStorage.setItem(SHARED_SETS_KEY, JSON.stringify(cloudSets));
+        localStorage.setItem(SHARED_SETS_KEY, JSON.stringify(mergedSets));
       }
     }
 
@@ -1781,12 +1998,16 @@
     if (cloudProfiles && typeof cloudProfiles === 'object') {
       const mergedProfiles = { ...cloudProfiles };
       for (const [k, localProf] of Object.entries(classProfiles)) {
+        if (pendingDeletedClassNames.has(k)) continue;
         const cloudProf = mergedProfiles[k];
         if (!cloudProf) {
           mergedProfiles[k] = localProf;
           profilesChanged = true;
         } else if ((localProf.updatedAt || 0) > (cloudProf.updatedAt || 0)) {
           mergedProfiles[k] = localProf;
+          profilesChanged = true;
+        } else if ((!Array.isArray(cloudProf.units) || cloudProf.units.length === 0) && Array.isArray(localProf.units) && localProf.units.length > 0) {
+          mergedProfiles[k] = { ...cloudProf, units: localProf.units };
           profilesChanged = true;
         }
       }
@@ -1813,15 +2034,13 @@
     for (const pfStore of pfSources) {
       for (const pfCls of pfStore.classes) {
         if (!pfCls || !pfCls.name) continue;
-        const pfUnits = Array.isArray(pfCls.selectedUnits)
-          ? pfCls.selectedUnits.map(u => toCanonicalUnit(u)?.id).filter(Boolean)
-          : [];
+        const pfUnits = canonicalizeUnitsForSeries(pfCls.selectedUnits || [], pfCls.curriculumId || 'smart-phonics');
         const existingProf = classProfiles[pfCls.name];
-        const pfTime = pfCls.updatedAt || ((!existingProf || !Array.isArray(existingProf.units) || existingProf.units.length === 0) ? (pfStore.updatedAt || 0) : 0);
+        const pfTime = pfCls.updatedAt || 0;
 
         if (!existingProf) {
           classProfiles[pfCls.name] = {
-            schedule: pfCls.schedule || parseScheduleFromName(pfCls.name),
+            schedule: sanitizeSchedule(pfCls.schedule, pfCls.name),
             curriculumId: pfCls.curriculumId || 'smart-phonics',
             units: pfUnits,
             updatedAt: pfTime
@@ -1830,13 +2049,13 @@
         } else if (pfTime > (existingProf.updatedAt || 0) && pfUnits.length > 0) {
           existingProf.units = pfUnits;
           if (pfCls.curriculumId) existingProf.curriculumId = pfCls.curriculumId;
-          if (pfCls.schedule) existingProf.schedule = pfCls.schedule;
+          if (pfCls.schedule) existingProf.schedule = sanitizeSchedule(pfCls.schedule, pfCls.name);
           existingProf.updatedAt = pfTime;
           profilesChanged = true;
         } else if ((!Array.isArray(existingProf.units) || existingProf.units.length === 0) && pfUnits.length > 0) {
           existingProf.units = pfUnits;
           if (pfCls.curriculumId) existingProf.curriculumId = pfCls.curriculumId;
-          if (pfCls.schedule) existingProf.schedule = pfCls.schedule;
+          if (pfCls.schedule) existingProf.schedule = sanitizeSchedule(pfCls.schedule, pfCls.name);
           if (pfTime > (existingProf.updatedAt || 0)) existingProf.updatedAt = pfTime;
           profilesChanged = true;
         }
@@ -1844,7 +2063,7 @@
         // If this was the active class in Phonics Flash and has recent units, ensure shared_active_units knows about it
         if (pfStore.activeClassId && pfCls.id === pfStore.activeClassId && pfUnits.length > 0) {
           const currentActive = getActiveUnits();
-          if (pfTime > (currentActive.updatedAt || 0)) {
+          if (pfTime > 0 && pfTime > (currentActive.updatedAt || 0)) {
             const payload = {
               units: pfUnits,
               curriculumId: pfCls.curriculumId || 'smart-phonics',
@@ -1859,6 +2078,7 @@
             writeSharedSyncCookie({
               actUnits: pfUnits,
               actCur: payload.curriculumId,
+              actUnitsClass: pfCls.name,
               actUnitsAt: pfTime
             });
           }
@@ -1881,6 +2101,7 @@
           writeSharedSyncCookie({
             actUnits: cloudActiveUnits.units,
             actCur: cloudActiveUnits.curriculumId || 'smart-phonics',
+            actUnitsClass: cloudActiveUnits.className || '',
             actUnitsAt: cloudActiveUnits.updatedAt || Date.now()
           });
         } else if (localActiveUnits.units.length > 0) {
@@ -2024,12 +2245,12 @@
 
     const cookie = readSharedSyncCookie();
     if (cookie && Array.isArray(cookie.actUnits) && cookie.actUnits.length > 0) {
-      const cookieUpdatedAt = cookie.actUnitsAt || cookie.updatedAt || 0;
+      const cookieUpdatedAt = cookie.actUnitsAt || 0;
       if (cookieUpdatedAt > (localData.updatedAt || 0)) {
         localData = {
           units: cookie.actUnits,
           curriculumId: cookie.actCur || 'smart-phonics',
-          className: cookie.actClass || localData.className || '',
+          className: typeof cookie.actUnitsClass === 'string' ? cookie.actUnitsClass : '',
           updatedAt: cookieUpdatedAt
         };
         if (typeof localStorage !== 'undefined') {
@@ -2045,19 +2266,8 @@
 
   async function saveActiveUnits(unitsArray, curriculumId = null, className = null, { skipClassProfile = false, customUpdatedAt = null } = {}) {
     const rawList = Array.isArray(unitsArray) ? unitsArray : [];
-    const fallbackSeries = curriculumId
-      ? (/^custom_/i.test(curriculumId) ? curriculumId : toSeriesSlug(curriculumId))
-      : 'smart-phonics';
-    const canonicals = rawList.map(u => {
-      const c = toCanonicalUnit(u);
-      if (c) {
-        if (typeof u === 'string' && !u.includes(':') && !u.includes('|') && !u.includes('_L') && fallbackSeries !== 'smart-phonics') {
-          return `${fallbackSeries}:L${c.level}U${c.unit}`;
-        }
-        return c.id;
-      }
-      return u;
-    }).filter(Boolean);
+    const fallbackSeries = resolveSeriesId(curriculumId);
+    const canonicals = canonicalizeUnitsForSeries(rawList, curriculumId);
 
     // Do not wipe shared active units or class profiles with an empty selection
     if (canonicals.length === 0) {
@@ -2089,6 +2299,7 @@
     const cookieUpdates = {
       actUnits: canonicals,
       actCur: resolvedSeries,
+      actUnitsClass: resolvedClassName,
       actUnitsAt: now
     };
     if (resolvedClassName) {
@@ -2096,43 +2307,30 @@
     }
     writeSharedSyncCookie(cookieUpdates);
 
-    if (!skipClassProfile && canonicals.length > 0) {
+    if (!skipClassProfile && canonicals.length > 0 && resolvedClassName) {
       let profiles = {};
       if (typeof localStorage !== 'undefined') {
         try {
           profiles = JSON.parse(localStorage.getItem(SHARED_CLASS_PROFILES_KEY) || '{}');
         } catch {}
       }
-      const targetClasses = new Set();
-      if (resolvedClassName) {
-        targetClasses.add(resolvedClassName);
-      } else {
-        const scheduledMatch = findActiveScheduledClass(profiles);
-        if (scheduledMatch && scheduledMatch.className) {
-          targetClasses.add(scheduledMatch.className);
-        }
+      if (!profiles[resolvedClassName]) {
+        profiles[resolvedClassName] = {
+          schedule: parseScheduleFromName(resolvedClassName),
+          units: [],
+          curriculumId: resolvedSeries,
+          updatedAt: now
+        };
       }
-      if (targetClasses.size > 0) {
-        for (const cName of targetClasses) {
-          if (!profiles[cName]) {
-            profiles[cName] = {
-              schedule: parseScheduleFromName(cName),
-              units: [],
-              curriculumId: resolvedSeries,
-              updatedAt: now
-            };
-          }
-          profiles[cName].units = canonicals;
-          profiles[cName].curriculumId = resolvedSeries;
-          profiles[cName].updatedAt = now;
-        }
-        if (typeof localStorage !== 'undefined') {
-          try {
-            localStorage.setItem(SHARED_CLASS_PROFILES_KEY, JSON.stringify(profiles));
-          } catch {}
-        }
-        syncUpstash(SHARED_CLASS_PROFILES_KEY, profiles);
+      profiles[resolvedClassName].units = canonicals;
+      profiles[resolvedClassName].curriculumId = resolvedSeries;
+      profiles[resolvedClassName].updatedAt = now;
+      if (typeof localStorage !== 'undefined') {
+        try {
+          localStorage.setItem(SHARED_CLASS_PROFILES_KEY, JSON.stringify(profiles));
+        } catch {}
       }
+      syncUpstash(SHARED_CLASS_PROFILES_KEY, profiles);
     }
 
     return syncUpstash(SHARED_ACTIVE_UNITS_KEY, payload);
@@ -2160,26 +2358,19 @@
       };
     }
 
-    const resolveSlugOrCustom = (id) => {
-      if (!id) return 'smart-phonics';
-      return /^custom_/i.test(id) ? id : toSeriesSlug(id);
-    };
     const series = curriculumId
-      ? resolveSlugOrCustom(curriculumId)
-      : (profiles[className].curriculumId ? resolveSlugOrCustom(profiles[className].curriculumId) : 'smart-phonics');
+      ? resolveSeriesId(curriculumId)
+      : (profiles[className].curriculumId ? resolveSeriesId(profiles[className].curriculumId) : 'smart-phonics');
 
-    const canonicals = (canonicalUnitsArray || []).map(u => {
-      const c = toCanonicalUnit(u);
-      if (c) {
-        if (typeof u === 'string' && !u.includes(':') && !u.includes('|') && !u.includes('_L') && series !== 'smart-phonics') {
-          return `${series}:L${c.level}U${c.unit}`;
-        }
-        return c.id;
-      }
-      return u;
-    }).filter(Boolean);
+    const canonicals = canonicalizeUnitsForSeries(canonicalUnitsArray || [], series);
+    const hadUnits = Array.isArray(profiles[className].units) && profiles[className].units.length > 0;
+    const curChanged = Boolean(curriculumId && profiles[className].curriculumId !== series);
 
-    if (canonicals.length > 0 || !Array.isArray(profiles[className].units) || profiles[className].units.length === 0) {
+    if (canonicals.length === 0 && hadUnits && !curChanged) {
+      return false;
+    }
+
+    if (canonicals.length > 0 || !hadUnits) {
       profiles[className].units = canonicals;
     }
     if (curriculumId) {
@@ -2192,6 +2383,26 @@
 
     if (typeof localStorage !== 'undefined') {
       localStorage.setItem(SHARED_CLASS_PROFILES_KEY, JSON.stringify(profiles));
+      try {
+        const rawPf = localStorage.getItem('phonics-flash-classes');
+        if (rawPf) {
+          const pfStore = JSON.parse(rawPf);
+          if (pfStore && Array.isArray(pfStore.classes)) {
+            const pfIdx = pfStore.classes.findIndex(c => c && c.name === className);
+            if (pfIdx !== -1) {
+              const targetPf = pfStore.classes[pfIdx];
+              if (canonicals.length > 0) {
+                targetPf.selectedUnits = canonicals.map(u => toPhonicsFlash(u) || u).filter(Boolean);
+              }
+              if (curriculumId) {
+                targetPf.curriculumId = series;
+              }
+              targetPf.updatedAt = now;
+              localStorage.setItem('phonics-flash-classes', JSON.stringify(pfStore));
+            }
+          }
+        }
+      } catch {}
     }
 
     if (canonicals.length > 0) {
@@ -2296,7 +2507,7 @@
     const cookie = readSharedSyncCookie();
     const cookiePlayers = (cookie && Array.isArray(cookie.act)) ? cookie.act : [];
     const cookieClass = (cookie && cookie.actClass) || '';
-    const cookieUpdatedAt = (cookie && (cookie.actUpdatedAt || cookie.updatedAt)) || 0;
+    const cookieUpdatedAt = (cookie && cookie.actUpdatedAt) || 0;
 
     // Determine freshest source between localStorage and Cookie
     if (cookieUpdatedAt > localUpdatedAt && cookiePlayers.length > 0) {
@@ -3468,6 +3679,16 @@
   try {
     reconcileCookieWithLocalStorage();
     startLiveSubscription();
+    if (typeof window !== 'undefined' && typeof window.addEventListener === 'function') {
+      window.addEventListener('pagehide', () => flushPendingPush({ keepalive: true }));
+      if (typeof document !== 'undefined' && typeof document.addEventListener === 'function') {
+        document.addEventListener('visibilitychange', () => {
+          if (document.visibilityState === 'hidden') {
+            flushPendingPush({ keepalive: true });
+          }
+        });
+      }
+    }
   } catch (e) {
     console.warn('[SharedClassSync] Initial cookie reconciliation error:', e);
   }
@@ -3500,6 +3721,7 @@
     applyCurriculumOverrides,
     saveCurriculumOverridesToConvex,
     schedulePushToConvex,
+    flushPendingPush,
     pushLocalStateToConvex,
     parseScheduleFromName,
     findActiveScheduledClass,

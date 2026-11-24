@@ -845,9 +845,11 @@ export const saveWorkspaceState = mutation({
         const nextUnits = sanitizeUnits(cls.units);
 
         if (existingDoc) {
+          const incomingUpdatedAt = cls.updatedAt || 0;
           const isStale =
             !args.replaceAllClasses &&
-            Boolean(existingDoc.updatedAt && cls.updatedAt && cls.updatedAt < existingDoc.updatedAt);
+            existingDoc.updatedAt > 0 &&
+            incomingUpdatedAt < existingDoc.updatedAt;
 
           if (!isStale) {
             const patched = {
@@ -862,7 +864,7 @@ export const saveWorkspaceState = mutation({
                   : existingDoc.units,
               schedule: cls.schedule,
               pfClassId: cls.pfClassId ?? existingDoc.pfClassId,
-              updatedAt: cls.updatedAt || now,
+              updatedAt: incomingUpdatedAt > 0 ? incomingUpdatedAt : (existingDoc.updatedAt || now),
             };
             await ctx.db.patch(existingDoc._id, patched);
             byName.set(cleanName, { ...existingDoc, ...patched } as any);
